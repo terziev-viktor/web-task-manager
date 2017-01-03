@@ -1,0 +1,27 @@
+{
+  "name": "web-task-manager",
+  "description": "A web application designed to manage an institution's tasks for all of it's employees and/or managers",
+  "main": "index.js",
+  "license": "ISC",
+  "keywords": [
+    "web",
+    "app",
+    "manage",
+    "institution",
+    "employee",
+    "task"
+  ],
+  "homepage": "https://github.com/terziev-viktor/web-task-manager",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "mustache.js": "mustache#^2.3.0",
+    "jquery": "3.1.1"
+  }
+}
