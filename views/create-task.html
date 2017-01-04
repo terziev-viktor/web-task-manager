@@ -1,0 +1,57 @@
+<header>
+    <h1>Create a new task</h1>
+</header>
+
+<form>
+  <div class="form-group">
+    <label for="inpTitle">Title</label>
+    <input type="text" class="form-control" id="inpTitle" placeholder="Title of the new task...">
+  </div>
+
+  <div class="form-group">
+    <label for="inpDescription">Description</label>
+    <input type="text" class="form-control" id="inpDescription" placeholder="Description of the new task...">
+  </div>
+
+    <div class="form-group">
+        <label>Repeatability</label>
+        <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Repeatability
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li value="ONCE">ONCE</li>
+        <li value="DAILY">DAILY</li>
+        <li value="WEEKLY">WEEKLY</li>
+        <li value="MONTHLY">MONTHLY</li>
+        <li value="YEARLY">YEARLY</li>
+      </ul>
+        </div>
+  </div>
+
+  <div class="form-group">
+        <label>Task Priority</label>
+        <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Priority
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li value="LOW">LOW</li>
+        <li value="MED">MED</li>
+        <li value="HIGH">HIGH</li>
+      </ul>
+    </div>
+  </div>
+    <div class="form-group">
+        <label>Deadline</label>
+        <input type="text" class="form-control" id="inpDeadline">
+    </div>
+
+    <div class="form-group">
+        <label for="inpAssign">Assign to</label>
+        <input type="text" class="form-control" id="inpAssign">
+    </div>
+
+</form>

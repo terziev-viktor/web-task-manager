@@ -27,6 +27,7 @@
   "homepage": "https://github.com/terziev-viktor/web-task-manager#readme",
   "dependencies": {
     "bower": "1.8.0",
-    "express": "4.14.0"
+    "express": "4.14.0",
+    "jquery": "3.1.1"
   }
 }
