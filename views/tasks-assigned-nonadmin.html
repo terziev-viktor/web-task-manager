@@ -1,0 +1,22 @@
+<ul class="list-group">
+  {{#tasks}}
+  <li value="{{id}}" class="list-group-item">{{name}} - {{deadline}}</li>
+  {{/tasks}}
+  {{#empty}}
+  <div class="panel .panel-info">
+    <div class="panel-body">There are no tasks assigned to you yet.</div>
+  </div>
+  {{/empty}}
+</ul>
+
+<!--
+    no delete button
+  {
+  "tasks": [
+      {"id": 1, "name": "foo", "deadline": "2017-8-7"},
+      {"id": 2, "name": "foo1", "deadline": "2017-12-7"},
+      {"id": 3, "name": "foo2", "deadline": "2017-9-7"}
+  ],
+  "empty": false
+}
+-->
