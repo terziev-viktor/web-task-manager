@@ -30,6 +30,10 @@ build/Release
 node_modules
 bower_components
 jspm_packages
+bin
+obj
+database/.vs
+database/Entity Framework/packages
 
 # Optional npm cache directory
 .npm

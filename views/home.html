@@ -7,6 +7,7 @@
     <title>Web Task Manager</title>
 
     <link href="/scripts/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/scripts/jquery/dist/jquery.js"></script>
 
   </head>
   <body>
@@ -14,11 +15,34 @@
       <h1>Web Task Manager <small>manage the whole institution</small></h1>
     </div>
     <div id="content">
-      
+      <form action="/login" method="post">
+  <div class="form-group">
+    <span class="glyphicon glyphicon-user"></span>
+    <label for="formGroupExampleInput">Username</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" name="username">
+  </div>
+  <div class="form-group">
+    <span class="glyphicon glyphicon-lock"></span>
+    <label for="formGroupExampleInput2">Password</label>
+    <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" name="password">
+  </div>
+  <div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
     </div> <!-- End content -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/scripts/jquery/dist/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/scripts/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+      function submitLogin() {
+        let username = $("#formGroupExampleInput").val();
+        let password = $("#formGroupExampleInput2").val();
+        $.post("/login", {username: username, password: password});
+        console.log("maikati")
+      }
+
+    </script>
   </body>
 </html>

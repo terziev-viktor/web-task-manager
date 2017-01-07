@@ -26,8 +26,11 @@
   },
   "homepage": "https://github.com/terziev-viktor/web-task-manager#readme",
   "dependencies": {
-    "bower": "1.8.0",
+    "body-parser": "^1.15.2",
     "express": "4.14.0",
-    "jquery": "3.1.1"
+    "mssql": "^3.3.0",
+    "mustache": "^2.3.0",
+    "passport": "^0.3.2",
+    "sql-injection": "0.0.5"
   }
 }
