@@ -6,8 +6,8 @@ const express = require('express'),
     sqlinjection = require('sql-injection');
 
 const config = {
-    server: "localhost\\SQLEXPRESS01",
-    database: "WebTaskManagerDb",
+    server: "localhost\\SQLEXPRESS",
+    database: "WebTaskManager",
     user: "sa",
     password: "123456",
     port: 1433,
@@ -20,7 +20,10 @@ const config = {
 
 // const db = new Database(config);
 
-// db.request("select * from users", (err, recordset) => console.log(err, recordset));
+// db.getUsersByUsernamePart("es", (err, recordset) => {
+//     console.log(err)
+//     console.log(recordset)
+// })
 
 app.use(sqlinjection);
 

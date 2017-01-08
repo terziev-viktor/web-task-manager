@@ -24,15 +24,35 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user
-        if(username.indexOf("'") < 0 && password.indexOf("'") < 0) {
-            request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
-        } else {
-            let err = new Error("Username or password contain forbidden symbol.");
-            cb(err);
-        }
+        this.request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
     }
-    
-    
+
+    getUsersByUsernamePart(usernamePart, cb) {
+        this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb)
+    }
+    getUserCreatedTasksOrderByPriority(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority('" + creatorUsername + "')", cb)
+    }
+
+    getUserCreatedTasksOrderByPriorityDesc(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc('" + creatorUsername + "')", cb)
+    }
+
+    getUserCreatedTasksOrderByTitle(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle('" + creatorUsername + "')", cb)
+    }
+
+    getUserCreatedTasksOrderByTitleDesc(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc('" + creatorUsername + "')", cb)
+    }
+
+    getUserCreatedTasksOrderByDeadline(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline('" + creatorUsername + "')", cb)
+    }
+
+    getUserCreatedTasksOrderByDeadlineDesc(creatorUsername, cb) {
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc('" + creatorUsername + "')", cb)
+    }
 }
 
 // user: "sa"
