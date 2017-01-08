@@ -1,3 +1,8 @@
+CREATE DATABASE WebTaskManagerDb
+GO
+USE WebTaskManagerDb
+GO
+
 CREATE TABLE [dbo].[Tasks] (
     [TaskId] [int] NOT NULL IDENTITY,
     [Title] [nvarchar](max) NOT NULL,
