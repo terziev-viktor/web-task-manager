@@ -1,7 +1,5 @@
 const sql = require('mssql');
 
-
-
 module.exports = class Database {
     constructor (config) {
         this.config = config
@@ -26,9 +24,14 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user
-        request("exec insertUser @Username=" + username + " @Password=" + password, cb)
+        if(username.indexOf("'") < 0 && password.indexOf("'") < 0) {
+            request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
+        } else {
+            let err = new Error("Username or password contain forbidden symbol.");
+            cb(err);
+        }
     }
-
+    
     
 }
 

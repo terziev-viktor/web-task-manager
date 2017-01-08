@@ -4,7 +4,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE FUNCTION GetUserByUsername
+CREATE FUNCTION GetUsersByUsernamePart
 (	
 	@Part NVARCHAR(128)
 )
@@ -12,6 +12,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT * FROM Users AS U WHERE U.Username LIKE '%' + @Part+'%'
+	SELECT * FROM Users AS U WHERE U.Username LIKE '%' + @Part + '%'
 )
 GO
