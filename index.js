@@ -31,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/'));
+app.use('/styles', express.static(__dirname + '/css/'))
 
 app.get('/', (req1, res) => {
     res.sendFile(__dirname + '/views/' + 'home.html');
