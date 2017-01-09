@@ -40,3 +40,6 @@ database/Entity Framework/packages
 
 # Optional REPL history
 .node_repl_history
+
+#database config file
+database_config.json

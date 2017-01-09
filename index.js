@@ -3,32 +3,59 @@ const express = require('express'),
     Mustache = require('mustache'),
     sql = require('mssql'),
     bodyParser = require('body-parser'),
-    sqlinjection = require('sql-injection');
+    sqlinjection = require('sql-injection'),
+    fs = require('fs'),
+    passport = require('passport'),
+    Strategy = require('passport-local');
 
-const config = {
-    server: "localhost\\SQLEXPRESS",
-    database: "WebTaskManager",
-    user: "sa",
-    password: "123456",
-    port: 1433,
-    option: {
-        encrypt: false
-    }
-};
+// const config = {
+//     server: "localhost\\SQLEXPRESS",
+//     database: "WebTaskManager",
+//     user: "sa",
+//     password: "123456",
+//     port: 1433,
+//     option: {
+//         encrypt: false
+//     }
+// };
 
-// const Database = require("./database.js");
+const dbConfig = JSON.parse(fs.readFileSync('database_config.json', 'utf8'));
 
-// const db = new Database(config);
+const Database = require("./database.js");
 
-// db.getUsersByUsernamePart("es", (err, recordset) => {
-//     console.log(err)
-//     console.log(recordset)
-// })
+const db = new Database(dbConfig);
+
+passport.use(new Strategy(
+    (username, password, cb) => {
+        db.getUserByUsername(username, (err, user) => {
+        if (err) { return cb(err); }
+        if (!user) { return cb(null, false); }
+        if (user.password != password) { return cb(null, false); }
+        return cb(null, user);
+    });
+}));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser((id, cb) => {
+    db.getUserById(id, (err, user) => {
+        if (err) { return cb(err); }
+        cb(null, user);
+    });
+});
 
 app.use(sqlinjection);
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('express-session')({ secret: 'taina maina', resave: false, saveUninitialized: false }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/'));
 app.use('/styles', express.static(__dirname + '/css/'))

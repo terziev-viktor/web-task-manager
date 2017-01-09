@@ -27,9 +27,18 @@ module.exports = class Database {
         this.request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
     }
 
+    getUserByUsername(username, cb) {
+        //TODO
+    }
+
+    getUserById(id, cb) {
+        //TODO
+    }
+
     getUsersByUsernamePart(usernamePart, cb) {
         this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb)
     }
+
     getUserCreatedTasksOrderByPriority(creatorUsername, cb) {
         this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority('" + creatorUsername + "')", cb)
     }
