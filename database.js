@@ -27,14 +27,12 @@ module.exports = class Database {
         this.request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
     }
 
+    // Property Username of user object is it's ID in the database
     getUserByUsername(username, cb) {
-        //TODO
+        this.request("SELECT * FROM GetUserByUsername('" + username + "')", cb)
     }
 
-    getUserById(id, cb) {
-        //TODO
-    }
-
+    // Returns all users with username containing requested string (usernamePart)
     getUsersByUsernamePart(usernamePart, cb) {
         this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb)
     }
@@ -64,6 +62,3 @@ module.exports = class Database {
     }
 }
 
-// user: "sa"
-// password "123456"
-// server: localhost\\SQLEXPRESS01
