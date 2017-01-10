@@ -1,7 +1,8 @@
 -- ================================================
 -- Template generated from Template Explorer using:
 -- Create Inline Function (New Menu).SQL
-
+USE WebTaskManagerDb
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

@@ -25,12 +25,12 @@ passport.use(new Strategy(
             if (!user) {
                 return cb(null, false);
             }
-            if (user.password != password) {
+            if (user.Password != password) {
                 return cb(null, false);
             }
             return cb(null, user);
         });
-    }));
+}));
 
 passport.serializeUser(function (user, cb) {
     cb(null, user.Username);
@@ -45,13 +45,15 @@ passport.deserializeUser((username, cb) => {
     });
 });
 
-app.use(sqlinjection);
+// post reqests cannont make it to the address matching because of a bug or version incompatibility
+// app.use(sqlinjection);
+// ^ pain in the ass ^
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-app.use(require('morgan')('combined'));
+//app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('express-session')({
     secret: 'taina maina',
@@ -65,19 +67,30 @@ app.use(passport.session());
 app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/'));
 app.use('/styles', express.static(__dirname + '/css/'))
 
-app.get('/', (req1, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/' + 'home.html');
+    // logged in user will be attached to req
+    console.log(req.user);
 });
 
-app.post('/login', (req, res) => {
-    console.log(req.body)
-    res.end();
+app.post('/login', 
+    passport.authenticate('local', { 
+        failureRedirect: '/' 
+    }),
+    (req, res) => {
+        res.redirect('/');
+});
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
 });
 
 app.post('/signin', (req, res) => {
 
 });
 
-app.listen(27017, () => {
-    console.log('Listeting at port 27017')
+const port = 27017;
+app.listen(port, () => {
+    console.log('Listeting at port ' + port);
 });

@@ -1,3 +1,6 @@
+USE WebTaskManagerDb
+GO
+
 INSERT [dbo].[Users]([Username], [Password])
 VALUES ('Boiko', '121246323456')
 

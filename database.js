@@ -24,12 +24,14 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user
-        this.request("EXEC InsertUser @Username=" + username + " @Password=" + password, cb)
+        this.request("EXEC InsertUser @Username=" + username + ", @Password=" + password, cb)
     }
 
     // Property Username of user object is it's ID in the database
     getUserByUsername(username, cb) {
-        this.request("SELECT * FROM GetUserByUsername('" + username + "')", cb)
+        this.request("SELECT * FROM GetUserByUsername('" + username + "')", (err, recordset) => {
+            cb(err, recordset[0]);
+        });
     }
 
     // Returns all users with username containing requested string (usernamePart)
