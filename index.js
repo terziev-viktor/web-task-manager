@@ -7,6 +7,55 @@ const express = require('express'),
     passport = require('passport'),
     Strategy = require('passport-local');
 
+function validate(value, cb) {
+    let sql_meta = new RegExp('(%27)|(\')|(--)|(%23)|(#)', 'i');
+    if (sql_meta.test(value)) {
+        cb(false);
+    }
+
+    let sql_meta2 = new RegExp('((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))', 'i');
+    if (sql_meta2.test(value)) {
+        cb(false);
+    }
+
+    let sql_typical = new RegExp('w*((%27)|(\'))((%6F)|o|(%4F))((%72)|r|(%52))', 'i');
+    if (sql_typical.test(value)) {
+        cb(false);
+    }
+
+    let sql_union = new RegExp('((%27)|(\'))union', 'i');
+    if (sql_union.test(value)) {
+        cb(false);
+    }
+
+    cb(true);
+}
+
+let sqlValidation = function (req, res, next) {
+    console.log('request body from validation middleware')
+    console.log(req.body);
+    if (req.body.username) {
+        validate(req.body.username, (result) => {
+            if(!result) {
+                console.log('redirected')
+                res.redirect('./')
+            }
+        })
+    }
+    if(req.body.password) {
+        validate(req.body.password, (result) => {
+            if(!result) {
+                console.log('redirected')
+                res.redirect('./')
+            } 
+        })
+    }
+
+    next()
+}
+
+
+
 const dbConfig = JSON.parse(fs.readFileSync('database_config.json', 'utf8'));
 
 const Database = require("./database.js");
@@ -59,6 +108,8 @@ app.use(passport.session());
 
 app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/'));
 app.use('/styles', express.static(__dirname + '/css/'))
+
+app.use(sqlValidation);
 
 app.get('/', (req, res) => {
 
