@@ -3,12 +3,9 @@ const express = require('express'),
     Mustache = require('mustache'),
     sql = require('mssql'),
     bodyParser = require('body-parser'),
-    sqlinjection = require('sql-injection'),
     fs = require('fs'),
     passport = require('passport'),
     Strategy = require('passport-local');
-
-
 
 const dbConfig = JSON.parse(fs.readFileSync('database_config.json', 'utf8'));
 
@@ -30,7 +27,7 @@ passport.use(new Strategy(
             }
             return cb(null, user);
         });
-}));
+    }));
 
 passport.serializeUser(function (user, cb) {
     cb(null, user.Username);
@@ -44,10 +41,6 @@ passport.deserializeUser((username, cb) => {
         cb(null, user);
     });
 });
-
-// post reqests cannont make it to the address matching because of a bug or version incompatibility
-// app.use(sqlinjection);
-// ^ pain in the ass ^
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -68,18 +61,26 @@ app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/')
 app.use('/styles', express.static(__dirname + '/css/'))
 
 app.get('/', (req, res) => {
+
     res.sendFile(__dirname + '/views/' + 'home.html');
     // logged in user will be attached to req
     console.log(req.user);
 });
 
-app.post('/login', 
-    passport.authenticate('local', { 
-        failureRedirect: '/' 
+app.post('/', function (req, res) {
+
+});
+
+
+app.post('/login',
+    passport.authenticate('local', {
+        failureRedirect: '/'
     }),
     (req, res) => {
         res.redirect('/');
-});
+        //console.log(req);
+
+    });
 
 app.get('/logout', (req, res) => {
     req.logout();
@@ -87,7 +88,33 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
+    console.log(req.body)
+    let username = req.body.username;
+    let password = req.body.password;
+    let confirm = req.body.confirm;
 
+    if (password === confirm) {
+        let user = {
+            username: username,
+            password: password
+        }
+        db.insertUser(user, (err) => {
+            console.log(err)
+            if (err) {
+                res.json({
+                    msg: "Username taken."
+                });
+            } else {
+                res.json({
+                    msg: "Success!"
+                })
+            }
+        });
+    } else {
+        res.json({
+            msg: "Password and confirm password do not match."
+        });
+    }
 });
 
 const port = 27017;

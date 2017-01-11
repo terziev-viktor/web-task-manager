@@ -1,20 +1,47 @@
 const sql = require('mssql');
 
 module.exports = class Database {
-    constructor (config) {
-        this.config = config
+    constructor(config) {
+        this.config = config;
+    }
+
+
+    // Prevents sql injections
+    validateParam(value) {
+        let sql_meta = new RegExp('(%27)|(\')|(--)|(%23)|(#)', 'i');
+        if (sql_meta.test(value)) {
+            return false;
+        }
+
+        let sql_meta2 = new RegExp('((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))', 'i');
+        if (sql_meta2.test(value)) {
+            return false;
+        }
+
+        let sql_typical = new RegExp('w*((%27)|(\'))((%6F)|o|(%4F))((%72)|r|(%52))', 'i');
+        if (sql_typical.test(value)) {
+            return false;
+        }
+
+        let sql_union = new RegExp('((%27)|(\'))union', 'i');
+        if (sql_union.test(value)) {
+            return false;
+        }
+
+        return true;
     }
 
     request(query, cb) {
+
         let conn = new sql.Connection(this.config)
         let req = new sql.Request(conn)
-    
+
         conn.connect((err) => {
-            if(err) {
-               console.log(err)
-               cb(err);
+            if (err) {
+                console.log(err)
+                cb(err);
             }
-        
+
             req.query(query, (err, recordset) => {
                 conn.close();
                 cb(err, recordset)
@@ -23,8 +50,9 @@ module.exports = class Database {
     }
 
     insertUser(user, cb) {
-        let {username, password} = user
-        this.request("EXEC InsertUser @Username=" + username + ", @Password=" + password, cb)
+        let {username, password} = user;
+        this.request("EXEC InsertUser @Username=" + username + ", @Password=" + password, cb);
+
     }
 
     // Property Username of user object is it's ID in the database
