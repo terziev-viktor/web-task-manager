@@ -64,31 +64,39 @@ module.exports = class Database {
 
     // Returns all users with username containing requested string (usernamePart)
     getUsersByUsernamePart(usernamePart, cb) {
-        this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb)
+        this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb);
     }
 
     getUserCreatedTasksOrderByPriority(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority('" + creatorUsername + "')", cb);
     }
 
     getUserCreatedTasksOrderByPriorityDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc('" + creatorUsername + "')", cb);
     }
 
     getUserCreatedTasksOrderByTitle(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle('" + creatorUsername + "')", cb);
     }
 
     getUserCreatedTasksOrderByTitleDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc('" + creatorUsername + "')", cb);
     }
 
     getUserCreatedTasksOrderByDeadline(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline('" + creatorUsername + "')", cb);
     }
 
     getUserCreatedTasksOrderByDeadlineDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc('" + creatorUsername + "')", cb);
+    }
+
+    getUserAssignedTasksOrderedByPriority(username, cb) {
+        this.request("SELECT * FROM GetUserAssignedTasksOrderedByPriority('" + username + "')", cb);
+    }
+
+    getUserAssignedTasksOrderedByPriorityDesc(username, cb) {
+        this.request("SELECT * FROM GetUserAssignedTasksOrderedByPriorityDesc('" + username + "')", cb);
     }
 }
 

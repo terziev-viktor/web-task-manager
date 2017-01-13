@@ -32,22 +32,19 @@ function validate(value, cb) {
 }
 
 let sqlValidation = function (req, res, next) {
-    console.log('request body from validation middleware')
-    console.log(req.body);
     if (req.body.username) {
         validate(req.body.username, (result) => {
-            if(!result) {
-                console.log('redirected')
-                res.redirect('./')
+            if (!result) {
+                res.redirect('.')
             }
         })
     }
-    if(req.body.password) {
+    if (req.body.password) {
         validate(req.body.password, (result) => {
-            if(!result) {
+            if (!result) {
                 console.log('redirected')
-                res.redirect('./')
-            } 
+                res.redirect('.')
+            }
         })
     }
 
@@ -112,25 +109,25 @@ app.use('/styles', express.static(__dirname + '/css/'))
 app.use(sqlValidation);
 
 app.get('/', (req, res) => {
-
     res.sendFile(__dirname + '/views/' + 'home.html');
     // logged in user will be attached to req
-    console.log(req.user);
+    //console.log(req.user);
 });
 
 app.post('/', function (req, res) {
 
 });
 
-
-app.post('/login',
-    passport.authenticate('local', {
-        failureRedirect: '/'
-    }),
+app.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
     (req, res) => {
-        res.redirect('/');
-        //console.log(req);
-
+        db.getUserAssignedTasksOrderedByPriorityDesc(req.user.Username, (err, recordset) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(recordset);
+            }
+        });
+        
     });
 
 app.get('/logout', (req, res) => {
