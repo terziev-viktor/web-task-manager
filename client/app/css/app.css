@@ -1,0 +1,22 @@
+body {
+    min-width: 410px;
+}
+
+#app-footer {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
+
+.content-header {
+    border-style: groove;
+    border-color: #7aafff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+.content-header>p {
+    color: #7aafff;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

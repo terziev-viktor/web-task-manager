@@ -62,7 +62,7 @@ app.use('/styles', express.static(__dirname + '/css/'))
 
 app.get('/', (req, res) => {
 
-    res.sendFile(__dirname + '/views/' + 'home.html');
+    res.sendStatus(200);
     // logged in user will be attached to req
     console.log(req.user);
 });
