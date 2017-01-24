@@ -34,6 +34,7 @@ bin
 obj
 database/Entity Framework/.vs
 database/Entity Framework/packages
+.idea
 
 # Optional npm cache directory
 .npm
