@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+    <title>Web Task Manager</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- SPELLS -->
+    <!-- load angular and angular route via CDN -->
+    <script src="bower_components/angular/angular.min.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER AND NAVBAR -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Web Task Manager</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about"><i class="fa fa-shield"></i> Login</a></li>
+                <li><a href="#contact"><i class="fa fa-comment"></i> Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AND INJECTED VIEWS -->
+    <div ng-view>
+        <!-- angular templating -->
+        <!-- this is where content will be injected -->
+
+    </div>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="./app/app.js"></script>
+
+</body>
+
+</html>
