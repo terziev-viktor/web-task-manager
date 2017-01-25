@@ -65,4 +65,4 @@ VALUES ('Clean', 'Some Shit in the toilet',  '01-Feb-17 9:00:00 AM', 1, 0, 1, 2,
 		('Slay', 'A Dragon',  '01-Feb-17 9:00:00 AM', 0, 1, 1, 2, 'Pesho');
 
 INSERT INTO [dbo].[UsersTasks] ([Username], [TaskId])
-values ('Minka', 1), ('Stamat', 2), ('Stamat', 3), ('MITKO', 4), ('Stefan', 5), ('Pesho', 6), ('Pesho', 7)
+values ('Minka', 1), ('Stamat', 2), ('Stamat', 3), ('MITKO', 3), ('Stefan', 4), ('Pesho', 4), ('Pesho', 2)
