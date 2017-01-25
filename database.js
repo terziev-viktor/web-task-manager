@@ -64,5 +64,13 @@ module.exports = class Database {
     getUserCreatedTasksOrderByDeadlineDesc(creatorUsername, cb) {
         this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc('" + creatorUsername + "')", cb)
     }
+
+    getTasksAssignedToUserOrderedByPriority(username, cb) {
+        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority('" + username + "')", cb)
+    }
+
+    getTasksAssignedToUserOrderedByPriorityDesc(username, cb) {
+        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc('" + username + "')", cb)
+    }
 }
 
