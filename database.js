@@ -25,8 +25,15 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user;
-        this.request("EXEC InsertUser @Username=" + username + ", @Password=" + password, cb);
+        this.request("EXEC InsertUser @Username='" + username + "', @Password='" + password + "'", cb);
+    }
 
+    insertComment(date, content, author_username, taskId) {
+        this.request("EXEC InsertComment @Date='" + date + "', @Content='" + content + "', @Author_Username='" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
+    }
+
+    getTaskComments(taskId, cb) {
+        this.request("SELECT * FROM GetTaskComments('" + taskId + "'", cb);
     }
 
     // Property Username of user object is it's ID in the database
@@ -72,5 +79,6 @@ module.exports = class Database {
     getTasksAssignedToUserOrderedByPriorityDesc(username, cb) {
         this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc('" + username + "')", cb)
     }
+
 }
 
