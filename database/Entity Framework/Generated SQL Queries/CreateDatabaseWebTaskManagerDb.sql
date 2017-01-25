@@ -3,6 +3,15 @@ GO
 USE WebTaskManagerDb
 GO
 
+CREATE TABLE [dbo].[Comments] (
+    [CommentId] [int] NOT NULL IDENTITY,
+    [Date] [datetime] NOT NULL,
+    [Content] [nvarchar](max),
+    [Author_Username] [nvarchar](128) NOT NULL,
+    [Task_TaskId] [int] NOT NULL,
+    CONSTRAINT [PK_dbo.Comments] PRIMARY KEY ([CommentId])
+)
+
 CREATE TABLE [dbo].[Tasks] (
     [TaskId] [int] NOT NULL IDENTITY,
     [Title] [nvarchar](max) NOT NULL,
@@ -51,6 +60,10 @@ CREATE TABLE [dbo].[UsersTasks] (
     CONSTRAINT [PK_dbo.UsersTasks] PRIMARY KEY ([Username], [TaskId])
 )
 
+CREATE INDEX [IX_Author_Username] ON [dbo].[Comments]([Author_Username])
+
+CREATE INDEX [IX_Task_TaskId] ON [dbo].[Comments]([Task_TaskId])
+
 CREATE INDEX [IX_Creator_Username] ON [dbo].[Tasks]([Creator_Username])
 
 CREATE INDEX [IX_Username] ON [dbo].[UserEmployees]([Username])
@@ -72,6 +85,17 @@ CREATE INDEX [IX_User_Recieved] ON [dbo].[UserManagerRequests]([User_Recieved])
 CREATE INDEX [IX_Username] ON [dbo].[UsersTasks]([Username])
 
 CREATE INDEX [IX_TaskId] ON [dbo].[UsersTasks]([TaskId])
+
+ALTER TABLE [dbo].[Comments] 
+ADD CONSTRAINT [FK_dbo.Comments_dbo.Users_Author_Username] 
+FOREIGN KEY ([Author_Username]) 
+REFERENCES [dbo].[Users] ([Username])
+
+ALTER TABLE [dbo].[Comments] ADD 
+CONSTRAINT [FK_dbo.Comments_dbo.Tasks_Task_TaskId] 
+FOREIGN KEY ([Task_TaskId]) 
+REFERENCES [dbo].[Tasks] ([TaskId]) 
+ON DELETE CASCADE
 
 ALTER TABLE [dbo].[Tasks] 
 ADD CONSTRAINT [FK_dbo.Tasks_dbo.Users_Creator_Username] 
@@ -113,8 +137,7 @@ FOREIGN KEY ([User_Sent])
 REFERENCES [dbo].[Users] ([Username])
 
 ALTER TABLE [dbo].[UserManagerRequests] 
-ADD CONSTRAINT 
-[FK_dbo.UserManagerRequests_dbo.Users_User_Recieved] 
+ADD CONSTRAINT [FK_dbo.UserManagerRequests_dbo.Users_User_Recieved] 
 FOREIGN KEY ([User_Recieved]) 
 REFERENCES [dbo].[Users] ([Username])
 

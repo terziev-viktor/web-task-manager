@@ -34,5 +34,7 @@ namespace WebTaskManager.Models
         public virtual ICollection<User> AssignedTo { get; set; }
 
         public virtual User Creator { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

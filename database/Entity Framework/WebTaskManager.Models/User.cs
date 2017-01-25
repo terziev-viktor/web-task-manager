@@ -41,5 +41,7 @@ namespace WebTaskManager.Models
         [InverseProperty("Creator")]
         public virtual ICollection<Task> CreatedTasks { get; set; }
 
+        public virtual ICollection<Comment> WritedComments { get; set; }
+
     }
 }

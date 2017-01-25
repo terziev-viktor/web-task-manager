@@ -20,6 +20,8 @@ namespace WebTaskManager.Data
 
         public virtual DbSet<User> Users { get; set; }
 
+        public virtual DbSet<Comment> Comments { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasMany(x => x.Employees).WithMany()
@@ -69,6 +71,15 @@ namespace WebTaskManager.Data
                 .WithMany(x => x.CreatedTasks)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Comment>()
+                 .HasRequired<User>(x => x.Author)
+                 .WithMany(x => x.WritedComments)
+                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Comment>()
+                .HasRequired<Task>(x => x.Task)
+                .WithMany(x => x.Comments);
+                
         }
     }
 

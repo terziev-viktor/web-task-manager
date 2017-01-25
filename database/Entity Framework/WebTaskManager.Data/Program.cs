@@ -12,18 +12,28 @@ namespace WebTaskManager.Data
         {
             using (WebTaskManagerDb context = new WebTaskManagerDb())
             {
-                //context.Database.Log = Console.Write;
-                var minkaTasks = context.Users.Find("Minka").Tasks.ToList();
-                foreach (var item in minkaTasks)
+                context.Database.Log = Console.Write;
+
+                context.Comments.Add(new Comment()
                 {
-                    Console.WriteLine(item.Title + " " + item.Description + " " + item.Deadline);
-                }
+                    Content = "Very nice task",
+                    Author = context.Users.Find("MITKO"),
+                    Date = DateTime.Now,
+                    Task = new Task()
+                    {
+                        Title = "Go",
+                        Description = "To the church",
+                        Creator = context.Users.Find("Yordan"),
+                        Deadline = new DateTime(2017, 3, 11),
+                        IsDone = false,
+                        Priority = Models.Enums.TaskPriority.LOW,
+                        Repeatability = Models.Enums.TaskRepeatability.WEEKLY,
+                        Progress = 20
+                    }
+                });
 
                 context.SaveChanges();
-
             }
-
-                
         }
     }
 }
