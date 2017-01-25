@@ -49,7 +49,9 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
             failureRedirect: '/'
         }),
         (req, res) => {
-            res.redirect('/');
+            res.json({
+                msg: 'Success'
+            })
         });
 
     app.get('/logout', (req, res) => {

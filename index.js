@@ -16,6 +16,8 @@ app.use('/styles', express.static(__dirname + '/client' + '/app' + '/css'));
 app.use('/templates', express.static(__dirname + '/client' + '/app' + '/templates'));
 app.use('/fonts', express.static(__dirname + '/client' + '/app' + '/fonts'));
 
+//app.use(require('./sql-validation'));
+
 require('./auth')(app, db)
 require('./api')(app, db)
 

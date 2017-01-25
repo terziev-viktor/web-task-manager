@@ -7,33 +7,7 @@ module.exports = (app, db) => {
         }
     }
 
-    const sql_inj = (req, res, next) => {
-        let sql_meta = new RegExp('(%27)|(\')|(--)|(%23)|(#)', 'i');
-        if (sql_meta.test(value)) {
-            res.sendStatus(403);
-        }
-
-        let sql_meta2 = new RegExp('((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))', 'i');
-        if (sql_meta2.test(value)) {
-            res.sendStatus(403);
-        }
-
-        let sql_typical = new RegExp('w*((%27)|(\'))((%6F)|o|(%4F))((%72)|r|(%52))', 'i');
-        if (sql_typical.test(value)) {
-            res.sendStatus(403);
-        }
-
-        let sql_union = new RegExp('((%27)|(\'))union', 'i');
-        if (sql_union.test(value)) {
-            res.sendStatus(403);
-        }
-
-        return true;
-        
-    }
-
     app.get('/', (req, res) => {
-
         res.sendFile(__dirname + '/client' + '/app' + '/index.html');
         console.log(req.user);
     });
@@ -41,4 +15,60 @@ module.exports = (app, db) => {
     app.post('/', function (req, res) {
 
     });
+
+    app.get('/tasks/todo', auth, (req, res) => {
+        db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err)
+                res.sendStatus(401)
+            } else {
+                let data = {
+                    tasks: recordset
+                };
+
+                res.json(data);
+            }
+
+        });
+    });
+
+    app.get('/tasks/created', auth, (req, res) => {
+        db.getUserCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err)
+                res.sendStatus(401)
+            } else {
+                let data = {
+                    tasks: recordset
+                };
+
+                res.json(data);
+            }
+
+        });
+    });
+
+    app.get('/user', auth, (req, res) => {
+        
+    });
+
+    app.post('/tasks/assignto', auth, (req, res) => {
+
+    });
+
+    app.post('/user/req/employee', auth, (req, res) => {
+
+    });
+
+    app.post('/user/req/employer', auth, (req, res) => {
+
+    });
+
+    app.get('/user/req/employee', auth, (req, res) => {
+
+    });
+
+    app.get('/user/req/employer', auth, (req, res) => {
+
+    })
 }
