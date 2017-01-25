@@ -34,7 +34,7 @@ module.exports = (app, db) => {
 
     app.get('/', (req, res) => {
 
-        res.sendStatus(200);
+        res.sendFile(__dirname + '/client' + '/app' + '/index.html');
         console.log(req.user);
     });
 

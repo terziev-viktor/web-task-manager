@@ -10,8 +10,11 @@ const Database = require("./database.js");
 
 const db = new Database(dbConfig);
 
-app.use('/scripts', express.static(__dirname + '/views/' + '/bower_components/'));
-app.use('/styles', express.static(__dirname + '/css/'))
+app.use('/libs', express.static(__dirname + '/client' + '/app' + '/lib'));
+app.use('/scripts', express.static(__dirname + '/client' + '/app' + '/js'));
+app.use('/styles', express.static(__dirname + '/client' + '/app' + '/css'));
+app.use('/templates', express.static(__dirname + '/client' + '/app' + '/templates'));
+app.use('/fonts', express.static(__dirname + '/client' + '/app' + '/fonts'));
 
 require('./auth')(app, db)
 require('./api')(app, db)
