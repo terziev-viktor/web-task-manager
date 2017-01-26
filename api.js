@@ -60,7 +60,7 @@ module.exports = (app, db) => {
 
     });
 
-    app.post('/user/req/employer', auth, (req, res) => {
+    app.post('/user/req/manager', auth, (req, res) => {
 
     });
 
@@ -68,7 +68,7 @@ module.exports = (app, db) => {
 
     });
 
-    app.get('/user/req/employer', auth, (req, res) => {
+    app.get('/user/req/manager', auth, (req, res) => {
 
     })
 }
