@@ -44,15 +44,26 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.post('/login',
-        passport.authenticate('local', {
-            failureRedirect: '/'
-        }),
-        (req, res) => {
-            res.json({
-                msg: 'Success'
-            })
-        });
+    // app.post('/login', (req, res, next) => {
+    //     passport.authenticate('local', function (err, user) {
+    //         if (user && !err) {
+    //             req.logIn(user, function () {
+    //                 res.status(200).json({
+    //                     user: {
+    //                         Username: user.Username
+    //                     }
+    //                 });
+    //             });
+    //         } else {
+    //             res.status(500).json({ err: "Login Failed" });
+    //         }
+    //     })(req, res, next);
+
+    // })
+
+    app.post('/login', passport.authenticate('local'), (req, res) => {
+        res.status(200).json({msg: 'brau'})
+    });
 
     app.get('/logout', (req, res) => {
         req.logout();
@@ -60,7 +71,6 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     });
 
     app.post('/signin', (req, res) => {
-        console.log(req.body)
         let username = req.body.username;
         let password = req.body.password;
         let confirm = req.body.confirm;
@@ -73,18 +83,19 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
             db.insertUser(user, (err) => {
                 console.log(err)
                 if (err) {
-                    res.json({
-                        msg: "Username taken."
+                    console.log('In error');
+                    res.status(500).json({
+                        err: "Username taken."
                     });
                 } else {
-                    res.json({
+                    res.status(200).json({
                         msg: "Success!"
-                    })
+                    });
                 }
             });
         } else {
-            res.json({
-                msg: "Password and confirm password do not match."
+            res.status(500).json({
+                err: "Password and confirm password do not match."
             });
         }
     });

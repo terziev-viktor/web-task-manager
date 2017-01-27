@@ -1,5 +1,3 @@
-'use strict';
-
 const app = angular.module('app', ['ngRoute']);
 
 app.config(function ($routeProvider) {
@@ -9,8 +7,12 @@ app.config(function ($routeProvider) {
         controller: 'HomeController'
     });
 
+    $routeProvider.when('/user', {
+        templateUrl: 'templates/User.html',
+        controller: 'UserController'
+    });
+    
     $routeProvider.otherwise(
         { redirectTo: '/' }
     );
-
 });
