@@ -1,7 +1,7 @@
 
 app.controller('HomeController', ['$scope', '$location',
     function ($scope, $location) {
-        $scope.logIn = function () {
+        $scope.login = function () {
 
             let data = {
                 username: $('#inp-login-username').val(),
@@ -26,7 +26,7 @@ app.controller('HomeController', ['$scope', '$location',
             })
         }
 
-        $scope.signIn = function () {
+        $scope.signin = function () {
             let data = {
                 username: $('#inp-signin-username').val(),
                 password: $('#inp-signin-password').val(),

@@ -8,7 +8,7 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when('/user', {
-        templateUrl: 'templates/User.html',
+        templateUrl: 'templates/user.html',
         controller: 'UserController'
     });
     

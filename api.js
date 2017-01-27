@@ -1,5 +1,6 @@
 module.exports = (app, db) => {
     const auth = (req, res, next) => {
+
         if (!req.isAuthenticated()) {
             res.sendStatus(401);
         } else {
@@ -9,7 +10,6 @@ module.exports = (app, db) => {
 
     app.get('/', (req, res) => {
         res.sendFile(__dirname + '/client' + '/app' + '/index.html');
-        console.log(req.user);
     });
 
     app.post('/', function (req, res) {
@@ -31,6 +31,10 @@ module.exports = (app, db) => {
 
         });
     });
+    
+    app.get('/user', auth, (req, res) => {
+
+    });
 
     app.get('/tasks/created', auth, (req, res) => {
         db.getUserCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
@@ -48,12 +52,17 @@ module.exports = (app, db) => {
         });
     });
 
-    app.get('/user', auth, (req, res) => {
-        
-    });
-
     app.post('/tasks/assignto', auth, (req, res) => {
-
+        console.log('in /tasks/todo');
+        console.log(req.user);
+        db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        });
     });
 
     app.post('/user/req/employee', auth, (req, res) => {

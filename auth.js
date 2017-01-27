@@ -44,23 +44,6 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // app.post('/login', (req, res, next) => {
-    //     passport.authenticate('local', function (err, user) {
-    //         if (user && !err) {
-    //             req.logIn(user, function () {
-    //                 res.status(200).json({
-    //                     user: {
-    //                         Username: user.Username
-    //                     }
-    //                 });
-    //             });
-    //         } else {
-    //             res.status(500).json({ err: "Login Failed" });
-    //         }
-    //     })(req, res, next);
-
-    // })
-
     app.post('/login', passport.authenticate('local'), (req, res) => {
         res.status(200).json({msg: 'brau'})
     });
