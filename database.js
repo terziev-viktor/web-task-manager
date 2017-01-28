@@ -95,5 +95,16 @@ module.exports = class Database {
         this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc('" + username + "')", cb)
     }
 
+    getUserRecievedEmployeeRequests(username, cb) {
+        this.request("SELECT * FROM GetUserRecievedEmployeeRequests('" + username +"');", cb);
+    }
+
+    getUserRecievedManagerRequests(username, cb) {
+        this.request("SELECT * FROM GetUserRecievedManagerRequests('" + username +"');", cb);
+    }
+
+    insertEmployeeRequest(user_sent, user_recieved, cb) {
+        this.request("EXEC InsertManagerRequest '" + user_sent + "', '" + user_recieved + "';", cb);
+    }
 }
 

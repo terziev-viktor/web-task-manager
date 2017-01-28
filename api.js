@@ -108,21 +108,49 @@ module.exports = (app, db) => {
                 })
             }
         });
-    })
+    });
 
     app.post('/user/req/employee', auth, (req, res) => {
-
+        db.insertEmployeeRequest(req.user.Username, req.body.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        })
     });
 
     app.post('/user/req/manager', auth, (req, res) => {
-
+        db.insertManagerRequest(req.user.Username, req.body.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        })
     });
 
     app.get('/user/req/employee', auth, (req, res) => {
-
+        db.getUserRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        });
     });
 
     app.get('/user/req/manager', auth, (req, res) => {
-
+        db.getUserRecievedManagerRequests(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        });
     })
 }
