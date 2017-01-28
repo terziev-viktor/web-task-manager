@@ -12,6 +12,11 @@ app.config(function ($routeProvider) {
         controller: 'UserController'
     });
     
+    $routeProvider.when('/newTask', {
+        templateUrl: '/templates/newTask.html',
+        controller: 'NewTaskController'
+    });
+
     $routeProvider.otherwise(
         { redirectTo: '/' }
     );

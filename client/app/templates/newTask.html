@@ -1,0 +1,73 @@
+<h2>Crate a new task and assign it to your employees</h2>
+<p>That way they will see it in their "to-do" list.<br> Also they can update you on their progress on that task leave comments
+    or re-assign it on their own employees.</p>
+<form id="form-new-task">
+    <div class="form-group">
+        <label for="inp-title">Title</label>
+        <input type="text" class="form-control" id="inp-title" placeholder="Title of the new task">
+    </div>
+    <div class="form-group">
+        <label for="inp-description">Description</label>
+        <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
+    </div>
+    <div class="form-group">
+        <label for="inp-deadline">Deadline</label>
+        <input type="datetime-local" id="inp-deadline" name="deadline">
+    </div>
+    <div class="form-group">
+        <label for="inp-progress">Progress in % (Default: 0)</label>
+        <input type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
+    </div>
+    <div class="form-group">
+        <label for="inp-priority">Task Priority</label>
+        <select class="form-control" id="inp-priority">
+      <option value="0">Low</option>
+      <option value="1">Medium</option>
+      <option value="2">High</option>
+    </select>
+    </div>
+    <fieldset class="form-group">
+        <legend>Repeatability of the new task.</legend>
+        <div class="form-check">
+            <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="0" checked>
+        Only Once
+      </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="1">
+        Every Day
+      </label>
+        </div>
+        <div class="form-check disabled">
+            <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="2">
+        Every Week
+      </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="3">
+        Every Month
+      </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="4">
+        Every Year
+      </label>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <label for="#">Assign employees</label>
+            <input list="suggestions" name="search" id="inp-search" placeholder="Search for employee...">
+            <datalist id="suggestions">
+                
+            </datalist>
+            <input type="button" class="btn" value="Assign" ng-click="addToAssign()"><br>
+            <textarea disabled type="text" style="width: 90%" cols="30" id="inp-assignto" placeholder="People who will be assigned"></textarea>
+    </div>
+
+    <input type="submit" class="btn-primary" value="Create Task" ng-click="createTask()">
+</form>

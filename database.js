@@ -28,6 +28,17 @@ module.exports = class Database {
         this.request("EXEC InsertUser @Username='" + username + "', @Password='" + password + "'", cb);
     }
 
+    insertTask(task, cb) {
+        this.request("EXEC InsertTask @Title='" + task.Title + "', @Description='" + task.Description + "', @Deadline='" + task.Deadline + "', @IsDone='" +
+        task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username='" + 
+        task.Creator_Username + "';", cb);
+    }
+
+    assignUsersToTask(taskId, usersStr, cb) {
+        let query = "EXEC AssignUsersToTask " + taskId + ", '" + usersStr + "';";
+        this.request(query, cb);
+    }
+
     insertComment(date, content, author_username, taskId) {
         this.request("EXEC InsertComment @Date='" + date + "', @Content='" + content + "', @Author_Username='" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
     }
@@ -41,6 +52,10 @@ module.exports = class Database {
         this.request("SELECT * FROM GetUserByUsername('" + username + "')", (err, recordset) => {
             cb(err, recordset[0]);
         });
+    }
+
+    getUserEmployees(username, cb) {
+        this.request("SELECT * FROM GetUserEmployees('" + username + "')", cb);
     }
 
     // Returns all users with username containing requested string (usernamePart)
