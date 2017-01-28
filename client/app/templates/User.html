@@ -1,38 +1,51 @@
-<h1>Welcome, {{username}}!</h1>
-<div class="feed col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Deadline</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="task in tasksTodo">
-                <td>{{task.Title}}</td>
-                <td>{{task.Description}}</td>
-                <td>{{task.Deadline}}</td>
-            </tr>
-        </tbody>
-    </table>
+<h1>Begin to manage like a boss!</h1>
+
+<div class="tasks-container">
+    <div>
+        <a class="btn btn-primary" href="/newTask">New Task</a>
+    </div>
+    <h3>Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></h3>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasksTodo">
+                    <td>{{task.Title}}</td>
+                    <td>{{task.Description}}</td>
+                    <td>{{task.Deadline}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="feed col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Deadline</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="task in tasksCreated" >
-                <td>{{task.Title}}</td>
-                <td class="{{task.Priority == 0 ? '.info'}}">{{task.Description}}</td>
-                <td class="{{task.Priority == 0 ? '.info'}}">{{task.Deadline}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="tasks-container">
+    <div>
+        <a class="btn btn-primary" href="/newTask">New Task</a>
+    </div>
+    <h3>Your created tasks<span class="counter">{{tasksCreated.length}}</span></h3>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasksCreated">
+                    <td>{{task.Title}}</td>
+                    <td>{{task.Description}}</td>
+                    <td>{{task.Deadline}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -16,6 +16,20 @@ module.exports = (app, db) => {
 
     });
 
+    app.get('/task/comments', (req, res) => {
+        let id = req.get('taskId');
+
+        db.getTaskComments(id, (err, recordset) => {
+            if(err) {
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                console.log('recordset');
+                res.json(recordset);
+            }
+        })
+    })
+
     app.get('/tasks/todo', auth, (req, res) => {
         db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
             if (err) {
@@ -25,7 +39,7 @@ module.exports = (app, db) => {
                 let data = {
                     tasks: recordset
                 };
-
+                console.log(data);
                 res.json(data);
             }
 

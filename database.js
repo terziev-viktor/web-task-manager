@@ -33,7 +33,7 @@ module.exports = class Database {
     }
 
     getTaskComments(taskId, cb) {
-        this.request("SELECT * FROM GetTaskComments('" + taskId + "'", cb);
+        this.request("SELECT * FROM GetTaskComments('" + taskId + "')", cb);
     }
 
     // Property Username of user object is it's ID in the database
