@@ -5,12 +5,11 @@ app.controller('UserController', ['$scope', '$location',
         let tasksTodo;
         let statusHandler = {
             500: (xhr) => {
-                console.log(xhr);
                 $location.path('/err').replace();
                 $scope.$apply();
             },
             401: (xhr) => {
-                console.log(xhr);
+                //notification.alert('Signup or login in to your profile first :-)');
                 $location.path('/').replace();
                 $scope.$apply();
             }

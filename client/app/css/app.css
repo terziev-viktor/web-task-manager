@@ -41,3 +41,11 @@ body {
     border-radius: 12px;
     margin: auto;
 }
+
+.navbar-nav > li > button {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: none;
+    border-radius: 30px;
+    color: #777;
+}

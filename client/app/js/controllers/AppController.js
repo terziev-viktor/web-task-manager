@@ -1,8 +1,8 @@
 'use strict';
 
 // The AppController holds the presentation logic for the entire app (common all screens)
-app.controller('AppController', ['$scope',
-    function ($scope) {
+app.controller('AppController', ['$scope', '$location', 'notification',
+    function ($scope, $location, notification) {
         $scope.searchCollegues = () => {
             let search = $('#inp-search-colleagues').val();
             console.log('search');
@@ -24,5 +24,19 @@ app.controller('AppController', ['$scope',
                 });
             }
         }
+
+        $scope.logout = () => {
+            $.ajax({
+                method: 'GET',
+                url: '/logout',
+                success: () => {
+                    notification.info("Logout successful");
+                    $location.path('/');
+                    $scope.$apply();
+                }
+            });
+        }
+
+
     }]
 );
