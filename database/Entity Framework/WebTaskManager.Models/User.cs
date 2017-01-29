@@ -43,5 +43,12 @@ namespace WebTaskManager.Models
 
         public virtual ICollection<Comment> WritedComments { get; set; }
 
+        public virtual ICollection<User> Colleagues { get; set; }
+
+        public virtual ICollection<User> SentColleagueRequests { get; set; }
+
+        public virtual ICollection<User> RecievedColleagueRequests { get; set; }
+        
+
     }
 }

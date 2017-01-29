@@ -12,6 +12,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT ue.Employee FROM UserEmployees AS ue WHERE ue.Username = @Username
+	SELECT ue.Employee FROM ManagersEmployees AS ue WHERE ue.Manager = @Username
 )
 GO

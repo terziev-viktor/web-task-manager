@@ -24,20 +24,28 @@ namespace WebTaskManager.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasMany(x => x.Employees).WithMany()
-                .Map(x =>
-                {
-                    x.MapLeftKey("Username");
-                    x.MapRightKey("Employee");
-                    x.ToTable("UserEmployees");
-                });
-
-            modelBuilder.Entity<User>().HasMany(x => x.Managers).WithMany()
+            modelBuilder.Entity<User>().HasMany(x => x.Managers).WithMany(x => x.Employees)
                 .Map(x => 
                 {
-                    x.MapLeftKey("Username");
-                    x.MapRightKey("Manager");
-                    x.ToTable("UserManagers");
+                    x.MapLeftKey("Manager");
+                    x.MapRightKey("Employee");
+                    x.ToTable("ManagersEmployees");
+                });
+
+            modelBuilder.Entity<User>().HasMany(x => x.Colleagues).WithMany()
+                .Map(x =>
+                {
+                    x.MapLeftKey("User1");
+                    x.MapRightKey("User2");
+                    x.ToTable("Colleagues");
+                });
+
+            modelBuilder.Entity<User>().HasMany(x => x.SentColleagueRequests).WithMany(x => x.RecievedColleagueRequests)
+                .Map(x =>
+                {
+                    x.MapLeftKey("User_Sent");
+                    x.MapRightKey("User_Recieved");
+                    x.ToTable("UserColleagueRequests");
                 });
 
             modelBuilder.Entity<User>().HasMany(u => u.SentEmployeeRequests).WithMany(x => x.RecievedEmployeeRequests)

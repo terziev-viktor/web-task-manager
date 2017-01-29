@@ -11,10 +11,15 @@ app.config(function ($routeProvider) {
         templateUrl: 'templates/user.html',
         controller: 'UserController'
     });
-    
+
     $routeProvider.when('/newTask', {
         templateUrl: '/templates/newTask.html',
         controller: 'NewTaskController'
+    });
+
+    $routeProvider.when('/user/community/:username', {
+        templateUrl: '/templates/userCommunity.html',
+        controller: 'UserCommunityController'
     });
 
     $routeProvider.otherwise(

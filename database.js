@@ -28,10 +28,22 @@ module.exports = class Database {
         this.request("EXEC InsertUser @Username='" + username + "', @Password='" + password + "'", cb);
     }
 
+    insertColleagues(user1, user2, cb) {
+        this.request("EXEC InsertColleagues '" + user1 + "', '" + user2 + "';", cb);
+    }
+
+    insertColleagueReuqest(user_sent, user_recieved, cb) {
+        this.request("EXEC InsertColleagueRequest '" + user_sent + "', '" + user_recieved + "';", cb);
+    }
+    
     insertTask(task, cb) {
         this.request("EXEC InsertTask @Title='" + task.Title + "', @Description='" + task.Description + "', @Deadline='" + task.Deadline + "', @IsDone='" +
-        task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username='" + 
-        task.Creator_Username + "';", cb);
+            task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username='" +
+            task.Creator_Username + "';", cb);
+    }
+
+    insertUserManager(username, manager, cb) {
+        this.request("EXEC InsertUserManager '" + username + "', '" + manager + "'", cb);
     }
 
     assignUsersToTask(taskId, usersStr, cb) {
@@ -50,12 +62,20 @@ module.exports = class Database {
     // Property Username of user object is it's ID in the database
     getUserByUsername(username, cb) {
         this.request("SELECT * FROM GetUserByUsername('" + username + "')", (err, recordset) => {
-            cb(err, recordset[0]);
+            if(recordset) {
+                cb(err, recordset[0]);
+            } else {
+                cb(err);
+            }
         });
     }
 
     getUserEmployees(username, cb) {
         this.request("SELECT * FROM GetUserEmployees('" + username + "')", cb);
+    }
+
+    getUserManagers(username, cb) {
+        this.request("SELECT * FROM GetUserManagers('" + username + "')", cb);
     }
 
     // Returns all users with username containing requested string (usernamePart)
@@ -96,11 +116,11 @@ module.exports = class Database {
     }
 
     getUserRecievedEmployeeRequests(username, cb) {
-        this.request("SELECT * FROM GetUserRecievedEmployeeRequests('" + username +"');", cb);
+        this.request("SELECT * FROM GetUserRecievedEmployeeRequests('" + username + "');", cb);
     }
 
     getUserRecievedManagerRequests(username, cb) {
-        this.request("SELECT * FROM GetUserRecievedManagerRequests('" + username +"');", cb);
+        this.request("SELECT * FROM GetUserRecievedManagerRequests('" + username + "');", cb);
     }
 
     insertEmployeeRequest(user_sent, user_recieved, cb) {

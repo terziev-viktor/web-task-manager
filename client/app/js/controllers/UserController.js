@@ -15,12 +15,12 @@ app.controller('UserController', ['$scope', '$location',
                 console.log(err);
             },
             complete: () => {
-                tasksTodo.forEach(function(element) {
+                tasksTodo.forEach(function (element) {
                     element.priorityLow = element.Priority == 0;
                     element.priorityMed = element.Priority == 1;
                     element.priorityHigh = element.Priority == 2;
                 }, this);
-                 $scope.tasksTodo = tasksTodo;
+                $scope.tasksTodo = tasksTodo;
                 $scope.$apply();
             }
         });
@@ -40,6 +40,78 @@ app.controller('UserController', ['$scope', '$location',
                 $scope.$apply();
             }
         });
+
+        $.ajax({
+            method: 'GET',
+            url: '/user/employees',
+            success: (data) => {
+                console.log('/user/employees');
+                console.log(data);
+                $scope.employees = data;
+                $scope.$apply();
+            }
+        });
+
+        $.ajax({
+            method: 'GET',
+            url: '/user/managers',
+            success: (data) => {
+                console.log('user/managers');
+                console.log(data);
+                $scope.managers = data;
+                $scope.$apply();
+            }
+        });
+
+        $.ajax({
+            method: 'GET',
+            url: '/user/req/manager',
+            success: (data) => {
+                console.log('user/req/manager');
+                console.log(data);
+                $scope.managersReq = data;
+                $scope.$apply();
+            }
+        });
+
+        $.ajax({
+            method: 'GET',
+            url: '/user/req/employee',
+            success: (data) => {
+                console.log('user/req/employee');
+                console.log(data);
+                $scope.employeesReq = data;
+                $scope.$apply();
+            }
+        });
+
+        $scope.acceptReqEmployee = (username) => {
+            $.ajax({
+                method: 'POST',
+                url: '/user/employee',
+                data: {
+                    Username: username
+                },
+                success: (data) => {
+                    // notify or something
+                    console.log('success');
+                }
+            });
+        }
+
+        $scope.acceptReqManager = (username) => {
+            $.ajax({
+                method: 'POST',
+                url: '/user/manager',
+                data: {
+                    Username: username
+                },
+                success: (data) => {
+                    // notify or something
+                    console.log('success');
+                }
+            });
+        }
 
         $scope.showTaskInfo = (id) => {
             console.log('showtaskinfo');
@@ -64,4 +136,6 @@ app.controller('UserController', ['$scope', '$location',
             //     }
             // });
         }
-}]);
+
+        $scope.$apply();
+    }]);

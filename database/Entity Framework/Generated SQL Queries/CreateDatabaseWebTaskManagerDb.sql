@@ -12,6 +12,12 @@ CREATE TABLE [dbo].[Comments] (
     CONSTRAINT [PK_dbo.Comments] PRIMARY KEY ([CommentId])
 )
 
+CREATE TABLE [dbo].[Users] (
+    [Username] [nvarchar](128) NOT NULL,
+    [Password] [nvarchar](max),
+    CONSTRAINT [PK_dbo.Users] PRIMARY KEY ([Username])
+)
+
 CREATE TABLE [dbo].[Tasks] (
     [TaskId] [int] NOT NULL IDENTITY,
     [Title] [nvarchar](max) NOT NULL,
@@ -25,21 +31,22 @@ CREATE TABLE [dbo].[Tasks] (
     CONSTRAINT [PK_dbo.Tasks] PRIMARY KEY ([TaskId])
 )
 
-CREATE TABLE [dbo].[Users] (
-    [Username] [nvarchar](128) NOT NULL,
-    [Password] [nvarchar](max),
-    CONSTRAINT [PK_dbo.Users] PRIMARY KEY ([Username])
-)
-CREATE TABLE [dbo].[UserEmployees] (
-    [Username] [nvarchar](128) NOT NULL,
-    [Employee] [nvarchar](128) NOT NULL,
-    CONSTRAINT [PK_dbo.UserEmployees] PRIMARY KEY ([Username], [Employee])
+CREATE TABLE [dbo].[Colleagues] (
+    [User1] [nvarchar](128) NOT NULL,
+    [User2] [nvarchar](128) NOT NULL,
+    CONSTRAINT [PK_dbo.Colleagues] PRIMARY KEY ([User1], [User2])
 )
 
-CREATE TABLE [dbo].[UserManagers] (
-    [Username] [nvarchar](128) NOT NULL,
+CREATE TABLE [dbo].[ManagersEmployees] (
     [Manager] [nvarchar](128) NOT NULL,
-    CONSTRAINT [PK_dbo.UserManagers] PRIMARY KEY ([Username], [Manager])
+    [Employee] [nvarchar](128) NOT NULL,
+    CONSTRAINT [PK_dbo.ManagersEmployees] PRIMARY KEY ([Manager], [Employee])
+)
+
+CREATE TABLE [dbo].[UserColleagueRequests] (
+    [User_Sent] [nvarchar](128) NOT NULL,
+    [User_Recieved] [nvarchar](128) NOT NULL,
+    CONSTRAINT [PK_dbo.UserColleagueRequests] PRIMARY KEY ([User_Sent], [User_Recieved])
 )
 
 CREATE TABLE [dbo].[UserEmployeeRequests] (
@@ -66,13 +73,17 @@ CREATE INDEX [IX_Task_TaskId] ON [dbo].[Comments]([Task_TaskId])
 
 CREATE INDEX [IX_Creator_Username] ON [dbo].[Tasks]([Creator_Username])
 
-CREATE INDEX [IX_Username] ON [dbo].[UserEmployees]([Username])
+CREATE INDEX [IX_User1] ON [dbo].[Colleagues]([User1])
 
-CREATE INDEX [IX_Employee] ON [dbo].[UserEmployees]([Employee])
+CREATE INDEX [IX_User2] ON [dbo].[Colleagues]([User2])
 
-CREATE INDEX [IX_Username] ON [dbo].[UserManagers]([Username])
+CREATE INDEX [IX_Manager] ON [dbo].[ManagersEmployees]([Manager])
 
-CREATE INDEX [IX_Manager] ON [dbo].[UserManagers]([Manager])
+CREATE INDEX [IX_Employee] ON [dbo].[ManagersEmployees]([Employee])
+
+CREATE INDEX [IX_User_Sent] ON [dbo].[UserColleagueRequests]([User_Sent])
+
+CREATE INDEX [IX_User_Recieved] ON [dbo].[UserColleagueRequests]([User_Recieved])
 
 CREATE INDEX [IX_User_Sent] ON [dbo].[UserEmployeeRequests]([User_Sent])
 
@@ -91,8 +102,8 @@ ADD CONSTRAINT [FK_dbo.Comments_dbo.Users_Author_Username]
 FOREIGN KEY ([Author_Username]) 
 REFERENCES [dbo].[Users] ([Username])
 
-ALTER TABLE [dbo].[Comments] ADD 
-CONSTRAINT [FK_dbo.Comments_dbo.Tasks_Task_TaskId] 
+ALTER TABLE [dbo].[Comments] 
+ADD CONSTRAINT [FK_dbo.Comments_dbo.Tasks_Task_TaskId] 
 FOREIGN KEY ([Task_TaskId]) 
 REFERENCES [dbo].[Tasks] ([TaskId]) 
 ON DELETE CASCADE
@@ -102,23 +113,34 @@ ADD CONSTRAINT [FK_dbo.Tasks_dbo.Users_Creator_Username]
 FOREIGN KEY ([Creator_Username]) 
 REFERENCES [dbo].[Users] ([Username])
 
-ALTER TABLE [dbo].[UserEmployees] 
-ADD CONSTRAINT [FK_dbo.UserEmployees_dbo.Users_Username]
-FOREIGN KEY ([Username]) REFERENCES [dbo].[Users] ([Username])
-
-ALTER TABLE [dbo].[UserEmployees] 
-ADD CONSTRAINT [FK_dbo.UserEmployees_dbo.Users_Employee]
- FOREIGN KEY ([Employee])
-  REFERENCES [dbo].[Users] ([Username])
-
-ALTER TABLE [dbo].[UserManagers] 
-ADD CONSTRAINT [FK_dbo.UserManagers_dbo.Users_Username] 
-FOREIGN KEY ([Username]) 
+ALTER TABLE [dbo].[Colleagues] 
+ADD CONSTRAINT [FK_dbo.Colleagues_dbo.Users_User1] 
+FOREIGN KEY ([User1]) 
 REFERENCES [dbo].[Users] ([Username])
 
-ALTER TABLE [dbo].[UserManagers] 
-ADD CONSTRAINT [FK_dbo.UserManagers_dbo.Users_Manager] 
+ALTER TABLE [dbo].[Colleagues] 
+ADD CONSTRAINT [FK_dbo.Colleagues_dbo.Users_User2] 
+FOREIGN KEY ([User2]) 
+REFERENCES [dbo].[Users] ([Username])
+
+ALTER TABLE [dbo].[ManagersEmployees] 
+ADD CONSTRAINT [FK_dbo.ManagersEmployees_dbo.Users_Manager] 
 FOREIGN KEY ([Manager]) 
+REFERENCES [dbo].[Users] ([Username])
+
+ALTER TABLE [dbo].[ManagersEmployees] 
+ADD CONSTRAINT [FK_dbo.ManagersEmployees_dbo.Users_Employee] 
+FOREIGN KEY ([Employee]) 
+REFERENCES [dbo].[Users] ([Username])
+
+ALTER TABLE [dbo].[UserColleagueRequests] 
+ADD CONSTRAINT [FK_dbo.UserColleagueRequests_dbo.Users_User_Sent] 
+FOREIGN KEY ([User_Sent]) 
+REFERENCES [dbo].[Users] ([Username])
+
+ALTER TABLE [dbo].[UserColleagueRequests]
+ADD CONSTRAINT [FK_dbo.UserColleagueRequests_dbo.Users_User_Recieved] 
+FOREIGN KEY ([User_Recieved]) 
 REFERENCES [dbo].[Users] ([Username])
 
 ALTER TABLE [dbo].[UserEmployeeRequests] 
@@ -127,7 +149,7 @@ FOREIGN KEY ([User_Sent])
 REFERENCES [dbo].[Users] ([Username])
 
 ALTER TABLE [dbo].[UserEmployeeRequests] 
-ADD CONSTRAINT [FK_dbo.UserEmployeeRequests_dbo.Users_User_Recieved] 
+ADD CONSTRAINT [FK_dbo.UserEmployeeRequests_dbo.Users_User_Recieved]
 FOREIGN KEY ([User_Recieved]) 
 REFERENCES [dbo].[Users] ([Username])
 

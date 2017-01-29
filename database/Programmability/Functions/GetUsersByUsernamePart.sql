@@ -12,6 +12,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT * FROM Users AS U WHERE U.Username LIKE '%' + @Part + '%'
+	SELECT * FROM Users AS U WHERE U.Username LIKE @Part + '%'
 )
 GO

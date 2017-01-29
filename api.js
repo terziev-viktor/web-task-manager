@@ -46,8 +46,15 @@ module.exports = (app, db) => {
         });
     });
 
-    app.get('/user', auth, (req, res) => {
-
+    app.get('/search', (req, res) => {
+        db.getUsersByUsernamePart(req.body.Part, (err, recordset) => {
+            if(err) {
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                res.json(recordset);
+            }
+        });
     });
 
     app.get('/tasks/created', auth, (req, res) => {
@@ -66,6 +73,30 @@ module.exports = (app, db) => {
         });
     });
 
+    // Current user becomes employee of user from req.body
+    app.post('/user/employee', auth, (req, res) => {
+        db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) =>{
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    });
+
+    // Current user becomes manager of user from req.body
+    app.post('/user/manager', auth, (req, res) => {
+        db.insertUserManager(req.body.Username, req.user.Username, (err, recordser) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    });
+
     app.get('/tasks/assignedto', auth, (req, res) => {
         db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
             if (err) {
@@ -79,6 +110,17 @@ module.exports = (app, db) => {
 
     app.get('/user/employees', auth, (req, res) => {
         db.getUserEmployees(req.user.Username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.json(recordset);
+            }
+        })
+    });
+
+    app.get('/user/managers', auth, (req, res) => {
+        db.getUserManagers(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.sendStatus(401);
@@ -110,24 +152,35 @@ module.exports = (app, db) => {
         });
     });
 
-    app.post('/user/req/employee', auth, (req, res) => {
-        db.insertEmployeeRequest(req.user.Username, req.body.Username, (err, recordset) => {
+    app.post('/user/req/colleague', auth, (req, res) => {
+        db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
                 res.sendStatus(401);
             } else {
-                res.json(recordset);
+                res.sendStatus(200);
+            }
+        });
+    });
+
+    app.post('/user/req/employee', auth, (req, res) => {
+        db.insertEmployeeRequest(req.user.Username, req.body.Username, (err) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                res.sendStatus(200);
             }
         })
     });
 
     app.post('/user/req/manager', auth, (req, res) => {
-        db.insertManagerRequest(req.user.Username, req.body.Username, (err, recordset) => {
+        db.insertManagerRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
                 res.sendStatus(401);
             } else {
-                res.json(recordset);
+                res.sendStatus(200);
             }
         })
     });
