@@ -47,8 +47,8 @@ module.exports = (app, db) => {
     });
 
     app.get('/search', (req, res) => {
-        db.getUsersByUsernamePart(req.body.Part, (err, recordset) => {
-            if(err) {
+        db.getUsersByUsernamePart(req.query.text, (err, recordset) => {
+            if (err) {
                 console.log(err);
                 res.sendStatus(500);
             } else {
@@ -75,7 +75,7 @@ module.exports = (app, db) => {
 
     // Current user becomes employee of user from req.body
     app.post('/user/employee', auth, (req, res) => {
-        db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) =>{
+        db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) => {
             if (err) {
                 console.log(err);
                 res.sendStatus(401);

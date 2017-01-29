@@ -22,6 +22,10 @@ app.config(function ($routeProvider) {
         controller: 'UserCommunityController'
     });
 
+    $routeProvider.when('/err', {
+        templateUrl: 'templates/error.html'
+    });
+
     $routeProvider.otherwise(
         { redirectTo: '/' }
     );

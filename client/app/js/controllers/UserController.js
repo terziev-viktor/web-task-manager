@@ -2,19 +2,25 @@
 
 app.controller('UserController', ['$scope', '$location',
     function ($scope, $location) {
-        let tasksTodo, tasksCreated;
+        let tasksTodo;
+        let statusHandler = {
+            500: (xhr) => {
+                console.log(xhr);
+                $location.path('/err').replace();
+                $scope.$apply();
+            },
+            401: (xhr) => {
+                console.log(xhr);
+                $location.path('/').replace();
+                $scope.$apply();
+            }
+        }
 
         $.ajax({
             method: 'GET',
             url: '/tasks/todo',
             success: (data) => {
                 tasksTodo = data.tasks;
-            },
-            error: (err) => {
-                console.log('error');
-                console.log(err);
-            },
-            complete: () => {
                 tasksTodo.forEach(function (element) {
                     element.priorityLow = element.Priority == 0;
                     element.priorityMed = element.Priority == 1;
@@ -22,23 +28,22 @@ app.controller('UserController', ['$scope', '$location',
                 }, this);
                 $scope.tasksTodo = tasksTodo;
                 $scope.$apply();
-            }
+            },
+            error: (err) => {
+                console.log('error');
+                console.log(err);
+            },
+            statusCode: statusHandler
         });
 
         $.ajax({
             method: 'GET',
             url: '/tasks/created',
             success: (data, stringStatus, xhr) => {
-                tasksCreated = data.tasks;
-            },
-            error: (err) => {
-                console.log('error');
-                console.log(err);
-            },
-            complete: (xhr, textStatus) => {
-                $scope.tasksCreated = tasksCreated;
+                $scope.tasksCreated = data.tasks;
                 $scope.$apply();
-            }
+            },
+            statusCode: statusHandler
         });
 
         $.ajax({
@@ -49,7 +54,8 @@ app.controller('UserController', ['$scope', '$location',
                 console.log(data);
                 $scope.employees = data;
                 $scope.$apply();
-            }
+            },
+            statusCode: statusHandler
         });
 
         $.ajax({
@@ -60,7 +66,8 @@ app.controller('UserController', ['$scope', '$location',
                 console.log(data);
                 $scope.managers = data;
                 $scope.$apply();
-            }
+            },
+            statusCode: statusHandler
         });
 
         $.ajax({
@@ -71,7 +78,8 @@ app.controller('UserController', ['$scope', '$location',
                 console.log(data);
                 $scope.managersReq = data;
                 $scope.$apply();
-            }
+            },
+            statusCode: statusHandler
         });
 
         $.ajax({
@@ -82,7 +90,8 @@ app.controller('UserController', ['$scope', '$location',
                 console.log(data);
                 $scope.employeesReq = data;
                 $scope.$apply();
-            }
+            },
+            statusCode: statusHandler
         });
 
         $scope.acceptReqEmployee = (username) => {
@@ -95,7 +104,8 @@ app.controller('UserController', ['$scope', '$location',
                 success: (data) => {
                     // notify or something
                     console.log('success');
-                }
+                },
+                statusCode: statusHandler
             });
         }
 
@@ -109,7 +119,8 @@ app.controller('UserController', ['$scope', '$location',
                 success: (data) => {
                     // notify or something
                     console.log('success');
-                }
+                },
+                statusCode: statusHandler
             });
         }
 
