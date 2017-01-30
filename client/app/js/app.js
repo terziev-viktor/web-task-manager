@@ -7,6 +7,7 @@ app.config(function ($routeProvider) {
         controller: 'HomeController'
     });
 
+    // current user's profle
     $routeProvider.when('/user', {
         templateUrl: 'templates/user.html',
         controller: 'UserController'
@@ -17,7 +18,7 @@ app.config(function ($routeProvider) {
         controller: 'NewTaskController'
     });
 
-    $routeProvider.when('/user/community/:username', {
+    $routeProvider.when('/user/:username', {
         templateUrl: '/templates/userCommunity.html',
         controller: 'UserCommunityController'
     });

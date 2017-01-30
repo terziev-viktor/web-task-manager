@@ -1,12 +1,28 @@
 
 app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
+        $('#li-profile').hide();
+        $('#li-logout').hide();
+
+        $scope.showDocs = () => {
+            $('#docs').css('display: inline');
+        }
+
+        $.ajax({
+            method: 'GET',
+            url: '/user',
+            success: () => {
+                $('#li-profile').show(300);
+                $('#li-logout').show(300);
+            }
+        });
+
         $scope.login = function () {
             let data = {
                 username: $('#inp-login-username').val(),
                 password: $('#inp-login-password').val()
             }
-            
+
             $.ajax({
                 method: 'POST',
                 url: '/login',

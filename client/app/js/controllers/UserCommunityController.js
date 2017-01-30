@@ -1,6 +1,8 @@
 
-app.controller('UserController', ['$scope', '$location', 'notification',
-    function ($scope, $location, notification) {
+app.controller('UserCommunityController', ['$scope', '$location', '$routeParams', 'notification',
+    function ($scope, $location, $routeParams, notification) {
+        $scope.username = $routeParams.username;
+        $scope.$apply();
         let statusHandler = {
             500: (xhr) => {
                 $location.path('/err').replace();
@@ -12,13 +14,11 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 $scope.$apply();
             }
         }
-        $('#li-profile').show(300);
-        $('#li-logout').show(300);
 
-        function getCurrentUserInfo() {
+        function getUserCommunityInfo() {
             $.ajax({
                 method: 'GET',
-                url: '/tasks/todo',
+                url: '/tasks/todo/' + $routeParams.username,
                 success: (data) => {
                     data.tasks.forEach(function (element) {
                         element.priorityLow = element.Priority == 0;
@@ -37,7 +37,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
             $.ajax({
                 method: 'GET',
-                url: '/tasks/created',
+                url: '/tasks/created/' + $routeParams.username,
                 success: (data, stringStatus, xhr) => {
                     $scope.tasksCreated = data.tasks;
                     $scope.$apply();
@@ -47,7 +47,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
             $.ajax({
                 method: 'GET',
-                url: '/user/employees',
+                url: '/user/employees/' + $routeParams.username,
                 success: (data) => {
                     console.log('/user/employees');
                     console.log(data);
@@ -59,63 +59,13 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
             $.ajax({
                 method: 'GET',
-                url: '/user/managers',
+                url: '/user/managers/' + $routeParams.username,
                 success: (data) => {
                     $scope.managers = data;
                     $scope.$apply();
                 },
                 statusCode: statusHandler
             });
-
-            $.ajax({
-                method: 'GET',
-                url: '/user/req/manager',
-                success: (data) => {
-                    $scope.managersReq = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
-
-            $.ajax({
-                method: 'GET',
-                url: '/user/req/employee',
-                success: (data) => {
-                    $scope.employeesReq = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
-
-            $scope.acceptReqEmployee = (username) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/employee',
-                    data: {
-                        Username: username
-                    },
-                    success: (data) => {
-                        // notify or something
-                        console.log('success');
-                    },
-                    statusCode: statusHandler
-                });
-            }
-
-            $scope.acceptReqManager = (username) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/manager',
-                    data: {
-                        Username: username
-                    },
-                    success: (data) => {
-                        // notify or something
-                        console.log('success');
-                    },
-                    statusCode: statusHandler
-                });
-            }
 
             $scope.showTaskInfo = (id) => {
                 console.log('showtaskinfo');
@@ -148,8 +98,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
             method: 'GET',
             url: '/user',
             success: (data) => {
-                $scope.username = data;
-                getCurrentUserInfo();
+                getUserCommunityInfo();
             },
             statusCode: statusHandler
         });

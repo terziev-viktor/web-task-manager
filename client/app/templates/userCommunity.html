@@ -1,0 +1,72 @@
+<div class="jumbotron">
+  <h1>You are a guest at {{username}}'s profile</h1>
+  <p>   This is {{username}}'s' personal profile in the web task manager platform.<br>
+  Here you can see his community, created tasks and to-do list</p>
+</div>
+<div>
+    <span>{{username}}'s' community</span>
+</div>
+<div class="community-container">
+    <div class="container-small container-small-left">
+        <div><span>{{username}}'s Managers</span></div>
+        <ul>
+            <li ng-repeat="manager in managers">
+                <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container-small container-small-right">
+        <span>{{username}}'s Employees</span>
+        <ul>
+            <li ng-repeat="employee in employees">
+                <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div>{{username}}'s to-do list<span class="counter">{{tasksTodo.length}}</span></div>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasksTodo">
+                    <td>{{task.Title}}</td>
+                    <td>{{task.Description}}</td>
+                    <td>{{task.Deadline}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        {{username}}'s created tasks<span class="counter">{{tasksCreated.length}}</span>
+    </div>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasksCreated">
+                    <td>{{task.Title}}</td>
+                    <td>{{task.Description}}</td>
+                    <td>{{task.Deadline}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
