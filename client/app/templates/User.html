@@ -1,48 +1,51 @@
 <h1>Begin to manage like a boss!</h1>
-
-<div class="container-small">
-    <div><span>Your Managers</span></div>
-    <ul>
-        <li ng-repeat="manager in managers">
-            <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
-        </li>
-    </ul>
-</div>
 <div>
     <span>Your community</span>
 </div>
-<div class="container-small">
-    <span>Your Employees</span>
-    <ul>
-        <li ng-repeat="employee in employees">
-            <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
-        </li>
-    </ul>
-</div>
-<div class="container-small">
-    <div>
-        <span>People who want you to be their employee</span>
+<div class="community-container">
+    <div class="container-small container-small-left">
+        <div><span>Your Managers</span></div>
+        <ul>
+            <li ng-repeat="manager in managers">
+                <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+            </li>
+        </ul>
     </div>
-    <ul>
-        <li ng-repeat="employeeReq in employeesReq">
-            <span>{{employeeReq.User_Sent}}</span>
-            <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent)">
-        </li>
-    </ul>
+    <div class="container-small container-small-right">
+        <span>Your Employees</span>
+        <ul>
+            <li ng-repeat="employee in employees">
+                <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+            </li>
+        </ul>
+    </div>
 </div>
 <div>
     <span>Requests</span>
 </div>
-<div class="container-small">
-    <div> <span>People who want you to be their manager</span>
+<div class="community-container">
+    <div class="container-small container-small-left">
+        <div>
+            <span>People who want you to be their employee</span>
+        </div>
+        <ul>
+            <li ng-repeat="employeeReq in employeesReq">
+                <span>{{employeeReq.User_Sent}}</span>
+                <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent)">
+            </li>
+        </ul>
     </div>
 
-    <ul>
-        <li ng-repeat="managerReq in managersReq">
-            <span>{{managerReq.User_Sent}}</span>
-            <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent)">
-        </li>
-    </ul>
+    <div class="container-small container-small-right">
+        <div> <span>People who want you to be their manager</span>
+        </div>
+        <ul>
+            <li ng-repeat="managerReq in managersReq">
+                <span>{{managerReq.User_Sent}}</span>
+                <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent)">
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="container">
     <div>Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></div>
