@@ -10,7 +10,7 @@ app.controller('UserController', ['$scope', '$location',
             },
             401: (xhr) => {
                 //notification.alert('Signup or login in to your profile first :-)');
-                $location.path('/').replace();
+                $location.path('/');
                 $scope.$apply();
             }
         }

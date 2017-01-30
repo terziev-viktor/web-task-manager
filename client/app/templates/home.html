@@ -1,37 +1,44 @@
-<div class="form-container .form-inline col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
-    <div class="content-header">
-    <p>Login</p>
+<div id="home-forms-container">
+    <div class="form-container .form-inline col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
+        <div class="content-header">
+            <p>Login</p>
+        </div>
+        <form>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user"></span> <label for="inp-login-username">Username</label> <input class="form-control"
+                    id="inp-login-username" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-lock"></span> <label for="inp-login-password">Password</label> <input class="form-control"
+                    id="inp-login-password" name="password" placeholder="Password" type="password">
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" ng-click="login()" value="Submit">
+            </div>
+        </form>
     </div>
-    <div id="login-error-container"></div>
-    <form>
-        <div class="form-group">
-            <span class="glyphicon glyphicon-user"></span> <label for="inp-login-username">Username</label> <input class="form-control" id="inp-login-username" name="username" placeholder="Username" type="text">
+    <div class="form-container .form-inline col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
+        <div class="content-header">
+            <p>Or Register</p>
         </div>
-        <div class="form-group">
-            <span class="glyphicon glyphicon-lock"></span> <label for="inp-login-password">Password</label> <input class="form-control" id="inp-login-password" name="password" placeholder="Password" type="password">
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" ng-click="login()" value="Submit">
-        </div>
-    </form>
-</div>
-<div class="form-container .form-inline col-xs-5 col-sm-4 col-md-3 col-lg-3 col-centered">
-    <div class="content-header">
-        <p>Or Register</p>
+        <form>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user"></span> <label for="inp-signin-username">Username</label> <input class="form-control"
+                    id="inp-signin-username" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-lock"></span> <label for="inp-signin-password">Password</label> <input class="form-control"
+                    id="inp-signin-password" name="password" placeholder="Password" type="password">
+            </div>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-lock"></span> <label for="inp-signin-confirm">Confirm Password</label>
+                <input
+                    class="form-control" id="inp-signin-confirm" name="confirm" placeholder="Confirm" type="password">
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" ng-click="signin()" value="Submit">
+            </div>
+        </form>
     </div>
-    <div id="signin-error-container"></div>
-    <form>
-        <div class="form-group">
-            <span class="glyphicon glyphicon-user"></span> <label for="inp-signin-username">Username</label> <input class="form-control" id="inp-signin-username" name="username" placeholder="Username" type="text">
-        </div>
-        <div class="form-group">
-            <span class="glyphicon glyphicon-lock"></span> <label for="inp-signin-password">Password</label> <input class="form-control" id="inp-signin-password" name="password" placeholder="Password" type="password">
-        </div>
-        <div class="form-group">
-            <span class="glyphicon glyphicon-lock"></span> <label for="inp-signin-confirm">Confirm Password</label> <input class="form-control" id="inp-signin-confirm" name="confirm" placeholder="Confirm" type="password">
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" ng-click="signin()" value="Submit">
-        </div>
-    </form>
+
 </div>

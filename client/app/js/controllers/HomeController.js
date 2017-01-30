@@ -2,12 +2,11 @@
 app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
         $scope.login = function () {
-
             let data = {
                 username: $('#inp-login-username').val(),
                 password: $('#inp-login-password').val()
             }
-
+            
             $.ajax({
                 method: 'POST',
                 url: '/login',
@@ -15,12 +14,17 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 statusCode: {
                     200: () => {
                         notification.success('Login successful!');
-                        $location.path('/user').replace();
-                        $scope.$apply();
+                        $('#home-forms-container').hide(350);
+                        setTimeout(function () {
+                            $location.path('/user').replace();
+                            $scope.$apply();
+                        }, 350);
                     },
                     401: () => {
                         notification.error('Login Failed');
-                        $('#login-error-container').html('<span>Login failed</span>');
+                    },
+                    400: () => {
+                        notification.info('Enter your username and password first!');
                     }
                 }
             })
@@ -46,7 +50,6 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                     },
                     500: (xhr) => {
                         notification.error(xhr.responseJSON.err);
-                        $('#signin-error-container').html('<span>' + xhr.responseJSON.err + '</span>');
                     }
                 }
             })

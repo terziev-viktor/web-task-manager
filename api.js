@@ -132,24 +132,28 @@ module.exports = (app, db) => {
 
     app.post('/task', auth, (req, res) => {
         let task = req.body;
-        task.Creator_Username = req.user.Username;
-        db.insertTask(task, (err, recordset) => {
-            if (err) {
-                console.log(err);
-                res.sendStatus(401);
-            } else {
-                console.log(recordset);
-                let taskId = recordset[0].TaskId;
-                db.assignUsersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
-                    if (err) {
-                        console.log(err);
-                        res.sendStatus(401);
-                    } else {
-                        res.sendStatus(200);
-                    }
-                })
-            }
-        });
+        if (!task.Title.length > 0) {
+            res.status(500).json({ err: 'Please insert a title for the task.' });
+        } else {
+            task.Creator_Username = req.user.Username;
+            db.insertTask(task, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.sendStatus(401);
+                } else {
+                    let taskId = recordset[0].TaskId;
+                    db.assignUsersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
+                        if (err) {
+                            console.log(err);
+                            res.sendStatus(401);
+                        } else {
+                            res.sendStatus(200);
+                        }
+                    })
+                }
+            });
+        }
+
     });
 
     app.post('/user/req/colleague', auth, (req, res) => {

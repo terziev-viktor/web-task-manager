@@ -70,7 +70,8 @@ body {
 }
 #search-found-content ul {
     list-style: none;
-    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #search-found-content ul li {

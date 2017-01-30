@@ -1,5 +1,5 @@
-app.controller('NewTaskController', ['$scope', '$location',
-    function ($scope, $location) {
+app.controller('NewTaskController', ['$scope', '$location', 'notification',
+    function ($scope, $location, notification) {
         let first = true;
         $.ajax({
             method: 'GET',
@@ -38,13 +38,21 @@ app.controller('NewTaskController', ['$scope', '$location',
                 method: 'POST',
                 url: '/task',
                 data: task,
-                success: (res) => {
-                    //TODO: implement
-                },
-                error: (err) => {
-                    // TODO: implement
-                } 
-
-            })
+                statusCode: {
+                    200: () => {
+                        notification.success('Task created successfully!');
+                        $location.path('/user');
+                        $scope.$apply();
+                    },
+                    401: () => {
+                        notification.alert('Login to Web Task Manager, please :-)');
+                        $location.path('/');
+                        $scope.$apply();
+                    },
+                    500: (xhr) => {
+                        notification.error(xhr.responseJSON.err);
+                    }
+                }
+            });
         }
     }]);
