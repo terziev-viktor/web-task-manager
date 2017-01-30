@@ -11,6 +11,24 @@ body {
     display: block;
 }
 
+.content-header-top {
+    text-align: center;
+    width: 100%;
+    background: #777;
+    background: -webkit-linear-gradient(#E0E0E0,white);
+    background: -o-linear-gradient(#E0E0E0,white);
+    background: linear-gradient(#E0E0E0,white);
+}
+
+.content-header-bottom {
+    text-align: center;
+    width: 100%;
+    background: #777;
+    background: -webkit-linear-gradient(white,#E0E0E0);
+    background: -o-linear-gradient(white,#E0E0E0);
+    background: linear-gradient(white,#E0E0E0);
+}
+
 #home-forms-container {
     display: block;
 }
@@ -37,18 +55,23 @@ body {
     border-radius: 30px;
     color: #777;
 }
+
 .community-container {
     display: flex;
     width: 400px;
     margin-left: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
+
 .container-small-right {
     float: right;
-    border: 1px solid blue;
 }
+
 .container-small-left {
-    float: left;
-    border: 1px solid blue;    
+    float: left; 
 }
 
 #search-found {
@@ -94,6 +117,7 @@ body {
 
 .jumbotron {
     padding: 0.5em 0.6em;
+    margin-bottom: 0px;
     background: #777; /* For browsers that do not support gradients */
  /* For Safari 5.1 to 6.0 */
  /* For Opera 11.1 to 12.0 */

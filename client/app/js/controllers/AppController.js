@@ -28,7 +28,7 @@ app.controller('AppController', ['$scope', '$location', 'notification',
                         let inner_html = '<ul>';
                         if (data.length > 0) {
                             data.forEach((element) => {
-                                inner_html += '<li><a href="#/user/' + '">' + element.Username + '</a></li>';
+                                inner_html += '<li><a href="#/user/' + element.Username +'">' + element.Username + '</a></li>';
                             });
                         } else {
                             inner_html += '<span>No search results for "' + search + '"</span>';

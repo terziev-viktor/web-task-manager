@@ -3,12 +3,12 @@
   <p>   This is your personal profile in the web task manager platform.<br>
   Here you can create tasks, assign your employees to these tasks, see your to-do list and much more!</p>
 </div>
-<div>
+<div class="content-header-top">
     <span>Your community</span>
 </div>
 <div class="community-container">
     <div class="container-small container-small-left">
-        <div><span>Your Managers</span></div>
+        <div class="content-header-bottom"><span>Your Managers</span></div>
         <ul>
             <li ng-repeat="manager in managers">
                 <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
@@ -16,7 +16,9 @@
         </ul>
     </div>
     <div class="container-small container-small-right">
-        <span>Your Employees</span>
+        <div class="content-header-bottom">
+<span>Your Employees</span>
+        </div>
         <ul>
             <li ng-repeat="employee in employees">
                 <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
@@ -24,12 +26,13 @@
         </ul>
     </div>
 </div>
-<div>
+<div class="content-header-bottom">
     <span>Requests</span>
 </div>
 <div class="community-container">
+    
     <div class="container-small container-small-left">
-        <div>
+        <div class="content-header-top">
             <span>People who want you to be their employee</span>
         </div>
         <ul>
@@ -41,7 +44,7 @@
     </div>
 
     <div class="container-small container-small-right">
-        <div> <span>People who want you to be their manager</span>
+        <div class="content-header-top"><span>People who want you to be their manager</span>
         </div>
         <ul>
             <li ng-repeat="managerReq in managersReq">
@@ -63,7 +66,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in tasksTodo">
+                <tr ng-repeat="task in tasksTodo" ng-click="showTask(task.TaskId)">
                     <td>{{task.Title}}</td>
                     <td>{{task.Description}}</td>
                     <td>{{task.Deadline}}</td>

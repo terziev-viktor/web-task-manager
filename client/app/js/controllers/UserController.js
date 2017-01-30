@@ -144,6 +144,10 @@ app.controller('UserController', ['$scope', '$location', 'notification',
             $scope.$apply();
         }
 
+        $scope.showTask = (taskId) => {
+            // TODO: implement function: show full info ot task with given id
+        }
+
          $.ajax({
             method: 'GET',
             url: '/user',
