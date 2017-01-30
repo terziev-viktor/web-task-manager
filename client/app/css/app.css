@@ -2,43 +2,27 @@ body {
     min-width: 410px;
 }
 
-#app-footer {
-    display: block;
-    position: relative;
-    margin: 0 auto;
-}
-
-.content-header {
-    border-style: groove;
-    border-color: #edeeef;
-    border-radius: 5px;
+.container {
+    width: 400px;
+    border: 1px solid #777;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     padding: 5px;
-    text-align: center;
-}
-.content-header>p {
-    color: #7aafff;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.feed {
     display: block;
-    float: left;
 }
 
-.task-container {
-    width: 30%;
-    float: left;
-    border: 1px solid #babee0;
-    padding: 10px;
+.container > div:first-child {
+    align-content: center;
+}
+
+.container-small {
+    width: 200px;
+    display: block;
 }
 
 .counter {
-    font-size: 0.5em;
     color: #fff;
     background-color: #babee0;
-    padding: 0.5em;
-    border-radius: 12px;
     margin: auto;
 }
 

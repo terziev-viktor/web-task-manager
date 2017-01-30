@@ -1,7 +1,7 @@
 <h1>Begin to manage like a boss!</h1>
 
 <div class="container-small">
-    <span>Your Managers</span>
+    <div><span>Your Managers</span></div>
     <ul>
         <li ng-repeat="manager in managers">
             <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
@@ -19,9 +19,10 @@
         </li>
     </ul>
 </div>
-
 <div class="container-small">
-    <span>People who want you to be their employee</span>
+    <div>
+        <span>People who want you to be their employee</span>
+    </div>
     <ul>
         <li ng-repeat="employeeReq in employeesReq">
             <span>{{employeeReq.User_Sent}}</span>
@@ -33,7 +34,9 @@
     <span>Requests</span>
 </div>
 <div class="container-small">
-    <span>People who want you to be their manager</span>
+    <div> <span>People who want you to be their manager</span>
+    </div>
+
     <ul>
         <li ng-repeat="managerReq in managersReq">
             <span>{{managerReq.User_Sent}}</span>
@@ -42,10 +45,11 @@
     </ul>
 </div>
 <div class="container">
+    <div>Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></div>
     <div>
         <a class="btn btn-primary" href="#/newTask">New Task</a>
     </div>
-    <h3>Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></h3>
+
     <div>
         <table class="table table-hover">
             <thead>
@@ -68,9 +72,11 @@
 
 <div class="container">
     <div>
+        Your created tasks<span class="counter">{{tasksCreated.length}}</span>
+    </div>
+    <div>
         <a class="btn btn-primary" href="#/newTask">New Task</a>
     </div>
-    <h3>Your created tasks<span class="counter">{{tasksCreated.length}}</span></h3>
     <div>
         <table class="table table-hover">
             <thead>
