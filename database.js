@@ -25,34 +25,34 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user;
-        this.request("EXEC InsertUser @Username='" + username + "', @Password='" + password + "'", cb);
+        this.request("EXEC InsertUser @Username=N'" + username + "', @Password=N'" + password + "'", cb);
     }
 
     insertColleagues(user1, user2, cb) {
-        this.request("EXEC InsertColleagues '" + user1 + "', '" + user2 + "';", cb);
+        this.request("EXEC InsertColleagues N'" + user1 + "', N'" + user2 + "';", cb);
     }
 
     insertColleagueReuqest(user_sent, user_recieved, cb) {
-        this.request("EXEC InsertColleagueRequest '" + user_sent + "', '" + user_recieved + "';", cb);
+        this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
     
     insertTask(task, cb) {
-        this.request("EXEC InsertTask @Title='" + task.Title + "', @Description='" + task.Description + "', @Deadline='" + task.Deadline + "', @IsDone='" +
-            task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username='" +
+        this.request("EXEC InsertTask @Title = N'" + task.Title + "', @Description = N'" + task.Description + "', @Deadline = '" + task.Deadline + "', @IsDone='" +
+            task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username = N'" +
             task.Creator_Username + "';", cb);
     }
 
     insertUserManager(username, manager, cb) {
-        this.request("EXEC InsertUserManager '" + username + "', '" + manager + "'", cb);
+        this.request("EXEC InsertUserManager N'" + username + "', N'" + manager + "'", cb);
     }
 
     assignUsersToTask(taskId, usersStr, cb) {
-        let query = "EXEC AssignUsersToTask " + taskId + ", '" + usersStr + "';";
+        let query = "EXEC AssignUsersToTask " + taskId + ", N'" + usersStr + "';";
         this.request(query, cb);
     }
 
     insertComment(date, content, author_username, taskId) {
-        this.request("EXEC InsertComment @Date='" + date + "', @Content='" + content + "', @Author_Username='" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
+        this.request("EXEC InsertComment @Date='" + date + "', @Content = N'" + content + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
     }
 
     getTaskComments(taskId, cb) {
@@ -61,7 +61,7 @@ module.exports = class Database {
 
     // Property Username of user object is it's ID in the database
     getUserByUsername(username, cb) {
-        this.request("SELECT * FROM GetUserByUsername('" + username + "')", (err, recordset) => {
+        this.request("SELECT * FROM GetUserByUsername(N'" + username + "')", (err, recordset) => {
             if(recordset) {
                 cb(err, recordset[0]);
             } else {
@@ -71,60 +71,60 @@ module.exports = class Database {
     }
 
     getUserEmployees(username, cb) {
-        this.request("SELECT * FROM GetUserEmployees('" + username + "')", cb);
+        this.request("SELECT * FROM GetUserEmployees(N'" + username + "')", cb);
     }
 
     getUserManagers(username, cb) {
-        this.request("SELECT * FROM GetUserManagers('" + username + "')", cb);
+        this.request("SELECT * FROM GetUserManagers(N'" + username + "')", cb);
     }
 
     // Returns all users with username containing requested string (usernamePart)
     getUsersByUsernamePart(usernamePart, cb) {
-        this.request("SELECT * FROM GetUsersByUsernamePart('" + usernamePart + "')", cb)
+        this.request("SELECT * FROM GetUsersByUsernamePart(N'" + usernamePart + "')", cb)
     }
 
     getUserCreatedTasksOrderByPriority(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority(N'" + creatorUsername + "')", cb)
     }
 
     getUserCreatedTasksOrderByPriorityDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc(N'" + creatorUsername + "')", cb)
     }
 
     getUserCreatedTasksOrderByTitle(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle(N'" + creatorUsername + "')", cb)
     }
 
     getUserCreatedTasksOrderByTitleDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc(N'" + creatorUsername + "')", cb)
     }
 
     getUserCreatedTasksOrderByDeadline(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline(N'" + creatorUsername + "')", cb)
     }
 
     getUserCreatedTasksOrderByDeadlineDesc(creatorUsername, cb) {
-        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc('" + creatorUsername + "')", cb)
+        this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc(N'" + creatorUsername + "')", cb)
     }
 
     getTasksAssignedToUserOrderedByPriority(username, cb) {
-        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority('" + username + "')", cb)
+        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority(N'" + username + "')", cb)
     }
 
     getTasksAssignedToUserOrderedByPriorityDesc(username, cb) {
-        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc('" + username + "')", cb)
+        this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc(N'" + username + "')", cb)
     }
 
     getUserRecievedEmployeeRequests(username, cb) {
-        this.request("SELECT * FROM GetUserRecievedEmployeeRequests('" + username + "');", cb);
+        this.request("SELECT * FROM GetUserRecievedEmployeeRequests(N'" + username + "');", cb);
     }
 
     getUserRecievedManagerRequests(username, cb) {
-        this.request("SELECT * FROM GetUserRecievedManagerRequests('" + username + "');", cb);
+        this.request("SELECT * FROM GetUserRecievedManagerRequests(N'" + username + "');", cb);
     }
 
     insertEmployeeRequest(user_sent, user_recieved, cb) {
-        this.request("EXEC InsertManagerRequest '" + user_sent + "', '" + user_recieved + "';", cb);
+        this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
 }
 
