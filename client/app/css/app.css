@@ -7,7 +7,6 @@ body {
     border: 1px solid #777;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    padding: 5px;
     display: block;
 }
 
@@ -43,9 +42,11 @@ body {
 }
 
 .counter {
-    color: #fff;
-    background-color: #babee0;
+    color: #111;
+    background-color: white;
     margin: auto;
+    padding: 5px;
+    border-radius: 20px;
 }
 
 .navbar-nav > li > button {

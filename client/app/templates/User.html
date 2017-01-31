@@ -1,7 +1,7 @@
 <div class="jumbotron">
-  <h1>Hello, {{username}}!</h1>
-  <p>   This is your personal profile in the web task manager platform.<br>
-  Here you can create tasks, assign your employees to these tasks, see your to-do list and much more!</p>
+    <h1>Hello, {{username}}!</h1>
+    <p> This is your personal profile in the web task manager platform.<br> Here you can create tasks, assign your employees
+        to these tasks, see your to-do list and much more!</p>
 </div>
 <div class="content-header-top">
     <span>Your community</span>
@@ -9,18 +9,18 @@
 <div class="community-container">
     <div class="container-small container-small-left">
         <div class="content-header-bottom"><span>Your Managers</span></div>
-        <ul>
-            <li ng-repeat="manager in managers">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="manager in managers">
                 <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
             </li>
         </ul>
     </div>
     <div class="container-small container-small-right">
         <div class="content-header-bottom">
-<span>Your Employees</span>
+            <span>Your Employees</span>
         </div>
-        <ul>
-            <li ng-repeat="employee in employees">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="employee in employees">
                 <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
             </li>
         </ul>
@@ -30,13 +30,13 @@
     <span>Requests</span>
 </div>
 <div class="community-container">
-    
+
     <div class="container-small container-small-left">
         <div class="content-header-top">
             <span>People who want you to be their employee</span>
         </div>
-        <ul>
-            <li ng-repeat="employeeReq in employeesReq">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
                 <span>{{employeeReq.User_Sent}}</span>
                 <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent)">
             </li>
@@ -46,59 +46,64 @@
     <div class="container-small container-small-right">
         <div class="content-header-top"><span>People who want you to be their manager</span>
         </div>
-        <ul>
-            <li ng-repeat="managerReq in managersReq">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="managerReq in managersReq">
                 <span>{{managerReq.User_Sent}}</span>
                 <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent)">
             </li>
         </ul>
     </div>
 </div>
-<div class="container">
-    <div>Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></div>
-    <div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="task in tasksTodo" ng-click="showTask(task.TaskId)">
-                    <td>{{task.Title}}</td>
-                    <td>{{task.Description}}</td>
-                    <td>{{task.Deadline}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<div class="container">
-    <div>
-        Your created tasks<span class="counter">{{tasksCreated.length}}</span>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">Your tasks to-do<span class="counter">{{tasksTodo.length}}</span></div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasksTodo" ng-click="showTask(task.TaskId)">
+                        <td>
+                            <div ng-click="showTask(task.TaskId)">{{task.Title}}</div>
+                        </td>
+                        <td>{{task.Description}}</td>
+                        <td>{{task.Deadline}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div>
-        <a class="btn btn-primary" href="#/newTask">New Task</a>
-    </div>
-    <div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="task in tasksCreated">
-                    <td>{{task.Title}}</td>
-                    <td>{{task.Description}}</td>
-                    <td>{{task.Deadline}}</td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Your created tasks<span class="counter">{{tasksCreated.length}}</span>
+        </div>
+        <div class="panel-body">
+            <a class="btn btn-primary" href="#/newTask">New Task</a>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-click="alert('working')" ng-repeat="task in tasksCreated">
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Deadline}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
