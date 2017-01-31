@@ -34,6 +34,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
         extended: true
     }));
     app.use(bodyParser.json());
+    app.use(require('./sql-validation'));
     app.use(require('cookie-parser')());
     app.use(require('express-session')({
         secret: 'taina maina',
