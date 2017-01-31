@@ -1,25 +1,27 @@
-<h2>Crate a new task and assign it to your employees</h2>
+<div class="jumbotron">
+<h1>Crate a new task and assign it to your employees</h1>
 <p>That way they will see it in their "to-do" list.<br> Also they can update you on their progress on that task leave comments
     or re-assign it on their own employees.</p>
+</div>
 <form id="form-new-task">
     <div class="form-group">
-        <label for="inp-title">Title</label>
+        <label for="inp-title" class="content-header-top">Title</label>
         <input type="text" class="form-control" id="inp-title" placeholder="Title of the new task">
-    </div>
+    </div>  
     <div class="form-group">
-        <label for="inp-description">Description</label>
+        <label for="inp-description" class="content-header-top">Description</label>
         <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
     </div>
     <div class="form-group">
-        <label for="inp-deadline">Deadline</label>
+        <label for="inp-deadline" class="content-header-top">Deadline</label>
         <input type="datetime-local" id="inp-deadline" name="deadline">
     </div>
     <div class="form-group">
-        <label for="inp-progress">Progress in % (Default: 0)</label>
+        <label for="inp-progress" class="content-header-top">Progress in % (Default: 0)</label>
         <input type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
     </div>
     <div class="form-group">
-        <label for="inp-priority">Task Priority</label>
+        <label for="inp-priority" class="content-header-top">Task Priority</label>
         <select class="form-control" id="inp-priority">
       <option value="0">Low</option>
       <option value="1">Medium</option>
@@ -27,7 +29,7 @@
     </select>
     </div>
     <fieldset class="form-group">
-        <legend>Repeatability of the new task.</legend>
+        <legend class="content-header-top">Repeatability of the new task.</legend>
         <div class="form-check">
             <label class="form-check-label">
         <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="0" checked>
@@ -60,7 +62,7 @@
         </div>
     </fieldset>
     <div class="form-group">
-        <label for="#">Assign employees</label>
+        <label for="#" class="content-header-top">Assign employees</label>
             <input list="suggestions" name="search" id="inp-search" placeholder="Search for employee...">
             <datalist id="suggestions">
                 

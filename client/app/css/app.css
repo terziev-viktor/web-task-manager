@@ -1,9 +1,11 @@
 body {
     min-width: 410px;
 }
+
 a {
     color: green;
 }
+
 .container {
     width: 400px;
     border: 1px solid #777;
@@ -28,6 +30,12 @@ a {
     background: -webkit-linear-gradient(white,#E0E0E0);
     background: -o-linear-gradient(white,#E0E0E0);
     background: linear-gradient(white,#E0E0E0);
+}
+
+#form-new-task {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
 }
 
 #home-forms-container {
