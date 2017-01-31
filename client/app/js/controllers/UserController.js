@@ -15,9 +15,25 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 notification.warning('Forbiddent symbols (\' -- ) used.');
             }
         }
+        $('#task-view').hide();
         $('#li-profile').show(300);
         $('#li-logout').show(300);
+        $scope.hide_task_view = (el) => {
+            $('#task-view').hide(300);
+        }
 
+        $scope.showContentPanel = (el) => {
+            let task = el.task;
+            let view_tag_content = $('#task-view-content');
+            view_tag_content.html('<ul>');
+            view_tag_content.append('<li>Title:' + task.Title + '</li>');
+            view_tag_content.append('<li>Description:' + task.Description + '</li>');
+            view_tag_content.append('<li>Deadline:' + task.Deadline + '</li>');
+            view_tag_content.append('<li>Priority:' + task.Priority + '</li>');
+            view_tag_content.append('<li>Priority:' + task.Repeatability + '</li>');
+            view_tag_content.append('</ul>');
+             $('#task-view').show(300);
+        }
         function getCurrentUserInfo() {
             $.ajax({
                 method: 'GET',

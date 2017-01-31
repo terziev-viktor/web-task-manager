@@ -72,23 +72,30 @@
                 <tbody>
                     <tr ng-repeat="task in tasksTodo">
                         <td>
-                            {{task.Title}}
+                            <button ng-click="showContentPanel(this)">
+                                {{task.Title}}
+                            </button>
                         </td>
                         <td>{{task.Description}}</td>
                         <td>{{task.Deadline}}</td>
-                        <td><div class="progress">
-  <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
-  aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
-    {{task.Progress}}% Complete
-  </div>
-</div></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
+                                    {{task.Progress}}% Complete
+                                </div>
+                            </div>
+                        </td>
                         <td><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
+    <div id="task-view">
+        <input ng-click="hide_task_view()" type="button" value="X">
+        <div id="task-view-content"></div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             Your created tasks<span class="counter">{{tasksCreated.length}}</span>
@@ -113,11 +120,12 @@
                         <td><a href="#/task/{{task.TaskId}}">{{task.Deadline}}</a></td>
                         <td>
                             <div class="progress">
-  <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
-  aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
-    {{task.Progress}}% Complete
-  </div>
-</div></td>
+                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
+                                    {{task.Progress}}% Complete
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
