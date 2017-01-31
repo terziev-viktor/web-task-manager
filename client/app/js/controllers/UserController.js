@@ -10,6 +10,9 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 notification.info('Signup or login in to your profile first :-)');
                 $location.path('/');
                 $scope.$apply();
+            },
+            403: (xhr) => {
+                notification.warning('Forbiddent symbols (\' -- ) used.');
             }
         }
         $('#li-profile').show(300);

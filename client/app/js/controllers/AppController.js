@@ -11,8 +11,6 @@ app.controller('AppController', ['$scope', '$location', 'notification',
 
         $scope.searchCollegues = () => {
             let search = $('#inp-search-colleagues').val();
-            console.log('search');
-            console.log(search);
             if (search.length > 0) {
                 $.ajax({
                     method: 'GET',
@@ -28,7 +26,7 @@ app.controller('AppController', ['$scope', '$location', 'notification',
                         let inner_html = '<ul>';
                         if (data.length > 0) {
                             data.forEach((element) => {
-                                inner_html += '<li><a href="#/user/' + element.Username +'">' + element.Username + '</a></li>';
+                                inner_html += '<li><a href="#/user/' + element.Username + '">' + element.Username + '</a></li>';
                             });
                         } else {
                             inner_html += '<span>No search results for "' + search + '"</span>';
@@ -37,6 +35,11 @@ app.controller('AppController', ['$scope', '$location', 'notification',
                         inner_html += '</ul>';
                         $('#search-found-content').html(inner_html);
                         $('#search-found').show(500);
+                    },
+                    statusCode: {
+                        403: (xhr) => {
+                            notification.warning('Forbiddent symbols (\' -- ) used.');
+                        }
                     }
                 });
             }
