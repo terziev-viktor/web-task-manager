@@ -18,11 +18,6 @@ app.controller('UserController', ['$scope', '$location', 'notification',
         $('#li-profile').show(300);
         $('#li-logout').show(300);
 
-        $scope.showTask = (TaskId) => {
-            alert('some shit');
-            console.log('clicked');
-        }
-
         function getCurrentUserInfo() {
             $.ajax({
                 method: 'GET',

@@ -1,7 +1,9 @@
 body {
     min-width: 410px;
 }
-
+a {
+    color: green;
+}
 .container {
     width: 400px;
     border: 1px solid #777;
@@ -136,4 +138,9 @@ body {
 
 .jumbotron p {
     font-size: 1.2em;
+}
+
+.panel-heading {
+    font-size: 1.5em;
+    font-weight: 200;
 }
