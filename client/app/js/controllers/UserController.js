@@ -15,6 +15,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 notification.warning('Forbiddent symbols (\' -- ) used.');
             }
         }
+
         $('#task-view').hide();
         $('#li-profile').show(300);
         $('#li-logout').show(300);
@@ -24,15 +25,19 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
         $scope.showContentPanel = (el) => {
             let task = el.task;
-            let view_tag_content = $('#task-view-content');
-            view_tag_content.html('<ul>');
-            view_tag_content.append('<li>Title:' + task.Title + '</li>');
-            view_tag_content.append('<li>Description:' + task.Description + '</li>');
-            view_tag_content.append('<li>Deadline:' + task.Deadline + '</li>');
-            view_tag_content.append('<li>Priority:' + task.Priority + '</li>');
-            view_tag_content.append('<li>Priority:' + task.Repeatability + '</li>');
-            view_tag_content.append('</ul>');
-             $('#task-view').show(300);
+
+            let tmpl = $.get('../templates/task.html', (tmpl) => {
+                var rendered = Mustache.render(tmpl, task);
+                let view_tag_content = $('#task-view-content').html(rendered);
+                $('#task-view').show(300);
+            });
+            // view_tag_content.html('<ul>');
+            // view_tag_content.append('<li>Title:' + task.Title + '</li>');
+            // view_tag_content.append('<li>Description:' + task.Description + '</li>');
+            // view_tag_content.append('<li>Deadline:' + task.Deadline + '</li>');
+            // view_tag_content.append('<li>Priority:' + task.Priority + '</li>');
+            // view_tag_content.append('<li>Priority:' + task.Repeatability + '</li>');
+            // view_tag_content.append('</ul>');
         }
         function getCurrentUserInfo() {
             $.ajax({
@@ -167,7 +172,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
             // TODO: implement function: show full info ot task with given id
         }
 
-         $.ajax({
+        $.ajax({
             method: 'GET',
             url: '/user',
             success: (data) => {

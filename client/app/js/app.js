@@ -1,7 +1,8 @@
 const app = angular.module('app', ['ngRoute']);
 
-app.config(function ($routeProvider) {
-
+app.config(function ($routeProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
+    
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'

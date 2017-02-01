@@ -10,11 +10,11 @@ const Database = require("./database.js");
 
 const db = new Database(dbConfig);
 
-app.use('/libs', express.static(__dirname + '/client' + '/app' + '/lib'));
-app.use('/scripts', express.static(__dirname + '/client' + '/app' + '/js'));
-app.use('/styles', express.static(__dirname + '/client' + '/app' + '/css'));
-app.use('/templates', express.static(__dirname + '/client' + '/app' + '/templates'));
-app.use('/fonts', express.static(__dirname + '/client' + '/app' + '/fonts'));
+app.use('/scripts', express.static(__dirname + '/client/app/js'));
+app.use('/styles', express.static(__dirname + '/client/app/css'));
+app.use('/templates', express.static(__dirname + '/client/app/templates'));
+app.use('/fonts', express.static(__dirname + '/client/app/fonts'));
+app.use('/components', express.static(__dirname + '/client/bower_components'));
 
 //app.use(require('./sql-validation'));
 
