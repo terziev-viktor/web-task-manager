@@ -1,6 +1,11 @@
 
 app.controller('UserController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
+        let taskPriorities = [
+            'Low',
+            'Medium',
+            'High'
+        ]
         let statusHandler = {
             500: (xhr) => {
                 $location.path('/err').replace();
@@ -25,20 +30,34 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
         $scope.showContentPanel = (el) => {
             let task = el.task;
-
+            task.PriorityStr = taskPriorities[task.Priority];
             let tmpl = $.get('../templates/task.html', (tmpl) => {
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);
             });
-            // view_tag_content.html('<ul>');
-            // view_tag_content.append('<li>Title:' + task.Title + '</li>');
-            // view_tag_content.append('<li>Description:' + task.Description + '</li>');
-            // view_tag_content.append('<li>Deadline:' + task.Deadline + '</li>');
-            // view_tag_content.append('<li>Priority:' + task.Priority + '</li>');
-            // view_tag_content.append('<li>Priority:' + task.Repeatability + '</li>');
-            // view_tag_content.append('</ul>');
         }
+
+        $scope.updateTask = (taskId) => {
+            let task = {};
+            task.Title = $('#inp-title').val();
+            task.Description = $('#inp-description').val();
+            task.Progress = $('#inp-progress').val();
+            task.Deadlile = $('#inp-deadline').val();
+            task.Priority = $('#inp-priority').val();
+            console.log('task to update:');
+            console.log(task);
+            // TODO: Implement app.update in index.js
+            $.ajax({
+                method: 'UPDATE',
+                url: '/task/' + taskId,
+                data: task,
+                success: (res) => {
+                    console.log(res);
+                }
+            });
+        }
+
         function getCurrentUserInfo() {
             $.ajax({
                 method: 'GET',
