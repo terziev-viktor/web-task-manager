@@ -1,7 +1,10 @@
 <div class="jumbotron">
-  <h1>You are a guest at {{username}}'s profile</h1>
-  <p>   This is {{username}}'s' personal profile in the web task manager platform.<br>
-  Here you can see his community, created tasks and to-do list</p>
+    <h1>You are a guest at {{username}}'s profile</h1>
+    <p> This is {{username}}'s' personal profile in the web task manager platform.<br> Here you can see his community, created
+        tasks and to-do list</p>
+</div>
+<div class="circle" ng-click="inviteColleague(username)">
+    Invite
 </div>
 <div>
     <span>{{username}}'s' community</span>
@@ -25,9 +28,12 @@
     </div>
 </div>
 
-<div class="container">
-    <div>{{username}}'s to-do list<span class="counter">{{tasksTodo.length}}</span></div>
-    <div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>{{username}}'s to-do list</h2>
+        <div class="circle" class="counter">{{tasksTodo.length}}</div>
+    </div>
+    <div class="panel-body">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -47,11 +53,12 @@
     </div>
 </div>
 
-<div class="container">
-    <div>
-        {{username}}'s created tasks<span class="counter">{{tasksCreated.length}}</span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>{{username}}'s created tasks</h2>
+        <div class="circle">{{tasksCreated.length}}</div>
     </div>
-    <div>
+    <div class="panel-body">
         <table class="table table-hover">
             <thead>
                 <tr>

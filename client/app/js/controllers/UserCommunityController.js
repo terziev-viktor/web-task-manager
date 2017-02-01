@@ -15,6 +15,28 @@ app.controller('UserCommunityController', ['$scope', '$location', '$routeParams'
             }
         }
 
+        $scope.inviteColleague = (username) => {
+            // TODO Implement;
+            $.ajax({
+                method: 'POST',
+                url: '/user/req/colleague',
+                data: {
+                    Username: username
+                },
+                statusCode: {
+                    200: () => {
+                        notification.success('Request sent to ' + username);
+                    },
+                    500: () => {
+                        notification.error('Server Error');
+                    },
+                    400: () => {
+                        console.log('bad post req to /user/req/colleague');
+                    }
+                }
+            })
+        }
+        
         function getUserCommunityInfo() {
             $.ajax({
                 method: 'GET',
@@ -70,13 +92,11 @@ app.controller('UserCommunityController', ['$scope', '$location', '$routeParams'
             $scope.showTaskInfo = (id) => {
                 console.log('showtaskinfo');
                 console.log(id);
-                
-            }
 
-            $scope.$apply();
+            }
         }
 
-         $.ajax({
+        $.ajax({
             method: 'GET',
             url: '/user',
             success: (data) => {

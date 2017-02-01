@@ -5,7 +5,26 @@ body {
 a {
     color: green;
 }
-
+.circle {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #777;
+    background: -webkit-linear-gradient(#E0E0E0,white);
+    background: -o-linear-gradient(#E0E0E0,white);
+    background: linear-gradient(#E0E0E0,white);
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select:none; 
+    user-select:none;
+    -o-user-select:none;
+}
 .container {
     width: 400px;
     border: 1px solid #777;

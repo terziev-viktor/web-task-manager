@@ -126,5 +126,13 @@ module.exports = class Database {
     insertEmployeeRequest(user_sent, user_recieved, cb) {
         this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
+
+    updateTask(id, task, cb) {
+        this.request("EXEC UpdateTaks '" + id
+        + "', '" + task.Title + "', '" + task.Description
+        + "', '" + task.Deadline + "', '" + task.IsDone
+        + "', '" + task.Priority + "', '" + task.Progress
+        + "', '" + task.Repeatability);
+    }
 }
 

@@ -35,28 +35,31 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);
+                $scope.updateTask = (taskId) => {
+                    console.log('4ep');
+                    let task = {};
+                    // task.Title = $('#inp-title').val();
+                    // task.Description = $('#inp-description').val();
+                    // task.Progress = $('#inp-progress').val();
+                    // task.Deadlile = $('#inp-deadline').val();
+                    // task.Priority = $('#inp-priority').val();
+                    // console.log('task to update:');
+                    // console.log(task);
+
+                    // $.ajax({
+                    //     method: 'POST',
+                    //     url: '/task/' + taskId,
+                    //     data: task,
+                    //     success: (res) => {
+                    //         console.log(res);
+                    //     }
+                    // });
+                }
+                $scope.$apply();
             });
         }
 
-        $scope.updateTask = (taskId) => {
-            let task = {};
-            task.Title = $('#inp-title').val();
-            task.Description = $('#inp-description').val();
-            task.Progress = $('#inp-progress').val();
-            task.Deadlile = $('#inp-deadline').val();
-            task.Priority = $('#inp-priority').val();
-            console.log('task to update:');
-            console.log(task);
-            // TODO: Implement app.update in index.js
-            $.ajax({
-                method: 'UPDATE',
-                url: '/task/' + taskId,
-                data: task,
-                success: (res) => {
-                    console.log(res);
-                }
-            });
-        }
+
 
         function getCurrentUserInfo() {
             $.ajax({

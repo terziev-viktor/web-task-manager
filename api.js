@@ -212,7 +212,7 @@ module.exports = (app, db) => {
         db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.sendStatus(400);
             } else {
                 res.sendStatus(200);
             }
@@ -263,5 +263,36 @@ module.exports = (app, db) => {
         });
     });
 
+    // UPDATE TASK
+    app.post('/task/:taskId', auth, (req, res) => {
+        let data = req.body;
+        let newTask = {};
+        console.log('/task/:taskId');
+        console.log(data);
+        res.sendStatus(200);
 
+
+        db.getTaskById(req.params.taskId, (err, task) => {
+            if(task.Creator_Username !== req.user.Username) {
+                res.sendStatus(403);
+                newTask.Title = data.Title ? data.Title: task.Title;
+                newTask.Description = data.Description ? data.Description: task.Description;
+                newTask.Deadline = data.Deadline ? data.Deadline: task.Deadline;
+                newTask.Progress = data.Progress ? data.Progress: task.Progress;
+                if(newTask.Progress == 100) {
+                    newTask.IsDone = 1;
+                }
+                newTask.Priority = data.Priority ? data.Priority: task.Priority;
+                newTask.Repeatability = data.Repeatability ? data.Repeatability: task.Repeatability;
+            } else {
+                db.updateTaks(taskId, newTask, (err, recordset) => {
+                    if(err) {
+                        res.sendStatus(400);
+                    } else {
+                        res.sendStatus(200);
+                    }
+                });
+            }
+        });
+    });
 }
