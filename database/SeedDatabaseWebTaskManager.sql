@@ -1,38 +1,38 @@
 USE WebTaskManagerDb
 GO
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Boiko', '121246323456')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Boiko', '121246323456')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Gosho', '213562')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Gosho', '213562')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Marko', '75345')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Marko', '75345')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Minka', '6436')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Minka', '6436')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('MITKO', 'P@55W0RD345')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('MITKO', 'P@55W0RD345')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Pesho', '123456')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Pesho', '123456')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Sashko', '87523')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Sashko', '87523')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Stamat', '768563254')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Stamat', '768563254')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Stanimir', '532432')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Stanimir', '532432')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Stefan', '1235326')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Stefan', '1235326')
 
-INSERT [dbo].[Users]([Username], [Password])
-VALUES ('Yordan', '124732')
+-- INSERT [dbo].[Users]([Username], [Password])
+-- VALUES ('Yordan', '124732')
 
 INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
 VALUES ('Gosho', 'Minka')

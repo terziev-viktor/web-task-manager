@@ -1,5 +1,6 @@
 module.exports = (app, db, passport = require('passport'), Strategy = require('passport-local')) => {
-    const bodyParser = require('body-parser')
+    const bodyParser = require('body-parser'),
+        bcrypt = require('bcrypt');
 
     passport.use(new Strategy(
         (username, password, cb) => {
@@ -10,10 +11,18 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                 if (!user) {
                     return cb(null, false);
                 }
-                if (user.Password != password) {
+                bcrypt.compare(password, user.Password, (err, res) => {
+                    if (err) {
+                        return cb(err);
+                    }
+                    if (!res) {
+                        return cb(null, false);
+                    }
+                    return cb(null, user);
+                });
+                /*if (user.Password != password) {
                     return cb(null, false);
-                }
-                return cb(null, user);
+                }*/
             });
         }));
 

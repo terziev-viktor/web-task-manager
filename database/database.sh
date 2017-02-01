@@ -17,4 +17,5 @@ do
     sqlcmd -S $1 -i $f -U $2 -P $3
 done
 echo "Seeding Database WebTaskManagerDb..."
+node `pwd`/SeedUsers.js
 sqlcmd -S $1 -i `pwd`/SeedDatabaseWebTaskManager.sql -U $2 -P $3

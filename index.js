@@ -6,7 +6,7 @@ const express = require('express'),
 
 const dbConfig = JSON.parse(fs.readFileSync('database_config.json', 'utf8'));
 
-const Database = require("./database.js");
+const Database = require('./database.js');
 
 const db = new Database(dbConfig);
 
@@ -15,8 +15,6 @@ app.use('/styles', express.static(__dirname + '/client/app/css'));
 app.use('/templates', express.static(__dirname + '/client/app/templates'));
 app.use('/fonts', express.static(__dirname + '/client/app/fonts'));
 app.use('/components', express.static(__dirname + '/client/bower_components'));
-
-//app.use(require('./sql-validation'));
 
 require('./auth')(app, db)
 require('./api')(app, db)

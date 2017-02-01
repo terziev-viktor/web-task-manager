@@ -1,8 +1,10 @@
-const sql = require('mssql');
+const sql = require('mssql'),
+    bcrypt = require('bcrypt');
 
 module.exports = class Database {
-    constructor(config) {
+    constructor(config, saltRounds = 10) {
         this.config = config;
+        this.saltRounds = saltRounds;
     }
 
     request(query, cb) {
@@ -25,7 +27,13 @@ module.exports = class Database {
 
     insertUser(user, cb) {
         let {username, password} = user;
-        this.request("EXEC InsertUser @Username=N'" + username + "', @Password=N'" + password + "'", cb);
+        bcrypt.hash(password, this.saltRounds, (err, hashedPassword) => {
+            if (err) {
+                cb(err);
+            } else {
+                this.request("EXEC InsertUser @Username=N'" + username + "', @Password=N'" + hashedPassword + "'", cb);
+            }
+        });
     }
 
     insertColleagues(user1, user2, cb) {
