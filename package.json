@@ -4,7 +4,7 @@
   "description": "A web application designed to manage an institution's tasks for all of it's employees and/or managers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node index.js"
   },
   "repository": {
@@ -39,5 +39,8 @@
     "passport-local": "^1.0.0",
     "recaptcha": "^1.2.1",
     "sql-injection": "0.0.5"
+  },
+  "devDependencies": {
+    "supertest": "^3.0.0"
   }
 }

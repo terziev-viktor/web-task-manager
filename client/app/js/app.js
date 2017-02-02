@@ -10,7 +10,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // current user's profle
     $routeProvider.when('/user', {
-        templateUrl: 'templates/user.html',
+        templateUrl: 'templates/User.html',
         controller: 'UserController'
     });
 

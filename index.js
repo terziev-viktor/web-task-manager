@@ -20,6 +20,6 @@ require('./auth')(app, db);
 require('./api')(app, db);
 
 const port = 27017;
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
     console.log('Listeting at port ' + port);
 });

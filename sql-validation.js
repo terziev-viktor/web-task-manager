@@ -1,5 +1,3 @@
-// TODO: 
-
 const containsSqlInjection = (str) => {
         const sql_meta = new RegExp('(%27)|(\')|(--)|(%23)|(#)', 'i');
         const sql_meta2 = new RegExp('((%3D)|(=))[^\n]*((%27)|(\')|(--)|(%3B)|(;))', 'i');
@@ -17,7 +15,6 @@ module.exports = (req, res, next) => {
 
     // check for sql injection in the body
     if (!req.body) {
-        // TODO: throw err?
         console.warn('sql-validation: body is not parsed');
     } else {
         const strBody = JSON.stringify(req.body);
