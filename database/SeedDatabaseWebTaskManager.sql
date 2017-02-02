@@ -34,28 +34,28 @@ GO
 -- INSERT [dbo].[Users]([Username], [Password])
 -- VALUES ('Yordan', '124732')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Gosho', 'Minka')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Minka', 'MITKO')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Minka', 'Stamat')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Pesho', 'Minka')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Pesho', 'MITKO')
 
-INSERT [dbo].[UserEmployeeRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Pesho', 'Stamat')
 
-INSERT [dbo].[UserManagerRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Minka', 'Pesho')
 
-INSERT [dbo].[UserManagerRequests]([User_Sent], [User_Recieved])
+INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('MITKO', 'Minka')
 
 INSERT [dbo].[Tasks] ([Title], [Description], [Deadline], [IsDone], [Priority], [Progress], [Repeatability], [Creator_Username])
