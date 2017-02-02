@@ -34,6 +34,8 @@ a {
 }
 
 .content-header-top {
+    padding-left: 10px;
+    padding-right: 10px;
     text-align: center;
     width: 100%;
     background: #777;
