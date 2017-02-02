@@ -13,11 +13,27 @@ CREATE PROCEDURE InsertColleagues
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO Colleagues (User1, User2)
-	VALUES (@User1, @User2);
+	DECLARE @msg NVARCHAR(2048) = FORMATMESSAGE(60000, 500, N'First string', N'second string'); 
 
-	DELETE UserColleagueRequests
-	WHERE (User_Sent = @User1 AND User_Recieved = @User2)
-	OR (User_Sent = @User2 AND User_Recieved = @User1)
+	if NOT EXISTS 
+		(SELECT * FROM Colleagues WHERE (USER1 = @User1 AND USER2 = @User2) OR (USER1 = @User2 AND USER2 = @User1))
+	BEGIN 
+		INSERT INTO Colleagues (User1, User2)
+		VALUES (@User1, @User2);
+
+		DELETE UserColleagueRequests
+		WHERE (User_Sent = @User1 AND User_Recieved = @User2)
+		OR (User_Sent = @User2 AND User_Recieved = @User1)
+	END
+	ELSE 
+	BEGIN
+		DECLARE @DBID INT;
+		SET @DBID = DB_ID();
+
+		DECLARE @DBNAME NVARCHAR(128);
+		SET @DBNAME = DB_NAME();
+
+		RAISERROR (N'Database ID:%d, Database name is: %s, ERROR: Already Colleagues', 10, 1, @DBID, @DBNAME);
+	END
 END
 GO

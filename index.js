@@ -4,7 +4,7 @@ const express = require('express'),
     sql = require('mssql'),
     fs = require('fs');
 
-const dbConfig = JSON.parse(fs.readFileSync('database_config.json', 'utf8'));
+const dbConfig = JSON.parse(fs.readFileSync('./database_config.json', 'utf8'));
 
 const Database = require('./database.js');
 
@@ -16,8 +16,8 @@ app.use('/templates', express.static(__dirname + '/client/app/templates'));
 app.use('/fonts', express.static(__dirname + '/client/app/fonts'));
 app.use('/components', express.static(__dirname + '/client/bower_components'));
 
-require('./auth')(app, db)
-require('./api')(app, db)
+require('./auth')(app, db);
+require('./api')(app, db);
 
 const port = 27017;
 app.listen(port, () => {
