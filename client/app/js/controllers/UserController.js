@@ -62,6 +62,16 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
 
         function getCurrentUserInfo() {
+
+            $.ajax({
+                method: 'GET',
+                url: '/user/colleagues',
+                success: (data) => {
+                    $scope.colleagues = data;
+                },
+                statusCode: statusHandler
+            });
+
             $.ajax({
                 method: 'GET',
                 url: '/tasks/todo',

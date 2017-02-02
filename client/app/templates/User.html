@@ -8,6 +8,14 @@
 </div>
 <div class="community-container">
     <div class="container-small container-small-left">
+        <div class="content-header-bottom"><span>Your Colleagues</span></div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="colleague in colleagues">
+                <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container-small container-small-left">
         <div class="content-header-bottom"><span>Your Managers</span></div>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="manager in managers">
