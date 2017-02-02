@@ -219,7 +219,7 @@ module.exports = (app, db) => {
     })
 
     app.get('/user/colleagues', auth, (req, res) => {
-        db.getUserColleagues(username, (err, recordset) => {
+        db.getUserColleagues(req.user.Username, (err, recordset) => {
             if(err) {
                 res.status(500).json({msg: 'DB error while executing function GetUserColleagues'});
             } else {
