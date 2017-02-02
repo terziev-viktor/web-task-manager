@@ -208,6 +208,26 @@ module.exports = (app, db) => {
 
     });
 
+    app.post('/user/colleagues', auth, (req, res) => {
+        db.insertColleagues(req.user.Username, req.body.username, (err, recordser) => {
+            if(err) {
+                res.status(400).json({msg: 'Already Colleagues'});
+            } else {
+                res.sendStatus(200);
+            }
+        })
+    })
+
+    app.get('/user/colleagues', auth, (req, res) => {
+        db.getUserColleagues(username, (err, recordset) => {
+            if(err) {
+                res.status(500).json({msg: 'DB error while executing function GetUserColleagues'});
+            } else {
+                res.status(200).json(recordset);
+            }
+        })
+    })
+
     app.post('/user/req/colleague', auth, (req, res) => {
         db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {

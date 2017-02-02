@@ -63,6 +63,10 @@ module.exports = class Database {
         this.request("EXEC InsertComment @Date='" + date + "', @Content = N'" + content + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
     }
 
+    getUserColleagues(username, cb) {
+        this.request("SELECT * FROM GetUserColleagues(N'" + username + "');", cb);
+    }
+
     getTaskComments(taskId, cb) {
         this.request("SELECT * FROM GetTaskComments('" + taskId + "')", cb);
     }
