@@ -154,7 +154,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
             $scope.acceptReqColleague = (username) => {
                 $.ajax({
                     method: 'POST',
-                    url: '/user/colleague',
+                    url: '/user/colleagues',
                     data: {
                         Username: username
                     },
