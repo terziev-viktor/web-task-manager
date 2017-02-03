@@ -226,7 +226,17 @@ module.exports = (app, db) => {
                 res.status(200).json(recordset);
             }
         })
-    })
+    });
+
+    app.get('/user/req/colleague', auth, (req, res) => {
+        db.getUserColleagueRequests(req.user.Username, (err, recordset) => {
+            if(err) {
+                res.sendStatus(500);
+            } else {
+                res.status(200).json(recordset);
+            }
+        });
+    });
 
     app.post('/user/req/colleague', auth, (req, res) => {
         db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {

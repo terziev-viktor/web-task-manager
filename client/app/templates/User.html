@@ -41,6 +41,17 @@
 
     <div class="container-small container-small-left">
         <div class="content-header-top">
+            <span>People who claim to be your colleagues</span>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
+                <span>{{colleagueReq.User_Sent}}</span>
+                <input type="button" class="btn" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent)">
+            </li>
+        </ul>
+    </div>
+    <div class="container-small container-small-left">
+        <div class="content-header-top">
             <span>People who want you to be their employee</span>
         </div>
         <ul class="list-group">
@@ -89,14 +100,14 @@
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
                                     aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
-</div>
-</div>
-</td>
-<td><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></td>
-</tr>
-</tbody>
-</table>
-</div>
+                            </div>
+        </div>
+        </td>
+        <td><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
 </div>
 <div id="task-view">
     <input ng-click="hide_task_view()" type="button" value="X">
@@ -128,12 +139,12 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
                                 aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
-</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
+                        </div>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
 </div>
 </div>
 </div>

@@ -65,6 +65,14 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
             $.ajax({
                 method: 'GET',
+                url: '/user/req/colleague',
+                success: (data) => {
+                    $scope.colleagueReqs = data;
+                }
+            });
+
+            $.ajax({
+                method: 'GET',
                 url: '/user/colleagues',
                 success: (data) => {
                     $scope.colleagues = data;
@@ -143,6 +151,21 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 statusCode: statusHandler
             });
 
+            $scope.acceptReqColleague = (username) => {
+                $.ajax({
+                    method: 'POST',
+                    url: '/user/colleague',
+                    data: {
+                        Username: username
+                    },
+                    success: (data) => {
+                        notification.success('User ' + username + ' added to colleagues.');
+                        console.log('success');
+                    },
+                    statusCode: statusHandler
+                });
+            };
+
             $scope.acceptReqEmployee = (username) => {
                 $.ajax({
                     method: 'POST',
@@ -151,8 +174,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                         Username: username
                     },
                     success: (data) => {
-                        // notify or something
-                        console.log('success');
+                        notification.success('User ' + username + ' added to employees.');
                     },
                     statusCode: statusHandler
                 });
@@ -166,8 +188,8 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                         Username: username
                     },
                     success: (data) => {
-                        // notify or something
-                        console.log('success');
+                        notification.success('User ' + username + ' added to managers.');
+
                     },
                     statusCode: statusHandler
                 });

@@ -67,6 +67,10 @@ module.exports = class Database {
         this.request("SELECT * FROM GetUserColleagues(N'" + username + "');", cb);
     }
 
+    getUserColleagueRequests(username, cb) {
+        this.request("SELECT * FROM GetUserColleagueRequests('" + username + "')", cb);
+    }
+
     getTaskComments(taskId, cb) {
         this.request("SELECT * FROM GetTaskComments('" + taskId + "')", cb);
     }
