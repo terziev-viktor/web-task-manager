@@ -4,25 +4,27 @@
     <form>
         <div class="form-group">
             <label for="inp-title" class="content-header-top">Edit Title</label>
-            <input type="text" class="form-control" id="inp-title" placeholder="{{Title}}">
+            <input type="text" class="form-control" id="inp-title" value="{{Title}}">
         </div>
         <div class="form-group">
-            <label for="inp-description" class="content-header-top">EditDescription</label>
-            <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="{{Description}}"></textarea>
+            <label for="inp-description" class="content-header-top">Edit Description</label>
+            <textarea type="text" cols="20" class="form-control" id="inp-description">{{Description}}</textarea>
         </div>
         <div class="form-group">
             <label for="inp-deadline" class="content-header-top">Edit Deadline (Current: {{Deadline}})</label>
-            <input type="datetime-local" id="inp-deadline" name="deadline">
+            <input type="datetime-local" value="{{Deadline}}" id="inp-deadline" name="deadline">
         </div>
         <div class="form-group">
-            <label for="inp-progress" class="content-header-top">Progress {{Progress}}%</label>
+            <label for="inp-progress" class="content-header-top">Progress {{Progress}}
+            <input type="number" min="0" max="100" value="{{Progress}}" id="inp-progress" name="progress" placeholder="{{Progress}}"> 
+            %               
+            </label>
             <div class="progress">
                 <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
                     aria-valuemax="100" style="width: {{Progress}}%; color: black;">
                     {{Progress}}% Complete
                 </div>
             </div>
-            <input type="number" min="0" max="100" value="{{Progress}}" id="inp-progress" name="progress" placeholder="{{Progress}}">
         </div>
         <div class="form-group">
             <label for="inp-priority" class="content-header-top">Task Priority (Current: {{PriorityStr}})</label>
@@ -32,7 +34,6 @@
       <option value="2">High</option>
     </select>
         </div>
-        <input class="btn btn-primary" type="button" value="Save" ng-click="updateTask(TaskId)">
-
+        <input id="btn-update" class="btn btn-primary" type="button" value="Save" ng-click="updateTask(TaskId)">        
 </form>
 </div>

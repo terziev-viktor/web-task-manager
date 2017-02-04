@@ -144,7 +144,7 @@ module.exports = class Database {
     }
 
     updateTask(id, task, cb) {
-        this.request("EXEC UpdateTaks '" + id
+        this.request("EXEC UpdateTask '" + id
         + "', '" + task.Title + "', '" + task.Description
         + "', '" + task.Deadline + "', '" + task.IsDone
         + "', '" + task.Priority + "', '" + task.Progress

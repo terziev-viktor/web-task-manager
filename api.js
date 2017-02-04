@@ -39,7 +39,6 @@ module.exports = (app, db) => {
                 let data = {
                     tasks: recordset
                 };
-                console.log(data);
                 res.json(data);
             }
 
@@ -66,7 +65,7 @@ module.exports = (app, db) => {
         db.getUsersByUsernamePart(req.query.text, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(500);
+                res.status(500).json({msg: 'Could not get users.'});
             } else {
                 res.json(recordset);
             }
@@ -110,7 +109,7 @@ module.exports = (app, db) => {
                 console.log(err);
                 res.sendStatus(401);
             } else {
-                res.sendStatus(200);
+                res.status(200).json({msg: 'User inserted to managers'});
             }
         });
     });
@@ -122,7 +121,7 @@ module.exports = (app, db) => {
                 console.log(err);
                 res.sendStatus(401);
             } else {
-                res.sendStatus(200);
+                res.status(200).json('User ' + req.body.Username + ' added to managers.');
             }
         });
     });
@@ -210,30 +209,30 @@ module.exports = (app, db) => {
 
     app.post('/user/colleagues', auth, (req, res) => {
         db.insertColleagues(req.user.Username, req.body.username, (err, recordser) => {
-            if(err) {
-                res.status(400).json({msg: 'Already Colleagues'});
+            if (err) {
+                res.status(500).json({ msg: 'You are already colleagues '});
             } else {
-                res.sendStatus(200);
+                res.status(200).json({msg: 'User ' + req.body.username + ' added to colleagues'});
             }
-        })
-    })
+        });
+    });
 
     app.get('/user/colleagues', auth, (req, res) => {
         db.getUserColleagues(req.user.Username, (err, recordset) => {
-            if(err) {
-                res.status(500).json({msg: 'DB error while executing function GetUserColleagues'});
+            if (err) {
+                res.status(500).json({ msg: 'DB error while executing function GetUserColleagues' });
             } else {
-                res.status(200).json(recordset);
+                res.json(recordset);
             }
-        })
+        });
     });
 
     app.get('/user/req/colleague', auth, (req, res) => {
         db.getUserColleagueRequests(req.user.Username, (err, recordset) => {
-            if(err) {
-                res.sendStatus(500);
+            if (err) {
+                res.status(500).json({msg: 'Could not get colleague requests.'});
             } else {
-                res.status(200).json(recordset);
+                res.json(recordset);
             }
         });
     });
@@ -241,10 +240,9 @@ module.exports = (app, db) => {
     app.post('/user/req/colleague', auth, (req, res) => {
         db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
-                console.log(err);
-                res.sendStatus(400);
+                res.status(500).json({ msg: 'Could not send colleague request.' });
             } else {
-                res.sendStatus(200);
+                res.status(200).json({msg: 'Request sent to ' + req.body.Username});
             }
         });
     });
@@ -252,10 +250,9 @@ module.exports = (app, db) => {
     app.post('/user/req/employee', auth, (req, res) => {
         db.insertEmployeeRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
-                console.log(err);
-                res.sendStatus(401);
+                res.status(500).json({ msg: 'Could not send employee request.' });
             } else {
-                res.sendStatus(200);
+                res.status(200).json({msg: 'Request sent to ' + req.body.Username});
             }
         })
     });
@@ -264,9 +261,9 @@ module.exports = (app, db) => {
         db.insertManagerRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(500).json({ msg: 'Could not send manager request.' });
             } else {
-                res.sendStatus(200);
+                res.status(200).json({ msg: 'Request sent to ' + req.body.Username});
             }
         })
     });
@@ -275,7 +272,7 @@ module.exports = (app, db) => {
         db.getUserRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(500).json({ msg: 'Could not get employee requests' });
             } else {
                 res.json(recordset);
             }
@@ -286,7 +283,7 @@ module.exports = (app, db) => {
         db.getUserRecievedManagerRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(500).json({ msg: 'Could not get manager requests' });
             } else {
                 res.json(recordset);
             }
@@ -297,29 +294,27 @@ module.exports = (app, db) => {
     app.post('/task/:taskId', auth, (req, res) => {
         let data = req.body;
         let newTask = {};
-        console.log('/task/:taskId');
+        console.log('update task: /task/:taskId');
         console.log(data);
-        res.sendStatus(200);
-
 
         db.getTaskById(req.params.taskId, (err, task) => {
-            if(task.Creator_Username !== req.user.Username) {
-                res.sendStatus(403);
-                newTask.Title = data.Title ? data.Title: task.Title;
-                newTask.Description = data.Description ? data.Description: task.Description;
-                newTask.Deadline = data.Deadline ? data.Deadline: task.Deadline;
-                newTask.Progress = data.Progress ? data.Progress: task.Progress;
-                if(newTask.Progress == 100) {
+            if (task.Creator_Username !== req.user.Username) {
+                res.status(400).json({ msg: 'You can only edit your own tasks.' });
+            } else {
+                newTask.Title = data.Title ? data.Title : task.Title;
+                newTask.Description = data.Description ? data.Description : task.Description;
+                newTask.Deadline = data.Deadline ? data.Deadline : task.Deadline;
+                newTask.Progress = data.Progress ? data.Progress : task.Progress;
+                if (newTask.Progress == 100) {
                     newTask.IsDone = 1;
                 }
-                newTask.Priority = data.Priority ? data.Priority: task.Priority;
-                newTask.Repeatability = data.Repeatability ? data.Repeatability: task.Repeatability;
-            } else {
+                newTask.Priority = data.Priority ? data.Priority : task.Priority;
+                newTask.Repeatability = data.Repeatability ? data.Repeatability : task.Repeatability;
                 db.updateTaks(taskId, newTask, (err, recordset) => {
-                    if(err) {
-                        res.sendStatus(400);
+                    if (err) {
+                        res.status(500).json({ msg: 'Could not update task.' });
                     } else {
-                        res.sendStatus(200);
+                        res.status(200).json({ msg: 'Updated task successfully' });
                     }
                 });
             }

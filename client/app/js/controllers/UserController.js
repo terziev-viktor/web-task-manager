@@ -1,6 +1,6 @@
 
-app.controller('UserController', ['$scope', '$location', 'notification',
-    function ($scope, $location, notification) {
+app.controller('UserController', ['$scope', '$location', '$compile', 'notification',
+    function ($scope, $location, $compile, notification) {
         let taskPriorities = [
             'Low',
             'Medium',
@@ -8,8 +8,7 @@ app.controller('UserController', ['$scope', '$location', 'notification',
         ]
         let statusHandler = {
             500: (xhr) => {
-                $location.path('/err').replace();
-                $scope.$apply();
+                notification.error(xhr.responseJSON.msg);
             },
             401: (xhr) => {
                 notification.info('Signup or login in to your profile first :-)');
@@ -18,6 +17,11 @@ app.controller('UserController', ['$scope', '$location', 'notification',
             },
             403: (xhr) => {
                 notification.warning('Forbiddent symbols (\' -- ) used.');
+            },
+            200: (xhr) => {
+                if (xhr.responseJSON) {
+                    notification.success(xhr.responseJSON.msg);
+                }
             }
         }
 
@@ -35,25 +39,24 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);
+               
                 $scope.updateTask = (taskId) => {
                     console.log('4ep');
                     let task = {};
-                    // task.Title = $('#inp-title').val();
-                    // task.Description = $('#inp-description').val();
-                    // task.Progress = $('#inp-progress').val();
-                    // task.Deadlile = $('#inp-deadline').val();
-                    // task.Priority = $('#inp-priority').val();
-                    // console.log('task to update:');
-                    // console.log(task);
+                    task.Title = $('#inp-title').val();
+                    task.Description = $('#inp-description').val();
+                    task.Progress = $('#inp-progress').val();
+                    task.Deadlile = $('#inp-deadline').val();
+                    task.Priority = $('#inp-priority').val();
+                    console.log('task to update:');
+                    console.log(task);
 
-                    // $.ajax({
-                    //     method: 'POST',
-                    //     url: '/task/' + taskId,
-                    //     data: task,
-                    //     success: (res) => {
-                    //         console.log(res);
-                    //     }
-                    // });
+                    $.ajax({
+                        method: 'POST',
+                        url: '/task/' + taskId,
+                        data: task,
+                        statusCode: statusHandler
+                    });
                 }
                 $scope.$apply();
             });
@@ -160,25 +163,18 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                     data: {
                         Username: username
                     },
-                    success: (data) => {
-                        notification.success('User ' + username + ' added to colleagues.');
-                        console.log('success');
-                    },
                     statusCode: statusHandler
                 });
             };
 
             $scope.acceptReqEmployee = (username, $event) => {
                 $($event.currentTarget).hide(200);
-                
+
                 $.ajax({
                     method: 'POST',
                     url: '/user/employee',
                     data: {
                         Username: username
-                    },
-                    success: (data) => {
-                        notification.success('User ' + username + ' added to employees.');
                     },
                     statusCode: statusHandler
                 });
@@ -186,43 +182,15 @@ app.controller('UserController', ['$scope', '$location', 'notification',
 
             $scope.acceptReqManager = (username, $event) => {
                 $($event.currentTarget).hide(200);
-                
+
                 $.ajax({
                     method: 'POST',
                     url: '/user/manager',
                     data: {
                         Username: username
                     },
-                    success: (data) => {
-                        notification.success('User ' + username + ' added to managers.');
-
-                    },
                     statusCode: statusHandler
                 });
-            }
-
-            $scope.showTaskInfo = (id) => {
-                console.log('showtaskinfo');
-                console.log(id);
-                // $.ajax({
-                //     method:'GET',
-                //     url: '/task/comments',
-                //     headers: {
-                //         'taskId': id
-                //     },
-                //     success: (data) => {
-                //         console.log('data in success');
-                //         console.log(data);
-                //         console.log(id);
-                //         let divId = '#comments' + id;
-                //         let comments = '';
-                //         data.forEach((element) => {
-                //             comments += '<div><p>' + element.Author + ' on ' + element.Date + '</p><br>';
-                //             comments += '<p>' + element.Content + '</p><br></div>';
-                //         });
-                //         $(divId).append(comments);
-                //     }
-                // });
             }
 
             $scope.$apply();
