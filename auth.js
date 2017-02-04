@@ -82,7 +82,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                     });
                 } else {
                     res.status(200).json({
-                        msg: "Success!"
+                        msg: 'Signin successful.'
                     });
                 }
             });

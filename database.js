@@ -68,7 +68,7 @@ module.exports = class Database {
     }
 
     getUserColleagueRequests(username, cb) {
-        this.request("SELECT * FROM GetUserColleagueRequests('" + username + "')", cb);
+        this.request("SELECT * FROM GetUserColleagueRequests(N'" + username + "')", cb);
     }
 
     getTaskComments(taskId, cb) {

@@ -52,7 +52,6 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 password: $('#inp-signin-password').val(),
                 confirm: $('#inp-signin-confirm').val()
             }
-            // console.log(data);
 
             $.ajax({
                 method: 'POST',
@@ -60,7 +59,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 data: data,
                 statusCode: {
                     200: (xhr) => {
-                        notification.success('Signin successful');
+                        notification.success('Signin successful.');
                         $location.path('/user').replace();
                         $scope.$apply();
                     },

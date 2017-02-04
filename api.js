@@ -200,7 +200,7 @@ module.exports = (app, db) => {
                         } else {
                             res.sendStatus(200);
                         }
-                    })
+                    });
                 }
             });
         }
@@ -208,11 +208,13 @@ module.exports = (app, db) => {
     });
 
     app.post('/user/colleagues', auth, (req, res) => {
-        db.insertColleagues(req.user.Username, req.body.username, (err, recordser) => {
+        
+        db.insertColleagues(req.user.Username, req.body.Username, (err, recordser) => {
             if (err) {
-                res.status(500).json({ msg: 'You are already colleagues '});
+                console.log(err);
+                res.status(500).json({msg: 'You are already colleague  with ' + req.body.Username});
             } else {
-                res.status(200).json({msg: 'User ' + req.body.username + ' added to colleagues'});
+                res.status(200).json({msg: 'User ' + req.body.Username + ' added to colleagues'});
             }
         });
     });

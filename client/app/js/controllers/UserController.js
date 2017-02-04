@@ -70,8 +70,11 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
                 method: 'GET',
                 url: '/user/req/colleague',
                 success: (data) => {
+                    console.log('/user/req/colleague');
+                    console.log(data);
                     $scope.colleagueReqs = data;
-                }
+                },
+                statusCode: statusHandler
             });
 
             $.ajax({
