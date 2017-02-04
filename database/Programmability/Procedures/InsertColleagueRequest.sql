@@ -1,3 +1,4 @@
+
 SET ANSI_NULLS ON
 GO
 USE WebTaskManagerDb
@@ -13,8 +14,16 @@ CREATE PROCEDURE InsertColleagueRequest
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO UserColleagueRequests (User_Sent, User_Recieved)
-	VALUES (@User_Sent, @User_Recieved);
+	IF NOT EXISTS 
+	(SELECT * FROM Colleagues WHERE ((User1 = @User_Sent and user2 = @User_Recieved) or (User1 = @User_Recieved and user2 = @User_Sent)))
+	BEGIN
+		INSERT INTO UserColleagueRequests (User_Sent, User_Recieved)
+		VALUES (@User_Sent, @User_Recieved);
+	END
+	ELSE 
+	BEGIN
+		RAISERROR (N'Already Colleagues', 10, 1);
+	END
 
 END
 GO
