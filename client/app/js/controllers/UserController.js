@@ -151,7 +151,9 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 statusCode: statusHandler
             });
 
-            $scope.acceptReqColleague = (username) => {
+            $scope.acceptReqColleague = (username, $event) => {
+                $($event.currentTarget).hide(200);
+
                 $.ajax({
                     method: 'POST',
                     url: '/user/colleagues',
@@ -166,7 +168,9 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 });
             };
 
-            $scope.acceptReqEmployee = (username) => {
+            $scope.acceptReqEmployee = (username, $event) => {
+                $($event.currentTarget).hide(200);
+                
                 $.ajax({
                     method: 'POST',
                     url: '/user/employee',
@@ -180,7 +184,9 @@ app.controller('UserController', ['$scope', '$location', 'notification',
                 });
             }
 
-            $scope.acceptReqManager = (username) => {
+            $scope.acceptReqManager = (username, $event) => {
+                $($event.currentTarget).hide(200);
+                
                 $.ajax({
                     method: 'POST',
                     url: '/user/manager',
