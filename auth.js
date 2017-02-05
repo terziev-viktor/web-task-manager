@@ -55,7 +55,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.use(passport.session());
 
     app.post('/login', passport.authenticate('local'), (req, res) => {
-        res.status(200).json({msg: 'brau'})
+        res.status(200).json({ msg: 'brau' })
     });
 
     app.get('/logout', (req, res) => {
@@ -81,8 +81,8 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                         err: "Username taken."
                     });
                 } else {
-                    res.status(200).json({
-                        msg: 'Signin successful.'
+                    passport.authenticate('local') (req, res, () => {
+                        res.redirect('/user');
                     });
                 }
             });
