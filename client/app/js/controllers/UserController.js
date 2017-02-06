@@ -35,7 +35,7 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
         $scope.showContentPanel = (el) => {
             let task = el.task;
             task.PriorityStr = taskPriorities[task.Priority];
-            let tmpl = $.get('../templates/task.html', (tmpl) => {
+            let tmpl = $.get('../templates/taskContentPanel.html', (tmpl) => {
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);

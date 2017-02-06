@@ -1,39 +1,54 @@
-<div ng-controller="UserController">
-
-    <h2>{{Title}}</h2>
-    <form>
-        <div class="form-group">
-            <label for="inp-title" class="content-header-top">Edit Title</label>
-            <input type="text" class="form-control" id="inp-title" value="{{Title}}">
-        </div>
-        <div class="form-group">
-            <label for="inp-description" class="content-header-top">Edit Description</label>
-            <textarea type="text" cols="20" class="form-control" id="inp-description">{{Description}}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="inp-deadline" class="content-header-top">Edit Deadline (Current: {{Deadline}})</label>
-            <input type="datetime-local" value="{{Deadline}}" id="inp-deadline" name="deadline">
-        </div>
-        <div class="form-group">
-            <label for="inp-progress" class="content-header-top">Progress {{Progress}}
-            <input type="number" min="0" max="100" value="{{Progress}}" id="inp-progress" name="progress" placeholder="{{Progress}}"> 
+<div class="jumbotron">
+    <h1>Task page</h1>
+    <p> This is a task you created. Here you can edit it, assign your employees to it and see the tasks comments.</p>
+</div>
+<div class="container">
+    <div>
+        <h2>{{task.Title}}</h2>
+        <form>
+            <div class="form-group">
+                <label for="inp-title" class="content-header-top">Title</label>
+                <input type="text" class="form-control" id="inp-title" value="{{task.Title}}">
+            </div>
+            <div class="form-group">
+                <label for="inp-description" class="content-header-top">Description</label>
+                <textarea type="text" cols="20" class="form-control" id="inp-description">{{task.Description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="inp-deadline" class="content-header-top">Deadline (Current: {{task.Deadline}})</label>
+                <input type="datetime-local" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
+            </div>
+            <div class="form-group">
+                <label for="inp-progress" class="content-header-top">Progress {{task.Progress}}
+            <input type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
             %               
             </label>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                    aria-valuemax="100" style="width: {{Progress}}%; color: black;">
-                    {{Progress}}% Complete
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                        aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
+                        {{task.Progress}}% Complete
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="inp-priority" class="content-header-top">Task Priority (Current: {{PriorityStr}})</label>
-            <select class="form-control" id="inp-priority">
-      <option value="0">Low</option>
-      <option value="1">Medium</option>
-      <option value="2">High</option>
-    </select>
-        </div>
-        <input id="btn-update" class="btn btn-primary" type="button" value="Save" ng-click="updateTask(TaskId)">        
-</form>
+    </div>
+    <div class="form-group">
+        <label for="inp-priority" class="content-header-top">Task Priority: {{task.PriorityStr}}</label>
+    </div>
+    <input type="button" class="btn btn-primary" value="Save" ng-click="updateTask(task.TaskId)">
+    </form>
+</div>
+</div>`
+
+<div class="container" id="comments">
+    <div class="comment" ng-repeat="_comment in _comments">
+        <span>{{_comment.Author_Username}}</span>
+        <p>{{_comment.Content}}</p>
+    </div>
+</div>
+
+<div class="container" id="assigned">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="assigned in assignedUsers">
+            <a href="#/user/{{assigned.Username}}">{{assigned.Username}}</a>
+        </li>
+    </ul>
 </div>

@@ -1,0 +1,60 @@
+<div>
+    <div>
+        <h2>{{Title}}</h2>
+
+        <div class="form-group">
+            <label class="content-header-top">Description</label><br> {{Description}}
+        </div>
+        <div class="form-group">
+            <label class="content-header-top">Deadline</label><br> {{Deadline}}
+        </div>
+        <div class="form-group">
+            <label class="content-header-top">Progress</label> <br>
+            </label>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0" aria-valuemax="100" >
+                    {{Progress}}% Complete
+                </div>
+            </div>
+            <div id="form-progress">
+                <div class="form-group">
+                    <label for="inp-progress"></label>
+                    <input name="newProgress" id="inp-progress" type="number" min="1" max="100" value="{{Progress}}">
+                    <input type="button" class="btn btn-ptimary" value="Edit" onclick='update()'>
+                    
+                </div>
+            </div>
+        </div>
+        <label for="inp-priority" class="content-header-top">Task Priority: {{PriorityStr}}</label>
+    </div>
+    <script>
+        function update() {
+            $.ajax({
+                method: 'POST',
+                url: '/task/{{TaskId}}/new-progress',
+                dataType: 'json',
+                data: {
+                    newProgress: $('#inp-progress').val()
+                },
+                success: (res) => {
+                    noty({
+                        text: res.msg,
+                        type: 'success',
+                        layout: 'topCenter',
+                        timeout: 1000
+                    });
+                },
+                statusCode: {
+                    500: (xhr) => {
+                        noty({
+                            text: xhr.responseJSON.msg,
+                            type: 'error',
+                            layout: 'topCenter',
+                            timeout: 1000
+                        });
+                    }
+                }
+            });
+        }    
+    </script>
+</div>`

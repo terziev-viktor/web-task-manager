@@ -43,7 +43,7 @@ module.exports = class Database {
     insertColleagueReuqest(user_sent, user_recieved, cb) {
         this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
-    
+
     insertTask(task, cb) {
         this.request("EXEC InsertTask @Title = N'" + task.Title + "', @Description = N'" + task.Description + "', @Deadline = '" + task.Deadline + "', @IsDone='" +
             task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username = N'" +
@@ -78,7 +78,7 @@ module.exports = class Database {
     // Property Username of user object is it's ID in the database
     getUserByUsername(username, cb) {
         this.request("SELECT * FROM GetUserByUsername(N'" + username + "')", (err, recordset) => {
-            if(recordset) {
+            if (recordset) {
                 cb(err, recordset[0]);
             } else {
                 cb(err);
@@ -145,10 +145,26 @@ module.exports = class Database {
 
     updateTask(id, task, cb) {
         this.request("EXEC UpdateTask '" + id
-        + "', '" + task.Title + "', '" + task.Description
-        + "', '" + task.Deadline + "', '" + task.IsDone
-        + "', '" + task.Priority + "', '" + task.Progress
-        + "', '" + task.Repeatability);
+            + "', '" + task.Title + "', '" + task.Description
+            + "', '" + task.Deadline + "', '" + task.IsDone
+            + "', '" + task.Priority + "', '" + task.Progress
+            + "', '" + task.Repeatability);
+    }
+
+    updateTaskProgress(id, newProgress, cb) {
+        this.request("EXEC UpdateTaskProgress '" + id + "', '" + newProgress + "';", cb);
+    }
+
+    getTaskById(id, cb) {
+        this.request("SELECT * FROM GetTaskById('" + id + "');", (err, recordset) => {
+            if (err) {
+                cb(err)
+            } else {
+                if (recordset) {
+                    cb(err, recordset[0]);
+                }
+            }
+        });
     }
 }
 

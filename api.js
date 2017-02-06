@@ -12,23 +12,50 @@ module.exports = (app, db) => {
         res.sendFile(__dirname + '/client' + '/app' + '/index.html');
     });
 
-    app.get('/user', auth, function (req, res) {
+    app.get('/user', auth, (req, res) => {
         res.json(req.user.Username);
     });
 
-    app.get('/task/comments', (req, res) => {
-        let id = req.get('taskId');
+    app.get('/task/:taskId', auth, (req, res) => {
+        db.getTaskById(req.params.taskId, (err, task) => {
+            if(err) {
+                console.log(err);
+                res.status(500).json({msg: 'Could not get task'});
+            } else {
+                res.status(200).json(task);
+            }
+        });
+    });
+
+    app.post('/task/:taskId/new-progress', auth, (req, res) => {
+        let taskId = req.params.taskId;
+        let newProgress = req.body.newProgress;
+        
+        db.updateTaskProgress(taskId, newProgress, (err, task) => {
+            if(err) {
+                res.status(500).json({msg: 'Could not update task...'});
+            } else {
+                res.status(200).json({msg: 'Progress set to ' + newProgress});
+            }
+        });
+    });
+
+    app.get('/task/:taskId/comments', auth, (req, res) => {
+        let id = req.params.taskId;
 
         db.getTaskComments(id, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(500);
+                res.status(500).json({msg: 'Could not get task comments'});
             } else {
-                console.log('recordset');
-                res.json(recordset);
+                res.status(200).json(recordset);
             }
-        })
-    })
+        });
+    });
+
+    app.get('/task/:taskId/assignedUsers', auth, (req, res) => {
+        // TODO: IMPLEMENT
+    });
 
     app.get('/tasks/todo', auth, (req, res) => {
         db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
