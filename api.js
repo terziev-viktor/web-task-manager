@@ -54,7 +54,6 @@ module.exports = (app, db) => {
     });
 
     app.get('/task/:taskId/assignedUsers', auth, (req, res) => {
-        // TODO: IMPLEMENT
         db.getTaskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
             if(err) {
                 res.status(500).json({msg: "Could not get task's assigned users."});
