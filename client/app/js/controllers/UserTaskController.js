@@ -1,5 +1,5 @@
 
-app.controller('TaskController', ['$scope', '$routeParams', '$location', 'notification',
+app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'notification',
     function ($scope, $routeParams, $location, notification) {
         let taskId = $routeParams.taskId;
 

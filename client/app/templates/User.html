@@ -132,9 +132,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="task in tasksCreated">
-                    <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                    <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                    <td><a href="#/task/{{task.TaskId}}">{{task.Deadline}}</a></td>
+                    <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                    <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                    <td><a href="#/user/task/{{task.TaskId}}">{{task.Deadline}}</a></td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"

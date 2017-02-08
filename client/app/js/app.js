@@ -24,9 +24,9 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: 'UserCommunityController'
     });
 
-    $routeProvider.when('/task/:taskId', {
-        templateUrl: '/templates/task.html',
-        controller: 'TaskController'
+    $routeProvider.when('/user/task/:taskId', {
+        templateUrl: '/templates/UserTask.html',
+        controller: 'UserTaskController'
     });
 
     $routeProvider.when('/err', {
