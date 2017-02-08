@@ -8,6 +8,7 @@ app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'no
             url: '/task/' + taskId,
             success: (task) => {
                 $scope.task = task;
+                $scope.$apply();
             }
         });
 
@@ -15,9 +16,8 @@ app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'no
             method: 'GET',
             url: '/task/' + taskId + '/comments',
             success: (data) => {
-                console.log('comments');
-                console.log(data);
                 $scope._comments = data;
+                $scope.$apply();
             }
         });
 
@@ -28,6 +28,7 @@ app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'no
                 console.log('assigned users');
                 console.log(data);
                 $scope.assignedUsers = data;
+                $scope.$apply();
             }
         });
     }]);

@@ -2,53 +2,80 @@
     <h1>Task page</h1>
     <p> This is a task you created. Here you can edit it, assign your employees to it and see the tasks comments.</p>
 </div>
-<div class="container">
+<div class="panel-group">
     <div>
         <h2>{{task.Title}}</h2>
-        <form>
-            <div class="form-group">
-                <label for="inp-title" class="content-header-top">Title</label>
-                <input type="text" class="form-control" id="inp-title" value="{{task.Title}}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-title" class="panel-heading">Title</label>
             </div>
-            <div class="form-group">
-                <label for="inp-description" class="content-header-top">Description</label>
-                <textarea type="text" cols="20" class="form-control" id="inp-description">{{task.Description}}</textarea>
+            <div class="panel-body">
+                <input type="text" class="form-control" id="inp-title" value="{{task.Title}}" disabled>
             </div>
-            <div class="form-group">
-                <label for="inp-deadline" class="content-header-top">Deadline (Current: {{task.Deadline}})</label>
-                <input type="datetime-local" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-description" class="panel-heading">Description</label>
             </div>
-            <div class="form-group">
-                <label for="inp-progress" class="content-header-top">Progress {{task.Progress}}
+            <div class="panel-body">
+                <textarea type="text" cols="20" class="form-control" id="inp-description" disabled>{{task.Description}}</textarea>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-deadline">Deadline (Current: {{task.Deadline}})</label>
+            </div>
+            <div class="panel-body">
+                <input type="datetime-local" value="{{task.Deadline}}" id="inp-deadline" name="deadline" disabled>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-progress" class="panel-heading">Progress {{task.Progress}}
             <input type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
             %               
             </label>
+            </div>
+            <div class="panel-body">
                 <div class="progress">
                     <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
                         aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
                         {{task.Progress}}% Complete
                 </div>
             </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="inp-priority" class="content-header-top">Task Priority: {{task.PriorityStr}}</label>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <label for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
+        </div>
     </div>
-    <input type="button" class="btn btn-primary" value="Save" ng-click="updateTask(task.TaskId)">
-    </form>
 </div>
 </div>`
 
-<div class="container" id="comments">
-    <div class="comment" ng-repeat="_comment in _comments">
-        <span>{{_comment.Author_Username}}</span>
-        <p>{{_comment.Content}}</p>
+<div class="comments">
+    <h3>Comments</h3>
+    <div class="panel-group">
+        <div class="panel panel-default" ng-repeat="_comment in _comments">
+            <div class="panel-heading">
+                <span>{{_comment.Author_Username}}</span>
+            </div>
+            <div class="panel-body">
+                <p>{{_comment.Content}}</p>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div class="container" id="assigned">
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="assigned in assignedUsers">
-            <a href="#/user/{{assigned.Username}}">{{assigned.Username}}</a>
-        </li>
-    </ul>
+<div class="panel-group" class="assigned">
+    <div class="panel panel-default" ng-repeat="assigned in assignedUsers">
+        <div class="panel-heading">
+            <span>{{assigned.Username}}</span>
+        </div>
+        <div class="panel-body">
+            <button><a href="#/user/{{assigned.Username}}">View Account</a></button>
+            <input type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
+        </div>
+    </div>
 </div>

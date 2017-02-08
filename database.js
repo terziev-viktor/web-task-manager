@@ -166,5 +166,9 @@ module.exports = class Database {
             }
         });
     }
+
+    getTaskAssignedUsersOrderedByUsername(taskId, cb) {
+        this.request("SELECT * FROM GetTaskAssignedUsersOrderedByUsername('" + taskId + "');", cb);
+    }
 }
 
