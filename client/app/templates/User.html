@@ -3,77 +3,9 @@
     <p> This is your personal profile in the web task manager platform.<br> Here you can create tasks, assign your employees
         to these tasks, see your to-do list and much more!</p>
 </div>
-<div class="content-header-top">
-    <span>Your community</span>
-</div>
-<div class="community-container">
-    <div class="container-small container-small-left">
-        <div class="content-header-bottom"><span>Your Colleagues</span></div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="colleague in colleagues">
-                <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
-            </li>
-        </ul>
-    </div>
-    <div class="container-small container-small-left">
-        <div class="content-header-bottom"><span>Your Managers</span></div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="manager in managers">
-                <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
-            </li>
-        </ul>
-    </div>
-    <div class="container-small container-small-right">
-        <div class="content-header-bottom">
-            <span>Your Employees</span>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="employee in employees">
-                <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="content-header-bottom">
-    <span>Requests</span>
-</div>
-<div class="community-container">
 
-    <div class="container-small container-small-left">
-        <div class="content-header-top">
-            <span>People who claim to be your colleagues</span>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
-                <span>{{colleagueReq.User_Sent}}</span>
-                <input type="button" class="btn" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
-            </li>
-        </ul>
-    </div>
-    <div class="container-small container-small-left">
-        <div class="content-header-top">
-            <span>People who want you to be their employee</span>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
-                <span>{{employeeReq.User_Sent}}</span>
-                <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
-            </li>
-        </ul>
-    </div>
-
-    <div class="container-small container-small-right">
-        <div class="content-header-top"><span>People who want you to be their manager</span>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="managerReq in managersReq">
-                <span>{{managerReq.User_Sent}}</span>
-                <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="panel-group">
+<div class="panel-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
+    <h2>Tasks</h2>
     <div class="panel panel-default">
         <div class="panel-heading">Your <strong>to-do</strong> list <span class="counter">{{tasksTodo.length}}</span></div>
         <div class="panel-body">
@@ -99,9 +31,9 @@
                         <td>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                                    aria-valuemax="100"  style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
                             </div>
-                            </div>
+        </div>
         </td>
         <td><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></td>
         </tr>
@@ -138,7 +70,7 @@
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                                aria-valuemax="100"  style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
                         </div>
     </div>
     </td>
@@ -148,3 +80,89 @@
 </div>
 </div>
 </div>
+
+<div class="panel-group col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <h3>Your community</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>Your Colleagues</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="colleague in colleagues">
+                    <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>Your Managers</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="manager in managers">
+                    <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>Your Employees</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="employee in employees">
+                    <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="panel-group col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <h3>Requests</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who claim to be your colleagues</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
+                    <span>{{colleagueReq.User_Sent}}</span>
+                    <input type="button" class="btn" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who want you to be their employee</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
+                    <span>{{employeeReq.User_Sent}}</span>
+                    <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who want you to be their manager</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="managerReq in managersReq">
+                    <span>{{managerReq.User_Sent}}</span>
+                    <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!---->

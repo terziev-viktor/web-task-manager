@@ -40,6 +40,18 @@ module.exports = (app, db) => {
         });
     });
 
+    app.post('/task/:taskId/comments', auth, (req, res) => {
+
+        db.insertComment(req.body.content, req.user.Username, req.params.taskId, (err) => {
+            if(err) {
+                console.log(err);
+                res.status(500).json({msg: 'Could not post the comment.'});
+            } else {
+                res.status(200).json({msg: 'Comment posted.'});
+            }
+        });
+    });
+
     app.get('/task/:taskId/comments', auth, (req, res) => {
         let id = req.params.taskId;
 

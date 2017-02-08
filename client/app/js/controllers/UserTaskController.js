@@ -3,6 +3,20 @@ app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'no
     function ($scope, $routeParams, $location, notification) {
         let taskId = $routeParams.taskId;
 
+        $scope.postComment = () => {
+            let content = $('#comment-area').val();
+            $.ajax({
+                method: 'POST',
+                url: '/task/' + taskId + '/comments',
+                data: {
+                    content: content
+                },
+                success: () => {
+                    notification.success('Yay');
+                }
+            })
+        }
+
         $.ajax({
             method: 'GET',
             url: '/task/' + taskId,

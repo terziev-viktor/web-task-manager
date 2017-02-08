@@ -59,8 +59,8 @@ module.exports = class Database {
         this.request(query, cb);
     }
 
-    insertComment(date, content, author_username, taskId) {
-        this.request("EXEC InsertComment @Date='" + date + "', @Content = N'" + content + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
+    insertComment(content, author_username, taskId, cb) {
+        this.request("EXEC InsertComment @Content = N'" + content + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
     }
 
     getUserColleagues(username, cb) {

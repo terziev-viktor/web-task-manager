@@ -1,10 +1,17 @@
 body {
     min-width: 440px;
+    font-size: 15px;
 }
 
 a {
     color: green;
 }
+
+#comment-area {
+    width: 100%;
+    max-width: 100%;
+}
+
 .circle {
     display: inline-block;
     margin: 0;

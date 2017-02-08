@@ -2,7 +2,7 @@
     <h1>Task page</h1>
     <p> This is a task you created. Here you can edit it, assign your employees to it and see the tasks comments.</p>
 </div>
-<div class="panel-group">
+<div class="panel-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <div>
         <h2>{{task.Title}}</h2>
         <div class="panel panel-default">
@@ -31,7 +31,7 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <label for="inp-progress" class="panel-heading">Progress {{task.Progress}}
+                <label for="inp-progress" class="panel-heading">Progress
             <input type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
             %               
             </label>
@@ -53,9 +53,18 @@
 </div>
 </div>`
 
-<div class="comments">
+<div class="comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <h3>Comments</h3>
     <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>Write a comment:</span>
+            </div>
+            <div>
+                <textarea name="comment_area" id="comment-area" cols="10"></textarea>
+                <input type="button" value="Post" ng-click="postComment()">
+            </div>
+        </div>
         <div class="panel panel-default" ng-repeat="_comment in _comments">
             <div class="panel-heading">
                 <span>{{_comment.Author_Username}}</span>
@@ -68,14 +77,17 @@
     </div>
 </div>
 
-<div class="panel-group" class="assigned">
-    <div class="panel panel-default" ng-repeat="assigned in assignedUsers">
-        <div class="panel-heading">
-            <span>{{assigned.Username}}</span>
-        </div>
-        <div class="panel-body">
-            <button><a href="#/user/{{assigned.Username}}">View Account</a></button>
-            <input type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
+<div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <h4>Assigned Users</h4>
+    <div class="panel-group">
+        <div class="panel panel-default" ng-repeat="assigned in assignedUsers">
+            <div class="panel-heading">
+                <span>{{assigned.Username}}</span>
+            </div>
+            <div class="panel-body">
+                <button><a href="#/user/{{assigned.Username}}">View Account</a></button>
+                <input type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
+            </div>
         </div>
     </div>
 </div>

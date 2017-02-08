@@ -5,7 +5,7 @@ GO
 
 CREATE TABLE [dbo].[Comments] (
     [CommentId] [int] NOT NULL IDENTITY,
-    [Date] [datetime] NOT NULL,
+    [Date] [datetime] NULL,
     [Content] [nvarchar](max),
     [Author_Username] [nvarchar](128) NOT NULL,
     [Task_TaskId] [int] NOT NULL,
