@@ -7,9 +7,13 @@ a {
     color: green;
 }
 
-#comment-area {
+textarea {
     width: 100%;
     max-width: 100%;
+}
+
+form {
+    text-align: center;
 }
 
 .circle {
@@ -32,6 +36,7 @@ a {
     user-select:none;
     -o-user-select:none;
 }
+
 .container {
     width: 400px;
     border: 1px solid #777;
@@ -58,12 +63,6 @@ a {
     background: -webkit-linear-gradient(white,#E0E0E0);
     background: -o-linear-gradient(white,#E0E0E0);
     background: linear-gradient(white,#E0E0E0);
-}
-
-#form-new-task {
-    width: 50%;
-    text-align: center;
-    margin: 0 auto;
 }
 
 #home-forms-container {
