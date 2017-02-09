@@ -34,6 +34,7 @@ app.controller('UserCommunityController', ['$scope', '$location', '$routeParams'
                     element.priorityLow = element.Priority == 0;
                     element.priorityMed = element.Priority == 1;
                     element.priorityHigh = element.Priority == 2;
+                    element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
                 }, this);
                 $scope.tasksTodo = data.tasks;
                 $scope.$apply();
@@ -49,6 +50,9 @@ app.controller('UserCommunityController', ['$scope', '$location', '$routeParams'
             method: 'GET',
             url: '/tasks/created/' + $routeParams.username,
             success: (data, stringStatus, xhr) => {
+                data.tasks.forEach(function (element) {
+                    element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+                }, this);
                 $scope.tasksCreated = data.tasks;
                 $scope.$apply();
             },

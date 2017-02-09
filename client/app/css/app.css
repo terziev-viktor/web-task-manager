@@ -79,11 +79,13 @@ form {
 }
 
 .counter {
-    color: #111;
-    background-color: white;
+    display: inline;
+    color: black;
     margin: auto;
-    padding: 5px;
+    padding: 5px 13px 5px 13px;
+    border: 1px solid black;
     border-radius: 20px;
+    margin-left: 10px;
 }
 
 .navbar-nav > li > button {

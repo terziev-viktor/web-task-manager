@@ -3,36 +3,37 @@
     <p> This is {{username}}'s' personal profile in the web task manager platform.<br> Here you can see his community, created
         tasks and to-do list</p>
 </div>
-<div class="circle col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-click="inviteColleague(username)">
-    Invite
-</div>
-<div class="panel-group col-lg-2 col-md-2 col-sm-11 col-xs-11">
+
+<div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">
+    <div class="panel">
+        <input class="btn btn-default btn-block" type="button" value="Invite Colleague"  ng-click="inviteColleague(username)"/>
+    </div>
+    <div class="panel">
+        <input class="btn btn-default btn-block" type="button" value="Remove Colleague"  ng-click="removeColleague(username)"/>
+    </div>
     <div class="panel panel-default">
         <div class="panel-heading"><span>{{username}}'s Managers</span></div>
         <div class="panel-body">
-            <ul>
-                <li ng-repeat="manager in managers">
-                    <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
-                </li>
-            </ul>
+            <div ng-repeat="manager in managers">
+                <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><span>{{username}}'s Employees</span></div>
         <div class="panel-body">
-            <ul>
-                <li ng-repeat="employee in employees">
-                    <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
-                </li>
-            </ul>
+            <div ng-repeat="employee in employees">
+                <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+            </div>
         </div>
     </div>
 </div>
 <div class="panel-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
-    <div class="panel panel-default">   
+    <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>{{username}}'s to-do list</h2>
-            <div class="counter">{{tasksTodo.length}}</div>
+            <h2>{{username}}'s to-do list
+                <div class="counter">{{tasksTodo.length}}</div>
+            </h2>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -47,7 +48,7 @@
                     <tr ng-repeat="task in tasksTodo">
                         <td>{{task.Title}}</td>
                         <td>{{task.Description}}</td>
-                        <td>{{task.Deadline}}</td>
+                        <td>{{task.DeadlineFormatted}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -56,8 +57,10 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>{{username}}'s created tasks</h2>
-            <div class="counter">{{tasksCreated.length}}</div>
+            <h2>{{username}}'s created tasks
+                <div class="counter">{{tasksCreated.length}}</div>
+            </h2>
+
         </div>
         <div class="panel-body">
             <table class="table table-hover">
@@ -72,7 +75,7 @@
                     <tr ng-repeat="task in tasksCreated">
                         <td>{{task.Title}}</td>
                         <td>{{task.Description}}</td>
-                        <td>{{task.Deadline}}</td>
+                        <td>{{task.DeadlineFormatted}}</td>
                     </tr>
                 </tbody>
             </table>
