@@ -2,7 +2,7 @@ const app = angular.module('app', ['ngRoute']);
 
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
-    
+
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'
@@ -36,4 +36,13 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.otherwise(
         { redirectTo: '/' }
     );
+});
+
+app.run(function ($rootScope, $location, authorization) {
+    $rootScope.$on('$locationChangeStart', function (event) {
+        if (!authorization.isLoggedIn()) {
+            $location.path('/');
+        }
+        
+    });
 });

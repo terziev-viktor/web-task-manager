@@ -28,8 +28,9 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 url: '/login',
                 data: data,
                 statusCode: {
-                    200: () => {
+                    200: (xhr) => {
                         notification.success('Login successful!');
+                        sessionStorage['currentUser'] = xhr.user;
                         $('#home-forms-container').hide(350);
                         setTimeout(function () {
                             $location.path('/user').replace();
@@ -38,12 +39,16 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                     },
                     401: () => {
                         notification.error('Login Failed');
+                        $('#inp-login-username').val('');
+                        $('#inp-login-password').val('');
                     },
                     400: () => {
                         notification.info('Enter your username and password first!');
+                        $('#inp-login-username').val('');
+                        $('#inp-login-password').val('');
                     }
                 }
-            })
+            });
         }
 
         $scope.signin = function () {
@@ -59,12 +64,15 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 data: data,
                 statusCode: {
                     200: (xhr) => {
-                        notification.success('Signin successful.');
+                        notification.success('Signup successful.');
+                        sessionStorage['currentUser'] = xhr.responseJSON.user;                        
                         $location.path('/user').replace();
                         $scope.$apply();
                     },
                     500: (xhr) => {
                         notification.error(xhr.responseJSON.err);
+                        $('#inp-signin-password').val('');
+                        $('#inp-signin-confirm').val('');
                     }
                 }
             })

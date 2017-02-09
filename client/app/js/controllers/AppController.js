@@ -51,6 +51,7 @@ app.controller('AppController', ['$scope', '$location', 'notification',
                 url: '/logout',
                 success: () => {
                     notification.info("Logout successful");
+                    sessionStorage['currentUser'] = undefined;
                     $location.path('/');
                     $scope.$apply();
                 }

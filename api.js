@@ -79,7 +79,7 @@ module.exports = (app, db) => {
         db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err)
-                res.sendStatus(401)
+                res.status(401).redirect('/');
             } else {
                 let data = {
                     tasks: recordset
@@ -94,7 +94,7 @@ module.exports = (app, db) => {
         db.getTasksAssignedToUserOrderedByPriority(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err)
-                res.sendStatus(401)
+                res.status(401).redirect('/');
             } else {
                 let data = {
                     tasks: recordset
@@ -121,7 +121,7 @@ module.exports = (app, db) => {
         db.getUserCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err)
-                res.sendStatus(401)
+                res.status(401).redirect('/');
             } else {
                 let data = {
                     tasks: recordset
@@ -136,7 +136,7 @@ module.exports = (app, db) => {
         db.getUserCreatedTasksOrderByPriority(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err)
-                res.sendStatus(401)
+                res.status(401).redirect('/');
             } else {
                 let data = {
                     tasks: recordset
@@ -152,7 +152,7 @@ module.exports = (app, db) => {
         db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.status(200).json({msg: 'User inserted to managers'});
             }
@@ -164,7 +164,7 @@ module.exports = (app, db) => {
         db.insertUserManager(req.body.Username, req.user.Username, (err, recordser) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.status(200).json('User ' + req.body.Username + ' added to managers.');
             }
@@ -186,7 +186,7 @@ module.exports = (app, db) => {
         db.getUserEmployees(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.json(recordset);
             }
@@ -197,7 +197,7 @@ module.exports = (app, db) => {
         db.getUserEmployees(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.json(recordset);
             }
@@ -208,7 +208,7 @@ module.exports = (app, db) => {
         db.getUserManagers(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.json(recordset);
             }
@@ -219,7 +219,7 @@ module.exports = (app, db) => {
         db.getUserManagers(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(401);
+                res.status(401).redirect('/');
             } else {
                 res.json(recordset);
             }
@@ -241,7 +241,7 @@ module.exports = (app, db) => {
                     db.assignUsersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
                         if (err) {
                             console.log(err);
-                            res.sendStatus(401);
+                            res.status(401).redirect('/');
                         } else {
                             res.sendStatus(200);
                         }
@@ -253,7 +253,6 @@ module.exports = (app, db) => {
     });
 
     app.post('/user/colleagues', auth, (req, res) => {
-        
         db.insertColleagues(req.user.Username, req.body.Username, (err, recordser) => {
             if (err) {
                 console.log(err);
@@ -267,7 +266,7 @@ module.exports = (app, db) => {
     app.get('/user/colleagues', auth, (req, res) => {
         db.getUserColleagues(req.user.Username, (err, recordset) => {
             if (err) {
-                res.status(500).json({ msg: 'DB error while executing function GetUserColleagues' });
+                res.status(500).json({ msg: 'Could not retrieve your colleagues' });
             } else {
                 res.json(recordset);
             }

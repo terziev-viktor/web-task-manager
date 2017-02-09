@@ -55,7 +55,9 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.use(passport.session());
 
     app.post('/login', passport.authenticate('local'), (req, res) => {
-        res.status(200).json({ msg: 'brau' })
+        console.log('/login');
+        console.log(req.user);
+        res.status(200).json({ user: req.user.Username });
     });
 
     app.get('/logout', (req, res) => {
@@ -82,7 +84,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                     });
                 } else {
                     passport.authenticate('local') (req, res, () => {
-                        res.redirect('/user');
+                        res.status(200).json({ user: req.user.Username });
                     });
                 }
             });

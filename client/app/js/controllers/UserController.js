@@ -1,29 +1,11 @@
 
-app.controller('UserController', ['$scope', '$location', '$compile', 'notification',
-    function ($scope, $location, $compile, notification) {
+app.controller('UserController', ['$scope', '$location', '$compile', 'notification', 'statusCodeHandler',
+    function ($scope, $location, $compile, notification, statusCodeHandler) {
         let taskPriorities = [
             'Low',
             'Medium',
             'High'
-        ]
-        let statusHandler = {
-            500: (xhr) => {
-                notification.error(xhr.responseJSON.msg);
-            },
-            401: (xhr) => {
-                notification.info('Signup or login in to your profile first :-)');
-                $location.path('/');
-                $scope.$apply();
-            },
-            403: (xhr) => {
-                notification.warning('Forbiddent symbols (\' -- ) used.');
-            },
-            200: (xhr) => {
-                if (xhr.responseJSON) {
-                    notification.success(xhr.responseJSON.msg);
-                }
-            }
-        }
+        ], statusHandler = statusCodeHandler($scope);
 
         $('#task-view').hide();
         $('#li-profile').show(300);
@@ -94,7 +76,9 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
                         element.priorityLow = element.Priority == 0;
                         element.priorityMed = element.Priority == 1;
                         element.priorityHigh = element.Priority == 2;
+                        element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
                     }, this);
+                    
                     $scope.tasksTodo = data.tasks;
                     $scope.$apply();
                 },
@@ -109,6 +93,9 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
                 method: 'GET',
                 url: '/tasks/created',
                 success: (data, stringStatus, xhr) => {
+                    data.tasks.forEach(function (element) {
+                        element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+                    }, this);
                     $scope.tasksCreated = data.tasks;
                     $scope.$apply();
                 },
