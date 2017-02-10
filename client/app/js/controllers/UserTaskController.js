@@ -1,54 +1,123 @@
 
-app.controller('UserTaskController', ['$scope', '$routeParams', '$location', 'notification', 'statusCodeHandler', 'authorization',
-    function ($scope, $routeParams, $location, notification, statusHandler, authorization) {
-        let taskId = $routeParams.taskId, statusCodeHandler = statusHandler($scope);
+app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr) {
+    let taskId = $routeParams.taskId, statusHandler = statusCodeHandler($scope);
 
-        $scope.postComment = () => {
-            let content = $('#comment-area').val();
+    $scope.editTitle = () => {
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskId + '?title=' + $('#inp-title').val(),
+            success: (data) => {
+                console.log(data);
+            },
+            statusCode: statusHandler
+        });
+    }
+
+    $scope.editDescription = () => {
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskId + '?desc=' + $('#inp-description').val(),
+            success: (data) => {
+                console.log(data);
+            },
+            statusCode: statusHandler
+        });
+    }
+
+    $scope.editDeadline = () => {
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskId + '?deadline=' + $('#inp-deadline').val(),
+            success: (data) => {
+                console.log(data);
+            },
+            statusCode: statusHandler
+        });
+    }
+
+    $scope.editProgress = () => {
+        let newProgress = $('#inp-progress').val();
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskId + '?progress=' + newProgress,
+            success: (data) => {
+                console.log(data);
+                $('#progress-bar').css('width', newProgress + '%').html(newProgress + " % Complete");
+                
+            },
+            statusCode: statusHandler
+        });
+    }
+
+    $scope.editPriority = () => {
+        let newPriority = $('#inp-priority').val();
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskId + '?priority=' + newPriority,
+            success: (data) => {
+                console.log(data);
+                $('#lbl-priority').html('Task Priority: ' + TaskPrioritiesStr[newPriority]);
+            },
+            statusCode: statusHandler
+        });
+    }
+
+    $scope.postComment = () => {
+        let content = $('#comment-area').val();
+        if (content.length == 0) {
+            return;
+        } else {
             $.ajax({
                 method: 'POST',
                 url: '/task/' + taskId + '/comments',
                 data: {
                     content: content
                 },
-                statusCode: statusCodeHandler
+                success: () => {
+                    notification.success('Comment posted');
+                    $('#comment-area').val('');
+                }
             });
         }
+    }
 
-        $.ajax({
-            method: 'GET',
-            url: '/task/' + taskId,
-            success: (task) => {
-                if (authorization.getUser() != task.Creator_Username) {
-                    $location.path('/user');
-                    $scope.$apply();
-                } else {
-                    $scope.task = task;
-                    $scope.$apply();
-                }
-
-            },
-            statusCode: statusCodeHandler
-        });
-
-        $.ajax({
-            method: 'GET',
-            url: '/task/' + taskId + '/comments',
-            success: (data) => {
-                $scope._comments = data;
+    $.ajax({
+        method: 'GET',
+        url: '/task/' + taskId,
+        success: (task) => {
+            if (authorization.getUser() != task.Creator_Username) {
+                $location.path('/user');
                 $scope.$apply();
-            },
-            statusCode: statusCodeHandler
-        });
-
-        $.ajax({
-            method: 'GET',
-            url: '/task/' + taskId + '/assignedUsers',
-            success: (data) => {
-                console.log('assigned users');
-                console.log(data);
-                $scope.assignedUsers = data;
+            } else {
+                task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
+                task.PriorityStr = TaskPrioritiesStr[task.Priority];
+                $scope.task = task;
                 $scope.$apply();
             }
-        });
-    }]);
+
+        },
+        statusCode: statusHandler
+    });
+
+    $.ajax({
+        method: 'GET',
+        url: '/task/' + taskId + '/comments',
+        success: (data) => {
+            $scope._comments = data;
+            $scope.$apply();
+        },
+        statusCode: statusHandler
+    });
+
+    $.ajax({
+        method: 'GET',
+        url: '/task/' + taskId + '/assignedUsers',
+        success: (data) => {
+            console.log('assigned users');
+            console.log(data);
+            $scope.assignedUsers = data;
+            $scope.$apply();
+        },
+        statusCode: statusHandler
+    });
+});

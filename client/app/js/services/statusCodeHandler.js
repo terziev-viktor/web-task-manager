@@ -17,6 +17,9 @@ app.service('statusCodeHandler', function (notification, $location) {
                 if (xhr.responseJSON) {
                     notification.success(xhr.responseJSON.msg);
                 }
+                if(xhr.msg) {
+                    notification.success(xhr.msg);
+                }
             }
         }
     }

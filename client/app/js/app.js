@@ -1,5 +1,13 @@
 const app = angular.module('app', ['ngRoute']);
 
+app.constant('MaxDescLength', 35);
+app.constant('MaxTitleLength', 15);
+app.constant('TaskPrioritiesStr', [
+            'Low',
+            'Medium',
+            'High'
+        ]);
+
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
 

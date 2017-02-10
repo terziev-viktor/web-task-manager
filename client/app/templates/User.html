@@ -8,8 +8,8 @@
     <h2>Tasks</h2>
     <div class="panel panel-default">
         <div class="panel-heading">Your <strong>to-do</strong> list <span class="counter">{{tasksTodo.length}}</span></div>
-        <div class="panel-body">
-            <table class="table table-hover">
+        <div class="panel-body" ng-switch="tasksTodo.length > 0">
+            <table class="table table-hover" ng-switch-when="true">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -39,6 +39,9 @@
         </tr>
         </tbody>
         </table>
+        <div ng-switch-when="false" class="animate-switch panel ">
+            You dont have tasks to do yet
+        </div>
     </div>
 </div>
 <div id="task-view">
@@ -52,8 +55,8 @@
     <div class="panel-body">
         <a class="btn btn-success" href="#/newTask">New Task</a>
     </div>
-    <div class="panel-body">
-        <table class="table table-hover">
+    <div class="panel-body" ng-switch="tasksCreated.length > 0">
+        <table class="table table-hover" ng-switch-when="true">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -70,13 +73,16 @@
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                                aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                aria-valuemax="100"  style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
                         </div>
     </div>
     </td>
     </tr>
     </tbody>
     </table>
+    <div ng-switch-when="false" class="animate-switch panel ">
+        You haven't created any tasks yet. Do it by clicking on the green button
+    </div>
 </div>
 </div>
 </div>
@@ -87,36 +93,45 @@
         <div class="panel-heading">
             <span>Your Colleagues</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="colleagues.length > 0">
+            <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="colleague in colleagues">
                     <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
                 </li>
             </ul>
+            <div ng-switch-when="false" class="panel">
+                Find your colleagues and then will appear here!
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <span>Your Managers</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="managers.length > 0">
+            <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="manager in managers">
                     <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
                 </li>
             </ul>
+            <div ng-switch-when="false">
+                Find your managers and they will appear here !
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <span>Your Employees</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="employees.length > 0">
+            <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="employee in employees">
                     <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
                 </li>
             </ul>
+            <div ng-switch-when="false" class="panel">
+                Find your Employees and they will appear here !
+            </div>
         </div>
     </div>
 </div>
@@ -127,26 +142,32 @@
         <div class="panel-heading">
             <span>People who claim to be your colleagues</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="colleagueReqs.length > 0">
+            <ul class="list-group" ng-switc-when="true">
                 <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
                     <span>{{colleagueReq.User_Sent}}</span>
                     <input type="button" class="btn" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
                 </li>
             </ul>
+            <div class="panel" ng-switch-when="false">
+                You have no requests yet.
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
             <span>People who want you to be their employee</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="employeesReq.length > 0">
+            <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
                     <span>{{employeeReq.User_Sent}}</span>
                     <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
                 </li>
             </ul>
+            <div ng-switch-when="false" class="panel">
+                Nobody wants to be your manager yet.
+            </div>
         </div>
     </div>
 
@@ -154,13 +175,16 @@
         <div class="panel-heading">
             <span>People who want you to be their manager</span>
         </div>
-        <div class="panel-body">
-            <ul class="list-group">
+        <div class="panel-body" ng-switch="managersReq.length > 0">
+            <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="managerReq in managersReq">
                     <span>{{managerReq.User_Sent}}</span>
                     <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
                 </li>
             </ul>
+            <div ng-switch-when="false" class="panel">
+                Nobody wants to be your employee yet.
+            </div>
         </div>
     </div>
 </div>

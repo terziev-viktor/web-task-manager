@@ -338,31 +338,20 @@ module.exports = (app, db) => {
 
     // UPDATE TASK
     app.post('/task/:taskId', auth, (req, res) => {
-        let data = req.body;
-        let newTask = {};
-        console.log('update task: /task/:taskId');
-        console.log(data);
-
-        db.getTaskById(req.params.taskId, (err, task) => {
-            if (task.Creator_Username !== req.user.Username) {
-                res.status(400).json({ msg: 'You can only edit your own tasks.' });
+        let id = req.params.taskId;
+        let task = {};
+        task.newTitle = (req.query.title !== undefined) ? req.query.title: '';
+        task.newDesc = (req.query.desc !== undefined) ? req.query.desc: '';
+        task.newDeadline = (req.query.deadline !== undefined) ? req.query.deadline.replace('T', ' '): '';
+        task.newProgress = (req.query.progress !== undefined) ? req.query.progress: '';
+        task.newPriority = (req.query.priority !== undefined) ? req.query.priority: '';
+        task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability: '';
+        db.updateTask(id, task, (err, result) => {
+            if(err) {
+                console.log(err);
+                res.status(500).json({msg: 'Could not update the task.'});
             } else {
-                newTask.Title = data.Title ? data.Title : task.Title;
-                newTask.Description = data.Description ? data.Description : task.Description;
-                newTask.Deadline = data.Deadline ? data.Deadline : task.Deadline;
-                newTask.Progress = data.Progress ? data.Progress : task.Progress;
-                if (newTask.Progress == 100) {
-                    newTask.IsDone = 1;
-                }
-                newTask.Priority = data.Priority ? data.Priority : task.Priority;
-                newTask.Repeatability = data.Repeatability ? data.Repeatability : task.Repeatability;
-                db.updateTaks(taskId, newTask, (err, recordset) => {
-                    if (err) {
-                        res.status(500).json({ msg: 'Could not update task.' });
-                    } else {
-                        res.status(200).json({ msg: 'Updated task successfully' });
-                    }
-                });
+                res.status(200).json({msg: 'Task Updated.'});
             }
         });
     });

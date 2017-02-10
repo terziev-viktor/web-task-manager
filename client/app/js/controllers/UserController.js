@@ -1,11 +1,7 @@
 
-app.controller('UserController', ['$scope', '$location', '$compile', 'notification', 'statusCodeHandler',
-    function ($scope, $location, $compile, notification, statusCodeHandler) {
-        let taskPriorities = [
-            'Low',
-            'Medium',
-            'High'
-        ], statusHandler = statusCodeHandler($scope);
+app.controller('UserController',
+    function ($scope, $location, $compile, notification, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr) {
+        let statusHandler = statusCodeHandler($scope);
 
         $('#task-view').hide();
         $('#li-profile').show(300);
@@ -16,29 +12,14 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
 
         $scope.showContentPanel = (el) => {
             let task = el.task;
-            task.PriorityStr = taskPriorities[task.Priority];
+            task.PriorityStr = TaskPrioritiesStr[task.Priority];
             let tmpl = $.get('../templates/taskContentPanel.html', (tmpl) => {
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);
                
                 $scope.updateTask = (taskId) => {
-                    console.log('4ep');
-                    let task = {};
-                    task.Title = $('#inp-title').val();
-                    task.Description = $('#inp-description').val();
-                    task.Progress = $('#inp-progress').val();
-                    task.Deadlile = $('#inp-deadline').val();
-                    task.Priority = $('#inp-priority').val();
-                    console.log('task to update:');
-                    console.log(task);
-
-                    $.ajax({
-                        method: 'POST',
-                        url: '/task/' + taskId,
-                        data: task,
-                        statusCode: statusHandler
-                    });
+                    // TODO Implement
                 }
                 $scope.$apply();
             });
@@ -77,6 +58,12 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
                         element.priorityMed = element.Priority == 1;
                         element.priorityHigh = element.Priority == 2;
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+                        if(element.Description.length >= 35) {
+                            element.Description = element.Description.substring(0, 35) + '...';
+                        }
+                        if(element.Title.length > MaxTitleLength) {
+                            element.Title = element.Title.substring(0, MaxTitleLength) + '...';
+                        }
                     }, this);
                     
                     $scope.tasksTodo = data.tasks;
@@ -95,6 +82,12 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
                 success: (data, stringStatus, xhr) => {
                     data.tasks.forEach(function (element) {
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+                        if(element.Description.length > MaxDescLength) {
+                            element.Description = element.Description.substring(0, MaxDescLength) + '...';
+                        }
+                        if(element.Title.length > MaxTitleLength) {
+                            element.Title = element.Title.substring(0, MaxTitleLength) + '...';
+                        }
                     }, this);
                     $scope.tasksCreated = data.tasks;
                     $scope.$apply();
@@ -199,4 +192,4 @@ app.controller('UserController', ['$scope', '$location', '$compile', 'notificati
             },
             statusCode: statusHandler
         });
-    }]);
+    });

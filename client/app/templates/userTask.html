@@ -8,37 +8,41 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <label for="inp-title" class="panel-heading">Title</label>
+                <input type="button" class="btn btn-defalult" ng-click="editTitle()" value="Edit">
             </div>
             <div class="panel-body">
-                <input type="text" class="form-control" id="inp-title" value="{{task.Title}}" disabled>
+                <input type="text" class="form-control nginp" id="inp-title" value="{{task.Title}}">
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <label for="inp-description" class="panel-heading">Description</label>
+                <input type="button" class="btn btn-defalult" ng-click="editDescription()" value="Edit">
             </div>
             <div class="panel-body">
-                <textarea type="text" cols="20" class="form-control" id="inp-description" disabled>{{task.Description}}</textarea>
+                <textarea type="text" cols="20" class="form-control nginp" id="inp-description">{{task.Description}}</textarea>
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <label for="inp-deadline">Deadline (Current: {{task.Deadline}})</label>
+                <label for="inp-deadline">Deadline ({{task.DeadlineFormatted}})</label>
+                <input type="button" class="btn btn-defalult" ng-click="editDeadline()" value="Edit">
             </div>
             <div class="panel-body">
-                <input type="datetime-local" value="{{task.Deadline}}" id="inp-deadline" name="deadline" disabled>
+                <input type="datetime-local" class="form-control" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
             </div>
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <label for="inp-progress" class="panel-heading">Progress
-            <input type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
-            %               
+                <label for="inp-progress" class="panel-heading form-inline">Progress
+            <input class="form-control" type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
+            %     
+                <input type="button" class="btn btn-defalult" ng-click="editProgress()" value="Edit">                      
             </label>
             </div>
             <div class="panel-body">
                 <div class="progress">
-                    <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                    <div id="progress-bar" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
                         aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
                         {{task.Progress}}% Complete
                 </div>
@@ -47,7 +51,15 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <label for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
+            <label id="lbl-priority" for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
+            <input type="button" class="btn btn-defalult" ng-click="editPriority()" value="Edit">                                  
+        </div>
+        <div class="panel-body">
+            <select class="form-control" id="inp-priority">
+                <option value="0">Low</option>
+                <option value="1">Medium</option>
+                 <option value="2">High</option>
+            </select>
         </div>
     </div>
 </div>
@@ -62,7 +74,7 @@
             </div>
             <div>
                 <textarea name="comment_area" id="comment-area" cols="10"></textarea>
-                <input type="button" value="Post" ng-click="postComment()">
+                <input class="btn btn-default btn-block" type="button" value="Post" ng-click="postComment()">
             </div>
         </div>
         <div class="panel panel-default" ng-repeat="_comment in _comments">

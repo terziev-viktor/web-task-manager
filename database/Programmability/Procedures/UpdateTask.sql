@@ -5,23 +5,63 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE UpdateTask
-	@TaskId int,
-	@Title nvarchar(MAX),
-	@Description nvarchar(MAX),
-	@Deadline datetime,	 
-	@IsDone bit,
-	@Priority int,	 
-	@Progress int,	 
-	@Repeatability int,
-	@Creator_Username nvarchar(128)
+	@TaskId INT,
+	@Title NVARCHAR(MAX),
+	@Description NVARCHAR(MAX),
+	@Deadline DATETIME,
+	@Priority INT,
+	@Progress INT,
+	@Repeatability INT
 AS
 BEGIN
-	
 	SET NOCOUNT ON;
-	UPDATE Tasks
-	SET Title = @Title, [Description] = @Description, Deadline = @Deadline, IsDone = @IsDone, [Priority] = @Priority, Progress=@Progress,
-	Repeatability = @Repeatability 
-	WHERE TaskId = @TaskId
+	IF (@Title <> '')
+	BEGIN
+		UPDATE Tasks
+		SET Title = @Title
+		WHERE TaskId = @TaskId
+	END
 
+	IF (@Description <> '')
+	BEGIN
+		UPDATE Tasks
+		SET [Description] = @Description
+		WHERE TaskId = @TaskId
+	END
+
+	IF (@Deadline <> '')
+	BEGIN
+		UPDATE Tasks
+		SET Deadline = @Deadline
+		WHERE TaskId = @TaskId
+	END
+
+	IF (@Priority <> '')
+	BEGIN
+		UPDATE Tasks
+		SET [Priority] = @Priority
+		WHERE TaskId = @TaskId
+	END
+
+	IF (@Progress <> '')
+	BEGIN
+		UPDATE Tasks
+		SET Progress = @Progress
+		WHERE TaskId = @TaskId
+
+		IF (@Progress = '100')
+		BEGIN
+			UPDATE Tasks
+			SET IsDone = 1
+			WHERE TaskId = @TaskId
+		END
+	END
+
+	IF (@Repeatability <> '')
+	BEGIN
+		UPDATE Tasks
+		SET Repeatability = @Repeatability
+		WHERE TaskId = @TaskId
+	END
 END
 GO

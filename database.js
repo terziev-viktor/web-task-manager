@@ -144,11 +144,13 @@ module.exports = class Database {
     }
 
     updateTask(id, task, cb) {
-        this.request("EXEC UpdateTask '" + id
-            + "', '" + task.Title + "', '" + task.Description
-            + "', '" + task.Deadline + "', '" + task.IsDone
-            + "', '" + task.Priority + "', '" + task.Progress
-            + "', '" + task.Repeatability);
+        let query = "EXEC UpdateTask '" + id
+            + "', N'" + task.newTitle + "', N'" + task.newDesc
+            + "', '" + task.newDeadline
+            + "', '" + task.newPriority + "', '" + task.newProgress
+            + "', '" + task.newRepeatability + "';";
+            console.log(query);
+        this.request(query, cb);
     }
 
     updateTaskProgress(id, newProgress, cb) {

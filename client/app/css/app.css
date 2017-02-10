@@ -200,3 +200,11 @@ form {
     font-weight: 200;
     padding: 5px;
 }
+
+.nginp.ng-dirty {
+    background: lawngreen;
+}
+
+.nginp.ng-touched {
+    background: lawngreen;
+}
