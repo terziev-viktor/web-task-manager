@@ -13,17 +13,23 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><span>{{username}}'s Managers</span></div>
-        <div class="panel-body">
-            <div ng-repeat="manager in managers">
+        <div class="panel-body" ng-switch="managers.length > 0">
+            <div ng-repeat="manager in managers" ng-switch-when="true">
                 <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+            </div>
+            <div ng-switch-when="false">
+                <span>{{username}} has no managers yet.</span>
             </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading"><span>{{username}}'s Employees</span></div>
-        <div class="panel-body">
-            <div ng-repeat="employee in employees">
+        <div class="panel-body" ng-switch="employees.length > 0">
+            <div ng-repeat="employee in employees" ng-switch-when="true">
                 <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+            </div>
+            <div ng-switch-when="false" class="panel">
+                <span>{{username}} has no employees yet.</span>
             </div>
         </div>
     </div>
@@ -35,8 +41,8 @@
                 <div class="counter">{{tasksTodo.length}}</div>
             </h2>
         </div>
-        <div class="panel-body">
-            <table class="table table-hover">
+        <div class="panel-body" ng-switch="tasksTodo.length > 0">
+            <table class="table table-hover" ng-switch-when="true">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -52,6 +58,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="panel" ng-switch-when="false">
+                <span>{{username}} has no tasks to do yet.</span>
+            </div>
         </div>
     </div>
 
@@ -62,8 +71,8 @@
             </h2>
 
         </div>
-        <div class="panel-body">
-            <table class="table table-hover">
+        <div class="panel-body" ng-switch="tasksCreated.length > 0">
+            <table class="table table-hover" ng-switch-when="true">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -79,6 +88,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="panel" ng-switch-when="false">
+                <span>{{username}} has no tasks to do yet.</span>
+            </div>
         </div>
     </div>
 </div>

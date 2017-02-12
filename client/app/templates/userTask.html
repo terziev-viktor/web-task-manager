@@ -93,12 +93,10 @@
     <h4>Assigned Users</h4>
     <div class="panel-group"  ng-switch="assignedUsers.length > 0">
         <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
-            <div class="panel-heading">
-                <span>{{assigned.Username}}</span>
-            </div>
             <div class="panel-body">
-                <button><a href="#/user/{{assigned.Username}}">View Account</a></button>
-                <input type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
+                <span>{{assigned.Username}}</span>
+                <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
+                <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
             </div>
         </div>
         <div class="panel" ng-switch-when="false">
