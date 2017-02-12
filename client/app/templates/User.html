@@ -97,6 +97,8 @@
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="colleague in colleagues">
                     <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
+                    <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Request Manager">
+                    <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Request Employee">
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
@@ -146,7 +148,7 @@
             <ul class="list-group" ng-switc-when="true">
                 <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
                     <span>{{colleagueReq.User_Sent}}</span>
-                    <input type="button" class="btn" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
                 </li>
             </ul>
             <div class="panel" ng-switch-when="false">

@@ -143,17 +143,21 @@ module.exports = class Database {
         this.request("SELECT * FROM GetUserRecievedManagerRequests(N'" + username + "');", cb);
     }
 
-    insertEmployeeRequest(user_sent, user_recieved, cb) {
+    insertManagerRequest(user_sent, user_recieved, cb) {
         this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
 
+    insertEmployeeRequest(user_sent, user_recieved, cb) {
+        this.request("EXEC InsertEmployeeRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
+    }
+    
     updateTask(id, task, cb) {
         let query = "EXEC UpdateTask '" + id
             + "', N'" + task.newTitle + "', N'" + task.newDesc
             + "', '" + task.newDeadline
             + "', '" + task.newPriority + "', '" + task.newProgress
             + "', '" + task.newRepeatability + "';";
-            console.log(query);
+        console.log(query);
         this.request(query, cb);
     }
 

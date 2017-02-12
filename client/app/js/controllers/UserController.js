@@ -17,15 +17,13 @@ app.controller('UserController',
                 var rendered = Mustache.render(tmpl, task);
                 let view_tag_content = $('#task-view-content').html(rendered);
                 $('#task-view').show(300);
-               
+
                 $scope.updateTask = (taskId) => {
                     // TODO Implement
                 }
                 $scope.$apply();
             });
         }
-
-
 
         function getCurrentUserInfo() {
 
@@ -58,14 +56,14 @@ app.controller('UserController',
                         element.priorityMed = element.Priority == 1;
                         element.priorityHigh = element.Priority == 2;
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                        if(element.Description.length >= 35) {
+                        if (element.Description.length >= 35) {
                             element.Description = element.Description.substring(0, 35) + '...';
                         }
-                        if(element.Title.length > MaxTitleLength) {
+                        if (element.Title.length > MaxTitleLength) {
                             element.Title = element.Title.substring(0, MaxTitleLength) + '...';
                         }
                     }, this);
-                    
+
                     $scope.tasksTodo = data.tasks;
                     $scope.$apply();
                 },
@@ -82,10 +80,10 @@ app.controller('UserController',
                 success: (data, stringStatus, xhr) => {
                     data.tasks.forEach(function (element) {
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                        if(element.Description.length > MaxDescLength) {
+                        if (element.Description.length > MaxDescLength) {
                             element.Description = element.Description.substring(0, MaxDescLength) + '...';
                         }
-                        if(element.Title.length > MaxTitleLength) {
+                        if (element.Title.length > MaxTitleLength) {
                             element.Title = element.Title.substring(0, MaxTitleLength) + '...';
                         }
                     }, this);
@@ -169,6 +167,30 @@ app.controller('UserController',
                 $.ajax({
                     method: 'POST',
                     url: '/user/manager',
+                    data: {
+                        Username: username
+                    },
+                    statusCode: statusHandler
+                });
+            }
+
+            $scope.reqManager = (username) => {
+                console.log(username);
+                $.ajax({
+                    method: 'POST',
+                    url: 'user/req/manager',
+                    data: {
+                        Username: username
+                    },
+                    statusCode: statusHandler
+                });
+            }
+
+            $scope.reqEmployee = (username) => {
+                console.log(username);
+                $.ajax({
+                    method: 'POST',
+                    url: 'user/req/manager',
                     data: {
                         Username: username
                     },
