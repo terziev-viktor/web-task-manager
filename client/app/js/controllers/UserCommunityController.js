@@ -12,18 +12,19 @@ app.controller('UserCommunityController', ['$scope', '$location', '$routeParams'
                 data: {
                     Username: username
                 },
-                statusCode: {
-                    200: () => {
-                        notification.success('Request sent to ' + username);
-                    },
-                    500: () => {
-                        notification.error('Server Error');
-                    },
-                    400: () => {
-                        console.log('bad post req to /user/req/colleague');
-                    }
-                }
-            })
+                statusCode: statusHandler
+            });
+        }
+
+        $scope.removeColleague = (username) => {
+            $.ajax({
+                method: 'POST',
+                url: '/user/colleagues?remove=true',
+                data: {
+                    Username: username
+                },
+                statusCode: statusHandler
+            });
         }
 
         $.ajax({

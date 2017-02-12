@@ -40,6 +40,10 @@ module.exports = class Database {
         this.request("EXEC InsertColleagues N'" + user1 + "', N'" + user2 + "';", cb);
     }
 
+    removeColleague(user1, user2, cb) {
+        this.request("EXEC RemoveColleague N'" + user1 + "', N'" + user2 + "';", cb);
+    }
+
     insertColleagueReuqest(user_sent, user_recieved, cb) {
         this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }
