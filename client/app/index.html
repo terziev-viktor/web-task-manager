@@ -4,9 +4,12 @@
 
 <head>
   <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/styles/app.css"/>
+  <link rel="stylesheet" href="/styles/app.css" />
 
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Web Task Manager</title>
 </head>
 
@@ -14,42 +17,44 @@
   <nav class="navbar navbar-default">
     <a class="navbar-brand" href="#/">Web Task Manager</a>
     <form class="navbar-form navbar-left" style="padding-right: 30px; padding-left: 30px;">
-<div class="form-group">
-  <input autocomplete="off" id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
-</div>
-<button type="submit" class="btn btn-default" ng-click="searchCollegues()">Search</button>
-<div id="search-found"><input ng-click="hide_search()" type="button" value="X"><div id="search-found-content"></div></div>
-</form>
-<ul class="nav navbar-nav navbar-right" style="padding-right: 20px; padding-left: 20px;">
-<li id="li-profile"><a href="#/user">Profile</a></li>
-<li id="li-logout"><button ng-click="logout()">Logout</button></li>
-</ul>
-</nav>
-<div id="noty-container"></div>
-<div ng-view>
+      <div class="form-group">
+        <input autocomplete="off" id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
+      </div>
+      <button type="submit" class="btn btn-default" ng-click="searchCollegues()">Search</button>
+      <div id="search-found"><input ng-click="hide_search()" type="button" value="X">
+        <div id="search-found-content"></div>
+      </div>
+    </form>
+    <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; padding-left: 20px;">
+      <li id="li-profile"><a href="#/user">Profile</a></li>
+      <li id="li-logout"><a href="#"><button id="btn-logout" ng-click="logout()">Logout</button></a></li>
+    </ul>
+  </nav>
+  <div id="noty-container"></div>
+  <div ng-view>
 
-</div>
+  </div>
 
-<!-- Load app libraries -->
-<script src="/components/angular/angular.min.js"></script>
-<script src="/components/angular-route/angular-route.min.js"></script>
-<script src="/components/jquery/dist/jquery.min.js"></script>
-<script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/components/mustache.js/mustache.min.js"></script>
-<!-- L oad app source code: main script, services, controllers, etc. -->
-<script src="/scripts/app.js"></script>
+  <!-- Load app libraries -->
+  <script src="/components/angular/angular.min.js"></script>
+  <script src="/components/angular-route/angular-route.min.js"></script>
+  <script src="/components/jquery/dist/jquery.min.js"></script>
+  <script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+  <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/components/mustache.js/mustache.min.js"></script>
+  <!-- L oad app source code: main script, services, controllers, etc. -->
+  <script src="/scripts/app.js"></script>
 
-<script src="/scripts/services/notification.js"></script>
-<script src="/scripts/services/statusCodeHandler.js"></script>
-<script src="/scripts/services/authorization.js"></script>
+  <script src="/scripts/services/notification.js"></script>
+  <script src="/scripts/services/statusCodeHandler.js"></script>
+  <script src="/scripts/services/authorization.js"></script>
 
-<script src="/scripts/controllers/UserController.js"></script>
-<script src="/scripts/controllers/AppController.js"></script>
-<script src="/scripts/controllers/HomeController.js"></script>
-<script src="/scripts/controllers/NewTaskController.js"></script>
-<script src="/scripts/controllers/UserCommunityController.js"></script>
-<script src="/scripts/controllers/UserTaskController.js"></script>
+  <script src="/scripts/controllers/UserController.js"></script>
+  <script src="/scripts/controllers/AppController.js"></script>
+  <script src="/scripts/controllers/HomeController.js"></script>
+  <script src="/scripts/controllers/NewTaskController.js"></script>
+  <script src="/scripts/controllers/UserCommunityController.js"></script>
+  <script src="/scripts/controllers/UserTaskController.js"></script>
 
 
 </body>

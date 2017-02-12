@@ -16,6 +16,12 @@ form {
     text-align: center;
 }
 
+#btn-logout {
+    border: none;
+    background: transparent;
+    padding: 0px;
+}
+
 .circle {
     display: inline-block;
     margin: 0;
