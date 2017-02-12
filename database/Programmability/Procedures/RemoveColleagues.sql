@@ -21,6 +21,9 @@ BEGIN
 		DELETE Colleagues
 		WHERE (@User1 = User1 AND @User2 = User2) OR (@User2 = User1 AND @User1 = User2);
 
+		DELETE ManagersEmployees
+		WHERE (@User1 = Manager AND @User2 = Employee) OR (@User2 = Manager AND @User1 = Employee);
+
 		DELETE UserColleagueRequests
 		WHERE (User_Sent = @User1 AND User_Recieved = @User2)
 		OR (User_Sent = @User2 AND User_Recieved = @User1)
