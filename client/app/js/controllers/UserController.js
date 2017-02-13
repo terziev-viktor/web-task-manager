@@ -149,26 +149,28 @@ app.controller('UserController',
             };
 
             $scope.acceptReqEmployee = (username, $event) => {
-                $($event.currentTarget).hide(200);
-
                 $.ajax({
                     method: 'POST',
                     url: '/user/employee',
                     data: {
                         Username: username
                     },
+                    success: () => {
+                        $($event.currentTarget).hide(200);
+                    },
                     statusCode: statusHandler
                 });
             }
 
             $scope.acceptReqManager = (username, $event) => {
-                $($event.currentTarget).hide(200);
-
                 $.ajax({
                     method: 'POST',
                     url: '/user/manager',
                     data: {
                         Username: username
+                    },
+                    success: () => {
+                        $($event.currentTarget).hide(200);
                     },
                     statusCode: statusHandler
                 });
@@ -193,6 +195,36 @@ app.controller('UserController',
                     url: 'user/req/manager',
                     data: {
                         Username: username
+                    },
+                    statusCode: statusHandler
+                });
+            }
+
+            $scope.removeManager = (username, $event) => {
+                $.ajax({
+                    method: 'POST',
+                    url: '/user/manager?remove=' + username,
+                    data: {
+                        Username: username
+                    },
+                    success: () => {
+                        $($event.currentTarget).hide(200);
+                    },
+                    statusCode: statusHandler
+                });
+
+                $($event.currentTarget).hide(200);
+            }
+
+            $scope.removeEmployee = (username, $event) => {
+                $.ajax({
+                    method: 'POST',
+                    url: '/user/employee?remove=' + username,
+                    data: {
+                        Username: username
+                    },
+                    success: () => {
+                        $($event.currentTarget).hide(200);
                     },
                     statusCode: statusHandler
                 });

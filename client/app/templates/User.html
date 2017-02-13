@@ -112,7 +112,10 @@
         <div class="panel-body" ng-switch="managers.length > 0">
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="manager in managers">
-                    <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
+                    <span>      
+                        <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
+                    </span>
+                    <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Manager, $event)">
                 </li>
             </ul>
             <div ng-switch-when="false">
@@ -127,7 +130,10 @@
         <div class="panel-body" ng-switch="employees.length > 0">
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="employee in employees">
-                    <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
+                    <span>
+                        <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
+                    </span>
+                    <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Employee, $event)">
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">

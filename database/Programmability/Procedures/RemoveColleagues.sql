@@ -13,8 +13,7 @@ CREATE PROCEDURE RemoveColleague
 AS
 BEGIN
 	SET NOCOUNT ON;
-	DECLARE @msg NVARCHAR(2048) = FORMATMESSAGE(60000, 500, N'First string', N'second string'); 
-
+	
 	IF EXISTS
 		(SELECT * FROM Colleagues WHERE (USER1 = @User1 AND USER2 = @User2) OR (USER1 = @User2 AND USER2 = @User1))
 	BEGIN 
@@ -25,6 +24,14 @@ BEGIN
 		WHERE (@User1 = Manager AND @User2 = Employee) OR (@User2 = Manager AND @User1 = Employee);
 
 		DELETE UserColleagueRequests
+		WHERE (User_Sent = @User1 AND User_Recieved = @User2)
+		OR (User_Sent = @User2 AND User_Recieved = @User1)
+
+		DELETE UserManagerRequests
+		WHERE (User_Sent = @User1 AND User_Recieved = @User2)
+		OR (User_Sent = @User2 AND User_Recieved = @User1)
+
+		DELETE UserEmployeeRequests
 		WHERE (User_Sent = @User1 AND User_Recieved = @User2)
 		OR (User_Sent = @User2 AND User_Recieved = @User1)
 	END

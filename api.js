@@ -149,26 +149,49 @@ module.exports = (app, db) => {
     });
     // Current user becomes employee of user from req.body
     app.post('/user/employee', auth, (req, res) => {
-        db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) => {
-            if (err) {
-                console.log(err);
-                res.status(401).redirect('/');
-            } else {
-                res.status(200).json({ msg: 'User inserted to managers' });
-            }
-        });
+        if (req.query.remove !== undefined) {
+            db.removeUserEmployee(req.user.Username, req.query.remove, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: 'Could not remove ' + req.query.remove + ' from employees' });
+                } else {
+                    res.status(200).json({ msg: req.query.remove + ' removed from employees' });
+                }
+            });
+        } else {
+            db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) => {
+                if (err) {
+                    console.log(err);
+                    res.status(401).redirect('/');
+                } else {
+                    res.status(200).json({ msg: 'User inserted to managers' });
+                }
+            });
+        }
     });
 
-    // Current user becomes manager of user from req.body
+    // Current user becomes manager of user from req.body OR removing manager
     app.post('/user/manager', auth, (req, res) => {
-        db.insertUserManager(req.body.Username, req.user.Username, (err, recordser) => {
-            if (err) {
-                console.log(err);
-                res.status(401).redirect('/');
-            } else {
-                res.status(200).json('User ' + req.body.Username + ' added to managers.');
-            }
-        });
+        if (req.query.remove !== undefined) {
+            let managerToRemove = req.query.remove
+            db.removeUserManager(req.user.Username, managerToRemove, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({ msg: 'Could not remove ' + managerToRemove + ' from managers.' });
+                } else {
+                    res.status(200).json({ msg: managerToRemove + ' removed from managers.' });
+                }
+            });
+        } else {
+            db.insertUserManager(req.body.Username, req.user.Username, (err, recordser) => {
+                if (err) {
+                    console.log(err);
+                    res.status(401).redirect('/');
+                } else {
+                    res.status(200).json('User ' + req.body.Username + ' added to managers.');
+                }
+            });
+        }
     });
 
     app.get('/tasks/assignedto', auth, (req, res) => {
@@ -190,7 +213,7 @@ module.exports = (app, db) => {
             } else {
                 res.json(recordset);
             }
-        })
+        });
     });
 
     app.get('/user/employees/:username', auth, (req, res) => {
@@ -205,6 +228,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/managers', auth, (req, res) => {
+
         db.getUserManagers(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
@@ -212,7 +236,8 @@ module.exports = (app, db) => {
             } else {
                 res.json(recordset);
             }
-        })
+        });
+
     });
 
     app.get('/user/managers/:username', auth, (req, res) => {
@@ -255,11 +280,11 @@ module.exports = (app, db) => {
     app.post('/user/colleagues', auth, (req, res) => {
         if (req.query.remove === 'true') {
             db.removeColleague(req.user.Username, req.body.Username, (err, recordset) => {
-                if(err) {
+                if (err) {
                     console.log(err);
-                    res.status(500).json({msg: 'Could not remove colleague...'});
+                    res.status(500).json({ msg: 'Could not remove colleague...' });
                 } else {
-                    res.status(200).json({msg: 'Removed ' + req.body.Username + ' from colleagues.'});
+                    res.status(200).json({ msg: 'Removed ' + req.body.Username + ' from colleagues.' });
                 }
             });
         } else {
