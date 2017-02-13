@@ -192,7 +192,7 @@ app.controller('UserController',
                 console.log(username);
                 $.ajax({
                     method: 'POST',
-                    url: 'user/req/manager',
+                    url: 'user/req/employee',
                     data: {
                         Username: username
                     },

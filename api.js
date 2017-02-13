@@ -330,6 +330,7 @@ module.exports = (app, db) => {
     });
 
     app.post('/user/req/employee', auth, (req, res) => {
+        //inserts in UserEmployeeRequests
         db.insertEmployeeRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 res.status(500).json({ msg: 'Could not send employee request.' });

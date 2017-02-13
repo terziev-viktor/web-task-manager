@@ -96,8 +96,8 @@
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="colleague in colleagues">
                     <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
-                    <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Request Manager">
-                    <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Request Employee">
+                    <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Make Employee">
+                    <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Make Manager">
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
