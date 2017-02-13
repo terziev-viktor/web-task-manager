@@ -1,31 +1,49 @@
 <div>
     <div>
         <h2>{{Title}}</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>Description</span>
+            </div>
+            <div class="panel-body">
+                <span>{{Description}}</span>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>Deadline</span>
+            </div>
+            <div class="panel-body">
+                <span>{{Deadline}}</span>
+            </div>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div>
+                        Progress
+                        <div id="form-progress">
+                            <div class="form-group">
+                                <label for="inp-progress"></label>
+                                <input class="btn btn-default" name="newProgress" id="inp-progress" type="number" min="1" max="100" value="{{Progress}}">
+                                <input type="button" class="btn btn-default" value="Edit" onclick='update()'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Progress}}%">
+                            {{Progress}}% Complete
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label class="content-header-top">Description</label><br> {{Description}}
         </div>
-        <div class="form-group">
-            <label class="content-header-top">Deadline</label><br> {{Deadline}}
+        <div class="panel panel-default">
+            <span class="content-header-top">Task Priority: {{PriorityStr}}</span>
         </div>
-        <div class="form-group">
-            <label class="content-header-top">Progress</label> <br>
-            </label>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0" aria-valuemax="100" >
-                    {{Progress}}% Complete
-                </div>
-            </div>
-            <div id="form-progress">
-                <div class="form-group">
-                    <label for="inp-progress"></label>
-                    <input name="newProgress" id="inp-progress" type="number" min="1" max="100" value="{{Progress}}">
-                    <input type="button" class="btn btn-ptimary" value="Edit" onclick='update()'>
-                    
-                </div>
-            </div>
-        </div>
-        <label for="inp-priority" class="content-header-top">Task Priority: {{PriorityStr}}</label>
     </div>
     <script>
         function update() {
@@ -55,6 +73,6 @@
                     }
                 }
             });
-        }    
+        }
     </script>
-</div>`
+</div>

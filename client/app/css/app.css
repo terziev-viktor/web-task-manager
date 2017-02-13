@@ -16,7 +16,7 @@ form {
     text-align: center;
 }
 
-#btn-logout {
+.no-style {
     border: none;
     background: transparent;
     padding: 0px;
@@ -135,20 +135,13 @@ form {
 }
 
 #task-view {
-    z-index: 2;
-    margin-left: 40%;
-    top: 10%;
-    position: fixed;
-    border: 1px solid #777;
-    border-radius: 2px;
-    width: 400px;
     z-index: 1;
-    background-color: white;
+    top: 10vh;
+    position: fixed;
+    max-height: 80vh;
+    background-color: lightgrey;
+    border-radius: 5px;
     padding: 5px;
-    background: #777;
-    background: -webkit-linear-gradient(#E0E0E0,white);
-    background: -o-linear-gradient(#E0E0E0,white);
-    background: linear-gradient(#E0E0E0,white);
 }
 
 #search-found > input, #task-view > input {

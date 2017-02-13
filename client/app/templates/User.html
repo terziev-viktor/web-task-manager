@@ -3,7 +3,10 @@
     <p> This is your personal profile in the web task manager platform.<br> Here you can create tasks, assign your employees
         to these tasks, see your to-do list and much more!</p>
 </div>
-
+<div id="task-view" class="col-lg-4 col-md-4 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+    <input ng-click="hide_task_view()" type="button" value="X">
+    <div id="task-view-content"></div>
+</div>
 <div class="panel-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
     <h2>Tasks</h2>
     <div class="panel panel-default">
@@ -22,7 +25,7 @@
                 <tbody>
                     <tr ng-repeat="task in tasksTodo">
                         <td>
-                            <button ng-click="showContentPanel(this)">
+                            <button class="no-style" ng-click="showContentPanel(this)">
                                 {{task.Title}}
                             </button>
                         </td>
@@ -43,10 +46,6 @@
             You dont have tasks to do yet
         </div>
     </div>
-</div>
-<div id="task-view">
-    <input ng-click="hide_task_view()" type="button" value="X">
-    <div id="task-view-content"></div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading">
