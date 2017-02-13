@@ -169,7 +169,7 @@
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
                     <span>{{employeeReq.User_Sent}}</span>
-                    <input type="button" class="btn" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
@@ -186,7 +186,7 @@
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="managerReq in managersReq">
                     <span>{{managerReq.User_Sent}}</span>
-                    <input type="button" class="btn" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
