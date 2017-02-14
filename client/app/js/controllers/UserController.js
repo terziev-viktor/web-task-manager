@@ -13,15 +13,10 @@ app.controller('UserController',
         $scope.showContentPanel = (el) => {
             let task = el.task;
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
-            let tmpl = $.get('../templates/taskContentPanel.html', (tmpl) => {
+            $.get('../templates/taskContentPanel.html', (tmpl) => {
                 var rendered = Mustache.render(tmpl, task);
-                let view_tag_content = $('#task-view-content').html(rendered);
-                $('#task-view').show(300);
-
-                $scope.updateTask = (taskId) => {
-                    // TODO Implement
-                }
-                $scope.$apply();
+                $('#modal-content').html(rendered);
+                $('#modal-title').html(task.Title);
             });
         }
 

@@ -3,6 +3,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
     let statusHandler = statusCodeHandler($scope);
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();
+        $('#inp-search-colleagues').val('');
         if (search.length > 0) {
             $.ajax({
                 method: 'GET',
@@ -19,8 +20,8 @@ app.controller('AppController', function ($scope, $location, notification, statu
                     }
 
                     inner_html += '</ul>';
-                    $('#search-found-content').html(inner_html);
-                    $('#search-found').show(500);
+                    $('#modal-title').html("Found Users");                    
+                    $('#modal-content').html(inner_html);
                 },
                 statusCode: statusHandler
             });
