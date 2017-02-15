@@ -71,10 +71,6 @@ form {
     background: linear-gradient(white, #E0E0E0);
 }
 
-#home-forms-container {
-    display: block;
-}
-
 .container>div:first-child {
     align-content: center;
 }
