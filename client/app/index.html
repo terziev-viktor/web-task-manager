@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-
 <html ng-app="app" ng-controller="AppController">
 
 <head>
   <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/styles/app.css" />
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Web Task Manager</title>
 </head>
 
@@ -21,7 +18,6 @@
         <input autocomplete="off" id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
       </div>
       <button ng-click="searchCollegues()" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Search</button>
-
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -36,7 +32,6 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
-
         </div>
       </div>
     </form>
@@ -53,9 +48,7 @@
   </nav>
   <div id="noty-container"></div>
   <div ng-view>
-
   </div>
-
   <!-- Load app libraries -->
   <script src="/components/angular/angular.min.js"></script>
   <script src="/components/angular-route/angular-route.min.js"></script>
@@ -66,20 +59,16 @@
   <script src="/components/socket.io-client/dist/socket.io.min.js"></script>
   <!-- L oad app source code: main script, services, controllers, etc. -->
   <script src="/scripts/app.js"></script>
-
   <script src="/scripts/services/notification.js"></script>
   <script src="/scripts/services/statusCodeHandler.js"></script>
   <script src="/scripts/services/authorization.js"></script>
   <script src="/scripts/services/socket.js"></script>
-
   <script src="/scripts/controllers/UserController.js"></script>
   <script src="/scripts/controllers/AppController.js"></script>
   <script src="/scripts/controllers/HomeController.js"></script>
   <script src="/scripts/controllers/NewTaskController.js"></script>
   <script src="/scripts/controllers/UserCommunityController.js"></script>
   <script src="/scripts/controllers/UserTaskController.js"></script>
-
-
 </body>
 
 </html>

@@ -45,26 +45,25 @@
                     <div id="progress-bar" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
                         aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
                         {{task.Progress}}% Complete
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <label id="lbl-priority" for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
-            <input type="button" class="btn btn-default" ng-click="editPriority()" value="Edit">
-        </div>
-        <div class="panel-body">
-            <select class="form-control" id="inp-priority">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label id="lbl-priority" for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
+                <input type="button" class="btn btn-default" ng-click="editPriority()" value="Edit">
+            </div>
+            <div class="panel-body">
+                <select class="form-control" id="inp-priority">
                 <option value="0">Low</option>
                 <option value="1">Medium</option>
                  <option value="2">High</option>
             </select>
+            </div>
         </div>
     </div>
-</div>
 </div>`
-
 <div class="comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <h3>Comments</h3>
     <div class="panel-group">
@@ -85,10 +84,8 @@
                 <p>{{_comment.Content}}</p>
             </div>
         </div>
-
     </div>
 </div>
-
 <div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <h4>Assigned Users</h4>
     <div class="panel panel-default">

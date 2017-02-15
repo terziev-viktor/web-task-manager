@@ -1,4 +1,3 @@
-
 app.service('socket', function ($rootScope) {
     let socket = io.connect();
 

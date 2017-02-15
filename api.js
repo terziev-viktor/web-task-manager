@@ -20,7 +20,9 @@ module.exports = (app, db) => {
         db.getTaskById(req.params.taskId, (err, task) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not get task' });
+                res.status(500).json({
+                    msg: 'Could not get task'
+                });
             } else {
                 res.status(200).json(task);
             }
@@ -33,9 +35,13 @@ module.exports = (app, db) => {
 
         db.updateTaskProgress(taskId, newProgress, (err, task) => {
             if (err) {
-                res.status(500).json({ msg: 'Could not update task...' });
+                res.status(500).json({
+                    msg: 'Could not update task...'
+                });
             } else {
-                res.status(200).json({ msg: 'Progress set to ' + newProgress });
+                res.status(200).json({
+                    msg: 'Progress set to ' + newProgress
+                });
             }
         });
     });
@@ -45,9 +51,13 @@ module.exports = (app, db) => {
         db.insertComment(req.body.content, req.user.Username, req.params.taskId, (err) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not post the comment.' });
+                res.status(500).json({
+                    msg: 'Could not post the comment.'
+                });
             } else {
-                res.status(200).json({ msg: 'Comment posted.' });
+                res.status(200).json({
+                    msg: 'Comment posted.'
+                });
             }
         });
     });
@@ -58,7 +68,9 @@ module.exports = (app, db) => {
         db.getTaskComments(id, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not get task comments' });
+                res.status(500).json({
+                    msg: 'Could not get task comments'
+                });
             } else {
                 res.status(200).json(recordset);
             }
@@ -68,7 +80,9 @@ module.exports = (app, db) => {
     app.get('/task/:taskId/assignedUsers', auth, (req, res) => {
         db.getTaskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
             if (err) {
-                res.status(500).json({ msg: "Could not get task's assigned users." });
+                res.status(500).json({
+                    msg: "Could not get task's assigned users."
+                });
             } else {
                 res.status(200).json(recordset);
             }
@@ -110,7 +124,9 @@ module.exports = (app, db) => {
         db.getUsersByUsernamePart(req.query.text, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not get users.' });
+                res.status(500).json({
+                    msg: 'Could not get users.'
+                });
             } else {
                 res.json(recordset);
             }
@@ -153,9 +169,13 @@ module.exports = (app, db) => {
             db.removeUserEmployee(req.user.Username, req.query.remove, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'Could not remove ' + req.query.remove + ' from employees' });
+                    res.status(500).json({
+                        msg: 'Could not remove ' + req.query.remove + ' from employees'
+                    });
                 } else {
-                    res.status(200).json({ msg: req.query.remove + ' removed from employees' });
+                    res.status(200).json({
+                        msg: req.query.remove + ' removed from employees'
+                    });
                 }
             });
         } else {
@@ -164,7 +184,9 @@ module.exports = (app, db) => {
                     console.log(err);
                     res.status(401).redirect('/');
                 } else {
-                    res.status(200).json({ msg: 'User inserted to managers' });
+                    res.status(200).json({
+                        msg: 'User inserted to managers'
+                    });
                 }
             });
         }
@@ -177,9 +199,13 @@ module.exports = (app, db) => {
             db.removeUserManager(req.user.Username, managerToRemove, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'Could not remove ' + managerToRemove + ' from managers.' });
+                    res.status(500).json({
+                        msg: 'Could not remove ' + managerToRemove + ' from managers.'
+                    });
                 } else {
-                    res.status(200).json({ msg: managerToRemove + ' removed from managers.' });
+                    res.status(200).json({
+                        msg: managerToRemove + ' removed from managers.'
+                    });
                 }
             });
         } else {
@@ -254,7 +280,9 @@ module.exports = (app, db) => {
     app.post('/task', auth, (req, res) => {
         let task = req.body;
         if (!task.Title.length > 0) {
-            res.status(500).json({ err: 'Please insert a title for the task.' });
+            res.status(500).json({
+                err: 'Please insert a title for the task.'
+            });
         } else {
             task.Creator_Username = req.user.Username;
             db.insertTask(task, (err, recordset) => {
@@ -282,18 +310,26 @@ module.exports = (app, db) => {
             db.removeColleague(req.user.Username, req.body.Username, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'Could not remove colleague...' });
+                    res.status(500).json({
+                        msg: 'Could not remove colleague...'
+                    });
                 } else {
-                    res.status(200).json({ msg: 'Removed ' + req.body.Username + ' from colleagues.' });
+                    res.status(200).json({
+                        msg: 'Removed ' + req.body.Username + ' from colleagues.'
+                    });
                 }
             });
         } else {
             db.insertColleagues(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'You are already colleague  with ' + req.body.Username });
+                    res.status(500).json({
+                        msg: 'You are already colleague  with ' + req.body.Username
+                    });
                 } else {
-                    res.status(200).json({ msg: 'User ' + req.body.Username + ' added to colleagues' });
+                    res.status(200).json({
+                        msg: 'User ' + req.body.Username + ' added to colleagues'
+                    });
                 }
             });
         }
@@ -302,7 +338,9 @@ module.exports = (app, db) => {
     app.get('/user/colleagues', auth, (req, res) => {
         db.getUserColleagues(req.user.Username, (err, recordset) => {
             if (err) {
-                res.status(500).json({ msg: 'Could not retrieve your colleagues' });
+                res.status(500).json({
+                    msg: 'Could not retrieve your colleagues'
+                });
             } else {
                 res.json(recordset);
             }
@@ -312,7 +350,9 @@ module.exports = (app, db) => {
     app.get('/user/req/colleague', auth, (req, res) => {
         db.getUserColleagueRequests(req.user.Username, (err, recordset) => {
             if (err) {
-                res.status(500).json({ msg: 'Could not get colleague requests.' });
+                res.status(500).json({
+                    msg: 'Could not get colleague requests.'
+                });
             } else {
                 res.json(recordset);
             }
@@ -322,9 +362,13 @@ module.exports = (app, db) => {
     app.post('/user/req/colleague', auth, (req, res) => {
         db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
-                res.status(500).json({ msg: 'Could not send colleague request.' });
+                res.status(500).json({
+                    msg: 'Could not send colleague request.'
+                });
             } else {
-                res.status(200).json({ msg: 'Request sent to ' + req.body.Username });
+                res.status(200).json({
+                    msg: 'Request sent to ' + req.body.Username
+                });
             }
         });
     });
@@ -333,9 +377,13 @@ module.exports = (app, db) => {
         //inserts in UserEmployeeRequests
         db.insertEmployeeRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
-                res.status(500).json({ msg: 'Could not send employee request.' });
+                res.status(500).json({
+                    msg: 'Could not send employee request.'
+                });
             } else {
-                res.status(200).json({ msg: 'Request sent to ' + req.body.Username });
+                res.status(200).json({
+                    msg: 'Request sent to ' + req.body.Username
+                });
             }
         })
     });
@@ -344,9 +392,13 @@ module.exports = (app, db) => {
         db.insertManagerRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not send manager request.' });
+                res.status(500).json({
+                    msg: 'Could not send manager request.'
+                });
             } else {
-                res.status(200).json({ msg: 'Request sent to ' + req.body.Username });
+                res.status(200).json({
+                    msg: 'Request sent to ' + req.body.Username
+                });
             }
         })
     });
@@ -355,7 +407,9 @@ module.exports = (app, db) => {
         db.getUserRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not get employee requests' });
+                res.status(500).json({
+                    msg: 'Could not get employee requests'
+                });
             } else {
                 res.json(recordset);
             }
@@ -366,7 +420,9 @@ module.exports = (app, db) => {
         db.getUserRecievedManagerRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({ msg: 'Could not get manager requests' });
+                res.status(500).json({
+                    msg: 'Could not get manager requests'
+                });
             } else {
                 res.json(recordset);
             }
@@ -379,9 +435,13 @@ module.exports = (app, db) => {
             db.removeTaskAssignment(req.body.removeAssignment, req.params.taskId, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'Could not remove assignment' });
+                    res.status(500).json({
+                        msg: 'Could not remove assignment'
+                    });
                 } else {
-                    res.status(200).json({ msg: 'Assignment removed' });
+                    res.status(200).json({
+                        msg: 'Assignment removed'
+                    });
                 }
             });
         } else {
@@ -396,9 +456,13 @@ module.exports = (app, db) => {
             db.updateTask(id, task, (err, result) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({ msg: 'Could not update the task.' });
+                    res.status(500).json({
+                        msg: 'Could not update the task.'
+                    });
                 } else {
-                    res.status(200).json({ msg: 'Task Updated.' });
+                    res.status(200).json({
+                        msg: 'Task Updated.'
+                    });
                 }
             });
         }

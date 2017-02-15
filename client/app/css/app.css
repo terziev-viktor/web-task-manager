@@ -33,14 +33,14 @@ form {
     border-radius: 30px;
     overflow: hidden;
     background: #777;
-    background: -webkit-linear-gradient(#E0E0E0,white);
-    background: -o-linear-gradient(#E0E0E0,white);
-    background: linear-gradient(#E0E0E0,white);
-    -moz-user-select: none; 
-    -webkit-user-select: none; 
-    -ms-user-select:none; 
-    user-select:none;
-    -o-user-select:none;
+    background: -webkit-linear-gradient(#E0E0E0, white);
+    background: -o-linear-gradient(#E0E0E0, white);
+    background: linear-gradient(#E0E0E0, white);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
 }
 
 .container {
@@ -57,25 +57,25 @@ form {
     text-align: center;
     width: 100%;
     background: #777;
-    background: -webkit-linear-gradient(#E0E0E0,white);
-    background: -o-linear-gradient(#E0E0E0,white);
-    background: linear-gradient(#E0E0E0,white);
+    background: -webkit-linear-gradient(#E0E0E0, white);
+    background: -o-linear-gradient(#E0E0E0, white);
+    background: linear-gradient(#E0E0E0, white);
 }
 
 .content-header-bottom {
     text-align: center;
     width: 100%;
     background: #777;
-    background: -webkit-linear-gradient(white,#E0E0E0);
-    background: -o-linear-gradient(white,#E0E0E0);
-    background: linear-gradient(white,#E0E0E0);
+    background: -webkit-linear-gradient(white, #E0E0E0);
+    background: -o-linear-gradient(white, #E0E0E0);
+    background: linear-gradient(white, #E0E0E0);
 }
 
 #home-forms-container {
     display: block;
 }
 
-.container > div:first-child {
+.container>div:first-child {
     align-content: center;
 }
 
@@ -94,7 +94,7 @@ form {
     margin-left: 10px;
 }
 
-.navbar-nav > li > button {
+.navbar-nav>li>button {
     padding-top: 15px;
     padding-bottom: 15px;
     border: none;
@@ -117,7 +117,7 @@ form {
 }
 
 .container-small-left {
-    float: left; 
+    float: left;
 }
 
 #search-found {
@@ -129,9 +129,9 @@ form {
     background-color: white;
     padding: 5px;
     background: #777;
-    background: -webkit-linear-gradient(#E0E0E0,white);
-    background: -o-linear-gradient(#E0E0E0,white);
-    background: linear-gradient(#E0E0E0,white);
+    background: -webkit-linear-gradient(#E0E0E0, white);
+    background: -o-linear-gradient(#E0E0E0, white);
+    background: linear-gradient(#E0E0E0, white);
 }
 
 #task-view {
@@ -144,7 +144,8 @@ form {
     padding: 5px;
 }
 
-#search-found > input, #task-view > input {
+#search-found>input,
+#task-view>input {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -152,7 +153,6 @@ form {
     border: none;
     background-color: transparent;
 }
-
 
 #search-found-content {
     padding-left: 5px;
@@ -175,15 +175,15 @@ form {
 .jumbotron {
     padding: 0.5em 0.6em;
     margin-bottom: 0px;
-    background: #777; /* For browsers that do not support gradients */
- /* For Safari 5.1 to 6.0 */
- /* For Opera 11.1 to 12.0 */
-
+    background: #777;
+    /* For browsers that do not support gradients */
+    /* For Safari 5.1 to 6.0 */
+    /* For Opera 11.1 to 12.0 */
     background: -webkit-linear-gradient(white, #E0E0E0);
     background: -o-linear-gradient(white, #E0E0E0);
     background: linear-gradient(white, #E0E0E0);
- /* For Firefox 3.6 to 15 */
- /* Standard syntax */
+    /* For Firefox 3.6 to 15 */
+    /* Standard syntax */
 }
 
 .jumbotron h1 {
