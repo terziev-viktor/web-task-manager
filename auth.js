@@ -4,7 +4,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
 
     passport.use(new Strategy(
         (username, password, cb) => {
-            db.getUserByUsername(username, (err, user) => {
+            db.get.userByUsername(username, (err, user) => {
                 if (err) {
                     return cb(err);
                 }
@@ -31,7 +31,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     });
 
     passport.deserializeUser((username, cb) => {
-        db.getUserByUsername(username, (err, user) => {
+        db.get.userByUsername(username, (err, user) => {
             if (err) {
                 return cb(err);
             }
@@ -75,7 +75,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                 username: username,
                 password: password
             }
-            db.insertUser(user, (err) => {
+            db.insert.user(user, (err) => {
                 console.log(err)
                 if (err) {
                     console.log('In error');

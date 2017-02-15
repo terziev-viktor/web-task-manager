@@ -17,7 +17,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/task/:taskId', auth, (req, res) => {
-        db.getTaskById(req.params.taskId, (err, task) => {
+        db.get.taskById(req.params.taskId, (err, task) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -33,7 +33,7 @@ module.exports = (app, db) => {
         let taskId = req.params.taskId;
         let newProgress = req.body.newProgress;
 
-        db.updateTaskProgress(taskId, newProgress, (err, task) => {
+        db.update.taskProgress(taskId, newProgress, (err, task) => {
             if (err) {
                 res.status(500).json({
                     msg: 'Could not update task...'
@@ -48,7 +48,7 @@ module.exports = (app, db) => {
 
     app.post('/task/:taskId/comments', auth, (req, res) => {
 
-        db.insertComment(req.body.content, req.user.Username, req.params.taskId, (err) => {
+        db.insert.comment(req.body.content, req.user.Username, req.params.taskId, (err) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -65,7 +65,7 @@ module.exports = (app, db) => {
     app.get('/task/:taskId/comments', auth, (req, res) => {
         let id = req.params.taskId;
 
-        db.getTaskComments(id, (err, recordset) => {
+        db.get.taskComments(id, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -78,7 +78,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/task/:taskId/assignedUsers', auth, (req, res) => {
-        db.getTaskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
+        db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
             if (err) {
                 res.status(500).json({
                     msg: "Could not get task's assigned users."
@@ -90,7 +90,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/todo', auth, (req, res) => {
-        db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+        db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err)
                 res.status(401).redirect('/');
@@ -105,7 +105,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/todo/:username', auth, (req, res) => {
-        db.getTasksAssignedToUserOrderedByPriority(req.params.username, (err, recordset) => {
+        db.get.tasksAssignedToUserOrderedByPriority(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err)
                 res.status(401).redirect('/');
@@ -121,7 +121,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/search', (req, res) => {
-        db.getUsersByUsernamePart(req.query.text, (err, recordset) => {
+        db.get.usersByUsernamePart(req.query.text, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -134,7 +134,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/created', auth, (req, res) => {
-        db.getUserCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
+        db.get.userCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err)
                 res.status(401).redirect('/');
@@ -149,7 +149,7 @@ module.exports = (app, db) => {
         });
     });
     app.get('/tasks/created/:username', auth, (req, res) => {
-        db.getUserCreatedTasksOrderByPriority(req.params.username, (err, recordset) => {
+        db.get.userCreatedTasksOrderByPriority(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err)
                 res.status(401).redirect('/');
@@ -166,7 +166,7 @@ module.exports = (app, db) => {
     // Current user becomes employee of user from req.body
     app.post('/user/employee', auth, (req, res) => {
         if (req.query.remove !== undefined) {
-            db.removeUserEmployee(req.user.Username, req.query.remove, (err, recordset) => {
+            db.remove.userEmployee(req.user.Username, req.query.remove, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
@@ -179,7 +179,7 @@ module.exports = (app, db) => {
                 }
             });
         } else {
-            db.insertUserManager(req.user.Username, req.body.Username, (err, recordser) => {
+            db.insert.userManager(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
                     res.status(401).redirect('/');
@@ -196,7 +196,7 @@ module.exports = (app, db) => {
     app.post('/user/manager', auth, (req, res) => {
         if (req.query.remove !== undefined) {
             let managerToRemove = req.query.remove
-            db.removeUserManager(req.user.Username, managerToRemove, (err, recordset) => {
+            db.remove.userManager(req.user.Username, managerToRemove, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
@@ -209,7 +209,7 @@ module.exports = (app, db) => {
                 }
             });
         } else {
-            db.insertUserManager(req.body.Username, req.user.Username, (err, recordser) => {
+            db.insert.userManager(req.body.Username, req.user.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
                     res.status(401).redirect('/');
@@ -221,7 +221,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/assignedto', auth, (req, res) => {
-        db.getTasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+        db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.sendStatus(401);
@@ -232,7 +232,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/employees', auth, (req, res) => {
-        db.getUserEmployees(req.user.Username, (err, recordset) => {
+        db.get.userEmployees(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -243,7 +243,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/employees/:username', auth, (req, res) => {
-        db.getUserEmployees(req.params.username, (err, recordset) => {
+        db.get.userEmployees(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -255,7 +255,7 @@ module.exports = (app, db) => {
 
     app.get('/user/managers', auth, (req, res) => {
 
-        db.getUserManagers(req.user.Username, (err, recordset) => {
+        db.get.userManagers(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -267,7 +267,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/managers/:username', auth, (req, res) => {
-        db.getUserManagers(req.params.username, (err, recordset) => {
+        db.get.userManagers(req.params.username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -285,13 +285,13 @@ module.exports = (app, db) => {
             });
         } else {
             task.Creator_Username = req.user.Username;
-            db.insertTask(task, (err, recordset) => {
+            db.insert.task(task, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.sendStatus(401);
                 } else {
                     let taskId = recordset[0].TaskId;
-                    db.assignUsersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
+                    db.assign.usersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
                         if (err) {
                             console.log(err);
                             res.status(401).redirect('/');
@@ -307,7 +307,7 @@ module.exports = (app, db) => {
 
     app.post('/user/colleagues', auth, (req, res) => {
         if (req.query.remove === 'true') {
-            db.removeColleague(req.user.Username, req.body.Username, (err, recordset) => {
+            db.remove.colleague(req.user.Username, req.body.Username, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
@@ -320,7 +320,7 @@ module.exports = (app, db) => {
                 }
             });
         } else {
-            db.insertColleagues(req.user.Username, req.body.Username, (err, recordser) => {
+            db.insert.colleagues(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
@@ -336,7 +336,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/colleagues', auth, (req, res) => {
-        db.getUserColleagues(req.user.Username, (err, recordset) => {
+        db.get.userColleagues(req.user.Username, (err, recordset) => {
             if (err) {
                 res.status(500).json({
                     msg: 'Could not retrieve your colleagues'
@@ -348,7 +348,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/req/colleague', auth, (req, res) => {
-        db.getUserColleagueRequests(req.user.Username, (err, recordset) => {
+        db.get.userColleagueRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 res.status(500).json({
                     msg: 'Could not get colleague requests.'
@@ -360,7 +360,7 @@ module.exports = (app, db) => {
     });
 
     app.post('/user/req/colleague', auth, (req, res) => {
-        db.insertColleagueReuqest(req.user.Username, req.body.Username, (err) => {
+        db.insert.colleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 res.status(500).json({
                     msg: 'Could not send colleague request.'
@@ -375,7 +375,7 @@ module.exports = (app, db) => {
 
     app.post('/user/req/employee', auth, (req, res) => {
         //inserts in UserEmployeeRequests
-        db.insertEmployeeRequest(req.user.Username, req.body.Username, (err) => {
+        db.insert.employeeRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 res.status(500).json({
                     msg: 'Could not send employee request.'
@@ -389,7 +389,7 @@ module.exports = (app, db) => {
     });
 
     app.post('/user/req/manager', auth, (req, res) => {
-        db.insertManagerRequest(req.user.Username, req.body.Username, (err) => {
+        db.insert.managerRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -404,7 +404,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/req/employee', auth, (req, res) => {
-        db.getUserRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
+        db.get.userRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -417,7 +417,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/req/manager', auth, (req, res) => {
-        db.getUserRecievedManagerRequests(req.user.Username, (err, recordset) => {
+        db.get.userRecievedManagerRequests(req.user.Username, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -432,7 +432,7 @@ module.exports = (app, db) => {
     // UPDATE TASK
     app.post('/task/:taskId', auth, (req, res) => {
         if (req.body.removeAssignment !== undefined) {
-            db.removeTaskAssignment(req.body.removeAssignment, req.params.taskId, (err, recordset) => {
+            db.remove.taskAssignment(req.body.removeAssignment, req.params.taskId, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
@@ -453,7 +453,7 @@ module.exports = (app, db) => {
             task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
             task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
             task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';
-            db.updateTask(id, task, (err, result) => {
+            db.update.task(id, task, (err, result) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
