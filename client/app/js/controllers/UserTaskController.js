@@ -43,7 +43,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             success: (data) => {
                 console.log(data);
                 $('#progress-bar').css('width', newProgress + '%').html(newProgress + " % Complete");
-                
+
             },
             statusCode: statusHandler
         });
@@ -79,6 +79,20 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
                 }
             });
         }
+    }
+    
+    $scope.removeUserAssignment = (username, taskid, $event) => {
+        $.ajax({
+            method: 'POST',
+            url: '/task/' + taskid,
+            data: {
+                removeAssignment: username
+            },
+            success: () => {
+                $($event.currentTarget).hide(200);
+            },
+            statusCode: statusHandler
+        });
     }
 
     $.ajax({

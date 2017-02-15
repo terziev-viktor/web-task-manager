@@ -1,5 +1,6 @@
 app.controller('NewTaskController', ['$scope', '$location', 'notification',
-    function ($scope, $location, notification) {
+    function ($scope, $location, notification, statusCodeHandler) {
+        let statusHandler = statusCodeHandler($scope);
         let first = true;
         $.ajax({
             method: 'GET',

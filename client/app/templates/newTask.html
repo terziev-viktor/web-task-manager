@@ -16,11 +16,11 @@
         </div>
         <div class="form-group panel panel-default">
             <label for="inp-deadline" class="content-header-top">Deadline</label>
-            <input type="datetime-local" id="inp-deadline" name="deadline">
+            <input type="datetime-local" id="inp-deadline" class="btn btn-default" name="deadline">
         </div>
         <div class="form-group panel panel-default centered">
             <label for="inp-progress" class="content-header-top">Progress in % (Default: 0)</label>
-            <input type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
+            <input class="btn btn-default" type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
         </div>
         <div class="form-group panel panel-default">
             <label for="inp-priority" class="content-header-top">Task Priority</label>
@@ -61,11 +61,14 @@
             <datalist id="suggestions">
 
             </datalist>
-            <input type="button" class="btn" value="Assign" ng-click="addToAssign()"><br>
-            <textarea disabled type="text" style="width: 90%" cols="30" id="inp-assignto" placeholder="People who will be assigned"></textarea>
+            <input type="button" class="btn btn-default" value="Assign" ng-click="addToAssign()">
+            <input type="button" class="btn btn-default" value="Remove" ng-click="removeFromAssign()"><br>
+            <div class="panel">
+                <textarea class="btn btn-default" disabled type="text" style="width: 90%" cols="30" id="inp-assignto" placeholder="People who will be assigned"></textarea>
+            </div>
         </div>
         <div>
-            <input type="submit" class="btn btn-primary" value="Create Task" ng-click="createTask()">
+            <input type="submit" class="btn btn-primary btn-block" value="Create Task" ng-click="createTask()">
         </div>
     </form>
 </div>

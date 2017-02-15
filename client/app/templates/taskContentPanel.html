@@ -32,7 +32,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Progress}}%">
+                        <div id="p" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{Progress}}%">
                             {{Progress}}% Complete
                         </div>
                     </div>
@@ -41,17 +41,18 @@
 
         </div>
         <div class="panel panel-default">
-            <span class="content-header-top">Task Priority: {{PriorityStr}}</span>
+            <span>Task Priority: {{PriorityStr}}</span>
         </div>
     </div>
     <script>
         function update() {
+            let newP = $('#inp-progress').val();
             $.ajax({
                 method: 'POST',
                 url: '/task/{{TaskId}}/new-progress',
                 dataType: 'json',
                 data: {
-                    newProgress: $('#inp-progress').val()
+                    newProgress: newP
                 },
                 success: (res) => {
                     noty({
@@ -60,6 +61,7 @@
                         layout: 'topCenter',
                         timeout: 1000
                     });
+                    document.getElementById('p').style.width = newP;
                 },
                 statusCode: {
                     500: (xhr) => {

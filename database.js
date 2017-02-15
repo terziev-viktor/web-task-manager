@@ -52,6 +52,10 @@ module.exports = class Database {
         this.request("EXEC RemoveUserEmployee N'" + user + "', N'" + employee + "';", cb);
     }
 
+    removeTaskAssignment(username, taskid, cb) {
+        this.request("EXEC RemoveTaskAssignment N'" + username + "', '" + taskid + "';", cb);
+    }
+
     insertColleagueReuqest(user_sent, user_recieved, cb) {
         this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
     }

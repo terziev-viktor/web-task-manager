@@ -96,7 +96,7 @@
             <div class="panel-body">
                 <span>{{assigned.Username}}</span>
                 <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
-                <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId)">
+                <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
             </div>
         </div>
         <div class="panel" ng-switch-when="false">

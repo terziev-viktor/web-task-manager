@@ -1,0 +1,18 @@
+USE WebTaskManagerDb
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE RemoveTaskAssignment
+	@Username NVARCHAR(128), 
+	@TaskId INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DELETE UsersTasks
+	WHERE TaskId = @TaskId AND Username = @Username
+END
+GO
+
+
