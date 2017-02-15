@@ -13,7 +13,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
                     let inner_html = '<ul class="list-group">';
                     if (data.length > 0) {
                         data.forEach((element) => {
-                            inner_html += '<li class="list-item"><a href="#/user/' + element.Username + '">' + element.Username + '</a></li>';
+                            inner_html += '<li class="list-group-item"><a href="#/user/' + element.Username + '">' + element.Username + '</a></li>';
                         });
                     } else {
                         inner_html += '<li>No search results for "' + search + '"</li>';
