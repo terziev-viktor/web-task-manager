@@ -1,5 +1,5 @@
 
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler) {
+app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, socket) {
     let statusHandler = statusCodeHandler($scope);
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();

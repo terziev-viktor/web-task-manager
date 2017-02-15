@@ -80,7 +80,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             });
         }
     }
-    
+
     $scope.removeUserAssignment = (username, taskid, $event) => {
         $.ajax({
             method: 'POST',
@@ -94,6 +94,16 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             statusCode: statusHandler
         });
     }
+
+    $.ajax({
+        method: 'GET',
+        url: '/user/employees',
+        success: (data) => {
+            data.forEach((element) => {
+                $('#suggestions').append('<option value="' + element.Employee + '">');
+            });
+        }
+    });
 
     $.ajax({
         method: 'GET',

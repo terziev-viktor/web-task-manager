@@ -2,7 +2,9 @@ const express = require('express'),
     app = express(),
     Mustache = require('mustache'),
     sql = require('mssql'),
-    fs = require('fs');
+    fs = require('fs'),
+    http = require('http').Server(app),
+    io = require('socket.io')(http);
 
 const dbConfig = JSON.parse(fs.readFileSync('./database_config.json', 'utf8'));
 
@@ -19,7 +21,11 @@ app.use('/components', express.static(__dirname + '/client/bower_components'));
 require('./auth')(app, db);
 require('./api')(app, db);
 
+io.on('connection', (socket) => {
+    console.log(socket)
+})
+
 const port = 27017;
-module.exports = app.listen(port, () => {
+module.exports = http.listen(port, () => {
     console.log('Listeting at port ' + port);
 });

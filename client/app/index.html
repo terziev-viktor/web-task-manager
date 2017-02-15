@@ -41,6 +41,12 @@
       </div>
     </form>
     <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; padding-left: 20px;">
+      <li id="li-notifications">
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+          <span class="badge">5</span>
+        </button>
+      </li>
       <li id="li-profile"><a href="#/user">Profile</a></li>
       <li id="li-logout"><a href="#"><button class="no-style" ng-click="logout()">Logout</button></a></li>
     </ul>
@@ -57,12 +63,14 @@
   <script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
   <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/components/mustache.js/mustache.min.js"></script>
+  <script src="/components/socket.io-client/dist/socket.io.min.js"></script>
   <!-- L oad app source code: main script, services, controllers, etc. -->
   <script src="/scripts/app.js"></script>
 
   <script src="/scripts/services/notification.js"></script>
   <script src="/scripts/services/statusCodeHandler.js"></script>
   <script src="/scripts/services/authorization.js"></script>
+  <script src="/scripts/services/socket.js"></script>
 
   <script src="/scripts/controllers/UserController.js"></script>
   <script src="/scripts/controllers/AppController.js"></script>

@@ -17,6 +17,7 @@
     "angular": "^1.6.1",
     "angular-route": "^1.6.1",
     "mustache.js": "mustache#^2.3.0",
-    "noty": "^2.4.0"
+    "noty": "^2.4.0",
+    "socket.io-client": "^1.7.2"
   }
 }
