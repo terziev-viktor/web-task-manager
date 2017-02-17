@@ -22,6 +22,9 @@ module.exports = class Database {
             colleagues: (user1, user2, cb) => {
                 this.request("EXEC InsertColleagues N'" + user1 + "', N'" + user2 + "';", cb);
             },
+            userManager: (username, manager, cb) => {
+                this.request("EXEC InsertUserManager N'" + username + "', N'" + manager + "'", cb);
+            },
             colleagueReuqest: (user_sent, user_recieved, cb) => {
                 this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
             },
@@ -53,9 +56,6 @@ module.exports = class Database {
             },
             taskAssignment: (username, taskid, cb) => {
                 this.request("EXEC RemoveTaskAssignment N'" + username + "', '" + taskid + "';", cb);
-            },
-            userManager: (username, manager, cb) => {
-                this.request("EXEC InsertUserManager N'" + username + "', N'" + manager + "'", cb);
             }
         }
 

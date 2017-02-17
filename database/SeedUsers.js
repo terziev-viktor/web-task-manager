@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const dbConfig = JSON.parse(fs.readFileSync('../database_config.json', 'utf8'));
+const dbConfig = JSON.parse(fs.readFileSync('./database_config.json', 'utf8'));
 
 const Database = require('../database.js');
 
@@ -37,7 +37,7 @@ insertUser('Stefan', '1235326');
 
 insertUser('Yordan', '124732');
 
-users.forEach((user) => db.insertUser(user, (err) => {
+users.forEach((user) => db.insert.user(user, (err) => {
     if (err) {
         console.log(err);
     }
