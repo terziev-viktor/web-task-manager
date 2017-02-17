@@ -1,6 +1,6 @@
-
 app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr) {
-    let taskId = $routeParams.taskId, statusHandler = statusCodeHandler($scope);
+    let taskId = $routeParams.taskId,
+        statusHandler = statusCodeHandler($scope);
 
     $scope.editTitle = () => {
         $.ajax({
@@ -76,6 +76,12 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
                 success: () => {
                     notification.success('Comment posted');
                     $('#comment-area').val('');
+                    $('#comment-panel').after('<div class="panel panel-default"><div class="panel-heading">' +
+                        '<span>' + authorization.getUser() + '</span>' +
+                        '</div>' +
+                        ' <div class="panel-body">' +
+                        '<p>' + content + '</p>' +
+                        '</div></div>');
                 }
             });
         }
