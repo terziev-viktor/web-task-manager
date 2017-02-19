@@ -1,14 +1,11 @@
-
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, socket) {
+app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket) {
     let statusHandler = statusCodeHandler($scope);
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();
         $('#inp-search-colleagues').val('');
         if (search.length > 0) {
-            $.ajax({
-                method: 'GET',
-                url: '/search?text=' + search,
-                success: (data) => {
+            ajax.get('/search?text=' + search, statusHandler)
+                .then((data) => {
                     console.log(data);
                     let inner_html = '<ul class="list-group">';
                     if (data.length > 0) {
@@ -20,24 +17,19 @@ app.controller('AppController', function ($scope, $location, notification, statu
                     }
 
                     inner_html += '</ul>';
-                    $('#modal-title').html("Found Users");                    
+                    $('#modal-title').html("Found Users");
                     $('#modal-content').html(inner_html);
-                },
-                statusCode: statusHandler
-            });
+                });
         }
     }
 
     $scope.logout = () => {
-        $.ajax({
-            method: 'GET',
-            url: '/logout',
-            success: () => {
+        ajax.get('/logout', statusHandler)
+            .then(() => {
                 notification.info("Logout successful");
                 sessionStorage['currentUser'] = undefined;
                 $location.path('/');
                 $scope.$apply();
-            }
-        });
+            });
     }
 });
