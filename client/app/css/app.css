@@ -22,6 +22,10 @@ form {
     padding: 0px;
 }
 
+.row {
+    margin:10px;
+}
+
 .circle {
     display: inline-block;
     margin: 0;

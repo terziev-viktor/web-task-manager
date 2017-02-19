@@ -32,7 +32,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="progress">
-                        <div id="p" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0"
+                        <div id="prog-barr" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{Progress}}" aria-valuemin="0"
                             aria-valuemax="100" style="width: {{Progress}}%">
                             {{Progress}}% Complete
                         </div>
@@ -61,7 +61,7 @@
                         layout: 'topCenter',
                         timeout: 1000
                     });
-                    document.getElementById('p').style.width = newP;
+                    $('#prog-barr').css('width', newP + '%').html(newP + '% Complete');
                 },
                 statusCode: {
                     500: (xhr) => {

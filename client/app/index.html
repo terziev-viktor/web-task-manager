@@ -4,13 +4,15 @@
 <head>
   <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/styles/app.css" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Web Task Manager</title>
 </head>
 
-<body>
+<body>  
   <nav class="navbar navbar-default">
     <a class="navbar-brand" href="#/">Web Task Manager</a>
     <form class="navbar-form navbar-left" style="padding-right: 30px; padding-left: 30px;">
@@ -26,7 +28,7 @@
               <h4 class="modal-title" id="modal-title">Fould Users</h4>
             </div>
             <div class="modal-body" id="modal-content">
-              <p>Some text in the modal.</p>
+              <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -63,6 +65,8 @@
   <script src="/scripts/services/statusCodeHandler.js"></script>
   <script src="/scripts/services/authorization.js"></script>
   <script src="/scripts/services/socket.js"></script>
+  <script src="/scripts/services/ajax.js"></script>
+  <!--load controllers-->
   <script src="/scripts/controllers/UserController.js"></script>
   <script src="/scripts/controllers/AppController.js"></script>
   <script src="/scripts/controllers/HomeController.js"></script>

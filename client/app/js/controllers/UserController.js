@@ -1,6 +1,5 @@
-
 app.controller('UserController',
-    function ($scope, $location, $compile, notification, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr) {
+    function ($scope, $location, $compile, notification, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
         let statusHandler = statusCodeHandler($scope);
 
         $('#task-view').hide();
@@ -11,6 +10,7 @@ app.controller('UserController',
         }
 
         $scope.showContentPanel = (el) => {
+            console.log(el);
             let task = el.task;
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $.get('../templates/taskContentPanel.html', (tmpl) => {
@@ -22,30 +22,15 @@ app.controller('UserController',
 
         function getCurrentUserInfo() {
 
-            $.ajax({
-                method: 'GET',
-                url: '/user/req/colleague',
-                success: (data) => {
+            ajax.get('/user/req/colleague', statusHandler)
+                .then((data) => {
                     console.log('/user/req/colleague');
                     console.log(data);
                     $scope.colleagueReqs = data;
-                },
-                statusCode: statusHandler
-            });
+                });
 
-            $.ajax({
-                method: 'GET',
-                url: '/user/colleagues',
-                success: (data) => {
-                    $scope.colleagues = data;
-                },
-                statusCode: statusHandler
-            });
-
-            $.ajax({
-                method: 'GET',
-                url: '/tasks/todo',
-                success: (data) => {
+            ajax.get('/tasks/todo', statusHandler)
+                .then((data) => {
                     data.tasks.forEach(function (element) {
                         element.priorityLow = element.Priority == 0;
                         element.priorityMed = element.Priority == 1;
@@ -60,19 +45,13 @@ app.controller('UserController',
                     }, this);
 
                     $scope.tasksTodo = data.tasks;
-                    $scope.$apply();
-                },
-                error: (err) => {
+                }, (err) => {
                     console.log('error');
                     console.log(err);
-                },
-                statusCode: statusHandler
-            });
+                });
 
-            $.ajax({
-                method: 'GET',
-                url: '/tasks/created',
-                success: (data, stringStatus, xhr) => {
+            ajax.get('/tasks/created', statusHandler)
+                .then((data) => {
                     data.tasks.forEach(function (element) {
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
                         if (element.Description.length > MaxDescLength) {
@@ -83,162 +62,113 @@ app.controller('UserController',
                         }
                     }, this);
                     $scope.tasksCreated = data.tasks;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
+                });
 
-            $.ajax({
-                method: 'GET',
-                url: '/user/employees',
-                success: (data) => {
+            ajax.get('/user/employees', statusHandler)
+                .then((data) => {
                     console.log('/user/employees');
                     console.log(data);
                     $scope.employees = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
-
-            $.ajax({
-                method: 'GET',
-                url: '/user/managers',
-                success: (data) => {
+                    return ajax.get('/user/managers', statusHandler);
+                })
+                .then((data) => {
+                    console.log('then user/managers')
                     $scope.managers = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
+                    return ajax.get('/user/colleagues', statusHandler);
+                })
+                .then((data) => {
+                    $scope.colleagues = data;
+                });
 
-            $.ajax({
-                method: 'GET',
-                url: '/user/req/manager',
-                success: (data) => {
+            ajax.get('/user/req/manager', statusHandler)
+                .then((data) => {
                     $scope.managersReq = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
+                });
 
-            $.ajax({
-                method: 'GET',
-                url: '/user/req/employee',
-                success: (data) => {
+            ajax.get('/user/req/employee', statusHandler)
+                .then((data) => {
                     $scope.employeesReq = data;
-                    $scope.$apply();
-                },
-                statusCode: statusHandler
-            });
+                });
 
             $scope.acceptReqColleague = (username, $event) => {
-                $($event.currentTarget).hide(200);
-
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/colleagues',
-                    data: {
-                        Username: username
-                    },
-                    statusCode: statusHandler
-                });
+                let reqData = {
+                    Username: username
+                };
+                ajax.post('/user/colleagues', reqData, statusHandler)
+                    .then(() => {
+                        $($event.currentTarget).hide(200);
+                    })
             };
 
             $scope.acceptReqEmployee = (username, $event) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/employee',
-                    data: {
-                        Username: username
-                    },
-                    success: () => {
+                let reqData = {
+                    Username: username
+                };
+
+                ajax.post('/user/employee', reqData, statusHandler)
+                    .then(() => {
                         $($event.currentTarget).hide(200);
-                    },
-                    statusCode: statusHandler
-                });
+                    });
             }
 
             $scope.acceptReqManager = (username, $event) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/manager',
-                    data: {
-                        Username: username
-                    },
-                    success: () => {
+                let reqData = {
+                    Username: username
+                };
+
+                ajax.post('/user/manager', reqData, statusHandler)
+                    .then(() => {
                         $($event.currentTarget).hide(200);
-                    },
-                    statusCode: statusHandler
-                });
+                    });
             }
 
             $scope.reqManager = (username) => {
                 console.log(username);
-                $.ajax({
-                    method: 'POST',
-                    url: 'user/req/manager',
-                    data: {
-                        Username: username
-                    },
-                    statusCode: statusHandler
-                });
+                let reqData = {
+                    Username: username
+                };
+                ajax.post('user/req/manager', reqData, statusHandler)
+                    .then(() => {
+                        console.log('post -> user/req/manager success');
+                    });
             }
 
             $scope.reqEmployee = (username) => {
                 console.log(username);
-                $.ajax({
-                    method: 'POST',
-                    url: 'user/req/employee',
-                    data: {
-                        Username: username
-                    },
-                    statusCode: statusHandler
-                });
+                let reqData = {
+                    Username: username
+                };
+                ajax.post('user/req/employee', reqData, statusHandler)
+                    .then(() => {
+                        console.log('request sent');
+                    });
             }
 
             $scope.removeManager = (username, $event) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/manager?remove=' + username,
-                    data: {
+                ajax.post('/user/manager?remove=' + username, {
                         Username: username
-                    },
-                    success: () => {
+                    }, statusHandler)
+                    .then((data) => {
                         $($event.currentTarget).hide(200);
-                    },
-                    statusCode: statusHandler
-                });
-
-                $($event.currentTarget).hide(200);
+                    });
             }
 
             $scope.removeEmployee = (username, $event) => {
-                $.ajax({
-                    method: 'POST',
-                    url: '/user/employee?remove=' + username,
-                    data: {
-                        Username: username
-                    },
-                    success: () => {
+                let reqdata = {
+                    Username: username
+                };
+                ajax.post('/user/employee?remove=' + username, reqdata, statusHandler)
+                    .then(() => {
                         $($event.currentTarget).hide(200);
-                    },
-                    statusCode: statusHandler
-                });
+                    });
             }
-
-            $scope.$apply();
         }
 
-        $scope.showTask = (taskId) => {
-            // TODO: implement function: show full info ot task with given id
-        }
-
-        $.ajax({
-            method: 'GET',
-            url: '/user',
-            success: (data) => {
+        ajax.get('/user', statusHandler)
+            .then((data) => {
                 $scope.username = data;
                 getCurrentUserInfo();
-            },
-            statusCode: statusHandler
-        });
+            }, (err) => {
+                console.log('/user -> ne e lognat');
+            });
     });
