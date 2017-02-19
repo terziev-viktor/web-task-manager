@@ -1,91 +1,67 @@
+app.controller('UserCommunityController', function ($scope, $location, $routeParams, notification, statusCodeHandler, authorization, ajax) {
+    $scope.username = $routeParams.username;
+    let statusHandler = statusCodeHandler($scope);
 
-app.controller('UserCommunityController', ['$scope', '$location', '$routeParams', 'notification', 'statusCodeHandler', 'authorization',
-    function ($scope, $location, $routeParams, notification, statusCodeHandler, authorization) {
+    $scope.inviteColleague = (username) => {
+        let reqData = {
+            Username: username
+        };
+        ajax.post('/user/req/colleague', reqData, statusHandler);
+    }
 
-        $scope.username = $routeParams.username;
-        let statusHandler = statusCodeHandler($scope);
+    $scope.removeColleague = (username) => {
+        let reqData = {
+            Username: username
+        };
+        ajax.post('/user/colleagues?remove=true', reqData, statusHandler);
+    }
 
-        $scope.inviteColleague = (username) => {
-            $.ajax({
-                method: 'POST',
-                url: '/user/req/colleague',
-                data: {
-                    Username: username
-                },
-                statusCode: statusHandler
-            });
-        }
-
-        $scope.removeColleague = (username) => {
-            $.ajax({
-                method: 'POST',
-                url: '/user/colleagues?remove=true',
-                data: {
-                    Username: username
-                },
-                statusCode: statusHandler
-            });
-        }
-
-        $.ajax({
-            method: 'GET',
-            url: '/tasks/todo/' + $routeParams.username,
-            success: (data) => {
-                data.tasks.forEach(function (element) {
-                    element.priorityLow = element.Priority == 0;
-                    element.priorityMed = element.Priority == 1;
-                    element.priorityHigh = element.Priority == 2;
-                    element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                }, this);
-                $scope.tasksTodo = data.tasks;
-                $scope.$apply();
-            },
-            error: (err) => {
-                console.log('error');
-                console.log(err);
-            },
-            statusCode: statusHandler
+    ajax.get('/tasks/todo/' + $routeParams.username, statusHandler)
+        .then((data) => {
+            data.tasks.forEach(function (element) {
+                element.priorityLow = element.Priority == 0;
+                element.priorityMed = element.Priority == 1;
+                element.priorityHigh = element.Priority == 2;
+                element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+            }, this);
+            $scope.tasksTodo = data.tasks;
+        }, (err) => {
+            console.log('/tasks/todo error:');
+            console.log(err);
         });
 
-        $.ajax({
-            method: 'GET',
-            url: '/tasks/created/' + $routeParams.username,
-            success: (data, stringStatus, xhr) => {
-                data.tasks.forEach(function (element) {
-                    element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                }, this);
-                $scope.tasksCreated = data.tasks;
-                $scope.$apply();
-            },
-            statusCode: statusHandler
+    ajax.get('/tasks/created/' + $routeParams.username, statusHandler)
+        .then((data) => {
+            data.tasks.forEach(function (element) {
+                element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
+            }, this);
+            $scope.tasksCreated = data.tasks;
+        }, (err) => {
+            console.log('/tasks/created error:');
+            console.log(err);
         });
 
-        $.ajax({
-            method: 'GET',
-            url: '/user/employees/' + $routeParams.username,
-            success: (data) => {
-                console.log('/user/employees');
-                console.log(data);
-                $scope.employees = data;
-                $scope.$apply();
-            },
-            statusCode: statusHandler
+    ajax.get('/user/employees/' + $routeParams.username, statusHandler)
+        .then((data) => {
+            $scope.employees = data;
+        }, (err) => {
+            console.log('/user/employees error:');
+            console.log(err);
         });
 
-        $.ajax({
-            method: 'GET',
-            url: '/user/managers/' + $routeParams.username,
-            success: (data) => {
-                $scope.managers = data;
-                $scope.$apply();
-            },
-            statusCode: statusHandler
+    ajax.get('/user/managers/' + $routeParams.username, statusHandler)
+        .then((data) => {
+            $scope.managers = data;
+        }, (err) => {
+            console.log('/user/managers error:');
+            console.log(err);
         });
 
-        $scope.showTaskInfo = (id) => {
-            console.log('showtaskinfo');
-            console.log(id);
 
-        }
+    $scope.showTaskInfo = (id) => {
+        console.log('showtaskinfo');
+        console.log(id);
 
-    }]);
+    }
+
+});
