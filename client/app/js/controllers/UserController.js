@@ -63,20 +63,24 @@ app.controller('UserController',
                     }, this);
                     $scope.tasksCreated = data.tasks;
                 });
-
+            let managersAndEmployeesStrings = [];
             ajax.get('/user/employees', statusHandler)
                 .then((data) => {
-                    console.log('/user/employees');
-                    console.log(data);
+                    data.forEach((el) => {
+                        managersAndEmployeesStrings.push(el.Employee);
+                    });
                     $scope.employees = data;
                     return ajax.get('/user/managers', statusHandler);
                 })
                 .then((data) => {
-                    console.log('then user/managers')
+                    data.forEach((el) => {
+                        managersAndEmployeesStrings.push(el.Manager);
+                    });
                     $scope.managers = data;
                     return ajax.get('/user/colleagues', statusHandler);
                 })
                 .then((data) => {
+                    $scope.managersAndEmployeesStrings = managersAndEmployeesStrings;
                     $scope.colleagues = data;
                 });
 
