@@ -1,21 +1,15 @@
-
 app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
         $('#li-profile').hide();
         $('#li-logout').hide();
 
-        $scope.showDocs = () => {
-            $('#docs').css('display: inline');
-        }
+        console.log("sessionStorage.getItem('currentUser')");
+        console.log(sessionStorage.getItem('currentUser'));
 
-        $.ajax({
-            method: 'GET',
-            url: '/user',
-            success: () => {
-                $('#li-profile').show(300);
-                $('#li-logout').show(300);
-            }
-        });
+        if (sessionStorage.getItem('currentUser') !== undefined) {
+            $('#li-profile').show(300);
+            $('#li-logout').show(300);
+        }
 
         $scope.login = function () {
             let data = {
@@ -65,7 +59,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 statusCode: {
                     200: (xhr) => {
                         notification.success('Signup successful.');
-                        sessionStorage['currentUser'] = xhr.responseJSON.user;                        
+                        sessionStorage['currentUser'] = xhr.responseJSON.user;
                         $location.path('/user').replace();
                         $scope.$apply();
                     },
@@ -77,5 +71,5 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 }
             })
         }
-    }]
-);
+    }
+]);
