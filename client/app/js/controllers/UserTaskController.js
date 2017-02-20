@@ -43,6 +43,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         ajax.post(reqUrl, reqData, statusHandler)
             .then((data) => {
                 console.log(data);
+                $('#progress-bar').css("width", newProgress + "%").html(newProgress + "% Complete");
             }, (err) => {
                 console.log(err);
             });
