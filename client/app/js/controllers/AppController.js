@@ -6,19 +6,30 @@ app.controller('AppController', function ($scope, $location, notification, statu
         if (search.length > 0) {
             ajax.get('/search?text=' + search, statusHandler)
                 .then((data) => {
-                    console.log(data);
-                    let inner_html = '<ul class="list-group">';
-                    if (data.length > 0) {
+                    console.log(data);z
+                    let ul = jQuery('<ul/>', {
+                        class: 'list-group'
+                    });
+                    if (data && data.length>0) {
                         data.forEach((element) => {
-                            inner_html += '<li class="list-group-item"><a href="#/user/' + element.Username + '">' + element.Username + '</a></li>';
+                            let li = jQuery('<li/>', {
+                                class: 'list-group-item'
+                            }).append(jQuery('<a/>', {
+                                href: '#/user/' + element.Username,
+                                text: element.Username
+                            }));
+                            ul.append(li);
                         });
                     } else {
-                        inner_html += '<li class="list-group-item">No search results for "' + search + '"</li>';
+                        let li = jQuery('<li/>', {
+                            class: 'list-group-item',
+                            text: 'No search results for "' + search + '"'
+                        });
+                        ul.append(li);
                     }
 
-                    inner_html += '</ul>';
-                    $('#modal-title').html("Found Users");
-                    $('#modal-content').html(inner_html);
+                    $('#modal-title').text("Found Users");
+                    $('#modal-content').empty().append(ul);
                 });
         }
     }
