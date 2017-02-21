@@ -1,6 +1,10 @@
 app.controller('UserController',
     function ($scope, $location, $compile, notification, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
         let statusHandler = statusCodeHandler($scope);
+        $('#nav-tab-community').removeClass('active');
+        $("#nav-tab-tasks").removeClass('active');
+        $("#nav-tab-all").addClass('active');
+        $("#nav-tab-requests").removeClass('active');
 
         $('#task-view').hide();
         $('#li-profile').show(300);

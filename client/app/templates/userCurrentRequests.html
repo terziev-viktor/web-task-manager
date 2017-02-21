@@ -1,0 +1,56 @@
+<ul id="main-nav-tabs" class="nav nav-tabs">
+    <li id="nav-tab-tasks" role="presentation"><a href="#/user/current/tasks">Tasks</a></li>
+    <li id="nav-tab-community" role="presentation"><a href="#/user/current/community">Comunity</a></li>
+    <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
+</ul>
+<div class="panel-group col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+    <h3>Requests</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who claim to be your colleagues</span>
+        </div>
+        <div class="panel-body" ng-switch="colleagueReqs.length > 0">
+            <ul class="list-group" ng-switc-when="true">
+                <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
+                    <span>{{colleagueReq.User_Sent}}</span>
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
+                </li>
+            </ul>
+            <div class="panel" ng-switch-when="false">
+                You have no requests yet.
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who want you to be their employee</span>
+        </div>
+        <div class="panel-body" ng-switch="employeesReq.length > 0">
+            <ul class="list-group" ng-switch-when="true">
+                <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
+                    <span>{{employeeReq.User_Sent}}</span>
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
+                </li>
+            </ul>
+            <div ng-switch-when="false" class="panel">
+                Nobody wants to be your manager yet.
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>People who want you to be their manager</span>
+        </div>
+        <div class="panel-body" ng-switch="managersReq.length > 0">
+            <ul class="list-group" ng-switch-when="true">
+                <li class="list-group-item" ng-repeat="managerReq in managersReq">
+                    <span>{{managerReq.User_Sent}}</span>
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
+                </li>
+            </ul>
+            <div ng-switch-when="false" class="panel">
+                Nobody wants to be your employee yet.
+            </div>
+        </div>
+    </div>
+</div>

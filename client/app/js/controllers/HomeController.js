@@ -2,9 +2,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
         $('#li-profile').hide();
         $('#li-logout').hide();
-
-        console.log("sessionStorage.getItem('currentUser')");
-        console.log(sessionStorage.getItem('currentUser'));
+        $("#main-nav-tabs").hide();
 
         if (sessionStorage.getItem('currentUser') !== undefined) {
             $('#li-profile').show(300);
@@ -26,8 +24,9 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                         notification.success('Login successful!');
                         sessionStorage['currentUser'] = xhr.user;
                         $('#home-forms-container').hide(350);
+                        $("#main-nav-tabs").show(350);
                         setTimeout(function () {
-                            $location.path('/user').replace();
+                            $location.path('/user/current/tasks').replace();
                             $scope.$apply();
                         }, 350);
                     },

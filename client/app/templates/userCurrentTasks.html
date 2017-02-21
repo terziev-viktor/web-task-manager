@@ -1,0 +1,83 @@
+<ul id="main-nav-tabs" class="nav nav-tabs">
+    <li id="nav-tab-tasks" role="presentation"><a href="#/user/current/tasks">Tasks</a></li>
+    <li id="nav-tab-community" role="presentation"><a href="#/user/current/community">Comunity</a></li>
+    <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
+</ul>
+<div class="panel-group col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+    <h2>Tasks</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">Your <strong>to-do</strong> list <span class="counter">{{tasksTodo.length}}</span></div>
+        <div class="panel-body" ng-switch="tasksTodo.length > 0">
+            <table class="table table-hover" ng-switch-when="true">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                        <th>Progress</th>
+                        <th>Creator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasksTodo">
+                        <td>
+                            <button class="no-style" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal">
+                                {{task.Title}}
+                            </button>
+                        </td>
+                        <td>{{task.Description}}</td>
+                        <td>{{task.DeadlineFormatted}}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                </div>
+                            </div>
+                        </td>
+                        <td><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-switch-when="false" class="animate-switch panel ">
+                You dont have tasks to do yet
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Your created tasks<span class="counter">{{tasksCreated.length}}</span>
+        </div>
+        <div class="panel-body">
+            <a class="btn btn-success" href="#/newTask">New Task</a>
+        </div>
+        <div class="panel-body" ng-switch="tasksCreated.length > 0">
+            <table class="table table-hover" ng-switch-when="true">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                        <th>Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasksCreated">
+                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                        <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div ng-switch-when="false" class="animate-switch panel ">
+                You haven't created any tasks yet. Do it by clicking on the green button
+            </div>
+        </div>
+    </div>
+</div>

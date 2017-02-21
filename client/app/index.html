@@ -5,14 +5,13 @@
   <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/styles/app.css" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Web Task Manager</title>
 </head>
 
-<body>  
+<body>
   <nav class="navbar navbar-default">
     <a class="navbar-brand" href="#/">Web Task Manager</a>
     <form class="navbar-form navbar-left" style="padding-right: 30px; padding-left: 30px;">
@@ -44,7 +43,7 @@
           <span class="badge">5</span>
         </button>
       </li>
-      <li id="li-profile"><a href="#/user">Profile</a></li>
+      <li id="li-profile"><a href="#/user/current/tasks">Profile</a></li>
       <li id="li-logout"><a href="#"><button class="no-style" ng-click="logout()">Logout</button></a></li>
     </ul>
   </nav>
@@ -67,12 +66,14 @@
   <script src="/scripts/services/socket.js"></script>
   <script src="/scripts/services/ajax.js"></script>
   <!--load controllers-->
-  <script src="/scripts/controllers/UserController.js"></script>
   <script src="/scripts/controllers/AppController.js"></script>
   <script src="/scripts/controllers/HomeController.js"></script>
   <script src="/scripts/controllers/NewTaskController.js"></script>
   <script src="/scripts/controllers/UserCommunityController.js"></script>
   <script src="/scripts/controllers/UserTaskController.js"></script>
+  <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityController.js"></script>
+  <script src="/scripts/controllers/UserCurrent/UserCurrentTasksController.js"></script>
+  <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsController.js"></script>
 </body>
 
 </html>
