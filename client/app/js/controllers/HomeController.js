@@ -1,13 +1,6 @@
 app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
-        $('#li-profile').hide();
-        $('#li-logout').hide();
         $("#main-nav-tabs").hide();
-
-        if (sessionStorage.getItem('currentUser') !== undefined) {
-            $('#li-profile').show(300);
-            $('#li-logout').show(300);
-        }
 
         $scope.login = function () {
             let data = {
@@ -25,6 +18,8 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                         sessionStorage['currentUser'] = xhr.user;
                         $('#home-forms-container').hide(350);
                         $("#main-nav-tabs").show(350);
+                        $('#li-profile').show(350);
+                        $('#li-logout').show(350);
                         setTimeout(function () {
                             $location.path('/user/current/tasks').replace();
                             $scope.$apply();

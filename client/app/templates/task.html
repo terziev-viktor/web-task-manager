@@ -1,0 +1,77 @@
+<div class="panel-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div>
+        <h2>{{task.Title}}</h2>
+        <p>Creator: {{task.Creator_Username}}</p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-description" class="panel-heading">Description</label>
+            </div>
+            <div class="panel-body">
+                <p>{{task.Description}}</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-deadline">Deadline</label>
+            </div>
+            <div class="panel-body">
+                <p>{{task.DeadlineFormatted}}</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label for="inp-progress" class="panel-heading form-inline">Progress                    
+            </label>
+            </div>
+            <div class="panel-body">
+                <div class="progress">
+                    <div id="progress-bar" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
+                        aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
+                        {{task.Progress}}% Complete
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>Priority: {{task.PriorityStr}}</p>
+            </div>
+        </div>
+    </div>
+</div>`
+<div class="comments col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <h3>Comments</h3>
+    <div class="panel-group">
+        <div id="comment-panel"  class="panel panel-default">
+            <div class="panel-heading">
+                <span>Write a comment:</span>
+            </div>
+            <div>
+                <textarea name="comment_area" id="comment-area" cols="10"></textarea>
+                <input class="btn btn-default btn-block" type="button" value="Post" ng-click="postComment()">
+            </div>
+        </div>
+        <div  class="panel panel-default" ng-repeat="_comment in _comments">
+            <div class="panel-heading">
+                <span>{{_comment.Author_Username}}</span>
+            </div>
+            <div class="panel-body">
+                <p>{{_comment.Content}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="assigned col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <h3>Assigned Users</h3>
+    <div class="panel-group" ng-switch="assignedUsers.length > 0">
+        <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
+            <div class="panel-body">
+                <span>{{assigned.Username}}</span>
+                <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
+            </div>
+        </div>
+        <div class="panel" ng-switch-when="false">
+            <span>There are no users assigned to this task yet.</span>
+        </div>
+    </div>
+</div>

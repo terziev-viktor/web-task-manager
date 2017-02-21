@@ -32,7 +32,6 @@ module.exports = (app, db) => {
     app.post('/task/:taskId/new-progress', auth, (req, res) => {
         let taskId = req.params.taskId;
         let newProgress = req.body.newProgress;
-
         db.update.taskProgress(taskId, newProgress, (err, task) => {
             if (err) {
                 res.status(500).json({

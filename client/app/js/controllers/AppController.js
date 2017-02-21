@@ -6,11 +6,11 @@ app.controller('AppController', function ($scope, $location, notification, statu
         if (search.length > 0) {
             ajax.get('/search?text=' + search, statusHandler)
                 .then((data) => {
-                    console.log(data);z
+                    console.log(data);
                     let ul = jQuery('<ul/>', {
                         class: 'list-group'
                     });
-                    if (data && data.length>0) {
+                    if (data && data.length > 0) {
                         data.forEach((element) => {
                             let li = jQuery('<li/>', {
                                 class: 'list-group-item'
@@ -38,7 +38,9 @@ app.controller('AppController', function ($scope, $location, notification, statu
         ajax.get('/logout', statusHandler)
             .then(() => {
                 notification.info("Logout successful");
-                sessionStorage['currentUser'] = undefined;
+                sessionStorage.removeItem('currentUser');
+                $('#li-profile').hide(350);
+                $('#li-logout').hide(350);
                 $location.path('/');
                 $scope.$apply();
             });

@@ -55,8 +55,14 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // user's created task
     $routeProvider.when('/user/task/:taskId', {
-        templateUrl: '/templates/UserTask.html',
+        templateUrl: '/templates/userTask.html',
         controller: 'UserTaskController'
+    });
+
+    // see task with no ability to edit it
+    $routeProvider.when('/task/:taskId', {
+        templateUrl: '/templates/task.html',
+        controller: 'TaskController'
     });
 
     // error page. TODO: Implement
