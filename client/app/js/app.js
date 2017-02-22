@@ -19,8 +19,8 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // current user's profle
     $routeProvider.when('/user', {
-        templateUrl: 'templates/User.html',
-        controller: 'UserController'
+        templateUrl: 'templates/UserProfile.html',
+        controller: 'UserProfileController'
     });
 
     // current user's tasks
