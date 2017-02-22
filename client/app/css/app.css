@@ -22,6 +22,10 @@ textarea {
     margin:10px;
 }
 
+.to-show {
+    display: none;
+}
+
 .circle {
     display: inline-block;
     margin: 0;
