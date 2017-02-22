@@ -24,7 +24,8 @@ module.exports = (app, db) => {
                     msg: 'Could not get task'
                 });
             } else {
-                res.status(200).json(task);
+                let ownerCookie = task.Creator_Username === req.user.username;
+                res.cookie('isOwner', ownerCookie).json(task);
             }
         });
     });
@@ -430,40 +431,57 @@ module.exports = (app, db) => {
 
     // UPDATE TASK
     app.post('/task/:taskId', auth, (req, res) => {
-        if (req.body.removeAssignment !== undefined) {
-            db.remove.taskAssignment(req.body.removeAssignment, req.params.taskId, (err, recordset) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).json({
-                        msg: 'Could not remove assignment'
+        db.get.taskById(req.params.taskId, (err, task) => {
+            db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (er, recordset) => {
+                let isOwner = req.user.Username === task.Creator_Username;
+                let isAssigned = false;
+                recordset.forEach(function (element) {
+                    if (element.Username === req.user.Username) {
+                        isAssigned = true;
+                    }
+                }, this);
+                if (!isOwner && !isAssigned) {
+                    res.status(403).json({
+                        msg: 'You are not allowed to update this task.'
+                    });
+                }
+
+                if (req.body.removeAssignment !== undefined) {
+                    db.remove.taskAssignment(req.body.removeAssignment, req.params.taskId, (err, recordset) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({
+                                msg: 'Could not remove assignment'
+                            });
+                        } else {
+                            res.status(200).json({
+                                msg: 'Assignment removed'
+                            });
+                        }
                     });
                 } else {
-                    res.status(200).json({
-                        msg: 'Assignment removed'
+                    let id = req.params.taskId;
+                    let task = {};
+                    task.newTitle = (req.query.title !== undefined) ? req.query.title : '';
+                    task.newDesc = (req.query.desc !== undefined) ? req.query.desc : '';
+                    task.newDeadline = (req.query.deadline !== undefined) ? req.query.deadline.replace('T', ' ') : '';
+                    task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
+                    task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
+                    task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';
+                    db.update.task(id, task, (err, result) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({
+                                msg: 'Could not update the task.'
+                            });
+                        } else {
+                            res.status(200).json({
+                                msg: 'Task Updated.'
+                            });
+                        }
                     });
                 }
             });
-        } else {
-            let id = req.params.taskId;
-            let task = {};
-            task.newTitle = (req.query.title !== undefined) ? req.query.title : '';
-            task.newDesc = (req.query.desc !== undefined) ? req.query.desc : '';
-            task.newDeadline = (req.query.deadline !== undefined) ? req.query.deadline.replace('T', ' ') : '';
-            task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
-            task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
-            task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';
-            db.update.task(id, task, (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).json({
-                        msg: 'Could not update the task.'
-                    });
-                } else {
-                    res.status(200).json({
-                        msg: 'Task Updated.'
-                    });
-                }
-            });
-        }
+        })
     });
 }
