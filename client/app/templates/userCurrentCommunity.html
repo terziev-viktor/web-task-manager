@@ -6,9 +6,17 @@
 </ul>
 <div class="to-show panel-group col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
     <h3>Your community</h3>
-    <div class="panel panel-default">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <span>Your Colleagues</span>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Filter colleagues">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" ng-click="filter-colleagues">
+        <i class="glyphicon glyphicon-search"></i> search
+      </button>
+                </div>
+            </div>
         </div>
         <div class="panel-body" ng-switch="colleagues.length > 0">
             <ul class="list-group" ng-switch-when="true">
@@ -25,9 +33,17 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <span>Your Managers</span>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Filter managers">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="filter-managers">
+                            <i class="glyphicon glyphicon-search"></i> search
+                        </button>
+                    </div>
+            </div>
         </div>
         <div class="panel-body" ng-switch="managers.length > 0">
             <ul class="list-group" ng-switch-when="true">
@@ -43,9 +59,19 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <span>Your Employees</span>
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Filter Employees">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="filter-employees">
+                            <i class="glyphicon glyphicon-search"></i> search
+                        </button>
+                    </div>
+            </div>
+
         </div>
         <div class="panel-body" ng-switch="employees.length > 0">
             <ul class="list-group" ng-switch-when="true">

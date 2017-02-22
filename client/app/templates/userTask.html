@@ -1,8 +1,4 @@
-<div class="jumbotron">
-    <h1>Task page</h1>
-    <p> This is a task you created. Here you can edit it, assign your employees to it and see the tasks comments.</p>
-</div>
-<div class="to-show">
+<div>
     <div class="panel-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div>
             <h2>{{task.Title}}</h2>
@@ -64,9 +60,9 @@
                 </div>
             </div>
         </div>
-    </div>`
-    <div class="comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <h3>Comments</h3>
+    </div>
+    <div class="to-show comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <h2>Comments</h2>
         <div class="panel-group">
             <div id="comment-panel" class="panel panel-default">
                 <div class="panel-heading">
@@ -87,37 +83,30 @@
             </div>
         </div>
     </div>
-    <div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <h4>Assigned Users</h4>
+    <div class="to-show assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <h2>Assigned Users</h2>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <span>Assign your employees</span>
             </div>
             <div class="panel-body">
-                <input list="suggestions" name="search" id="inp-assign-search" placeholder="Search for employee...">
-                <datalist id="suggestions"></datalist>
-                <input type="button" class="btn btn-default" value="Assign" ng-click="assignUser()">
+                <div class="input-group">
+                    <input name="search" id="inp-assign-search" class="form-control" placeholder="Search for employee...">
+                    <div class="input-group-btn">
+                        <button ng-click="assignSearch()" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                        <i class="glyphicon glyphicon-search"></i>Search
+                    </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <h4>Assigned Users</h4>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span>Assign your employees</span>
-        </div>
-        <div class="panel-body">
-            <input list="suggestions" name="search" id="inp-assign-search" placeholder="Search for employee...">
-            <button ng-click="assignSearch()" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Search</button>
-        </div>
-    </div>
-    <div class="panel-group" ng-switch="assignedUsers.length > 0">
-        <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
-            <div class="panel-body">
-                <span>{{assigned.Username}}</span>
-                <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
-                <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
+        <div class="panel-group" ng-switch="assignedUsers.length > 0">
+            <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
+                <div class="panel-body">
+                    <span>{{assigned.Username}}</span>
+                    <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
+                    <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
+                </div>
             </div>
         </div>
     </div>

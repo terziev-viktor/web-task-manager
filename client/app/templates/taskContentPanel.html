@@ -1,14 +1,14 @@
 <div>
     <div class="text-center">
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <span>Description</span>
             </div>
             <div class="panel-body ">
-                <span>{{Description}}</span>
+                <textarea class="form-control">{{Description}}</textarea>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <span>Deadline</span>
             </div>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="panel-group">
-            <div class="panel panel-default">
+            <div class="panel panel-success">
                 <div class="panel-heading">
                     <div>
                         Progress
@@ -40,8 +40,10 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
-            <span>Task Priority: {{PriorityStr}}</span>
+        <div class="panel panel-success">
+            <div class="">
+                <span>Task Priority: {{PriorityStr}}</span>
+            </div>
         </div>
     </div>
     <script>
