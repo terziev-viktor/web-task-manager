@@ -1,5 +1,5 @@
 <ul id="main-nav-tabs" class="nav nav-tabs">
-    <li id="nav-tab-tasks" role="presentation"><a href="#/user/current/tasks">Tasks</a></li>
+    <li id="nav-tab-tasks" role="presentation" class="active"><a href="#/user/current/tasks">Tasks</a></li>
     <li id="nav-tab-community" role="presentation"><a href="#/user/current/community">Comunity</a></li>
     <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
 </ul>
@@ -19,12 +19,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="task in tasksTodo">
-                        <td>
-                            <button class="no-style" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal">
-                                {{task.Title}}
-                            </button>
-                        </td>
+                    <tr ng-repeat="task in tasksTodo"  ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal">
+                        <td>{{task.Title}}</td>
                         <td>{{task.Description}}</td>
                         <td>{{task.DeadlineFormatted}}</td>
                         <td>

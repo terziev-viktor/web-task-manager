@@ -1,8 +1,5 @@
 app.controller('UserCurrentRequestsController',
     function ($scope, statusCodeHandler, ajax) {
-        $('#nav-tab-community').removeClass('active');
-        $("#nav-tab-tasks").removeClass('active');
-        $("#nav-tab-requests").addClass('active');
         let statusHandler = statusCodeHandler($scope);
         ajax.get('/user/req/manager', statusHandler)
             .then((data) => {

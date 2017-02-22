@@ -14,11 +14,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="task in tasksTodo">
+                    <tr ng-repeat="task in tasksTodo" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal">
                         <td>
-                            <button class="no-style" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal">
+                            <!--<button class="no-style">-->
                                 {{task.Title}}
-                            </button>
+                            <!--</button>-->
                         </td>
                         <td>{{task.Description}}</td>
                         <td>{{task.DeadlineFormatted}}</td>

@@ -1,8 +1,6 @@
 app.controller('UserCurrentTasksController',
     function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
-        $('#nav-tab-community').removeClass('active');
-        $("#nav-tab-tasks").addClass('active');
-        $("#nav-tab-requests").removeClass('active');
+        
         let statusHandler = statusCodeHandler($scope);
         $scope.showContentPanel = (el) => {
             console.log(el);
