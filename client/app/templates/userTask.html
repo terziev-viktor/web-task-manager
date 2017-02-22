@@ -2,112 +2,114 @@
     <h1>Task page</h1>
     <p> This is a task you created. Here you can edit it, assign your employees to it and see the tasks comments.</p>
 </div>
-<div class="panel-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <div>
-        <h2>{{task.Title}}</h2>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <label for="inp-title" class="panel-heading">Title</label>
-                <input type="button" class="btn btn-default" ng-click="editTitle()" value="Edit">
+<div class="to-show">
+    <div class="panel-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div>
+            <h2>{{task.Title}}</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label for="inp-title" class="panel-heading">Title</label>
+                    <input type="button" class="btn btn-default" ng-click="editTitle()" value="Edit">
+                </div>
+                <div class="panel-body">
+                    <input type="text" class="form-control nginp" id="inp-title" value="{{task.Title}}">
+                </div>
             </div>
-            <div class="panel-body">
-                <input type="text" class="form-control nginp" id="inp-title" value="{{task.Title}}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label for="inp-description" class="panel-heading">Description</label>
+                    <input type="button" class="btn btn-default" ng-click="editDescription()" value="Edit">
+                </div>
+                <div class="panel-body">
+                    <textarea type="text" cols="20" class="form-control nginp" id="inp-description">{{task.Description}}</textarea>
+                </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <label for="inp-description" class="panel-heading">Description</label>
-                <input type="button" class="btn btn-default" ng-click="editDescription()" value="Edit">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label for="inp-deadline">Deadline ({{task.DeadlineFormatted}})</label>
+                    <input type="button" class="btn btn-default" ng-click="editDeadline()" value="Edit">
+                </div>
+                <div class="panel-body">
+                    <input type="datetime-local" class="form-control" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
+                </div>
             </div>
-            <div class="panel-body">
-                <textarea type="text" cols="20" class="form-control nginp" id="inp-description">{{task.Description}}</textarea>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <label for="inp-deadline">Deadline ({{task.DeadlineFormatted}})</label>
-                <input type="button" class="btn btn-default" ng-click="editDeadline()" value="Edit">
-            </div>
-            <div class="panel-body">
-                <input type="datetime-local" class="form-control" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <label for="inp-progress" class="panel-heading form-inline">Progress
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label for="inp-progress" class="panel-heading form-inline">Progress
             <input class="form-control" type="number" min="0" max="100" value="{{task.Progress}}" id="inp-progress" name="progress" placeholder="{{task.Progress}}"> 
             %     
                 <input type="button" class="btn btn-default" ng-click="editProgress()" value="Edit">                      
             </label>
-            </div>
-            <div class="panel-body">
-                <div class="progress">
-                    <div id="progress-bar" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
-                        aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
-                        {{task.Progress}}% Complete
+                </div>
+                <div class="panel-body">
+                    <div class="progress">
+                        <div id="progress-bar" class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}"
+                            aria-valuemin="0" aria-valuemax="100" style="width: {{task.Progress}}%; color: black;">
+                            {{task.Progress}}% Complete
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <label id="lbl-priority" for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
-                <input type="button" class="btn btn-default" ng-click="editPriority()" value="Edit">
-            </div>
-            <div class="panel-body">
-                <select class="form-control" id="inp-priority">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label id="lbl-priority" for="inp-priority">Task Priority: {{task.PriorityStr}}</label>
+                    <input type="button" class="btn btn-default" ng-click="editPriority()" value="Edit">
+                </div>
+                <div class="panel-body">
+                    <select class="form-control" id="inp-priority">
                 <option value="0">Low</option>
                 <option value="1">Medium</option>
                  <option value="2">High</option>
             </select>
+                </div>
+            </div>
+        </div>
+    </div>`
+    <div class="comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <h3>Comments</h3>
+        <div class="panel-group">
+            <div id="comment-panel" class="panel panel-default">
+                <div class="panel-heading">
+                    <span>Write a comment:</span>
+                </div>
+                <div>
+                    <textarea name="comment_area" id="comment-area" cols="10"></textarea>
+                    <input class="btn btn-default btn-block" type="button" value="Post" ng-click="postComment()">
+                </div>
+            </div>
+            <div class="panel panel-default" ng-repeat="_comment in _comments">
+                <div class="panel-heading">
+                    <span>{{_comment.Author_Username}}</span>
+                </div>
+                <div class="panel-body">
+                    <p>{{_comment.Content}}</p>
+                </div>
             </div>
         </div>
     </div>
-</div>`
-<div class="comments col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <h3>Comments</h3>
-    <div class="panel-group">
-        <div id="comment-panel"  class="panel panel-default">
+    <div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <h4>Assigned Users</h4>
+        <div class="panel panel-default">
             <div class="panel-heading">
-                <span>Write a comment:</span>
-            </div>
-            <div>
-                <textarea name="comment_area" id="comment-area" cols="10"></textarea>
-                <input class="btn btn-default btn-block" type="button" value="Post" ng-click="postComment()">
-            </div>
-        </div>
-        <div  class="panel panel-default" ng-repeat="_comment in _comments">
-            <div class="panel-heading">
-                <span>{{_comment.Author_Username}}</span>
+                <span>Assign your employees</span>
             </div>
             <div class="panel-body">
-                <p>{{_comment.Content}}</p>
+                <input list="suggestions" name="search" id="inp-assign-search" placeholder="Search for employee...">
+                <datalist id="suggestions"></datalist>
+                <input type="button" class="btn btn-default" value="Assign" ng-click="assignUser()">
             </div>
         </div>
-    </div>
-</div>
-<div class="assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <h4>Assigned Users</h4>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <span>Assign your employees</span>
-        </div>
-        <div class="panel-body">
-            <input list="suggestions" name="search" id="inp-assign-search" placeholder="Search for employee...">
-            <datalist id="suggestions"></datalist>
-            <input type="button" class="btn btn-default" value="Assign" ng-click="assignUser()">
-        </div>
-    </div>
-    <div class="panel-group" ng-switch="assignedUsers.length > 0">
-        <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
-            <div class="panel-body">
-                <span>{{assigned.Username}}</span>
-                <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
-                <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
+        <div class="panel-group" ng-switch="assignedUsers.length > 0">
+            <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
+                <div class="panel-body">
+                    <span>{{assigned.Username}}</span>
+                    <button class="btn btn-default"><a href="#/user/{{assigned.Username}}">View Account</a></button>
+                    <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
+                </div>
             </div>
-        </div>
-        <div class="panel" ng-switch-when="false">
-            <span>There are no users assigned to this task yet.</span>
+            <div class="panel" ng-switch-when="false">
+                <span>There are no users assigned to this task yet.</span>
+            </div>
         </div>
     </div>
 </div>
