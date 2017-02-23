@@ -1,6 +1,7 @@
 app.controller('UserCurrentCommunityController',
     function ($scope, statusCodeHandler, ajax) {
         let statusHandler = statusCodeHandler($scope);
+        $('.to-show').slideDown("slow");
         let managersAndEmployeesStrings = [];
         ajax.get('/user/employees', statusHandler)
             .then((data) => {
@@ -61,5 +62,5 @@ app.controller('UserCurrentCommunityController',
                     $($event.currentTarget).hide(200);
                 });
         }
-        
+
     });
