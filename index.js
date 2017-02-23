@@ -20,7 +20,7 @@ app.use('/components', express.static(__dirname + '/client/bower_components'));
 
 require('./auth')(app, db);
 require('./api')(app, db);
-require('./database/SeedUsers.js');
+//require('./database/SeedUsers.js');
 
 io.on('connection', (socket) => {
     console.log(socket)
