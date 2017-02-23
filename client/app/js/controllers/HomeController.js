@@ -15,7 +15,8 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
                 statusCode: {
                     200: (xhr) => {
                         notification.success('Login successful!');
-                        sessionStorage['currentUser'] = xhr.user;
+                        sessionStorage['currentUser'] = xhr.username;
+                        sessionStorage['fullname'] = xhr.fullname;
                         $('#home-forms-container').hide(350);
                         $("#main-nav-tabs").show(350);
                         $('#li-profile').show(350);
@@ -43,6 +44,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
             let data = {
                 username: $('#inp-signin-username').val(),
                 password: $('#inp-signin-password').val(),
+                fullname: $('#inp-signin-fullname').val(),
                 confirm: $('#inp-signin-confirm').val()
             }
 

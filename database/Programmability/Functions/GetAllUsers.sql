@@ -12,6 +12,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT * from Users
+	SELECT [Username], [FullName] from Users
 )
 GO

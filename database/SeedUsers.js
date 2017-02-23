@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const dbConfig = JSON.parse(fs.readFileSync('../database_config.json', 'utf8'));
+const dbConfig = JSON.parse(fs.readFileSync('./database_config.json', 'utf8'));
 
 const Database = require('../database.js');
 
@@ -8,34 +8,35 @@ const db = new Database(dbConfig);
 
 let users = [];
 
-function insertUser(username, password) {
+function insertUser(username, fullname, password) {
     users.push({
         username: username,
-        password: password
+        password: password,
+        fullname: fullname
     });
 }
 
-insertUser('Boiko', '121246323456');
+insertUser('Boiko1', 'Бойко Голямов Морков', '121246323456');
 
-insertUser('Gosho', '213562');
+insertUser('Gosho1', 'Георги Георгиев Георгиев', '213562');
 
-insertUser('Marko', '75345');
+insertUser('Marko1', 'Марко Поло Полов','75345');
 
-insertUser('Minka', '6436');
+insertUser('Minka1','Мирела Тя Маприиба', '6436');
 
-insertUser('MITKO', 'P@55W0RD345');
+insertUser('MITKO1', 'Митко Алкохолиев Тютюнев', 'P@55W0RD345');
 
-insertUser('Pesho', '123456');
+insertUser('Pesho22', 'Пешо Марков Компютърджиев', '123456');
 
-insertUser('Sashko', '87523');
+insertUser('Sashko1', 'Александър Мозъков Грахозърнов', '87523');
 
-insertUser('Stamat', '768563254');
+insertUser('Stamat1', 'Стамат Стаматов Футболистов', '768563254');
 
-insertUser('Stanimir', '532432');
+insertUser('Stanimir1','Станимир Седналов Хитлеров', '532432');
 
-insertUser('Stefan', '1235326');
+insertUser('Stefan1', 'Стефан Стамболов Апостолов', '1235326');
 
-insertUser('Yordan', '124732');
+insertUser('Yordan1', 'Йордан Йорданов Балкански', '124732');
 
 users.forEach((user) => db.insert.user(user, (err) => {
     if (err) {

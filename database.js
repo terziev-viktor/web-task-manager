@@ -9,13 +9,14 @@ module.exports = class Database {
             user: (user, cb) => {
                 let {
                     username,
+                    fullname,
                     password
                 } = user;
                 bcrypt.hash(password, this.saltRounds, (err, hashedPassword) => {
                     if (err) {
                         cb(err);
                     } else {
-                        this.request("EXEC InsertUser @Username=N'" + username + "', @Password=N'" + hashedPassword + "'", cb);
+                        this.request("EXEC InsertUser @Username=N'" + username + "', @FullName=N'" + fullname + "', @Password=N'" + hashedPassword + "'", cb);
                     }
                 });
             },

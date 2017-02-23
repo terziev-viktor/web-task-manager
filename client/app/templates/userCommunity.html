@@ -79,9 +79,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="task in tasksCreated">
-                        <td>{{task.Title}}</td>
-                        <td>{{task.Description}}</td>
-                        <td>{{task.DeadlineFormatted}}</td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
                     </tr>
                 </tbody>
             </table>

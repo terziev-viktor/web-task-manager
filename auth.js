@@ -57,7 +57,7 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.post('/login', passport.authenticate('local'), (req, res) => {
         console.log('/login');
         console.log(req.user);
-        res.status(200).json({ user: req.user.Username });
+        res.status(200).json({ username: req.user.Username, fullname: req.user.FullName });
     });
 
     app.get('/logout', (req, res) => {
@@ -67,13 +67,14 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
 
     app.post('/signin', (req, res) => {
         let username = req.body.username;
+        let fullname = req.body.fullname;
         let password = req.body.password;
         let confirm = req.body.confirm;
-
         if (password === confirm) {
             let user = {
                 username: username,
-                password: password
+                password: password,
+                fullname: fullname
             }
             db.insert.user(user, (err) => {
                 console.log(err)

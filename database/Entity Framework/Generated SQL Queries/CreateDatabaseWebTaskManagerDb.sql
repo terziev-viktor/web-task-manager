@@ -14,6 +14,7 @@ CREATE TABLE [dbo].[Comments] (
 
 CREATE TABLE [dbo].[Users] (
     [Username] [nvarchar](128) NOT NULL,
+    [FullName] [nvarchar](max),
     [Password] [nvarchar](max),
     CONSTRAINT [PK_dbo.Users] PRIMARY KEY ([Username])
 )

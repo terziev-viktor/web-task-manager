@@ -13,6 +13,6 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT TOP 1 U.Username, U.[Password] FROM Users AS U WHERE U.Username = @Username
+	SELECT TOP 1 U.Username, U.FullName, U.[Password] FROM Users AS U WHERE U.Username = @Username
 )
 GO
