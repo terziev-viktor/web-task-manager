@@ -19,15 +19,24 @@
             </div>
         </div>
         <div class="panel-body" ng-switch="colleagues.length > 0">
-            <ul class="list-group" ng-switch-when="true">
-                <li class="list-group-item" ng-repeat="colleague in colleagues">
-                    <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
-                    <div ng-if="managersAndEmployeesStrings.includes(colleague.Colleague) === false" class="btn-group">
-                        <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Make Employee">
-                        <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Make Manager">
-                    </div>
-                </li>
-            </ul>
+            <div ng-switch-when="true">
+
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="colleague in colleagues">
+                        <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
+                        <div ng-if="managersAndEmployeesStrings.includes(colleague.Colleague) === false" class="btn-group">
+                            <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Make Employee">
+                            <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Make Manager">
+                        </div>
+                    </li>
+                </ul>
+                <div class="input-group-btn text-center">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                </div>
+            </div>
+
             <div ng-switch-when="false" class="panel">
                 Find your colleagues and then will appear here!
             </div>
@@ -38,22 +47,29 @@
             <span>Your Managers</span>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter managers">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" ng-click="filter-managers">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" ng-click="filter-managers">
                             <i class="glyphicon glyphicon-search"></i> search
                         </button>
-                    </div>
+                </div>
             </div>
         </div>
         <div class="panel-body" ng-switch="managers.length > 0">
-            <ul class="list-group" ng-switch-when="true">
-                <li class="list-group-item" ng-repeat="manager in managers">
-                    <span>      
+            <div ng-switch-when="true">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="manager in managers">
+                        <span>      
                         <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
                     </span>
-                    <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Manager, $event)">
-                </li>
-            </ul>
+                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Manager, $event)">
+                    </li>
+                </ul>
+                <div class="input-group-btn text-center">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                </div>
+            </div>
             <div ng-switch-when="false">
                 Find your managers and they will appear here !
             </div>
@@ -65,16 +81,17 @@
 
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter Employees">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" ng-click="filter-employees">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" ng-click="filter-employees">
                             <i class="glyphicon glyphicon-search"></i> search
                         </button>
-                    </div>
+                </div>
             </div>
 
         </div>
         <div class="panel-body" ng-switch="employees.length > 0">
-            <ul class="list-group" ng-switch-when="true">
+            <div ng-switch-when="true">
+            <ul class="list-group" >
                 <li class="list-group-item" ng-repeat="employee in employees">
                     <span>
                         <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
@@ -82,6 +99,12 @@
                     <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Employee, $event)">
                 </li>
             </ul>
+            <div class="input-group-btn text-center">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                </div>
+                </div>
             <div ng-switch-when="false" class="panel">
                 Find your Employees and they will appear here !
             </div>

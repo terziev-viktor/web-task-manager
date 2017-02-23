@@ -1,7 +1,7 @@
 app.controller('UserCurrentRequestsController',
     function ($scope, statusCodeHandler, ajax) {
         let statusHandler = statusCodeHandler($scope);
-        $('.to-show').show(400, 'linear');
+
         ajax.get('/user/req/manager', statusHandler)
             .then((data) => {
                 $scope.managersReq = data;

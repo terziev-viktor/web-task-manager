@@ -1,7 +1,7 @@
 app.controller('UserCurrentTasksController',
     function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
         let statusHandler = statusCodeHandler($scope);
-        $('.to-show').show(400, 'linear');
+
         $scope.showContentPanel = (el) => {
             console.log(el);
             let task = el.task;

@@ -1,7 +1,6 @@
 app.controller('UserCurrentCommunityController',
     function ($scope, statusCodeHandler, ajax) {
         let statusHandler = statusCodeHandler($scope);
-        $('.to-show').show(400, 'linear');
         let managersAndEmployeesStrings = [];
         ajax.get('/user/employees', statusHandler)
             .then((data) => {
