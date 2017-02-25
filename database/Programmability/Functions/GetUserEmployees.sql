@@ -1,3 +1,4 @@
+
 USE WebTaskManagerDb
 GO
 SET ANSI_NULLS ON
@@ -8,10 +9,21 @@ CREATE FUNCTION GetUserEmployees
 (	
 	@Username NVARCHAR(128)
 )
-RETURNS TABLE 
-AS
-RETURN 
+RETURNS @Employees TABLE 
 (
-	SELECT ue.Employee FROM ManagersEmployees AS ue WHERE ue.Manager = @Username
+	Username NVARCHAR(128),
+	FullName NVARCHAR(MAX)
 )
+AS
+BEGIN
+	DECLARE @EmployeesTmp AS TABLE(Manager NVARCHAR(128))
+
+	INSERT @EmployeesTmp
+	SELECT ue.Employee FROM ManagersEmployees AS ue WHERE ue.Manager = @Username
+
+	INSERT @Employees(Username, FullName)
+	SELECT U.Username, U.FullName FROM @EmployeesTmp AS MT INNER JOIN Users AS U ON U.Username = MT.Manager
+	RETURN 
+
+END
 GO
