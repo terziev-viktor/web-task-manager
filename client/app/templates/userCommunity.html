@@ -1,59 +1,62 @@
-<div class="jumbotron">
-    <h1>You are a guest at {{username}}'s profile</h1>
-    <p> This is {{username}}'s' personal profile in the web task manager platform.<br> Here you can see his community, created
-        tasks and to-do list</p>
-</div>
-<div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">
-    <div class="panel">
-        <input class="btn btn-default btn-block" type="button" value="Invite Colleague" ng-click="inviteColleague(username)" />
-    </div>
-    <div class="panel">
-        <input class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(username)" />
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><span>{{username}}'s Managers</span></div>
-        <div class="panel-body" ng-switch="managers.length > 0">
-            <div ng-repeat="manager in managers" ng-switch-when="true">
-                <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+<ul id="main-nav-tabs" class="nav nav-tabs">
+    <li id="nav-tab-tasks" role="presentation"><a href="#/user/current/tasks">Tasks</a></li>
+    <li id="nav-tab-community" role="presentation"><a href="#/user/current/community">Comunity</a></li>
+    <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
+    <li id="nav-tab-requests" role="presentation"><a href="#/user">Profile</a></li>
+    <li id="nav-tab-requests" role="presentation" class="active"><a href="#/user/{{username}}">{{username}}</a></li>
+</ul>
+<div class="to-show">
+    <div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">
+        <div class="panel">
+            <input class="btn btn-default btn-block" type="button" value="Invite Colleague" ng-click="inviteColleague(username)" />
+        </div>
+        <div class="panel">
+            <input class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(username)" />
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><span>{{username}}'s Managers</span></div>
+            <div class="panel-body" ng-switch="managers.length > 0">
+                <div ng-repeat="manager in managers" ng-switch-when="true">
+                    <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+                </div>
+                <div ng-switch-when="false">
+                    <span>{{username}} has no managers yet.</span>
+                </div>
             </div>
-            <div ng-switch-when="false">
-                <span>{{username}} has no managers yet.</span>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><span>{{username}}'s Employees</span></div>
+            <div class="panel-body" ng-switch="employees.length > 0">
+                <div ng-repeat="employee in employees" ng-switch-when="true">
+                    <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+                </div>
+                <div ng-switch-when="false" class="panel">
+                    <span>{{username}} has no employees yet.</span>
+                </div>
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><span>{{username}}'s Employees</span></div>
-        <div class="panel-body" ng-switch="employees.length > 0">
-            <div ng-repeat="employee in employees" ng-switch-when="true">
-                <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+    <div class="panel-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>{{username}}'s to-do list
+                    <div class="counter">{{tasksTodo.length}}</div>
+                </h2>
             </div>
-            <div ng-switch-when="false" class="panel">
-                <span>{{username}} has no employees yet.</span>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2>{{username}}'s to-do list
-                <div class="counter">{{tasksTodo.length}}</div>
-            </h2>
-        </div>
-        <div class="panel-body" ng-switch="tasksTodo.length > 0">
-            <table class="table table-hover" ng-switch-when="true">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Deadline</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="task in tasksTodo">
-                        <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                        <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                        <td><a href="#/task/{{task.TaskId}}">{{task.DeadlineFormatted}}<a></td>
+            <div class="panel-body" ng-switch="tasksTodo.length > 0">
+                <table class="table table-hover" ng-switch-when="true">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Deadline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in tasksTodo">
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}<a></td>
                     </tr>
                 </tbody>
             </table>
@@ -79,14 +82,15 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="task in tasksCreated">
-                        <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                        <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                        <td><a href="#/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="panel" ng-switch-when="false">
-                <span>{{username}} has no tasks to do yet.</span>
+                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="panel" ng-switch-when="false">
+                    <span>{{username}} has no tasks to do yet.</span>
+                </div>
             </div>
         </div>
     </div>

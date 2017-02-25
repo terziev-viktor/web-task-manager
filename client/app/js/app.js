@@ -59,12 +59,6 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: 'UserTaskController'
     });
 
-    // see task with no ability to edit it
-    $routeProvider.when('/task/:taskId', {
-        templateUrl: '/templates/task.html',
-        controller: 'TaskController'
-    });
-
     // error page. TODO: Implement
     $routeProvider.when('/err', {
         templateUrl: 'templates/error.html'

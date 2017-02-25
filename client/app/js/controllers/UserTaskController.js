@@ -1,7 +1,7 @@
 app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax) {
     let taskId = $routeParams.taskId,
     statusHandler = statusCodeHandler($scope);
-    $('.to-show').show(400, 'linear');
+    $('.to-show').slideDown("slow");
     $scope.editTitle = () => {
         let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),
             reqData = {};
@@ -147,14 +147,9 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         .then((task) => {
             console.log('get /task/:taskId');
             console.log(task);
-            if (authorization.getUser() != task.Creator_Username) {
-                $location.path('/user');
-                $scope.$apply();
-            } else {
-                task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
-                task.PriorityStr = TaskPrioritiesStr[task.Priority];
-                $scope.task = task;
-            }
+            task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
+            task.PriorityStr = TaskPrioritiesStr[task.Priority];
+            $scope.task = task;
         }, (err) => {
             console.log(err);
         });

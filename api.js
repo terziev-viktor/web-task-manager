@@ -24,8 +24,19 @@ module.exports = (app, db) => {
                     msg: 'Could not get task'
                 });
             } else {
-                task.isOwner = task.Creator_Username === req.user.username;
-                res.status(200).json(task);
+                db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
+                    let isAssigned = false;
+                    for (let i = 0; i < recordset.length; i++) {
+                        if (recordset[i].Username === req.user.Username) {
+                            isAssigned = true;
+                            break;
+                        }
+                    }
+
+                    task.isOwner = task.Creator_Username === req.user.Username;
+                    task.isAssigned = isAssigned;
+                    res.status(200).json(task);
+                })
             }
         });
     });

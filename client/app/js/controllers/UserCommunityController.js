@@ -1,7 +1,8 @@
 app.controller('UserCommunityController', function ($scope, $location, $routeParams, notification, statusCodeHandler, authorization, ajax) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope);
-
+    $('.to-show').slideDown("slow");
+    
     $scope.inviteColleague = (username) => {
         let reqData = {
             Username: username
