@@ -18,7 +18,7 @@ app.controller('UserCurrentCommunityController',
         ajax.get('/user/employees', statusHandler)
             .then((data) => {
                 data.forEach((el) => {
-                    managersAndEmployeesStrings.push(el.Employee);
+                    managersAndEmployeesStrings.push(el.Username);
                 });
                 let d = data.length > 0 ? 'all' : 'none';
                 $scope.employees = {
@@ -29,7 +29,7 @@ app.controller('UserCurrentCommunityController',
             })
             .then((data) => {
                 data.forEach((el) => {
-                    managersAndEmployeesStrings.push(el.Manager);
+                    managersAndEmployeesStrings.push(el.Username);
                 });
                 let d = data.length > 0 ? 'all' : 'none';
                 $scope.managers = {

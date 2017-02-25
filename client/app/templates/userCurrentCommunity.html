@@ -24,9 +24,9 @@
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="colleague in colleagues.data">
                         <a href="#/user/{{colleague.Colleague}}">{{colleague.FullName}}<small> ({{colleague.Username}})</small></a>
-                        <div ng-if="managersAndEmployeesStrings.includes(colleague.Colleague) === false" class="btn-group">
-                            <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Make Employee">
-                            <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Colleague)" value="Make Manager">
+                        <div ng-if="managersAndEmployeesStrings.includes(colleague.Username) === false" class="btn-group">
+                            <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Username)" value="Make Employee">
+                            <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Username)" value="Make Manager">
                         </div>
                     </li>
                 </ul>
@@ -65,7 +65,7 @@
                         <span>      
                         <a href="#/user/{{manager.Manager}}">{{manager.FullName}}<small> ({{manager.Username}})</small></a>
                     </span>
-                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Manager, $event)">
+                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Username, $event)">
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
@@ -102,7 +102,7 @@
                         <span>
                         <a href="#/user/{{employee.Employee}}">{{employee.FullName}}<small> ({{employee.Username}})</small></a>
                     </span>
-                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Employee, $event)">
+                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Username, $event)">
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
