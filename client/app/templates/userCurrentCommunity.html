@@ -8,7 +8,7 @@
     <h3>Your community</h3>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>Your Colleagues</span>
+            <p>Your Colleagues<span class="counter">{{colleagues.data.length}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter colleagues">
                 <div class="input-group-btn">
@@ -40,7 +40,7 @@
             <div ng-switch-when="none" class="panel panel-default">
                 Find your colleagues and then will appear here!
             </div>
-            <div ng-switch-when="loading" class="panel panel-default text-center">
+            <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>Your Managers</span>
+            <p>Your Managers<span class="counter">{{managers.data.length}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter managers">
                 <div class="input-group-btn">
@@ -77,15 +77,14 @@
             <div ng-switch-when="none" class="panel panel-default">
                 Find your managers and they will appear here !
             </div>
-            <div ng-switch-when="loading" class="panel panel-default text-center">
+            <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>Your Employees</span>
-
+            <p>Your Employees<span class="counter">{{employees.data.length}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter Employees">
                 <div class="input-group-btn">
@@ -115,7 +114,7 @@
             <div ng-switch-when="none" class="panel panel-default">
                 Find your Employees and they will appear here !
             </div>
-            <div ng-switch-when="loading" class="panel panel-default text-center">
+            <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>

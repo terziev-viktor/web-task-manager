@@ -8,7 +8,7 @@
     <h3>Requests</h3>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>People who claim to be your colleagues</span>
+            <p><small>People who claim to be your colleagues</small><span class="counter">{{colleagueReqs.length}}</span></p>
         </div>
         <div class="panel-body" ng-switch="colleagueReqs.length > 0">
             <ul class="list-group" ng-switc-when="true">
@@ -24,7 +24,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>People who want you to be their employee</span>
+            <p><small>People who want you to be their employee</small><span class="counter">{{employeesReq.length}}</span></p>
         </div>
         <div class="panel-body" ng-switch="employeesReq.length > 0">
             <ul class="list-group" ng-switch-when="true">
@@ -40,7 +40,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span>People who want you to be their manager</span>
+            <p><small>People who want you to be their manager</small><span class="counter">{{managersReq.length}}</span></p>
         </div>
         <div class="panel-body" ng-switch="managersReq.length > 0">
             <ul class="list-group" ng-switch-when="true">
