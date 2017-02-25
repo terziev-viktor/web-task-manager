@@ -3,24 +3,48 @@ app.controller('UserCurrentCommunityController',
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
         let managersAndEmployeesStrings = [];
+        $scope.colleagues = {
+            display: 'loading',
+            data: []
+        };
+        $scope.employees = {
+            display: 'loading',
+            data: []
+        };
+        $scope.managers = {
+            display: 'loading',
+            data: []
+        };
         ajax.get('/user/employees', statusHandler)
             .then((data) => {
                 data.forEach((el) => {
                     managersAndEmployeesStrings.push(el.Employee);
                 });
-                $scope.employees = data;
+                let d = data.length > 0 ? 'all' : 'none';
+                $scope.employees = {
+                    display: d,
+                    data: data
+                };
                 return ajax.get('/user/managers', statusHandler);
             })
             .then((data) => {
                 data.forEach((el) => {
                     managersAndEmployeesStrings.push(el.Manager);
                 });
-                $scope.managers = data;
+                let d = data.length > 0 ? 'all' : 'none';
+                $scope.managers = {
+                    display: d,
+                    data: data
+                };
                 return ajax.get('/user/colleagues', statusHandler);
             })
             .then((data) => {
                 $scope.managersAndEmployeesStrings = managersAndEmployeesStrings;
-                $scope.colleagues = data;
+                let d = data.length > 0 ? 'all' : 'none';
+                $scope.colleagues = {
+                    display: d,
+                    data: data
+                };
             });
         $scope.reqManager = (username) => {
             console.log(username);

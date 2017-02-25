@@ -18,11 +18,11 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body" ng-switch="colleagues.length > 0">
-            <div ng-switch-when="true">
+        <div class="panel-body" ng-switch="colleagues.display">
+            <div ng-switch-when="all">
 
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="colleague in colleagues">
+                    <li class="list-group-item" ng-repeat="colleague in colleagues.data">
                         <a href="#/user/{{colleague.Colleague}}">{{colleague.Colleague}}</a>
                         <div ng-if="managersAndEmployeesStrings.includes(colleague.Colleague) === false" class="btn-group">
                             <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Colleague)" value="Make Employee">
@@ -37,10 +37,14 @@
                 </div>
             </div>
 
-            <div ng-switch-when="false" class="panel">
+            <div ng-switch-when="none" class="panel panel-default">
                 Find your colleagues and then will appear here!
             </div>
+            <div ng-switch-when="loading" class="panel panel-default text-center">
+                <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+            </div>
         </div>
+
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -54,10 +58,10 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body" ng-switch="managers.length > 0">
-            <div ng-switch-when="true">
+        <div class="panel-body" ng-switch="managers.display">
+            <div ng-switch-when="all">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="manager in managers">
+                    <li class="list-group-item" ng-repeat="manager in managers.data">
                         <span>      
                         <a href="#/user/{{manager.Manager}}">{{manager.Manager}}</a>
                     </span>
@@ -70,8 +74,11 @@
                     <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
                 </div>
             </div>
-            <div ng-switch-when="false">
+            <div ng-switch-when="none" class="panel panel-default">
                 Find your managers and they will appear here !
+            </div>
+            <div ng-switch-when="loading" class="panel panel-default text-center">
+                <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
     </div>
@@ -89,24 +96,27 @@
             </div>
 
         </div>
-        <div class="panel-body" ng-switch="employees.length > 0">
-            <div ng-switch-when="true">
-            <ul class="list-group" >
-                <li class="list-group-item" ng-repeat="employee in employees">
-                    <span>
+        <div class="panel-body" ng-switch="employees.display">
+            <div ng-switch-when="all">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="employee in employees.data">
+                        <span>
                         <a href="#/user/{{employee.Employee}}">{{employee.Employee}}</a>
                     </span>
-                    <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Employee, $event)">
-                </li>
-            </ul>
-            <div class="input-group-btn text-center">
+                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Employee, $event)">
+                    </li>
+                </ul>
+                <div class="input-group-btn text-center">
                     <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
                     <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
                     <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
                 </div>
-                </div>
-            <div ng-switch-when="false" class="panel">
+            </div>
+            <div ng-switch-when="none" class="panel panel-default">
                 Find your Employees and they will appear here !
+            </div>
+            <div ng-switch-when="loading" class="panel panel-default text-center">
+                <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
     </div>

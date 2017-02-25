@@ -2,6 +2,16 @@ app.controller('UserCurrentTasksController',
     function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
+        $scope.tasksTodo = {
+            display: 'loading',
+            data: []
+        };
+
+        $scope.tasksCreated = {
+            display: 'loading',
+            data: []
+        };
+
         $scope.showContentPanel = (el) => {
             console.log(el);
             let task = el.task;
@@ -28,8 +38,11 @@ app.controller('UserCurrentTasksController',
                         element.Title = element.Title.substring(0, MaxTitleLength) + '...';
                     }
                 }, this);
-
-                $scope.tasksTodo = data.tasks;
+                let d = data.tasks.length > 0 ? 'all' : 'none';
+                $scope.tasksTodo = {
+                    display: d,
+                    data: data.tasks
+                };
             }, (err) => {
                 console.log('error');
                 console.log(err);
@@ -46,6 +59,11 @@ app.controller('UserCurrentTasksController',
                         element.Title = element.Title.substring(0, MaxTitleLength) + '...';
                     }
                 }, this);
-                $scope.tasksCreated = data.tasks;
+                let d = data.tasks.length > 0 ? 'all' : 'none';
+
+                $scope.tasksCreated = {
+                    display: d,
+                    data: data.tasks
+                };
             });
     });
