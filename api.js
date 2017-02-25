@@ -24,8 +24,8 @@ module.exports = (app, db) => {
                     msg: 'Could not get task'
                 });
             } else {
-                let ownerCookie = task.Creator_Username === req.user.username;
-                res.cookie('isOwner', ownerCookie).json(task);
+                task.isOwner = task.Creator_Username === req.user.username;
+                res.status(200).json(task);
             }
         });
     });
