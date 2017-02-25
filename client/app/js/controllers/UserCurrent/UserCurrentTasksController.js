@@ -5,6 +5,7 @@ app.controller('UserCurrentTasksController',
         $scope.showContentPanel = (el) => {
             console.log(el);
             let task = el.task;
+            task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $.get('../../templates/taskContentPanel.html', (tmpl) => {
                 var rendered = Mustache.render(tmpl, task);

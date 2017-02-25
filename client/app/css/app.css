@@ -27,6 +27,23 @@ textarea {
     display: none;
 }
 
+.panel-default > .panel-heading {
+    background-color: #e6e6e6;
+    border-color: #e6e6e6;
+}
+
+.priority-0 {
+    color: green;
+}
+
+.priority-1 {
+    color: #ffb366;
+}
+
+.priority-2 {
+    color: red;
+}
+
 .circle {
     display: inline-block;
     margin: 0;
