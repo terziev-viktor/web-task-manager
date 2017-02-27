@@ -68,6 +68,12 @@ module.exports = class Database {
         }
 
         this.get = {
+            userTasksCreatedCount: (username, cb) => {
+                this.request("SELECT * FROM GetUserTasksCreatedCount(N'" + username + "')", cb);
+            },
+            tasksToDoCount: (username, cb) => {
+                this.request("SELECT * FROM GetUserTasksCount(N'" + username + "')", cb);
+            },
             userColleagues: (username, cb) => {
                 this.request("SELECT * FROM GetUserColleagues(N'" + username + "');", cb);
             },
@@ -95,8 +101,8 @@ module.exports = class Database {
             usersByUsernamePart: (usernamePart, cb) => {
                 this.request("SELECT * FROM GetUsersByUsernamePart(N'" + usernamePart + "')", cb)
             },
-            userCreatedTasksOrderByPriority: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByPriority(N'" + creatorUsername + "')", cb)
+            userCreatedTasksOrderByPriority: (creatorUsername, from, to, cb) => {
+                this.request("SELECT * FROM GetUserCreatedTasksOrderedByPriority(N'" + creatorUsername + "', '" + from + "', '" + to + "')", cb);
             },
             userCreatedTasksOrderByPriorityDesc: (creatorUsername, cb) => {
                 this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc(N'" + creatorUsername + "')", cb)

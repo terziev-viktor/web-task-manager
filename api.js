@@ -101,18 +101,32 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/todo', auth, (req, res) => {
-        db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
-            if (err) {
-                console.log(err)
-                res.status(401).redirect('/');
-            } else {
-                let data = {
-                    tasks: recordset
-                };
-                res.json(data);
-            }
+        if (req.query.getCount !== undefined) {
+            db.get.tasksToDoCount(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err)
+                    res.status(401).redirect('/');
+                } else {
+                    let data = {
+                        count: recordset[0]
+                    };
+                    res.status(200).json(data);
+                }
+            });
+        } else {
+            db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err)
+                    res.status(401).redirect('/');
+                } else {
+                    let data = {
+                        tasks: recordset
+                    };
+                    res.json(data);
+                }
 
-        });
+            });
+        }
     });
 
     app.get('/tasks/todo/:username', auth, (req, res) => {
@@ -145,20 +159,36 @@ module.exports = (app, db) => {
     });
 
     app.get('/tasks/created', auth, (req, res) => {
-        db.get.userCreatedTasksOrderByPriority(req.user.Username, (err, recordset) => {
-            if (err) {
-                console.log(err)
-                res.status(401).redirect('/');
-            } else {
-                let data = {
-                    tasks: recordset
-                };
+        if (req.query.getCount !== undefined) {
+            db.get.userTasksCreatedCount(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err)
+                    res.status(401).redirect('/');
+                } else {
+                    let data = {
+                        count: recordset[0]
+                    };
 
-                res.json(data);
-            }
+                    res.json(data);
+                }
+            });
+        } else {
+            db.get.userCreatedTasksOrderByPriority(req.user.Username, req.query.from, req.query.to, (err, recordset) => {
+                if (err) {
+                    console.log(err)
+                    res.status(401).redirect('/');
+                } else {
+                    let data = {
+                        tasks: recordset
+                    };
 
-        });
+                    res.status(200).json(data);
+                }
+
+            });
+        }
     });
+
     app.get('/tasks/created/:username', auth, (req, res) => {
         db.get.userCreatedTasksOrderByPriority(req.params.username, (err, recordset) => {
             if (err) {
