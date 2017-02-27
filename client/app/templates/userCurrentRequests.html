@@ -13,8 +13,11 @@
         <div class="panel-body" ng-switch="colleagueReqs.length > 0">
             <ul class="list-group" ng-switc-when="true">
                 <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
-                    <span>{{colleagueReq.User_Sent}}</span>
-                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.User_Sent, $event)">
+                    <span>{{colleagueReq.FullName}} <small>({{colleagueReq.Username}})</small></span>
+                    <div class="input-group-btn">                       
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.Username, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqColleague(colleagueReq.Username, $event)">
+                    </div>
                 </li>
             </ul>
             <div class="panel" ng-switch-when="false">
@@ -29,8 +32,11 @@
         <div class="panel-body" ng-switch="employeesReq.length > 0">
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
-                    <span>{{employeeReq.User_Sent}}</span>
+                    <span>{{employeeReq.FullName}} <small>({{employeeReq.User_Sent}})</small></span>
+                    <div class="input-group-btn">   
                     <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqEmployee(employeeReq.User_Sent, $event)">
+                    </div>                    
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
@@ -45,8 +51,11 @@
         <div class="panel-body" ng-switch="managersReq.length > 0">
             <ul class="list-group" ng-switch-when="true">
                 <li class="list-group-item" ng-repeat="managerReq in managersReq">
-                    <span>{{managerReq.User_Sent}}</span>
+                    <span>{{managerReq.FullName}}<small> ({{managerReq.User_Sent}})</small></span>
+                    <div class="input-group-btn">                       
                     <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqManager(managerReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqManager(managerReq.User_Sent, $event)">
+                    </div>
                 </li>
             </ul>
             <div ng-switch-when="false" class="panel">
