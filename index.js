@@ -23,7 +23,7 @@ require('./api')(app, db);
 //require('./database/SeedUsers.js');
 
 io.on('connection', (socket) => {
-    console.log(socket)
+    //console.log(socket)
 })
 
 const port = 27017;

@@ -288,6 +288,20 @@ module.exports = (app, db) => {
         })
     });
 
+    // doesn't check for permissions
+    function assignUserToTask(req, res, taskId, assignTo) {
+        db.assign.usersToTask(taskId, assignTo, (err, innerRecordset) => {
+            if (err) {
+                console.log(err);
+                res.status(401).json({
+                    err: 'cannot assign task to user'
+                });
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    }
+
     app.post('/task', auth, (req, res) => {
         let task = req.body;
         if (!task.Title.length > 0) {
@@ -302,18 +316,27 @@ module.exports = (app, db) => {
                     res.sendStatus(401);
                 } else {
                     let taskId = recordset[0].TaskId;
-                    db.assign.usersToTask(taskId, task.AssigneTo, (err, innerRecordset) => {
-                        if (err) {
-                            console.log(err);
-                            res.status(401).redirect('/');
-                        } else {
-                            res.sendStatus(200);
-                        }
-                    });
+                    assignUserToTask(req, res, taskId, task.AssigneTo);
                 }
             });
         }
 
+    });
+
+    app.post('/task/assign_user', auth, (req, res) => {
+        const assignTo = req.body.assignTo, taskId = req.body.taskId;
+        db.get.taskById(taskId, (err, task) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(401);
+            } else {
+                if (req.user.Username === task.Creator_Username) {
+                    assignUserToTask(req, res, taskId, assignTo);
+                } else {
+                    res.sendStatus(401);
+                }
+            }
+        });
     });
 
     app.post('/user/colleagues', auth, (req, res) => {
