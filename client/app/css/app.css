@@ -23,7 +23,7 @@ textarea {
     margin:10px;
 }
 
-.to-show {
+.to-show, #li-logout, #li-profile {
     display: none;
 }
 
