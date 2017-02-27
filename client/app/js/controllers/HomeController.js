@@ -3,9 +3,19 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
         $("#main-nav-tabs").hide();
 
         $scope.login = function () {
+            $('#div-login-password').removeClass('has-error');
+            $('#div-login-password').removeClass('has-error');
             let data = {
-                username: $('#inp-login-username').val(),
-                password: $('#inp-login-password').val()
+                username: $('#inp-login-username').val().trim(),
+                password: $('#inp-login-password').val().trim()
+            }
+
+            if (data.username.length === 0) {
+                $('#div-login-username').addClass('has-error');
+                return;
+            }
+            if (data.password.length === 0) {
+                $('#div-login-password').addClass('has-error');
             }
 
             $.ajax({
@@ -41,26 +51,47 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
         }
 
         $scope.signin = function () {
+            $('#div-signin-username').removeClass('has-error');
+            $('#div-signin-password').removeClass('has-error');
+            $('#div-signin-confirm').removeClass('has-error');
+            $('#div.signin-fullname').removeClass('has-error');
             let data = {
-                username: $('#inp-signin-username').val(),
-                password: $('#inp-signin-password').val(),
-                fullname: $('#inp-signin-fullname').val(),
-                confirm: $('#inp-signin-confirm').val()
+                username: $('#inp-signin-username').val().trim(),
+                password: $('#inp-signin-password').val().trim(),
+                fullname: $('#inp-signin-fullname').val().trim(),
+                confirm: $('#inp-signin-confirm').val().trim()
             }
-
+            if (data.fullname.length === 0) {
+                $('#div-signin-fullname').addClass('has-error');
+                return;
+            }
             $.ajax({
                 method: 'POST',
                 url: '/signin',
                 data: data,
                 statusCode: {
                     200: (xhr) => {
-                        notification.success('Signup successful.');
-                        sessionStorage['currentUser'] = xhr.responseJSON.user;
-                        $location.path('/user').replace();
-                        $scope.$apply();
+                        notification.success('Signup successful. You can login now.');
+                        $('#inp-signin-username').val('');
+                        $('#inp-signin-fullname').val('');
+                        $('#inp-signin-password').val('');
+                        $('#inp-signin-confirm').val('');
                     },
                     500: (xhr) => {
-                        notification.error(xhr.responseJSON.err);
+                        notification.error(xhr.responseJSON.msg);
+                        if (xhr.responseJSON.errCode == 0) {
+                            // pass and confirm mismatch
+                            $('#div-signin-password').addClass('has-error');
+                            $('#div-signin-confirm').addClass('has-error');
+                        } else if (xhr.responseJSON.errCode == 1) {
+                            // pass pattern not satisfied
+                            $('#div-signin-password').addClass('has-error');
+                        } else if (xhr.responseJSON.errCode == 2) {
+                            // username taken
+                            $('#div-signin-username').addClass('has-error');
+                            $('#inp-signin-password').val('');
+                        }
+
                         $('#inp-signin-password').val('');
                         $('#inp-signin-confirm').val('');
                     }

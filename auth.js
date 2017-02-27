@@ -57,7 +57,10 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
     app.post('/login', passport.authenticate('local'), (req, res) => {
         console.log('/login');
         console.log(req.user);
-        res.status(200).json({ username: req.user.Username, fullname: req.user.FullName });
+        res.status(200).json({
+            username: req.user.Username,
+            fullname: req.user.FullName
+        });
     });
 
     app.get('/logout', (req, res) => {
@@ -70,29 +73,42 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
         let fullname = req.body.fullname;
         let password = req.body.password;
         let confirm = req.body.confirm;
-        if (password === confirm) {
-            let user = {
-                username: username,
-                password: password,
-                fullname: fullname
-            }
-            db.insert.user(user, (err) => {
-                console.log(err)
-                if (err) {
-                    console.log('In error');
-                    res.status(500).json({
-                        err: "Username taken."
-                    });
-                } else {
-                    passport.authenticate('local') (req, res, () => {
-                        res.status(200).json({ user: req.user.Username });
-                    });
-                }
-            });
-        } else {
+        if (password !== confirm) {
             res.status(500).json({
-                err: "Password and confirm password do not match."
+                msg: "Password and confirm password do not match.",
+                errCode: 0
             });
+            return;
         }
+
+        if (password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!#$%?\-\_+=&*@><]{8,}$/g) === null) {
+            res.status(500).json({
+                msg: "Password must match minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character",
+                errCode: 1
+            });
+            return;
+        }
+
+        let user = {
+            username: username,
+            password: password,
+            fullname: fullname
+        }
+        db.insert.user(user, (err) => {
+            console.log(err)
+            if (err) {
+                console.log('In error');
+                res.status(500).json({
+                    msg: "Username taken.",
+                    errCode: 2
+                });
+            } else {
+                passport.authenticate('local')(req, res, () => {
+                    res.status(200).json({
+                        user: req.user.Username
+                    });
+                });
+            }
+        });
     });
 }

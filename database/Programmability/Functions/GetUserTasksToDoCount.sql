@@ -1,0 +1,18 @@
+USE WebTaskManagerDb
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION GetUserTasksCount
+(	
+	@Username NVARCHAR(128)
+)
+RETURNS TABLE 
+AS
+RETURN
+(
+	SELECT Count(*) AS [Count] FROM UsersTasks WHERE username = @Username
+)
+GO
