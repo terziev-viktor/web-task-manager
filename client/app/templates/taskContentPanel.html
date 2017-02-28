@@ -59,9 +59,7 @@
                 success: (res) => {
                     noty({
                         text: res.msg,
-                        type: 'success',
-                        layout: 'topCenter',
-                        timeout: 1000
+                        type: 'success'
                     });
                     $('#prog-barr').css('width', newP + '%').html(newP + '% Complete');
                 },
@@ -69,9 +67,7 @@
                     500: (xhr) => {
                         noty({
                             text: xhr.responseJSON.msg,
-                            type: 'error',
-                            layout: 'topCenter',
-                            timeout: 1000
+                            type: 'error'
                         });
                     }
                 }
