@@ -19,33 +19,36 @@
             </div>
         </div>
         <div class="panel-body" ng-switch="tasksTodo.display">
-            <table class="table table-hover" ng-switch-when="all">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Deadline</th>
-                        <th>Progress</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="task in tasksTodo.data" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal" class="priority-{{task.Priority}}">
-                        <td>{{task.Title}}</td>
-                        <td>{{task.Description}}</td>
-                        <td>{{task.DeadlineFormatted}}</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+            <div id="panel-todo-tasks">
+                <table class="table table-hover" ng-switch-when="all">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Deadline</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in tasksTodo.data" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal" class="priority-{{task.Priority}}">
+                            <td>{{task.Title}}</td>
+                            <td>{{task.Description}}</td>
+                            <td>{{task.DeadlineFormatted}}</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
             <div class="input-group-btn text-center">
                 <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
-                <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
                 <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
             </div>
             <div ng-switch-when="none" class="animate-switch panel ">
@@ -72,30 +75,34 @@
             <a class="btn btn-success" href="#/newTask">New Task</a>
         </div>
         <div class="panel-body" ng-switch="tasksCreated.display">
-            <table class="table table-hover" ng-switch-when="all">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Deadline</th>
-                        <th>Progress</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="task in tasksCreated.data">
-                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                        <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
-                                    aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+            <div id="panel-created-tasks">
+                <table class="table table-hover" ng-switch-when="all">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Deadline</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in tasksCreated.data">
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"
+                                        aria-valuemax="100" style="width: {{task.Progress}}%; color: black;"> {{task.Progress}}% Complete
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <hr>
             <div class="input-group-btn text-center">
                 <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
                 <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>

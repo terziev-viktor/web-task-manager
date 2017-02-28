@@ -99,31 +99,31 @@ module.exports = class Database {
                 this.request("SELECT * FROM GetUserManagers(N'" + username + "')", cb);
             },
             usersByUsernamePart: (usernamePart, cb) => {
-                this.request("SELECT * FROM GetUsersByUsernamePart(N'" + usernamePart + "')", cb)
+                this.request("SELECT * FROM GetUsersByUsernamePart(N'" + usernamePart + "')", cb);
             },
             userCreatedTasksOrderByPriority: (creatorUsername, from, to, cb) => {
                 this.request("SELECT * FROM GetUserCreatedTasksOrderedByPriority(N'" + creatorUsername + "', '" + from + "', '" + to + "')", cb);
             },
             userCreatedTasksOrderByPriorityDesc: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc(N'" + creatorUsername + "')", cb)
+                this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc(N'" + creatorUsername + "')", cb);
             },
             userCreatedTasksOrderByTitle: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle(N'" + creatorUsername + "')", cb)
+                this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle(N'" + creatorUsername + "')", cb);
             },
             userCreatedTasksOrderByTitleDesc: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc(N'" + creatorUsername + "')", cb)
+                this.request("SELECT * FROM GetUserCreatedTasksOrderByTitleDesc(N'" + creatorUsername + "')", cb);
             },
             userCreatedTasksOrderByDeadline: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline(N'" + creatorUsername + "')", cb)
+                this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadline(N'" + creatorUsername + "')", cb);
             },
             userCreatedTasksOrderByDeadlineDesc: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc(N'" + creatorUsername + "')", cb)
+                this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc(N'" + creatorUsername + "')", cb);
             },
-            tasksAssignedToUserOrderedByPriority: (username, cb) => {
-                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority(N'" + username + "')", cb)
+            tasksAssignedToUserOrderedByPriority: (username, from, to, cb) => {
+                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority(N'" + username + "', '" + from + "', '" + to + "')", cb);
             },
             tasksAssignedToUserOrderedByPriorityDesc: (username, cb) => {
-                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc(N'" + username + "')", cb)
+                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc(N'" + username + "')", cb);
             },
             userRecievedEmployeeRequests: (username, cb) => {
                 this.request("SELECT * FROM GetUserRecievedEmployeeRequests(N'" + username + "');", cb);
