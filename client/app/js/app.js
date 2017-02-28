@@ -69,12 +69,6 @@ app.config(function ($routeProvider, $locationProvider) {
     });
 });
 
-// noty config
-$.noty.defaults.dismissQueue = false;
-$.noty.defaults.theme = 'bootstrapTheme';
-$.noty.defaults.layout = 'topCenter';
-$.noty.defaults.timeout = 1000;
-
 app.run(function ($rootScope, $location, authorization) {
     $rootScope.$on('$locationChangeStart', function (event) {
         if (!authorization.isLoggedIn()) {
