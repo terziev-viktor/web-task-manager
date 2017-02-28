@@ -16,31 +16,6 @@ module.exports = (app, db) => {
         res.json(req.user.Username);
     });
 
-    app.get('/task/:taskId', auth, (req, res) => {
-        db.get.taskById(req.params.taskId, (err, task) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({
-                    msg: 'Could not get task'
-                });
-            } else {
-                db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
-                    let isAssigned = false;
-                    for (let i = 0; i < recordset.length; i++) {
-                        if (recordset[i].Username === req.user.Username) {
-                            isAssigned = true;
-                            break;
-                        }
-                    }
-
-                    task.isOwner = task.Creator_Username === req.user.Username;
-                    task.isAssigned = isAssigned;
-                    res.status(200).json(task);
-                })
-            }
-        });
-    });
-
     app.post('/task/:taskId/new-progress', auth, (req, res) => {
         let taskId = req.params.taskId;
         let newProgress = req.body.newProgress;
@@ -107,14 +82,12 @@ module.exports = (app, db) => {
                     console.log(err)
                     res.status(401).redirect('/');
                 } else {
-                    let data = {
-                        count: recordset[0]
-                    };
+                    let data = recordset[0];
                     res.status(200).json(data);
                 }
             });
         } else {
-            db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
+            db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
                 if (err) {
                     console.log(err)
                     res.status(401).redirect('/');
@@ -165,15 +138,12 @@ module.exports = (app, db) => {
                     console.log(err)
                     res.status(401).redirect('/');
                 } else {
-                    let data = {
-                        count: recordset[0]
-                    };
-
+                    let data = recordset[0];
                     res.json(data);
                 }
             });
         } else {
-            db.get.userCreatedTasksOrderByPriority(req.user.Username, req.query.from, req.query.to, (err, recordset) => {
+            db.get.userCreatedTasksOrderByPriority(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
                 if (err) {
                     console.log(err)
                     res.status(401).redirect('/');
@@ -259,17 +229,6 @@ module.exports = (app, db) => {
                 }
             });
         }
-    });
-
-    app.get('/tasks/assignedto', auth, (req, res) => {
-        db.get.tasksAssignedToUserOrderedByPriority(req.user.Username, (err, recordset) => {
-            if (err) {
-                console.log(err);
-                res.sendStatus(401);
-            } else {
-                res.json(recordset);
-            }
-        });
     });
 
     app.get('/user/employees', auth, (req, res) => {
@@ -466,6 +425,31 @@ module.exports = (app, db) => {
                 });
             } else {
                 res.json(recordset);
+            }
+        });
+    });
+
+    app.get('/task/:taskId', auth, (req, res) => {
+        db.get.taskById(req.params.taskId, (err, task) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({
+                    msg: 'Could not get task'
+                });
+            } else {
+                db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
+                    let isAssigned = false;
+                    for (let i = 0; i < recordset.length; i++) {
+                        if (recordset[i].Username === req.user.Username) {
+                            isAssigned = true;
+                            break;
+                        }
+                    }
+
+                    task.isOwner = task.Creator_Username === req.user.Username;
+                    task.isAssigned = isAssigned;
+                    res.status(200).json(task);
+                })
             }
         });
     });
