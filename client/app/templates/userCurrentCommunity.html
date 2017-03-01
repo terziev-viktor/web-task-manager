@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="panel-body" ng-switch="colleagues.display">
-            <div ng-switch-when="all">
+            <div ng-switch-when="all" id="panel-community">
 
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="colleague in colleagues.data">
@@ -32,7 +32,7 @@
                 </ul>
                 <div class="input-group-btn text-center">
                     <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguesPage()">
-                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                    <input type="button" class="btn btn-default" value="1" id="colleague-page" disabled>
                     <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguesPage()">
                 </div>
             </div>

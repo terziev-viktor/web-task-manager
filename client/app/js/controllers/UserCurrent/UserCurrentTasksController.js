@@ -135,7 +135,7 @@ app.controller('UserCurrentTasksController',
             getTasksCreated(createdTasksPage * createdTasksPageSize + 1, createdTasksPageSize)
                 .then(() => {
                     $('#current-page-tasks-created').val(createdTasksPage + 1);
-                    $('#panel-created-tasks').slideDown("slow");
+                    $('#panel-created-tasks').slideDown("fast");
                 });
         }
 
@@ -149,7 +149,7 @@ app.controller('UserCurrentTasksController',
             getTasksToDo(tasksToDoPage * tasksToDoPageSize, tasksToDoPageSize)
                 .then(() => {
                     $('#current-page-tasks-todo').val(tasksToDoPage + 1);
-                    $('#panel-todo-tasks').slideDown("slow");
+                    $('#panel-todo-tasks').slideDown("fast");
                 });
         }
 
@@ -164,7 +164,7 @@ app.controller('UserCurrentTasksController',
             getTasksToDo(from, tasksToDoPageSize)
                 .then(() => {
                     $('#current-page-tasks-todo').val(tasksToDoPage + 1);
-                    $('#panel-todo-tasks').slideDown("slow");
+                    $('#panel-todo-tasks').slideDown("fast");
                 });
         }
     });
