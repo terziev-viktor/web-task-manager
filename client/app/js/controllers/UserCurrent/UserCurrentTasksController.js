@@ -167,4 +167,12 @@ app.controller('UserCurrentTasksController',
                     $('#panel-todo-tasks').slideDown("fast");
                 });
         }
+
+        $scope.filterToDoTasks = () => {
+            let search = $('#inp-filter-tasks-todo').val();
+            ajax.get('/search?tasksTodo=' + search, statusHandler)
+                .then((data) => {
+                    // TODO
+                });
+        }
     });

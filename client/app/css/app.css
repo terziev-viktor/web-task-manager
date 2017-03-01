@@ -1,5 +1,5 @@
 body {
-    min-width: 360px;
+    min-width: 460px;
     font-size: 15px;
 }
 
@@ -32,6 +32,17 @@ textarea {
     border-color: #e6e6e6;
 }
 
+.fixed-body-height {
+    height: 400px;
+}
+
+.fixed-table-body-height {
+    height: 420px;
+}
+
+.fixed-row-height {
+    height: 65px;
+}
 .priority-0 {
     color: green;
 }
