@@ -93,17 +93,18 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         };
         ajax.post('/task/' + taskid, reqData, statusHandler)
             .then(() => {
-                $($event.currentTarget).hide(200);
+                console.log($event)
+                $($event.srcElement).parent().parent().hide('fast');
             });
     }
 
     $scope.assignSearch = () => {
         $.get('../../templates/assignSearchContentPanel.html', (tmpl) => {
-                let rendered = Mustache.render(tmpl, {
-                    taskId: taskId
-                })
-                $('#modal-content').html(rendered);
-            });
+            let rendered = Mustache.render(tmpl, {
+                taskId: taskId
+            })
+            $('#modal-content').html(rendered);
+        });
     }
 
     ajax.get('/user/employees?from=1&size=-1', statusHandler)

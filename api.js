@@ -283,11 +283,13 @@ module.exports = (app, db) => {
         db.assign.usersToTask(taskId, assignTo, (err, innerRecordset) => {
             if (err) {
                 console.log(err);
-                res.status(401).json({
-                    err: 'cannot assign task to user'
+                res.status(500).json({
+                    err: 'Cannot assign task to user'
                 });
             } else {
-                res.sendStatus(200);
+                res.status(200).json({
+                    msg: 'Assignment successful!'
+                });
             }
         });
     }

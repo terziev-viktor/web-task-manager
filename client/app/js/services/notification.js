@@ -1,3 +1,7 @@
+// noty config
+$.noty.defaults.dismissQueue = false;
+$.noty.defaults.theme = 'bootstrapTheme';
+$.noty.defaults.timeout = 1000;
 
 app.factory('notification', [function () {
     return {
