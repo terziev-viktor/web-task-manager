@@ -106,7 +106,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             });
     }
 
-    ajax.get('/user/employees', statusHandler)
+    ajax.get('/user/employees?from=1&size=-1', statusHandler)
         .then((data) => {
             data.forEach((element) => {
                 $('#suggestions').append('<option value="' + element.Employee + '">');

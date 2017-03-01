@@ -231,8 +231,9 @@ module.exports = (app, db) => {
         }
     });
 
+    // from = from whitch row, size = how many elements (size = -1 to get all elements)
     app.get('/user/employees', auth, (req, res) => {
-        db.get.userEmployees(req.user.Username, (err, recordset) => {
+        db.get.userEmployees(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -243,7 +244,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/employees/:username', auth, (req, res) => {
-        db.get.userEmployees(req.params.username, (err, recordset) => {
+        db.get.userEmployees(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');
@@ -313,7 +314,8 @@ module.exports = (app, db) => {
     });
 
     app.post('/task/assign_user', auth, (req, res) => {
-        const assignTo = req.body.assignTo, taskId = req.body.taskId;
+        const assignTo = req.body.assignTo,
+            taskId = req.body.taskId;
         db.get.taskById(taskId, (err, task) => {
             if (err) {
                 console.log(err);
@@ -359,15 +361,29 @@ module.exports = (app, db) => {
     });
 
     app.get('/user/colleagues', auth, (req, res) => {
-        db.get.userColleagues(req.user.Username, (err, recordset) => {
-            if (err) {
-                res.status(500).json({
-                    msg: 'Could not retrieve your colleagues'
-                });
-            } else {
-                res.json(recordset);
-            }
-        });
+        if (req.query.getCount !== undefined) {
+            db.get.userColleaguesCount(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not retrieve the count of your colleagues.'
+                    });
+                } else {
+                    res.json(recordset[0]);
+                }
+            });
+        } else {
+            db.get.userColleagues(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not retrieve your colleagues'
+                    });
+                } else {
+                    res.json(recordset);
+                }
+            });
+        }
     });
 
     app.get('/user/req/colleague', auth, (req, res) => {

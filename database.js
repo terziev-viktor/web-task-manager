@@ -74,8 +74,11 @@ module.exports = class Database {
             tasksToDoCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserTasksCount(N'" + username + "')", cb);
             },
-            userColleagues: (username, cb) => {
-                this.request("SELECT * FROM GetUserColleagues(N'" + username + "');", cb);
+            userColleagues: (username, from , size, cb) => {
+                this.request("SELECT * FROM GetUserColleagues(N'" + username + "', '" + from + "', '" + size + "');", cb);
+            },
+            userColleaguesCount: (username, cb) => {
+                this.request("SELECT * FROM GetUserColleaguesCount(N'" + username + "')", cb);
             },
             userColleagueRequests: (username, cb) => {
                 this.request("SELECT * FROM GetUserColleagueRequests(N'" + username + "')", cb);
@@ -92,8 +95,8 @@ module.exports = class Database {
                     }
                 });
             },
-            userEmployees: (username, cb) => {
-                this.request("SELECT * FROM GetUserEmployees(N'" + username + "')", cb);
+            userEmployees: (username, from, size, cb) => {
+                this.request("SELECT * FROM GetUserEmployees(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
             userManagers: (username, cb) => {
                 this.request("SELECT * FROM GetUserManagers(N'" + username + "')", cb);

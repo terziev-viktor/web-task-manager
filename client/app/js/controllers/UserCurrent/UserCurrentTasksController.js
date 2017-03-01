@@ -1,10 +1,10 @@
 app.controller('UserCurrentTasksController',
-    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax) {
+    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q) {
         let statusHandler = statusCodeHandler($scope),
             createdTasksPage = 0,
             tasksToDoPage = 0,
-            createdTasksPageSize = 4,
-            tasksToDoPageSize = 1,
+            createdTasksPageSize = 5,
+            tasksToDoPageSize = 5,
             tasksCreatedCount, tasksToDoCount;
         $('.to-show').slideDown("slow");
         $scope.tasksTodo = {
@@ -46,6 +46,8 @@ app.controller('UserCurrentTasksController',
             });
 
         function getTasksToDo(from, size) {
+            let deferred = $q.defer();
+
             ajax.get('/tasks/todo?from=' + from + "&size=" + size, statusHandler)
                 .then((data) => {
                     data.tasks.forEach(function (element) {
@@ -65,13 +67,19 @@ app.controller('UserCurrentTasksController',
                         display: d,
                         data: data.tasks
                     };
+                    deferred.resolve();
                 }, (err) => {
                     console.log('error');
+                    deferred.reject(err);
                     console.log(err);
                 });
+
+            return deferred.promise;
         }
 
         function getTasksCreated(from, size) {
+            let deferred = $q.defer();
+
             ajax.get('/tasks/created?from=' + from + '&size=' + size, statusHandler)
                 .then((data) => {
                     console.log('tasks/created?from&to')
@@ -91,7 +99,12 @@ app.controller('UserCurrentTasksController',
                         display: d,
                         data: data.tasks
                     };
+                    deferred.resolve();
+                }, (err) => {
+                    console.log(err);
+                    deferred.reject(err);
                 });
+            return deferred.promise;
         }
 
         getTasksCreated(createdTasksPage + 1, createdTasksPageSize);
@@ -104,11 +117,12 @@ app.controller('UserCurrentTasksController',
                 createdTasksPage -= 1;
                 return;
             }
-            $('#panel-created-tasks').slideUp("slow", () => {
-                getTasksCreated(from, createdTasksPageSize);
-                $('#current-page-tasks-created').val(createdTasksPage + 1);
-                $('#panel-created-tasks').slideDown("slow");
-            });
+            $('#panel-created-tasks').slideUp("fast");
+            getTasksCreated(from, createdTasksPageSize)
+                .then(() => {
+                    $('#current-page-tasks-created').val(createdTasksPage + 1);
+                    $('#panel-created-tasks').slideDown("slow");
+                });
         }
 
         $scope.previousTasksCreated = () => {
@@ -117,11 +131,12 @@ app.controller('UserCurrentTasksController',
                 createdTasksPage = 0;
                 return;
             }
-            $('#panel-created-tasks').slideUp("slow", () => {
-                getTasksCreated(createdTasksPage * createdTasksPageSize + 1, createdTasksPageSize);
-                $('#current-page-tasks-created').val(createdTasksPage + 1);
-                $('#panel-created-tasks').slideDown("slow");
-            });
+            $('#panel-created-tasks').slideUp("fast");
+            getTasksCreated(createdTasksPage * createdTasksPageSize + 1, createdTasksPageSize)
+                .then(() => {
+                    $('#current-page-tasks-created').val(createdTasksPage + 1);
+                    $('#panel-created-tasks').slideDown("slow");
+                });
         }
 
         $scope.previousTasksToDo = () => {
@@ -130,11 +145,12 @@ app.controller('UserCurrentTasksController',
                 tasksToDoPage = 0;
                 return;
             }
-            $('#panel-todo-tasks').slideUp("slow", () => {
-                getTasksToDo(tasksToDoPage * tasksToDoPageSize, tasksToDoPageSize);
-                $('#current-page-tasks-todo').val(tasksToDoPage + 1);
-                $('#panel-todo-tasks').slideDown("slow");
-            });
+            $('#panel-todo-tasks').slideUp("fast");
+            getTasksToDo(tasksToDoPage * tasksToDoPageSize, tasksToDoPageSize)
+                .then(() => {
+                    $('#current-page-tasks-todo').val(tasksToDoPage + 1);
+                    $('#panel-todo-tasks').slideDown("slow");
+                });
         }
 
         $scope.nextTasksToDo = () => {
@@ -144,10 +160,11 @@ app.controller('UserCurrentTasksController',
                 tasksToDoPage -= 1;
                 return;
             }
-            $('#panel-todo-tasks').slideUp("slow", () => {
-                getTasksToDo(from, tasksToDoPageSize);
-                $('#current-page-tasks-todo').val(tasksToDoPage + 1);
-                $('#panel-todo-tasks').slideDown("slow");
-            });
+            $('#panel-todo-tasks').slideUp("fast");
+            getTasksToDo(from, tasksToDoPageSize)
+                .then(() => {
+                    $('#current-page-tasks-todo').val(tasksToDoPage + 1);
+                    $('#panel-todo-tasks').slideDown("slow");
+                });
         }
     });

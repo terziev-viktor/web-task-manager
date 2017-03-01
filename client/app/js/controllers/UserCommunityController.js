@@ -30,7 +30,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log('/tasks/todo error:');
             console.log(err);
         });
-
+        // TODO: Call with from and size query values
     ajax.get('/tasks/created/' + $routeParams.username, statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {

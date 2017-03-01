@@ -1,6 +1,14 @@
 app.controller('UserCurrentCommunityController',
     function ($scope, statusCodeHandler, ajax) {
-        let statusHandler = statusCodeHandler($scope);
+        let statusHandler = statusCodeHandler($scope),
+            colleaguesPageSize = 5,
+            colleaguesPage = 0,
+            managersPageSize = 5,
+            managersPage = 0,
+            employeesPageSize = 5,
+            employeesPage = 0,
+            colleaguesCount;
+
         $('.to-show').slideDown("slow");
         let managersAndEmployeesStrings = [];
         $scope.colleagues = {
@@ -15,7 +23,13 @@ app.controller('UserCurrentCommunityController',
             display: 'loading',
             data: []
         };
-        ajax.get('/user/employees', statusHandler)
+        ajax.get('/user/colleagues?getCount=true', statusHandler)
+            .then((data) => {
+                $scope.colleaguesCount = data.Count;
+                colleaguesCount = data.Count;
+            });
+
+        ajax.get('/user/employees?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
             .then((data) => {
                 data.forEach((el) => {
                     managersAndEmployeesStrings.push(el.Username);
@@ -36,7 +50,7 @@ app.controller('UserCurrentCommunityController',
                     display: d,
                     data: data
                 };
-                return ajax.get('/user/colleagues', statusHandler);
+                return ajax.get('/user/colleagues?from=' + (colleaguesPage * colleaguesPageSize + 1) + '&size=' + colleaguesPageSize, statusHandler);
             })
             .then((data) => {
                 $scope.managersAndEmployeesStrings = managersAndEmployeesStrings;
@@ -87,4 +101,33 @@ app.controller('UserCurrentCommunityController',
                 });
         }
 
+        $scope.previousColleaguesPage = () => {
+
+        }
+
+        $scope.nextColleaguesPage = () => {
+            colleaguesPage += 1;
+            let from = colleaguesPage * colleaguesPageSize + 1;
+            if(from > colleaguesCount) {
+                colleaguesPage -= 1;
+                return;
+            }
+            // TODO: Implement
+        }
+
+        $scope.previousManagersPage = () => {
+
+        }
+
+        $scope.nextManagersPage = () => {
+
+        }
+
+        $scope.previousEmployeesPage = () => {
+
+        }
+
+        $scope.nextEmployeesPage = () => {
+
+        }
     });

@@ -8,7 +8,7 @@
     <h3>Your community</h3>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <p>Your Colleagues<span class="counter">{{colleagues.data.length}}</span></p>
+            <p>Your Colleagues<span class="counter">{{colleaguesCount}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter colleagues">
                 <div class="input-group-btn">
@@ -31,9 +31,9 @@
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguesPage()">
                     <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguesPage()">
                 </div>
             </div>
 
@@ -69,9 +69,9 @@
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousManagersPage()">
                     <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextManagersPage()">
                 </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">
@@ -106,9 +106,9 @@
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousEmployeesPage()">
                     <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguePage()">
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextEmployeesPage()">
                 </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">
