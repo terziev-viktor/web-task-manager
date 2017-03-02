@@ -8,10 +8,6 @@ module.exports = (app, db) => {
         }
     }
 
-    app.get('/', (req, res) => {
-        res.sendFile(__dirname + '/client' + '/app' + '/index.html');
-    });
-
     app.get('/user', auth, (req, res) => {
         res.json(req.user.Username);
     });

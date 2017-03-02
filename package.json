@@ -2,10 +2,10 @@
   "name": "web-task-manager",
   "version": "1.0.0",
   "description": "A web application designed to manage an institution's tasks for all of it's employees and/or managers",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node index.js"
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",

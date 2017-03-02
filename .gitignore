@@ -45,3 +45,4 @@ database/Entity Framework/packages
 
 #database config file
 database_config.json
+server/database_config.json
