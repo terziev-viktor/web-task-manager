@@ -9,8 +9,8 @@ const request = require('supertest');
 describe('loading express', function () {
     let server;
     beforeEach(function () {
-        delete require.cache[require.resolve('../index')];
-        server = require('../index');
+        delete require.cache[require.resolve('../server/index')];
+        server = require('../server/index');
     });
     afterEach((done) => {
         server.close(done);
