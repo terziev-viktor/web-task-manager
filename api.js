@@ -119,7 +119,7 @@ module.exports = (app, db) => {
     });
 
     app.get('/search', (req, res) => {
-        if (req.query.taskTodo !== undefined) {
+        if (req.query.tasksTodo !== undefined) {
             db.filter.tasksTodo(req.user.Username, req.query.tasksTodo, (err, recordset) => {
                 if(err) {
                     console.log(err);
@@ -215,7 +215,7 @@ module.exports = (app, db) => {
                 let data = {
                     tasks: recordset
                 };
-                
+
                 res.json(data);
             }
 
