@@ -173,6 +173,10 @@ app.controller('UserCurrentTasksController',
             ajax.get('/search?tasksTodo=' + search, statusHandler)
                 .then((data) => {
                     // TODO
+                    console.log('data::');
+                    console.log(data);
+                    $('#modal-content').html(data);
+                    $('#modal-title').html('Filtered tasks');
                 });
         }
     });

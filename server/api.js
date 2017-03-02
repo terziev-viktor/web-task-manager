@@ -17,7 +17,7 @@ module.exports = (app, db) => {
     app.use('/user', require('./api/user')(db))
 
     app.get('/search', (req, res) => {
-        if (req.query.taskTodo !== undefined) {
+        if (req.query.tasksTodo !== undefined) {
             db.filter.tasksTodo(req.user.Username, req.query.tasksTodo, (err, recordset) => {
                 if(err) {
                     console.log(err);
