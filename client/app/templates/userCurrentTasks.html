@@ -63,15 +63,15 @@
         <div class="panel-heading">
             <p>Your created tasks<span class="counter">{{taskCreatedCount}}</span></p>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Filter created tasks">
+                <input type="text" class="form-control" id="inp-filter-tasks-created" placeholder="Filter created tasks">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" ng-click="filter-employees">
+                    <button class="btn btn-default" type="submit" ng-click="filterCreatedTasks()" data-toggle="modal" data-target="#myModal">
                             <i class="glyphicon glyphicon-search"></i> search
                         </button>
                 </div>
             </div>
-            <div>
-                <a class="btn btn-success" href="#/newTask">New Task</a>
+            <div class="row">
+                <a href="#/newTask"><button class="btn btn-success">New Task</button></a>
             </div>
         </div>
         <div class="panel-body fixed-table-body-height" ng-switch="tasksCreated.display">

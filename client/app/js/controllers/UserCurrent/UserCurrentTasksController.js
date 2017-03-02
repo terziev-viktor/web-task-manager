@@ -173,14 +173,12 @@ app.controller('UserCurrentTasksController',
             $('#inp-filter-tasks-todo').val('');
             ajax.get('/search?tasksTodo=' + search, statusHandler)
                 .then((data) => {
-                    console.log('data::');
-                    console.log(data);
                     $('#modal-title').html('Filtered Tasks');
                     if (data.length >= 1) {
                         let view = {
                             tasks: data
                         }
-                        $.get('../../../templates/mustacheTemplates/filteredTodoTasks.html', (tmpl) => {
+                        $.get('../../../templates/mustacheTemplates/filteredTasks.html', (tmpl) => {
                             let rendered = Mustache.render(tmpl, view);
                             $('#modal-content').html(rendered);
                         });
@@ -188,5 +186,25 @@ app.controller('UserCurrentTasksController',
                         $('#modal-content').html('No results for ' + search);
                     }
                 });
+        }
+
+        $scope.filterCreatedTasks = () => {
+            let search = $('#inp-filter-tasks-created').val();
+            $('#inp-filter-tasks-created').val('');
+            ajax.get('/search?tasksCreated=' + search, statusHandler)
+            .then((data) => {
+                    $('#modal-title').html('Filtered Tasks');
+                    if (data.length >= 1) {
+                        let view = {
+                            tasks: data
+                        }
+                        $.get('../../../templates/mustacheTemplates/filteredTasks.html', (tmpl) => {
+                            let rendered = Mustache.render(tmpl, view);
+                            $('#modal-content').html(rendered);
+                        });
+                    } else {
+                        $('#modal-content').html('No results for ' + search);
+                    }
+            });
         }
     });
