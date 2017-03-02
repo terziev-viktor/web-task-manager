@@ -1,11 +1,8 @@
 app.controller('UserCurrentCommunityController',
-    function ($scope, statusCodeHandler, ajax, $q) {
+    function ($scope, statusCodeHandler, ajax, $q, colleaguesPageSize, managersPageSize, employeesPageSize) {
         let statusHandler = statusCodeHandler($scope),
-            colleaguesPageSize = 5,
             colleaguesPage = 0,
-            managersPageSize = 5,
             managersPage = 0,
-            employeesPageSize = 5,
             employeesPage = 0,
             colleaguesCount;
 

@@ -7,6 +7,11 @@ app.constant('TaskPrioritiesStr', [
     'Medium',
     'High'
 ]);
+app.constant('colleaguesPageSize', 5);
+app.constant('managersPageSize', 5);
+app.constant('employeesPageSize', 5);
+app.constant('createdTasksPageSize', 5);
+app.constant('tasksToDoPageSize', 5);
 
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
