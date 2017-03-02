@@ -22,7 +22,7 @@ app.controller('UserCurrentTasksController',
             let task = el.task;
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
-            $.get('../../templates/taskContentPanel.html', (tmpl) => {
+            $.get('../../../templates/mustacheTemplates/taskContentPanel.html', (tmpl) => {
                 let rendered = Mustache.render(tmpl, task);
                 $('#modal-content').html(rendered);
                 $('#modal-title').html(task.Title);
@@ -170,13 +170,23 @@ app.controller('UserCurrentTasksController',
 
         $scope.filterToDoTasks = () => {
             let search = $('#inp-filter-tasks-todo').val();
+            $('#inp-filter-tasks-todo').val('');
             ajax.get('/search?tasksTodo=' + search, statusHandler)
                 .then((data) => {
-                    // TODO
                     console.log('data::');
                     console.log(data);
-                    $('#modal-content').html(data);
-                    $('#modal-title').html('Filtered tasks');
+                    $('#modal-title').html('Filtered Tasks');
+                    if (data.length >= 1) {
+                        let view = {
+                            tasks: data
+                        }
+                        $.get('../../../templates/mustacheTemplates/filteredTodoTasks.html', (tmpl) => {
+                            let rendered = Mustache.render(tmpl, view);
+                            $('#modal-content').html(rendered);
+                        });
+                    } else {
+                        $('#modal-content').html('No results for ' + search);
+                    }
                 });
         }
     });

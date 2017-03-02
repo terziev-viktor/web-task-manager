@@ -1,0 +1,13 @@
+<ul class="list-group">
+    {{#tasks}}
+    <li class="list-group-item">
+        <a href="#/user/task/{{TaskId}}"><span>{{Title}}</span></a>
+        <div class="pull-right">
+            <small style="color: black">
+                <span>Creator:</span>
+                <a href="#/user/{{Creator_Username}}">{{Creator_Username}}</a>
+            </small>
+        </div>
+    </li>
+    {{/tasks}}
+</ul>
