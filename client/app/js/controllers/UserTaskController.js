@@ -74,13 +74,23 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             ajax.post('/task/' + taskId + '/comments', reqData, statusHandler)
                 .then((data) => {
                     notification.success('Comment posted');
-                    $('#comment-area').val('');
-                    $('#comment-panel').after('<div class="panel panel-default"><div class="panel-heading">' +
-                        '<span>' + authorization.getUser() + '</span>' +
-                        '</div>' +
-                        ' <div class="panel-body">' +
-                        '<p>' + content + '</p>' +
-                        '</div></div>');
+                    let appendComment = (tmpl) => {
+                        let rendered = Mustache.render(tmpl, {
+                            User: authorization.getUser(),
+                            Content: content
+                        });
+                        $('#comment-area').val('');
+                        $('#comment-publication-panel').after(rendered);
+                    };
+                    if (!$routeParams.commentTempl) {
+                        ajax.get('../../templates/commentTemplate.html')
+                            .then((tmpl) => {
+                                $routeParams.commentTempl = tmpl;
+                                appendComment($routeParams.commentTempl)
+                            });
+                    } else {
+                        appendComment($routeParams.commentTempl)
+                    }
                 }, (err) => {
                     console.log(err);
                 });

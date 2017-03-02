@@ -3,7 +3,7 @@ $.noty.defaults.dismissQueue = false;
 $.noty.defaults.theme = 'bootstrapTheme';
 $.noty.defaults.timeout = 1000;
 
-app.factory('notification', [function () {
+app.service('notification', [function () {
     return {
         info: (msg) => {
             noty({
@@ -22,7 +22,7 @@ app.factory('notification', [function () {
             });
         },
         success: (msg) => {
-            noty({
+                noty({
                 text: msg,
                 type: 'success',
                 layout: 'topCenter',

@@ -23,7 +23,7 @@ app.controller('UserCurrentTasksController',
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $.get('../../templates/taskContentPanel.html', (tmpl) => {
-                var rendered = Mustache.render(tmpl, task);
+                let rendered = Mustache.render(tmpl, task);
                 $('#modal-content').html(rendered);
                 $('#modal-title').html(task.Title);
             });
