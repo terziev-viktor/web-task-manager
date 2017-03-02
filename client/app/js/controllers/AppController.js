@@ -16,7 +16,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
                                 class: 'list-group-item'
                             }).append(jQuery('<a/>', {
                                 href: '#/user/' + element.Username,
-                                text: element.Username
+                                text: element.FullName + " (" + element.Username + ")"
                             }));
                             ul.append(li);
                         });

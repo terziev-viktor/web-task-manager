@@ -50,18 +50,36 @@ BEGIN
 	WHERE T.Creator_Username = @Creator_Username
 	ORDER BY T.[Priority]
 
-	INSERT @CreatorTasks
-	SELECT TOP (@To) T.TaskId, 
-	T.Title, 
-	T.[Description], 
-	T.Deadline, 
-	T.IsDone, 
-	T.[Priority], 
-	T.Progress, 
-	T.Repeatability, 
-	T.Creator_Username FROM
-	(SELECT ROW_NUMBER() OVER (ORDER BY PRIORITY) AS rownumber, * FROM @Tmp AS t) AS T
+	IF(@To <> -1)
+	BEGIN
+		INSERT @CreatorTasks
+		SELECT TOP (@To) T.TaskId, 
+		T.Title, 
+		T.[Description], 
+		T.Deadline, 
+		T.IsDone, 
+		T.[Priority], 
+		T.Progress, 
+		T.Repeatability, 
+		T.Creator_Username FROM
+		(SELECT ROW_NUMBER() OVER (ORDER BY PRIORITY) AS rownumber, * FROM @Tmp AS t) AS T
+		WHERE rownumber >= @From
+	END
+	ELSE
+	BEGIN
+		INSERT @CreatorTasks
+		SELECT T.TaskId, 
+		T.Title, 
+		T.[Description], 
+		T.Deadline, 
+		T.IsDone, 
+		T.[Priority], 
+		T.Progress, 
+		T.Repeatability, 
+		T.Creator_Username FROM
+		(SELECT ROW_NUMBER() OVER (ORDER BY PRIORITY) AS rownumber, * FROM @Tmp AS t) AS T
 	WHERE rownumber >= @From
+	END
 	RETURN 
 END
 GO

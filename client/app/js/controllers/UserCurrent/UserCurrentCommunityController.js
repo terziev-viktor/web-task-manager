@@ -1,5 +1,5 @@
 app.controller('UserCurrentCommunityController',
-    function ($scope, statusCodeHandler, ajax) {
+    function ($scope, statusCodeHandler, ajax, $q) {
         let statusHandler = statusCodeHandler($scope),
             colleaguesPageSize = 5,
             colleaguesPage = 0,
@@ -28,6 +28,22 @@ app.controller('UserCurrentCommunityController',
                 $scope.colleaguesCount = data.Count;
                 colleaguesCount = data.Count;
             });
+
+        function getColleagues(from, size) {
+            let deferred = $q.defer();
+            ajax.get('/user/colleagues?from=' + from + "&size=" + size, statusHandler)
+                .then((data) => {
+                    let d = data.length > 0 ? 'all' : 'none';
+                    $scope.colleagues = {
+                        display: d,
+                        data: data
+                    };
+                    deferred.resolve();
+                }, (err) => {
+                    deferred.reject();
+                });
+            return deferred.promise;
+        }
 
         ajax.get('/user/employees?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
             .then((data) => {
@@ -102,17 +118,30 @@ app.controller('UserCurrentCommunityController',
         }
 
         $scope.previousColleaguesPage = () => {
-
+            colleaguesPage -=1;
+            if(colleaguesPage < 0) {
+                colleaguesPage = 0;
+                return;
+            }
+            $('#panel-community').slideUp("fast");
+            getColleagues(colleaguesPage * colleaguesPageSize + 1, colleaguesPageSize).then(() => {
+                $('#panel-community').slideDown("fast");
+                $('#colleague-page').val(colleaguesPage + 1);
+            });
         }
 
         $scope.nextColleaguesPage = () => {
             colleaguesPage += 1;
             let from = colleaguesPage * colleaguesPageSize + 1;
-            if(from > colleaguesCount) {
+            if (from > colleaguesCount) {
                 colleaguesPage -= 1;
                 return;
             }
-            // TODO: Implement
+            $('#panel-community').slideUp("fast");
+            getColleagues(from, colleaguesPageSize).then(() => {
+                $('#panel-community').slideDown("fast");
+                $('#colleague-page').val(colleaguesPage + 1);
+            });
         }
 
         $scope.previousManagersPage = () => {

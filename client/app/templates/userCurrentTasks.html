@@ -10,15 +10,15 @@
         <div class="panel-heading">
             <p>Your <strong>to-do</strong> list <span class="counter">{{taskTodoCount}}</span></p>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Filter to-do list">
+                <input type="text" class="form-control" placeholder="Filter to-do list" id="inp-filter-tasks-todo">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" ng-click="filter-tasks">
+                    <button class="btn btn-default" type="submit" ng-click="filterToDoTasks()">
                             <i class="glyphicon glyphicon-search"></i> search
                         </button>
                 </div>
             </div>
         </div>
-        <div class="panel-body" ng-switch="tasksTodo.display">
+        <div class="panel-body fixed-table-body-height" ng-switch="tasksTodo.display">
             <div id="panel-todo-tasks">
                 <table class="table table-hover" ng-switch-when="all">
                     <thead>
@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="task in tasksTodo.data" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal" class="priority-{{task.Priority}}">
+                        <tr ng-repeat="task in tasksTodo.data" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal" class="priority-{{task.Priority}} fixed-row-height">
                             <td>{{task.Title}}</td>
                             <td>{{task.Description}}</td>
                             <td>{{task.DeadlineFormatted}}</td>
@@ -46,17 +46,17 @@
                 </table>
             </div>
             <hr>
-            <div class="input-group-btn text-center">
-                <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
-                <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
-                <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
-            </div>
             <div ng-switch-when="none" class="animate-switch panel ">
                 You dont have tasks to do yet
             </div>
             <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
+        </div>
+        <div class="input-group-btn text-center">
+            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
+            <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
+            <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
         </div>
     </div>
     <div class="panel panel-default">
@@ -70,11 +70,11 @@
                         </button>
                 </div>
             </div>
+            <div>
+                <a class="btn btn-success" href="#/newTask">New Task</a>
+            </div>
         </div>
-        <div class="panel-body">
-            <a class="btn btn-success" href="#/newTask">New Task</a>
-        </div>
-        <div class="panel-body" ng-switch="tasksCreated.display">
+        <div class="panel-body fixed-table-body-height" ng-switch="tasksCreated.display">
             <div id="panel-created-tasks">
                 <table class="table table-hover" ng-switch-when="all">
                     <thead>
@@ -86,7 +86,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="task in tasksCreated.data">
+                        <tr ng-repeat="task in tasksCreated.data" class="fixed-row-height priority-{{task.Priority}}">
                             <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
                             <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
                             <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
@@ -102,18 +102,18 @@
                 </table>
 
             </div>
-            <hr>
-            <div class="input-group-btn text-center">
-                <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
-                <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>
-                <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksCreated()">
-            </div>
             <div ng-switch-when="none" class="animate-switch panel ">
                 You haven't created any tasks yet. Do it by clicking on the green button
             </div>
             <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
+        </div>
+        <hr>
+        <div class="input-group-btn text-center">
+            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
+            <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>
+            <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksCreated()">
         </div>
     </div>
 </div>

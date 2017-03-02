@@ -13,6 +13,7 @@ RETURNS TABLE
 AS
 RETURN 
 (
-	SELECT U.Username FROM Users AS U WHERE U.Username LIKE @Part + '%'
+	SELECT U.Username, U.FullName FROM Users AS U WHERE U.Username LIKE '%' + @Part + '%' OR U.FullName LIKE '%' + @Part + '%'
 )
 GO
+

@@ -107,8 +107,8 @@ module.exports = class Database {
             userCreatedTasksOrderByPriority: (creatorUsername, from, to, cb) => {
                 this.request("SELECT * FROM GetUserCreatedTasksOrderedByPriority(N'" + creatorUsername + "', '" + from + "', '" + to + "')", cb);
             },
-            userCreatedTasksOrderByPriorityDesc: (creatorUsername, cb) => {
-                this.request("SELECT * FROM GetUserCreatedTasksOrderByPriorityDesc(N'" + creatorUsername + "')", cb);
+            userCreatedTasksOrderByPriorityDesc: (creatorUsername, from, size, cb) => {
+                this.request("SELECT * FROM GetUserCreatedTasksOrderedByPriorityDesc(N'" + creatorUsername + "', '" + from + "', '" + size + "')", cb);
             },
             userCreatedTasksOrderByTitle: (creatorUsername, cb) => {
                 this.request("SELECT * FROM GetUserCreatedTasksOrderByTitle(N'" + creatorUsername + "')", cb);
@@ -162,6 +162,24 @@ module.exports = class Database {
             },
             taskProgress: (id, newProgress, cb) => {
                 this.request("EXEC UpdateTaskProgress '" + id + "', '" + newProgress + "';", cb);
+            }
+        }
+
+        this.filter = {
+            colleagues: (username, filter, cb) => {
+                this.request("SELECT * FROM FilterColleagues(N'" + username + "', N'" + filter + "')", cb);
+            },
+            managers: (username, filter, cb) => {
+                this.request("SELECT * FROM FilterManagers(N'" + username + "', N'" + filter + "')", cb);
+            },
+            employees: (username, filter, cb) => {
+                this.request("SELECT * FROM FilterEmployees(N'" + username + "', N'" + filter + "')", cb);   
+            },
+            tasksTodo: (username, filter, cb) => {
+                this.request("SELECT * FROM FilterTasksAssignedToUser(N'" + username + "', N'" + filter + "')", cb);   
+            },
+            tasksCreated: (username, filter, cb) => {
+                this.request("SELECT * FROM FilterTasksCreated(N'" + username + "', N'" + filter + "')", cb);                   
             }
         }
     }
