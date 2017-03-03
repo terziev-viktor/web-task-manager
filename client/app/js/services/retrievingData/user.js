@@ -12,7 +12,7 @@ app.service('userData', function (ajax, $q) {
 
     this.getEmployees = (from, size, statusHandler) => {
         let deferred = $q.defer();
-        ajax.get('/user/employees?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
+        ajax.get('/user/employees?from=' + from + '&size=' + size, statusHandler)
             .then((data) => {
                 deferred.resolve(data);
             }, (err) => {
@@ -23,7 +23,7 @@ app.service('userData', function (ajax, $q) {
 
     this.getManagers = (from, size, statusHandler) => {
         let deferred = $q.defer();
-        ajax.get('/user/managers?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
+        ajax.get('/user/managers?from=' + from + '&size=' + size, statusHandler)
             .then((data) => {
                 deferred.resolve(data);
             }, (err) => {

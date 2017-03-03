@@ -49,7 +49,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <p>Your Managers<span class="counter">{{managers.data.length}}</span></p>
+            <p>Your Managers<span class="counter">{{managersCount}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter managers">
                 <div class="input-group-btn">
@@ -69,11 +69,6 @@
                         <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Username, $event)">
                     </li>
                 </ul>
-                <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousManagersPage()">
-                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextManagersPage()">
-                </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">
                 Find your managers and they will appear here !
@@ -82,10 +77,15 @@
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
+        <div class="input-group-btn text-center">
+            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousManagersPage()">
+            <input type="button" class="btn btn-default" value="1" id="managers-page" disabled>
+            <input type="button" class="btn btn-default" value="Next page" ng-click="nextManagersPage()">
+        </div>
     </div>
     <div class="panel panel-default" style="height: 300px">
         <div class="panel-heading">
-            <p>Your Employees<span class="counter">{{employees.data.length}}</span></p>
+            <p>Your Employees<span class="counter">{{employeesCount}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter Employees">
                 <div class="input-group-btn">
@@ -106,11 +106,6 @@
                         <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Username, $event)">
                     </li>
                 </ul>
-                <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousEmployeesPage()">
-                    <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextEmployeesPage()">
-                </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">
                 Find your Employees and they will appear here !
@@ -118,6 +113,11 @@
             <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
+        </div>
+        <div class="input-group-btn text-center">
+            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousEmployeesPage()">
+            <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+            <input type="button" class="btn btn-default" value="Next page" ng-click="nextEmployeesPage()">
         </div>
     </div>
 </div>

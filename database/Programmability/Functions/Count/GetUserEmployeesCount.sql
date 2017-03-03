@@ -1,0 +1,20 @@
+USE WebTaskManagerDb
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE FUNCTION GetUserEmployeesCount
+(	
+	@Username NVARCHAR(128)
+)
+RETURNS TABLE
+AS
+RETURN
+(
+	SELECT 
+	COUNT(*) AS [Count]
+	FROM GetUserEmployees(@Username, 1, -1) AS T
+)
+GO

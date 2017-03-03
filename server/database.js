@@ -99,7 +99,7 @@ module.exports = class Database {
                 this.request("SELECT * FROM GetUserEmployees(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
             userEmployeesCount: (username, cb) => {
-                this.request("SELECT * FROM GetUserEmployeesCount(N'" + username + "', '" + from + "', '" + size + "')", cb);
+                this.request("SELECT * FROM GetUserEmployeesCount(N'" + username + "')", cb);
             },
             userManagers: (username, from, size, cb) => {
                 this.request("SELECT * FROM GetUserManagers(N'" + username + "', '" + from + "', '" + size + "')", cb);

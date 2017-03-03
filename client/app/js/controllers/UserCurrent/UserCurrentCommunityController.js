@@ -32,7 +32,7 @@ app.controller('UserCurrentCommunityController',
                 $scope.managersCount = data.Count;
                 managersCount = data.Count;
             });
-            
+
         ajax.get('/user/employees?getCount=true', statusHandler)
             .then((data) => {
                 $scope.employeesCount = data.Count;
@@ -49,7 +49,7 @@ app.controller('UserCurrentCommunityController',
                     display: d,
                     data: data
                 };
-                return ajax.get('/user/managers', statusHandler);
+                return ajax.get('/user/managers?from=1&size=-1', statusHandler);
             })
             .then((data) => {
                 data.forEach((el) => {
@@ -70,6 +70,7 @@ app.controller('UserCurrentCommunityController',
                     data: data
                 };
             });
+
         $scope.reqManager = (username) => {
             console.log(username);
             let reqData = {
@@ -117,14 +118,14 @@ app.controller('UserCurrentCommunityController',
                 colleaguesPage = 0;
                 return;
             }
-            $('#panel-community').slideUp("fast");
+            $('#panel-community-colleagues').slideUp("fast");
             userData.getColleagues(colleaguesPage * colleaguesPageSize + 1, colleaguesPageSize, statusHandler).then((data) => {
                 let d = data.length > 0 ? 'all' : 'none';
                 $scope.colleagues = {
                     display: d,
                     data: data
                 };
-                $('#panel-community').slideDown("fast");
+                $('#panel-community-colleagues').slideDown("fast");
                 $('#colleague-page').val(colleaguesPage + 1);
             });
         }
@@ -149,14 +150,10 @@ app.controller('UserCurrentCommunityController',
         }
 
         $scope.previousManagersPage = () => {
-
-        }
-
-        $scope.nextManagersPage = () => {
-            managersPage += 1;
-            let from = managersPage * managersPageSize + 1;
-            if (from > managersCount) {
-                managersPage -= 1;
+            managersPage -= 1;
+            if (managersPage < 0) {
+                managersPage = 0;
+                return;
             }
             $('#panel-community-managers').slideUp("fast");
             userData.getManagers(from, managersPageSize, statusHandler)
@@ -167,15 +164,66 @@ app.controller('UserCurrentCommunityController',
                         data: data
                     };
                     $('#panel-community-managers').slideDown("fast");
-                    $('#colleague-page').val(colleaguesPage + 1);
+                    $('#managers-page').val(colleaguesPage + 1);
+                });
+        }
+
+        $scope.nextManagersPage = () => {
+            managersPage += 1;
+            let from = managersPage * managersPageSize + 1;
+            if (from > managersCount) {
+                managersPage -= 1;
+                return;
+            }
+            $('#panel-community-managers').slideUp("fast");
+            userData.getManagers(from, managersPageSize, statusHandler)
+                .then((data) => {
+                    let d = data.length > 0 ? 'all' : 'none';
+                    $scope.managers = {
+                        display: d,
+                        data: data
+                    };
+                    $('#panel-community-managers').slideDown("fast");
+                    $('#managers-page').val(colleaguesPage + 1);
                 });
         }
 
         $scope.previousEmployeesPage = () => {
-
+            employeesPage -= 1;
+            if (employeesPage < 0) {
+                employeesPage = 0;
+                return;
+            }
+            $('#panel-community-managers').slideUp("fast");
+            userData.getEmployees(from, employeesPageSize, statusHandler)
+                .then((data) => {
+                    let d = data.length > 0 ? 'all' : 'none';
+                    $scope.employees = {
+                        display: d,
+                        data: data
+                    };
+                    $('#panel-community-managers').slideDown("fast");
+                    $('#managers-page').val(employeesPage + 1);
+                });
         }
 
         $scope.nextEmployeesPage = () => {
-
+            employeesPage += 1;
+            let from = employeesPage * employeesPageSize + 1;
+            if (from > employeesCount) {
+                employeesPage -= 1;
+                return;
+            }
+            $('#panel-community-managers').slideUp("fast");
+            userData.getEmployees(from, employeesPage, statusHandler)
+                .then((data) => {
+                    let d = data.length > 0 ? 'all' : 'none';
+                    $scope.employees = {
+                        display: d,
+                        data: data
+                    };
+                    $('#panel-community-managers').slideDown("fast");
+                    $('#managers-page').val(employeesPage + 1);
+                });
         }
     });
