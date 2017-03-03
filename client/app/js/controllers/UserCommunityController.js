@@ -1,6 +1,8 @@
-app.controller('UserCommunityController', function ($scope, $location, $routeParams, notification, statusCodeHandler, authorization, ajax) {
+app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize) {
     $scope.username = $routeParams.username;
-    let statusHandler = statusCodeHandler($scope);
+    let statusHandler = statusCodeHandler($scope),
+        tasksCreatedPage = 0,
+        tasksToDoPage = 0;
     $('.to-show').slideDown("slow");
     
     $scope.currentuser = authorization.getUser();
@@ -32,7 +34,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log(err);
         });
         // TODO: Call with from and size query values
-    ajax.get('/tasks/created/' + $routeParams.username, statusHandler)
+    ajax.get('/tasks/created/' + $routeParams.username + "?from=1&size=" + createdTasksPageSize, statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {
                 element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
@@ -43,7 +45,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log(err);
         });
 
-    ajax.get('/user/employees/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
+    ajax.get('/user/employees/' + $routeParams.username + '?from=1' + '&size=' + employeesPageSize, statusHandler)
         .then((data) => {
             $scope.employees = data;
         }, (err) => {
@@ -51,7 +53,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log(err);
         });
 
-    ajax.get('/user/managers/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
+    ajax.get('/user/managers/' + $routeParams.username + '?from=1' + '&size=' + managersPageSize, statusHandler)
         .then((data) => {
             $scope.managers = data;
         }, (err) => {
@@ -65,5 +67,4 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
         console.log(id);
 
     }
-
 });
