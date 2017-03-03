@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="panel-body fixed-body-height" ng-switch="colleagues.display">
-            <div ng-switch-when="all" id="panel-community">
+            <div ng-switch-when="all" id="panel-community-colleagues">
 
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="colleague in colleagues.data">
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="panel-body fixed-body-height" ng-switch="managers.display">
-            <div ng-switch-when="all">
+            <div ng-switch-when="all" id="panel-community-managers">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="manager in managers.data">
                         <span>      
@@ -97,7 +97,7 @@
 
         </div>
         <div class="panel-body fixed-body-height" ng-switch="employees.display">
-            <div ng-switch-when="all">
+            <div ng-switch-when="all" id="panel-community-employees">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="employee in employees.data">
                         <span>

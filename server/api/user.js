@@ -24,7 +24,7 @@ module.exports = (db) => {
             db.insert.userManager(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
-                    res.status(401).redirect('/');
+                    res.status(500).json({msg: 'Could not insert employee.'});
                 } else {
                     res.status(200).json({
                         msg: 'User inserted to managers'
@@ -54,7 +54,7 @@ module.exports = (db) => {
             db.insert.userManager(req.body.Username, req.user.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
-                    res.status(401).redirect('/');
+                    res.status(500).json({msg: 'Could not insert manager'});
                 } else {
                     res.status(200).json('User ' + req.body.Username + ' added to managers.');
                 }
@@ -64,21 +64,34 @@ module.exports = (db) => {
 
     // from = from whitch row, size = how many elements (size = -1 to get all elements)
     router.get('/employees', (req, res) => {
-        db.get.userEmployees(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
-            if (err) {
-                console.log(err);
-                res.status(401).redirect('/');
-            } else {
-                res.json(recordset);
-            }
-        });
+        if (req.query.getCount !== undefined) {
+            db.get.userEmployeesCount(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Count not get employees count.'
+                    });
+                } else {
+                    res.json(recordset[0]);
+                }
+            });
+        } else {
+            db.get.userEmployees(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({msg: 'Could not get employees.'});
+                } else {
+                    res.json(recordset);
+                }
+            });
+        }
     });
 
     router.get('/employees/:username', (req, res) => {
         db.get.userEmployees(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(401).redirect('/');
+                res.status(500).json({msg: 'Could not get employees.'});
             } else {
                 res.json(recordset);
             }
@@ -86,20 +99,31 @@ module.exports = (db) => {
     });
 
     router.get('/managers', (req, res) => {
-
-        db.get.userManagers(req.user.Username, (err, recordset) => {
-            if (err) {
-                console.log(err);
-                res.status(401).redirect('/');
-            } else {
-                res.json(recordset);
-            }
-        });
-
+        if (req.query.getCount !== undefined) {
+            db.get.userManagersCount(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Count not get managers count.'
+                    });
+                } else {
+                    res.json(recordset[0]);
+                }
+            });
+        } else {
+            db.get.userManagers(req.user.Username, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(401).redirect('/');
+                } else {
+                    res.json(recordset);
+                }
+            });
+        }
     });
 
     router.get('/managers/:username', (req, res) => {
-        db.get.userManagers(req.params.username, (err, recordset) => {
+        db.get.userManagers(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(401).redirect('/');

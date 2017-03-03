@@ -3,7 +3,9 @@
     <li id="nav-tab-community" role="presentation"><a href="#/user/current/community">Comunity</a></li>
     <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
     <li id="nav-tab-requests" role="presentation"><a href="#/user">Profile</a></li>
-    <li id="nav-tab-requests" role="presentation" class="active"><a href="#/user/{{username}}">{{username}}</a></li>
+    <div ng-switch="username === currentuser">
+        <li ng-switch-when="false" id="nav-tab-requests" role="presentation" class="active"><a href="#/user/{{username}}">{{username}}</a></li>
+    </div>
 </ul>
 <div class="to-show">
     <div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">

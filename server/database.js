@@ -98,8 +98,14 @@ module.exports = class Database {
             userEmployees: (username, from, size, cb) => {
                 this.request("SELECT * FROM GetUserEmployees(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
+            userEmployeesCount: (username, cb) => {
+                this.request("SELECT * FROM GetUserEmployeesCount(N'" + username + "', '" + from + "', '" + size + "')", cb);
+            },
             userManagers: (username, cb) => {
                 this.request("SELECT * FROM GetUserManagers(N'" + username + "')", cb);
+            },
+            userManagersCount: (username, cb) => {
+                this.request("SELECT * FROM GetUserManagersCount(N'" + username + "')", cb);
             },
             usersByUsernamePart: (usernamePart, cb) => {
                 this.request("SELECT * FROM GetUsersByUsernamePart(N'" + usernamePart + "')", cb);
@@ -122,8 +128,8 @@ module.exports = class Database {
             userCreatedTasksOrderByDeadlineDesc: (creatorUsername, cb) => {
                 this.request("SELECT * FROM GetUserCreatedTasksOrderByDeadlineDesc(N'" + creatorUsername + "')", cb);
             },
-            tasksAssignedToUserOrderedByPriority: (username, from, to, cb) => {
-                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority(N'" + username + "', '" + from + "', '" + to + "')", cb);
+            tasksAssignedToUserOrderedByPriority: (username, from, size, cb) => {
+                this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriority(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
             tasksAssignedToUserOrderedByPriorityDesc: (username, cb) => {
                 this.request("SELECT * FROM GetTasksAssignedToUserOrderedByPriorityDesc(N'" + username + "')", cb);

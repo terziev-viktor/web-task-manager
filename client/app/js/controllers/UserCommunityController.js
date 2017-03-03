@@ -3,6 +3,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
     let statusHandler = statusCodeHandler($scope);
     $('.to-show').slideDown("slow");
     
+    $scope.currentuser = authorization.getUser();
     $scope.inviteColleague = (username) => {
         let reqData = {
             Username: username
@@ -17,7 +18,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
         ajax.post('/user/colleagues?remove=true', reqData, statusHandler);
     }
 
-    ajax.get('/tasks/todo/' + $routeParams.username, statusHandler)
+    ajax.get('/tasks/todo/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {
                 element.priorityLow = element.Priority == 0;
@@ -42,7 +43,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log(err);
         });
 
-    ajax.get('/user/employees/' + $routeParams.username, statusHandler)
+    ajax.get('/user/employees/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
         .then((data) => {
             $scope.employees = data;
         }, (err) => {
@@ -50,7 +51,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log(err);
         });
 
-    ajax.get('/user/managers/' + $routeParams.username, statusHandler)
+    ajax.get('/user/managers/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
         .then((data) => {
             $scope.managers = data;
         }, (err) => {
