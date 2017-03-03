@@ -101,8 +101,8 @@ module.exports = class Database {
             userEmployeesCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserEmployeesCount(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
-            userManagers: (username, cb) => {
-                this.request("SELECT * FROM GetUserManagers(N'" + username + "')", cb);
+            userManagers: (username, from, size, cb) => {
+                this.request("SELECT * FROM GetUserManagers(N'" + username + "', '" + from + "', '" + size + "')", cb);
             },
             userManagersCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserManagersCount(N'" + username + "')", cb);

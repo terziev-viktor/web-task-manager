@@ -111,7 +111,7 @@ module.exports = (db) => {
                 }
             });
         } else {
-            db.get.userManagers(req.user.Username, (err, recordset) => {
+            db.get.userManagers(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(401).redirect('/');
