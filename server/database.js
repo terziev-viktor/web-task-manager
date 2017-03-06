@@ -172,6 +172,9 @@ module.exports = class Database {
         }
 
         this.filter = {
+            usersToAssignToTask: (username, filter, taskId, cb) => {
+                this.request("SELECT * FROM FilterUsersToAssignToTask(N'" + username + "', N'" + filter + "', '" + taskId + "');", cb);
+            },
             colleagues: (username, filter, cb) => {
                 this.request("SELECT * FROM FilterColleagues(N'" + username + "', N'" + filter + "')", cb);
             },
