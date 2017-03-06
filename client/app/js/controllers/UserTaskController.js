@@ -2,6 +2,9 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope);
     $('.to-show').slideDown("slow");
+    $scope.username = authorization.getUser();
+    console.log(authorization.getUser());
+    
     $scope.editTitle = () => {
         let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),
             reqData = {};
@@ -133,6 +136,8 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $scope.task = task;
+            console.log('task:');
+            console.log(task);
         }, (err) => {
             console.log(err);
         });
