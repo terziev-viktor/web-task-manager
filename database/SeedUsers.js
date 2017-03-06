@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const dbConfig = JSON.parse(fs.readFileSync('../database_config.json', 'utf8'));
+const dbConfig = JSON.parse(fs.readFileSync('../server/database_config.json', 'utf8'));
 
-const Database = require('../database.js');
+const Database = require('../server/database.js');
 
 const db = new Database(dbConfig);
 
