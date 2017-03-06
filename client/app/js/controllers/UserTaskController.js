@@ -106,7 +106,6 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         };
         ajax.post('/task/' + taskid, reqData, statusHandler)
             .then(() => {
-                console.log($event)
                 $($event.srcElement).parent().parent().hide('fast');
             });
     }
@@ -136,8 +135,6 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $scope.task = task;
-            console.log('task:');
-            console.log(task);
         }, (err) => {
             console.log(err);
         });
