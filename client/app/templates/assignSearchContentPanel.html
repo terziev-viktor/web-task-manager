@@ -35,7 +35,7 @@
         let search = $('#inp-assign-search').val();
         $('#inp-assign-search').val('');
         if (search.length > 0) {
-            $.get('/search?text=' + search)
+            $.get('/search?usersToAssign=' + search + '&toTaskId={{taskId}}')
                 .then((data) => {
                     console.log(data);
                     let ul = jQuery('<ul/>', {
