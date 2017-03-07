@@ -41,7 +41,7 @@ Use [Microsoft SQL Server Management Studio (MSSMS)](https://docs.microsoft.com/
 # example: sh database.sh localhost SA pass123
 ```
 
-# Start the express.js server
+## Start the express.js server
 ```
 npm start
 ```
