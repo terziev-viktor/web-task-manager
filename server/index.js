@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
 });
 
-require('./auth')(app, db);
+require('./auth')(app, db, io);
 require('./api')(app, db);
 
 io.on('connection', (socket) => {

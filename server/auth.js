@@ -1,4 +1,4 @@
-module.exports = (app, db, passport = require('passport'), Strategy = require('passport-local')) => {
+module.exports = (app, db, io, passport = require('passport'), Strategy = require('passport-local')) => {
     const bodyParser = require('body-parser'),
         bcrypt = require('bcrypt');
 
@@ -110,5 +110,33 @@ module.exports = (app, db, passport = require('passport'), Strategy = require('p
                 });
             }
         });
+    });
+
+
+    // io auth
+    require('socketio-auth')(io, {
+        authenticate: function (socket, data, cb) {
+            //get credentials sent by the client 
+            let username = data.username;
+            let password = data.password;
+
+            db.get.userByUsername(username, (err, user) => {
+                if (err) {
+                    return cb(err);
+                }
+                if (!user) {
+                    return cb(new Error('User not found'));
+                }
+                bcrypt.compare(password, user.Password, (err, res) => {
+                    if (err) {
+                        return cb(err);
+                    }
+                    if (!res) {
+                        return cb(null, false);
+                    }
+                    return cb(null, user);
+                });
+            });
+        }
     });
 }
