@@ -1,6 +1,7 @@
 module.exports = (db) => {
     const router = require('express').Router();
 
+    // gets the todo list of the authenticated user
     router.get('/todo', (req, res) => {
         if (req.query.getCount !== undefined) {
             db.get.tasksToDoCount(req.user.Username, (err, recordset) => {
@@ -28,6 +29,7 @@ module.exports = (db) => {
         }
     });
 
+    // gets the todo list of a user by username
     router.get('/todo/:username', (req, res) => {
         db.get.tasksAssignedToUserOrderedByPriority(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
@@ -44,7 +46,8 @@ module.exports = (db) => {
         });
     });
 
-     router.get('/created', (req, res) => {
+    // gets all created task by the authenticated user
+    router.get('/created', (req, res) => {
         if (req.query.getCount !== undefined) {
             db.get.userTasksCreatedCount(req.user.Username, (err, recordset) => {
                 if (err) {
@@ -72,6 +75,7 @@ module.exports = (db) => {
         }
     });
 
+    // gets all created tasks from a user
     router.get('/created/:username', (req, res) => {
         db.get.userCreatedTasksOrderByPriority(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {

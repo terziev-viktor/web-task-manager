@@ -5,7 +5,7 @@ module.exports = (db) => {
         res.json(req.user.Username);
     });
 
-    // Current user becomes employee of user from req.body
+    // current user becomes employee of user from req.body
     router.post('/employee', (req, res) => {
         if (req.query.remove !== undefined) {
             db.remove.userEmployee(req.user.Username, req.query.remove, (err, recordset) => {
@@ -34,7 +34,7 @@ module.exports = (db) => {
         }
     });
 
-    // Current user becomes manager of user from req.body OR removing manager
+    // current user becomes manager of user from req.body OR removing manager
     router.post('/manager', (req, res) => {
         if (req.query.remove !== undefined) {
             let managerToRemove = req.query.remove
@@ -62,6 +62,7 @@ module.exports = (db) => {
         }
     });
 
+    // get employees of authenticated user
     // from = from whitch row, size = how many elements (size = -1 to get all elements)
     router.get('/employees', (req, res) => {
         if (req.query.getCount !== undefined) {
@@ -87,6 +88,7 @@ module.exports = (db) => {
         }
     });
 
+    //get employees of a given user
     router.get('/employees/:username', (req, res) => {
         db.get.userEmployees(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
@@ -98,6 +100,7 @@ module.exports = (db) => {
         })
     });
 
+    // get managers of authenticated user
     router.get('/managers', (req, res) => {
         if (req.query.getCount !== undefined) {
             db.get.userManagersCount(req.user.Username, (err, recordset) => {
@@ -122,6 +125,7 @@ module.exports = (db) => {
         }
     });
 
+    // get managers of a given user
     router.get('/managers/:username', (req, res) => {
         db.get.userManagers(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
@@ -133,8 +137,10 @@ module.exports = (db) => {
         })
     });
 
+    // manipulates colleague connections
     router.post('/colleagues', (req, res) => {
         if (req.query.remove === 'true') {
+            // if the quety parameter remove is set to true then the connection is removed
             db.remove.colleague(req.user.Username, req.body.Username, (err, recordset) => {
                 if (err) {
                     console.log(err);
@@ -148,6 +154,8 @@ module.exports = (db) => {
                 }
             });
         } else {
+            // if the query parameter is set to false or doesn't exist then the 
+            // authenticated user and user specified in the body become colleagues
             db.insert.colleagues(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
@@ -163,6 +171,9 @@ module.exports = (db) => {
         }
     });
 
+    // gets colleagues of the authenticated user
+    // if the query parameter 'getCount' is not undefined,
+    // then the request returns the number of colleagues
     router.get('/colleagues', (req, res) => {
         if (req.query.getCount !== undefined) {
             db.get.userColleaguesCount(req.user.Username, (err, recordset) => {
@@ -189,6 +200,7 @@ module.exports = (db) => {
         }
     });
 
+    // gets the colleague requests of the authenticated user
     router.get('/req/colleague', (req, res) => {
         db.get.userColleagueRequests(req.user.Username, (err, recordset) => {
             if (err) {
@@ -201,6 +213,7 @@ module.exports = (db) => {
         });
     });
 
+    // sends colleague request to the user from req.body
     router.post('/req/colleague', (req, res) => {
         db.insert.colleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
@@ -215,6 +228,7 @@ module.exports = (db) => {
         });
     });
 
+    // sends employee request to the user from req.body
     router.post('/req/employee', (req, res) => {
         //inserts in UserEmployeeRequests
         db.insert.employeeRequest(req.user.Username, req.body.Username, (err) => {
@@ -230,6 +244,7 @@ module.exports = (db) => {
         })
     });
 
+    // sends manager request to the user from req.body
     router.post('/req/manager', (req, res) => {
         db.insert.managerRequest(req.user.Username, req.body.Username, (err) => {
             if (err) {
@@ -245,6 +260,7 @@ module.exports = (db) => {
         })
     });
 
+    // gets the employee requests of the authenticated user
     router.get('/req/employee', (req, res) => {
         db.get.userRecievedEmployeeRequests(req.user.Username, (err, recordset) => {
             if (err) {
@@ -258,6 +274,7 @@ module.exports = (db) => {
         });
     });
 
+    // gets the manager requests of the authenticated user
     router.get('/req/manager', (req, res) => {
         db.get.userRecievedManagerRequests(req.user.Username, (err, recordset) => {
             if (err) {

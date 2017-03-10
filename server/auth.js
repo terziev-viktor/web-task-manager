@@ -2,6 +2,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
     const bodyParser = require('body-parser'),
         bcrypt = require('bcrypt');
 
+    // passport authentication Strategy
     passport.use(new Strategy(
         (username, password, cb) => {
             db.get.userByUsername(username, (err, user) => {
@@ -20,16 +21,15 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
                     }
                     return cb(null, user);
                 });
-                /*if (user.Password != password) {
-                    return cb(null, false);
-                }*/
             });
         }));
 
+    // passport user serialization
     passport.serializeUser(function (user, cb) {
         cb(null, user.Username);
     });
 
+    // passport user deserialization
     passport.deserializeUser((username, cb) => {
         db.get.userByUsername(username, (err, user) => {
             if (err) {
@@ -39,6 +39,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
         });
     });
 
+    // body parsing, cookie parsing and sql validation middleware
     app.use(bodyParser.urlencoded({
         extended: true
     }));
@@ -63,11 +64,13 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
         });
     });
 
+    // logs out user
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');
     });
 
+    // registers new user
     app.post('/signin', (req, res) => {
         let username = req.body.username;
         let fullname = req.body.fullname;

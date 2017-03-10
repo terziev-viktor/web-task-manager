@@ -1,4 +1,6 @@
 module.exports = (app, db) => {
+
+    // authentication middleware function
     const auth = (req, res, next) => {
         if (!req.isAuthenticated()) {
             res.sendStatus(401);
@@ -7,6 +9,7 @@ module.exports = (app, db) => {
         }
     }
 
+    // api routes
     app.use('/task', auth);
     app.use('/task', require('./api/task')(db));
 
@@ -16,6 +19,7 @@ module.exports = (app, db) => {
     app.use('/user', auth);
     app.use('/user', require('./api/user')(db))
 
+    // search request
     app.get('/search', (req, res) => {
         if (req.query.usersToAssign !== undefined) {
             let filter = req.query.usersToAssign, toTaskId = req.query.toTaskId;

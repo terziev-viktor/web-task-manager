@@ -1,10 +1,13 @@
 const sql = require('mssql'),
     bcrypt = require('bcrypt');
 
+// database abstraction class
 module.exports = class Database {
     constructor(config, saltRounds = 10) {
-        this.config = config;
-        this.saltRounds = saltRounds;
+        this.config = config; // config object
+        this.saltRounds = saltRounds; // specific to bcrypt encrypting algorithm
+        
+        // insertion queries
         this.insert = {
             user: (user, cb) => {
                 let {
@@ -45,6 +48,7 @@ module.exports = class Database {
             }
         }
 
+        // deletion queries
         this.remove = {
             colleague: (user1, user2, cb) => {
                 this.request("EXEC RemoveColleague N'" + user1 + "', N'" + user2 + "';", cb);
@@ -60,6 +64,7 @@ module.exports = class Database {
             }
         }
 
+        // assignment queries
         this.assign = {
             usersToTask: (taskId, usersStr, cb) => {
                 let query = "EXEC AssignUsersToTask " + taskId + ", N'" + usersStr + "';";
@@ -67,6 +72,7 @@ module.exports = class Database {
             }
         }
 
+        // get queries
         this.get = {
             userTasksCreatedCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserTasksCreatedCount(N'" + username + "')", cb);
@@ -156,6 +162,7 @@ module.exports = class Database {
             }
         }
 
+        // update queries
         this.update = {
             task: (id, task, cb) => {
                 let query = "EXEC UpdateTask '" + id +
@@ -171,6 +178,7 @@ module.exports = class Database {
             }
         }
 
+        // filtering queries
         this.filter = {
             usersToAssignToTask: (username, filter, taskId, cb) => {
                 this.request("SELECT * FROM FilterUsersToAssignToTask(N'" + username + "', N'" + filter + "', '" + taskId + "');", cb);
@@ -193,6 +201,7 @@ module.exports = class Database {
         }
     }
 
+    // executes queries in the database, passes results to callback
     request(query, cb) {
 
         let conn = new sql.Connection(this.config);

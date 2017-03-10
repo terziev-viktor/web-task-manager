@@ -1,3 +1,6 @@
+// users are seeded with node because the passwords
+// are encrypted with the npm module bcrypt
+
 const fs = require('fs');
 
 const dbConfig = JSON.parse(fs.readFileSync('../server/database_config.json', 'utf8'));
@@ -20,9 +23,9 @@ insertUser('Boiko', 'Бойко Голямов Морков', '121246323456');
 
 insertUser('Gosho', 'Георги Георгиев Георгиев', '213562');
 
-insertUser('Marko', 'Марко Поло Полов','75345');
+insertUser('Marko', 'Марко Поло Полов', '75345');
 
-insertUser('Minka','Мирела Тя Маприиба', '6436');
+insertUser('Minka','Мирела Бончева Стоилова', '6436');
 
 insertUser('MITKO', 'Митко Алкохолиев Тютюнев', 'P@55W0RD345');
 
@@ -32,7 +35,7 @@ insertUser('Sashko', 'Александър Мозъков Грахозърнов
 
 insertUser('Stamat', 'Стамат Стаматов Футболистов', '768563254');
 
-insertUser('Stanimir','Станимир Седналов Хитлеров', '532432');
+insertUser('Stanimir','Станимир Седналов Пенчев', '532432');
 
 insertUser('Stefan', 'Стефан Стамболов Апостолов', '1235326');
 

@@ -1,6 +1,7 @@
 module.exports = (db) => {
     const router = require('express').Router();
 
+    // updates progress
     router.post('/:taskId/new-progress', (req, res) => {
         let taskId = req.params.taskId;
         let newProgress = req.body.newProgress;
@@ -17,6 +18,7 @@ module.exports = (db) => {
         });
     });
 
+    // posts new comment to a given task
     router.post('/:taskId/comments', (req, res) => {
 
         db.insert.comment(req.body.content, req.user.Username, req.params.taskId, (err) => {
@@ -33,6 +35,7 @@ module.exports = (db) => {
         });
     });
 
+    // gets all comments from a given task
     router.get('/:taskId/comments', (req, res) => {
         let id = req.params.taskId;
 
@@ -48,6 +51,7 @@ module.exports = (db) => {
         });
     });
 
+    // gets all users assigned to a given task
     router.get('/:taskId/assignedUsers', (req, res) => {
         db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (err, recordset) => {
             if (err) {
@@ -60,7 +64,8 @@ module.exports = (db) => {
         });
     });
 
-    // doesn't check for permissions
+    // assings user to task, doesn't check for permissions, therefore 
+    // permissions check should be done prior to calling the function
     function assignUserToTask(req, res, taskId, assignTo) {
         db.assign.usersToTask(taskId, assignTo, (err, innerRecordset) => {
             if (err) {
@@ -76,6 +81,7 @@ module.exports = (db) => {
         });
     }
 
+    // publishes a new task
     router.post('/', (req, res) => {
         let task = req.body;
         if (!task.Title.length > 0) {
@@ -97,6 +103,7 @@ module.exports = (db) => {
 
     });
 
+    // assignes user to task
     router.post('/assign_user', (req, res) => {
         const assignTo = req.body.assignTo,
             taskId = req.body.taskId;
@@ -114,6 +121,7 @@ module.exports = (db) => {
         });
     });
 
+    // gets a task by its id
     router.get('/:taskId', (req, res) => {
         db.get.taskById(req.params.taskId, (err, task) => {
             if (err) {
@@ -139,7 +147,7 @@ module.exports = (db) => {
         });
     });
 
-    // UPDATE TASK
+    // updates task
     router.post('/:taskId', (req, res) => {
         db.get.taskById(req.params.taskId, (err, task) => {
             db.get.taskAssignedUsersOrderedByUsername(req.params.taskId, (er, recordset) => {

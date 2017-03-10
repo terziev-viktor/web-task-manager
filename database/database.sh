@@ -1,5 +1,7 @@
 #!/bin/sh
-
+#
+# Initializes the database on Ubuntu
+#
 # Usage:
 # cd /path/to/database.sh
 # sh database.sh [server] [user] [password]
