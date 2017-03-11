@@ -6,6 +6,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
     $('.to-show').slideDown("slow");
     
     $scope.currentuser = authorization.getUser();
+    // invite and remove user
     $scope.inviteColleague = (username) => {
         let reqData = {
             Username: username
@@ -33,7 +34,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             console.log('/tasks/todo error:');
             console.log(err);
         });
-        // TODO: Call with from and size query values
+    // TODO: Call with from and size query values. Pagination must be implemented
     ajax.get('/tasks/created/' + $routeParams.username + "?from=1&size=" + createdTasksPageSize, statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {

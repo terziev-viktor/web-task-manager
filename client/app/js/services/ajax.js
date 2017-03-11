@@ -1,4 +1,4 @@
-
+// Performs requests to the server.
 app.service('ajax', function ($q) {
     return {
         get: (URL, sch) => {

@@ -11,6 +11,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
         }
     });
 
+    // add user to assing list
     $scope.addToAssign = () => {
         let userToAssign = $('#inp-search').val();
         if (first) {
@@ -21,6 +22,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
         }
     }
 
+    // creating a new task.
     $scope.createTask = () => {
         console.log('Some shit');
         let task = {};

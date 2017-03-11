@@ -1,5 +1,7 @@
 app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket) {
     let statusHandler = statusCodeHandler($scope);
+
+    // displaying filtered users on the modal
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();
         $('#inp-search-colleagues').val('');
@@ -34,6 +36,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
         }
     }
 
+    // logouts the current user
     $scope.logout = () => {
         ajax.get('/logout', statusHandler)
             .then(() => {

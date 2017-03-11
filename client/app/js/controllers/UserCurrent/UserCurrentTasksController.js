@@ -43,6 +43,8 @@ app.controller('UserCurrentTasksController',
                 tasksCreatedCount = data.Count;
             });
 
+        // sets a page for to-do list
+        // args: from - start index, size - number of elements to get
         function getTasksToDo(from, size) {
             let deferred = $q.defer();
 
@@ -75,6 +77,8 @@ app.controller('UserCurrentTasksController',
             return deferred.promise;
         }
 
+        // sets a page for created tasks list
+        // args: from - start index, size - number of elements to get
         function getTasksCreated(from, size) {
             let deferred = $q.defer();
 
@@ -123,6 +127,7 @@ app.controller('UserCurrentTasksController',
                 });
         }
 
+        // buttons for pages
         $scope.previousTasksCreated = () => {
             createdTasksPage -= 1;
             if (createdTasksPage < 0) {
@@ -166,6 +171,7 @@ app.controller('UserCurrentTasksController',
                 });
         }
 
+        // buttons for filtered searches
         $scope.filterToDoTasks = () => {
             let search = $('#inp-filter-tasks-todo').val();
             $('#inp-filter-tasks-todo').val('');
@@ -190,7 +196,7 @@ app.controller('UserCurrentTasksController',
             let search = $('#inp-filter-tasks-created').val();
             $('#inp-filter-tasks-created').val('');
             ajax.get('/search?tasksCreated=' + search, statusHandler)
-            .then((data) => {
+                .then((data) => {
                     $('#modal-title').html('Filtered Tasks');
                     if (data.length >= 1) {
                         let view = {
@@ -203,6 +209,6 @@ app.controller('UserCurrentTasksController',
                     } else {
                         $('#modal-content').html('No results for ' + search);
                     }
-            });
+                });
         }
     });

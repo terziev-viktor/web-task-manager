@@ -1,3 +1,4 @@
+// Get authenticated user or check if user is authenticated
 
 app.service('authorization', function() {
     return {

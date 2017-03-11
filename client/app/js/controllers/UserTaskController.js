@@ -5,6 +5,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     $scope.username = authorization.getUser();
     console.log(authorization.getUser());
     
+    // edit buttons
     $scope.editTitle = () => {
         let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),
             reqData = {};
@@ -65,6 +66,8 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
             });
     }
 
+
+    // post a comment and add a div element with the content to comment list
     $scope.postComment = () => {
         let content = $('#comment-area').val();
         if (content.length == 0) {
@@ -100,6 +103,8 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         }
     }
 
+
+    // assign and decline buttons
     $scope.removeUserAssignment = (username, taskid, $event) => {
         let reqData = {
             removeAssignment: username

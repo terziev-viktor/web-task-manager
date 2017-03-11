@@ -6,7 +6,8 @@ app.controller('UserCurrentRequestsController',
             .then((data) => {
                 $scope.managersReq = data;
             });
-
+        
+        // getting user requests
         ajax.get('/user/req/employee', statusHandler)
             .then((data) => {
                 $scope.employeesReq = data;
@@ -17,7 +18,8 @@ app.controller('UserCurrentRequestsController',
                 console.log(data);
                 $scope.colleagueReqs = data;
             });
-
+        
+        // request buttons
         $scope.acceptReqColleague = (username, $event) => {
             let reqData = {
                 Username: username

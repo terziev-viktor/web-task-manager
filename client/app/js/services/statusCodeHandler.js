@@ -1,4 +1,4 @@
-
+// Default status code handling. Use in ajax requests.
 app.service('statusCodeHandler', function (notification, $location) {
     return (scope) => {
         return {

@@ -1,0 +1,68 @@
+<ul class="list-group">
+    {{#colleagues}}
+    <li class="list-group-item">
+        <a href="#/user/{{Username}}"><span>{{FullName}}<small>({{Username}})</small></span></a>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" onclick="makeEmployee('{{Username}}')">Make Employee</button>
+                <button type="button" class="btn btn-default btn-sm" onclick="makeManager('{{Username}}')">Make Manager</button>
+            </div>
+        </div>
+    </li>
+    {{/colleagues}}
+</ul>
+<script>
+    function makeEmployee(username) {
+        let reqData = {
+            Username: username
+        };
+        $.ajax({
+            method: "POST",
+            url: "user/req/employee",
+            data: reqData,
+            success: () => {
+                noty({
+                    text: 'Request sent to ' + username,
+                    type: 'success',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            },
+            error: () => {
+                noty({
+                    text: 'Could not sent request',
+                    type: 'error',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            }
+        });
+    }
+
+    function makeManager(username, th, e) {
+        let reqData = {
+            Username: username
+        };
+        $.ajax({
+            method: "POST",
+            url: "user/req/manager",
+            data: reqData,
+            success: () => {
+                noty({
+                    text: 'Request sent to ' + username,
+                    type: 'success',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            },
+            error: () => {
+                noty({
+                    text: 'Could not sent request',
+                    type: 'error',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            }
+        });
+    }
+</script>

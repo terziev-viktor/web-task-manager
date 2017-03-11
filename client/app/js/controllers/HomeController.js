@@ -2,6 +2,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
     function ($scope, $location, notification) {
         $("#main-nav-tabs").hide();
 
+        // login user and redirect to tasks page
         $scope.login = function () {
             $('#div-login-password').removeClass('has-error');
             $('#div-login-password').removeClass('has-error');
@@ -50,6 +51,7 @@ app.controller('HomeController', ['$scope', '$location', 'notification',
             });
         }
 
+        // signup a new user
         $scope.signin = function () {
             $('#div-signin-username').removeClass('has-error');
             $('#div-signin-password').removeClass('has-error');

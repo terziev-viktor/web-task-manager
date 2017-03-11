@@ -7,6 +7,7 @@ app.controller('UserCurrentCommunityController',
             colleaguesCount, managersCount, employeesCount;
 
         $('.to-show').slideDown("slow");
+        // setting default views for panels
         let managersAndEmployeesStrings = [];
         $scope.colleagues = {
             display: 'loading',
@@ -21,6 +22,7 @@ app.controller('UserCurrentCommunityController',
             data: []
         };
 
+        // getting count of managers, colleagues and employees
         ajax.get('/user/colleagues?getCount=true', statusHandler)
             .then((data) => {
                 $scope.colleaguesCount = data.Count;
@@ -39,6 +41,7 @@ app.controller('UserCurrentCommunityController',
                 employeesCount = data.Count;
             });
 
+        // getting first pages of panels
         ajax.get('/user/employees?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
             .then((data) => {
                 data.forEach((el) => {
@@ -70,7 +73,27 @@ app.controller('UserCurrentCommunityController',
                     data: data
                 };
             });
+        // display filtered colleagues on the modal
+        $scope.filterColleagues = () => {
+            let filter = $('#inp-filter-colleagues').val();
+            $('#inp-filter-colleagues').val('');
+            ajax.get('/search?colleagues=' + filter, statusHandler)
+                .then((data) => {
+                    let view = {
+                        colleagues: data
+                    }
+                    $.get('../../../templates/mustacheTemplates/filteredColleagues.html', (tmpl) => {
+                        let rendered = Mustache.render(tmpl, view);
+                        $('#modal-content').html(rendered);
+                        $('#modal-title').html('Filtered Colleagues');
+                    });
+                }, (err) => {
+                    console.log('error get /search?colleagues=' + filter);
+                    console.log(err);
+                });
+        }
 
+        // buttons for requests
         $scope.reqManager = (username) => {
             console.log(username);
             let reqData = {
@@ -112,6 +135,7 @@ app.controller('UserCurrentCommunityController',
                 });
         }
 
+        // buttons for pages
         $scope.previousColleaguesPage = () => {
             colleaguesPage -= 1;
             if (colleaguesPage < 0) {

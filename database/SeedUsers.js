@@ -1,5 +1,6 @@
-// users are seeded with node because the passwords
-// are encrypted with the npm module bcrypt
+// Users are seeded with node because the passwords
+// are encrypted with the npm module bcrypt.
+// execute SeedDatabaseWebTaskManager.sql after running this file.
 
 const fs = require('fs');
 
