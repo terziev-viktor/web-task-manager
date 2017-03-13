@@ -23,6 +23,12 @@
         </button>
         <a class="navbar-brand" href="#/"> Web Task Manager </a>
       </div>
+      <form class="navbar-form navbar-left" style="padding-right: 30px; padding-left: 30px;">
+        <div class="form-group">
+          <input autocomplete="off" id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
+        </div>
+        <button ng-click="searchCollegues()" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Search</button>
+      </form>
       <div id="navbar6" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right nav-options">
           <li class="nav-option"><a href="#/user/current/tasks">Tasks</a></li>
@@ -30,13 +36,29 @@
           <li class="nav-option"><a href="#/user/current/community">Community</a></li>
           <li class="nav-option"><a href="#/user/current/requests">Requests</a></li>
           <li class="nav-option"><a href="#/user">Profile</a></li>
-          <li class="nav-option"><a href="/logout">Logout</a></li>
+          <li class="nav-option"><a ng-click='logout()'>Logout</a></li>
         </ul>
       </div>
       <!--/.nav-collapse -->
     </div>
     <!--/.container-fluid -->
   </nav>
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="modal-title">Fould Users</h4>
+        </div>
+        <div class="modal-body" id="modal-content">
+          <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="noty-container"></div>
   <div ng-view>
   </div>
@@ -56,6 +78,7 @@
   <script src="/scripts/services/socket.js"></script>
   <script src="/scripts/services/ajax.js"></script>
   <script src="/scripts/services/retrievingData/user.js"></script>
+  <script src="/scripts/services/navbarHandler.js"></script>
   <!--load controllers-->
   <script src="/scripts/controllers/AppController.js"></script>
   <script src="/scripts/controllers/HomeController.js"></script>
@@ -66,7 +89,6 @@
   <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityController.js"></script>
   <script src="/scripts/controllers/UserCurrent/UserCurrentTasksController.js"></script>
   <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsController.js"></script>
-  <script src="/scripts/controllers/TaskController.js"></script>
 </body>
 
 </html>
