@@ -12,40 +12,30 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <a class="navbar-brand" href="#/">Web Task Manager</a>
-    <form class="navbar-form navbar-left" style="padding-right: 30px; padding-left: 30px;">
-      <div class="form-group">
-        <input autocomplete="off" id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
-      </div>
-      <button ng-click="searchCollegues()" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Search</button>
-      <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title" id="modal-title">Fould Users</h4>
-            </div>
-            <div class="modal-body" id="modal-content">
-              <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-    <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; padding-left: 20px;">
-      <!--<li id="li-notifications">
-        <button type="button" class="btn btn-default btn-sm no-style">
-          <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-          <span class="badge">5</span>
+  <nav class="navbar navbar-inverse navbar-static-top example6">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar6">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
-      </li>-->
-      <li id="li-profile"><a href="#/user">Profile</a></li>
-      <li id="li-logout"><a href="#"><button class="no-style" ng-click="logout()">Logout</button></a></li>
-    </ul>
+        <a class="navbar-brand" href="#/"> Web Task Manager </a>
+      </div>
+      <div id="navbar6" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right nav-options">
+          <li class="nav-option"><a href="#/user/current/tasks">Tasks</a></li>
+          <li class="nav-option"><a href="#/newTask">Create New Task</a></li>
+          <li class="nav-option"><a href="#/user/current/community">Community</a></li>
+          <li class="nav-option"><a href="#/user/current/requests">Requests</a></li>
+          <li class="nav-option"><a href="#/user">Profile</a></li>
+          <li class="nav-option"><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
   </nav>
   <div id="noty-container"></div>
   <div ng-view>

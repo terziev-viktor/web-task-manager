@@ -23,6 +23,7 @@ app.use('/styles', express.static(path.join(pathToClientFolder, '/app/', '/css')
 app.use('/templates', express.static(path.join(pathToClientFolder, '/app/', '/templates')));
 app.use('/fonts', express.static(path.join(pathToClientFolder, '/app/', '/fonts')));
 app.use('/components', express.static(path.join(pathToClientFolder, '/bower_components')));
+app.use('/images', express.static(path.join(pathToClientFolder, '/app/' + '/img')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
