@@ -1,6 +1,7 @@
 body {
     min-width: 460px;
     font-size: 15px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 textarea {
@@ -70,10 +71,6 @@ textarea {
     -ms-user-select: none;
     user-select: none;
     -o-user-select: none;
-}
-
-#home-forms-container {
-    margin-top: 20px;
 }
 
 .content-header-top {
@@ -227,4 +224,24 @@ textarea {
 
 .nginp.ng-touched {
     background: lawngreen;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: lightblue;
+  font-size: 0.875em;
+}
+
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+  color: lightblue;
+}
+
+/* on hover input placeholder and focus */
+
+input:hover::-webkit-input-placeholder, textarea:hover::-webkit-input-placeholder {
+  color: lightblue;
+  font-size: 0.875em;
+}
+
+input:hover:focus::-webkit-input-placeholder, textarea:hover:focus::-webkit-input-placeholder {
+  color: lightblue;
 }
