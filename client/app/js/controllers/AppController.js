@@ -1,6 +1,6 @@
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket) {
+app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, navbarHandler) {
     let statusHandler = statusCodeHandler($scope);
-
+    navbarHandler.handle();
     // displaying filtered users on the modal
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();
@@ -42,8 +42,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
             .then(() => {
                 notification.info("Logout successful");
                 sessionStorage.removeItem('currentUser');
-                $('#li-profile').hide(350);
-                $('#li-logout').hide(350);
+                sessionStorage.removeItem('fullname');
                 $location.path('/');
                 $scope.$apply();
             });

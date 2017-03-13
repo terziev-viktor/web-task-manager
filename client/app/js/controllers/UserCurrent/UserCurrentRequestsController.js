@@ -1,7 +1,8 @@
 app.controller('UserCurrentRequestsController',
-    function ($scope, statusCodeHandler, ajax) {
+    function ($scope, statusCodeHandler, ajax, navbarHandler) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
+        navbarHandler.handle();
         ajax.get('/user/req/manager', statusHandler)
             .then((data) => {
                 $scope.managersReq = data;

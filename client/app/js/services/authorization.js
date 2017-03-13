@@ -5,7 +5,7 @@ app.service('authorization', function() {
         isLoggedIn: () => {
             console.log('user:::');
             console.log(sessionStorage['currentUser']);
-            return sessionStorage['currentUser'] != undefined;
+            return sessionStorage['currentUser'] !== undefined;
         },
         getUser: () => {
             return sessionStorage['currentUser'];

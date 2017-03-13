@@ -1,10 +1,11 @@
-app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax) {
+app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope);
+    navbarHandler.handle();
     $('.to-show').slideDown("slow");
     $scope.username = authorization.getUser();
     console.log(authorization.getUser());
-    
+
     // edit buttons
     $scope.editTitle = () => {
         let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),

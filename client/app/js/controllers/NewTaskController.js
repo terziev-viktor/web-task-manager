@@ -1,6 +1,7 @@
-app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler) {
+app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler, navbarHandler) {
     let statusHandler = statusCodeHandler($scope);
     let first = true;
+    navbarHandler.handle();
     $.ajax({
         method: 'GET',
         url: '/user/employees',
