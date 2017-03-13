@@ -36,8 +36,8 @@ module.exports = (db) => {
 
     // current user becomes manager of user from req.body OR removing manager
     router.post('/manager', (req, res) => {
-        if (req.query.remove !== undefined) {
-            let managerToRemove = req.query.remove
+        if (req.query.remove === true) {
+            let managerToRemove = req.body.Username;
             db.remove.userManager(req.user.Username, managerToRemove, (err, recordset) => {
                 if (err) {
                     console.log(err);

@@ -50,14 +50,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <p>Your Managers<span class="counter">{{managersCount}}</span></p>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Filter managers">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" ng-click="filter-managers">
+            <form>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Filter managers" id="inp-filter-managers">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" ng-click="filterManagers()" data-toggle="modal" data-target="#myModal">
                             <i class="glyphicon glyphicon-search"></i> search
                         </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="panel-body fixed-body-height" ng-switch="managers.display">
             <div ng-switch-when="all" id="panel-community-managers">

@@ -1,0 +1,43 @@
+<ul class="list-group">
+    {{#managers}}
+    <li class="list-group-item">
+        <a href="#/user/{{Username}}"><span>{{FullName}}<small>({{Username}})</small></span></a>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" onclick="remove('{{Username}}')">Remove from managers</button>
+            </div>
+        </div>
+    </li>
+    {{/managers}}
+</ul>
+<script>
+    function remove(username) {
+        let reqData = {
+            Username: username
+        };
+        $.ajax({
+            method: "POST",
+            url: "user/managers?remove=true",
+            data: reqData,
+            success: (xhr, str) => {
+                console.log('xhr:');
+                console.log(xhr);
+                console.log(str);
+                noty({
+                    text: 'Removed ' + username + ' from managers',
+                    type: 'success',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            },
+            error: () => {
+                noty({
+                    text: 'Could not remove ' + username + ' from managers',
+                    type: 'error',
+                    layout: 'topCenter',
+                    timeout: 1000
+                });
+            }
+        });
+    }
+</script>

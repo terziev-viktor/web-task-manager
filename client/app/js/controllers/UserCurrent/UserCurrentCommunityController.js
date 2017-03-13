@@ -93,6 +93,22 @@ app.controller('UserCurrentCommunityController',
                 });
         }
 
+        $scope.filterManagers = () => {
+            let filter = $('#inp-filter-managers').val();
+            $('#inp-filter-managers').val('');
+            ajax.get('/search?managers=' + filter, statusHandler)
+                .then((data) => {
+                     let view = {
+                        managers: data
+                    }
+                    $.get('../../../templates/mustacheTemplates/filteredManagers.html', (tmpl) => {
+                        let rendered = Mustache.render(tmpl, view);
+                        $('#modal-content').html(rendered);
+                        $('#modal-title').html('Filtered Colleagues');
+                    });
+                })
+        }
+
         // buttons for requests
         $scope.reqManager = (username) => {
             console.log(username);

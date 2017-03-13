@@ -78,6 +78,7 @@ module.exports = (app, db) => {
                 }
             });
         } else if (req.query.managers !== undefined) {
+            // TODO: Debug this.
             db.filter.managers(req.user.Username, req.query.managers, (err, recordser) => {
                 if (err) {
                     console.log(err);
