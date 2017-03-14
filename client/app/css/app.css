@@ -2,6 +2,7 @@ body {
     min-width: 460px;
     font-size: 15px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-image: url('/images/bckg5.jpg');
 }
 
 textarea {
@@ -190,16 +191,26 @@ textarea {
     text-decoration: none;
 }
 
+#inp-search-colleagues {
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+#btn-search-colleagues {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
 .jumbotron {
     padding: 0.5em 0.6em;
     margin-bottom: 0px;
-    background: #777;
+    background-color: #1761a0;
     /* For browsers that do not support gradients */
     /* For Safari 5.1 to 6.0 */
     /* For Opera 11.1 to 12.0 */
-    background: -webkit-linear-gradient(white, #E0E0E0);
-    background: -o-linear-gradient(white, #E0E0E0);
-    background: linear-gradient(white, #E0E0E0);
+    background: -webkit-linear-gradient(white, #F8F8F8);
+    background: -o-linear-gradient(white, #F8F8F8);
+    background: linear-gradient(white, #F8F8F8);
     /* For Firefox 3.6 to 15 */
     /* Standard syntax */
 }
