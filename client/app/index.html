@@ -2,98 +2,153 @@
 <html ng-app="app" ng-controller="AppController">
 
 <head>
-  <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/styles/app.css" />
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Web Task Manager</title>
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/app.css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Task Manager</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-inverse navbar-static-top example6">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar6">
+    <nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0px; border-bottom: 0px;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1, #search-navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#/"><img src="/images/logo.png" style="display: inline" width="30" height="30" alt=""> Web Task Manager </a>
-      </div>
-      <div id="navbar6" class="navbar-collapse collapse">
-        <form class="navbar-form navbar-left">
-          <div>
-            <div class="input-group">
-              <input id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
-              <span class="input-group-btn">
+                <a class="navbar-brand" href="#/"><img src="/images/logo.png" style="display: inline" width="30" height="30" alt=""> Web Task Manager </a>
+            </div>
+            <div id="search-navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-left">
+                    <div>
+                        <div class="input-group">
+                            <input id="inp-search-colleagues" type="text" class="form-control" placeholder="Find your colleagues...">
+                            <span class="input-group-btn">
               <button id="btn-search-colleagues" ng-click="searchCollegues()" type="submit" class="btn btn-default" data-toggle="modal"
                 data-target="#myModal">Search</button>
                </span>
-            </div>
-          </div>
-        </form>
-        <ul class="nav navbar-nav navbar-right nav-options">
+                        </div>
+                    </div>
+                </form>
+                <!--ul class="nav navbar-nav navbar-right nav-options">
           <li class="nav-option"><a href="#/user/current/tasks">Tasks</a></li>
           <li class="nav-option"><a href="#/newTask">Create New Task</a></li>
           <li class="nav-option"><a href="#/user/current/community">Community</a></li>
           <li class="nav-option"><a href="#/user/current/requests">Requests</a></li>
           <li class="nav-option"><a href="#/user">Profile</a></li>
           <li class="nav-option"><a ng-click='logout()'>Logout</a></li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
+        </ul-->
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+    <nav class="navbar navbar-inverse sidebar" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Pesho</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!--div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="#">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                    <li><a href="#">Messages<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+                        <ul class="dropdown-menu forAnimate" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="#">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                    <li><a href="#">Messages<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+                        <ul class="dropdown-menu forAnimate" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div-->
+            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#/user/current/tasks">Tasks</a><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></li>
+                    <li><a href="#/newTask">New Task<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></a></li>
+                    <li><a href="#/user/current/community">Community<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></a></li>
+                    <li><a href="#/user/current/requests">Requests<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></a></li>
+                    <li><a href="#/user">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></a></li>
+                    <li><a ng-click='logout()'>Logout<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicons-home"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="main">
+        <div id="noty-container"></div>
+        <div ng-view>
+        </div>
     </div>
-    <!--/.container-fluid -->
-  </nav>
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" id="modal-title">Fould Users</h4>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modal-title">Fould Users</h4>
+                </div>
+                <div class="modal-body" id="modal-content">
+                    <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" id="modal-content">
-          <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
-  <div id="noty-container"></div>
-  <div ng-view>
-  </div>
-  <!-- Load app libraries -->
-  <script src="/components/angular/angular.min.js"></script>
-  <script src="/components/angular-route/angular-route.min.js"></script>
-  <script src="/components/jquery/dist/jquery.min.js"></script>
-  <script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-  <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/components/mustache.js/mustache.min.js"></script>
-  <script src="/components/socket.io-client/dist/socket.io.min.js"></script>
-  <!-- L oad app source code: main script, services, controllers, etc. -->
-  <script src="/scripts/app.js"></script>
-  <script src="/scripts/services/notification.js"></script>
-  <script src="/scripts/services/statusCodeHandler.js"></script>
-  <script src="/scripts/services/authorization.js"></script>
-  <script src="/scripts/services/socket.js"></script>
-  <script src="/scripts/services/ajax.js"></script>
-  <script src="/scripts/services/retrievingData/user.js"></script>
-  <script src="/scripts/services/navbarHandler.js"></script>
-  <!--load controllers-->
-  <script src="/scripts/controllers/AppController.js"></script>
-  <script src="/scripts/controllers/HomeController.js"></script>
-  <script src="/scripts/controllers/NewTaskController.js"></script>
-  <script src="/scripts/controllers/UserCommunityController.js"></script>
-  <script src="/scripts/controllers/UserTaskController.js"></script>
-  <script src="/scripts/controllers/UserCurrent/UserProfileController.js"></script>
-  <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityController.js"></script>
-  <script src="/scripts/controllers/UserCurrent/UserCurrentTasksController.js"></script>
-  <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsController.js"></script>
+    <!-- Load app libraries -->
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-route/angular-route.min.js"></script>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/mustache.js/mustache.min.js"></script>
+    <script src="/components/socket.io-client/dist/socket.io.min.js"></script>
+    <!-- L oad app source code: main script, services, controllers, etc. -->
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/services/notification.js"></script>
+    <script src="/scripts/services/statusCodeHandler.js"></script>
+    <script src="/scripts/services/authorization.js"></script>
+    <script src="/scripts/services/socket.js"></script>
+    <script src="/scripts/services/ajax.js"></script>
+    <script src="/scripts/services/retrievingData/user.js"></script>
+    <script src="/scripts/services/navbarHandler.js"></script>
+    <!--load controllers-->
+    <script src="/scripts/controllers/AppController.js"></script>
+    <script src="/scripts/controllers/HomeController.js"></script>
+    <script src="/scripts/controllers/NewTaskController.js"></script>
+    <script src="/scripts/controllers/UserCommunityController.js"></script>
+    <script src="/scripts/controllers/UserTaskController.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserProfileController.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityController.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentTasksController.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsController.js"></script>
 </body>
 
 </html>
