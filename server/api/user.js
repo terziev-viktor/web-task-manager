@@ -1,5 +1,6 @@
 module.exports = (db) => {
-    const router = require('express').Router();
+    const router = require('express').Router(),
+        bcrypt = require('bcrypt');
 
     router.get('/', (req, res) => {
         res.json(req.user.Username);
@@ -9,23 +10,54 @@ module.exports = (db) => {
         let oldpass = req.body.oldpass,
             newpass = req.body.newpass,
             confirm = req.body.confirm;
-            console.log('req.body');
-            console.log(req.body);
         if (!oldpass || !newpass || !confirm) {
             res.status(400).json('Bad request body');
             return;
+        } else if (newpass !== confirm) {
+            res.status(409).json({
+                msg: 'New password and confirm password do not match.'
+            });
+            return;
+        }
+        if(newpass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!#$%?\-\_+=&*@><]{8,}$/g) === null) {
+            res.status(409).json({
+                msg: "Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character",
+                errCode: 1
+            });
+            return;
         }
 
-        db.update.password(req.user.Username, newpass, (err, recordset) => {
+        db.get.userByUsername(req.user.Username, (err, user) => {
             if (err) {
                 res.status(500).json({
-                    msg: 'Could not update password'
+                    msg: 'Server error...'
                 });
-            } else {
-                res.status(200).json({
-                    msg: 'Password updated'
-                });
+                return;
             }
+            // compare old password with current passoword -> result = true|false
+            bcrypt.compare(oldpass, user.Password, (er, result) => {
+                if (er) {
+                    res.status(500).json({
+                        msg: 'Server error...'
+                    });
+                } else if (!result) {
+                    res.status(400).json({
+                        msg: 'Old password is incorrect.'
+                    });
+                } else {
+                    db.update.password(req.user.Username, newpass, (err, recordset) => {
+                        if (err) {
+                            res.status(500).json({
+                                msg: 'Could not update password'
+                            });
+                        } else {
+                            res.status(200).json({
+                                msg: 'Password updated'
+                            });
+                        }
+                    });
+                }
+            });
         });
     });
 
