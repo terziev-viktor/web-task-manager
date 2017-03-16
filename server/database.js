@@ -164,6 +164,15 @@ module.exports = class Database {
 
         // update queries
         this.update = {
+            password: (username, newpassword, cb) => {
+                bcrypt.hash(newpassword, this.saltRounds, (err, hashedPassword) => {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        this.request("EXEC UpdatePassword @Username=N'" + username + "', @NewPassword=N'" + hashedPassword + "'", cb);
+                    }
+                });
+            },
             task: (id, task, cb) => {
                 let query = "EXEC UpdateTask '" + id +
                     "', N'" + task.newTitle + "', N'" + task.newDesc +

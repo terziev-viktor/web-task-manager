@@ -1,0 +1,17 @@
+USE WebTaskManagerDb
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE UpdatePassword
+	@Username NVARCHAR(128),	 
+	@NewPassword NVARCHAR(MAX)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	UPDATE Users
+	SET Password = @NewPassword
+	WHERE Username = @Username
+END
+GO

@@ -16,17 +16,17 @@
             <form>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-lock"></span> <label for="curren-pass">Enter your current password</label>
-                    <input class="form-control" id="current-pass" type="password" name="curren-pass" placeholder="Current Password">
+                    <input class="form-control" id="oldpass" type="password" name="curren-pass" placeholder="Current Password">
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-lock"></span> <label for="curren-pass">Enter your new password</label>
-                    <input class="form-control" id="new-pass" type="password" name="new-pass" placeholder="New Password">
+                    <input class="form-control" id="newpass" type="password" name="new-pass" placeholder="New Password">
                 </div>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-lock"></span> <label for="curren-pass">Confirm your new password</label>
-                    <input class="form-control" id="current-pass" type="password" name="curren-pass" placeholder="Confirm New Password">
+                    <input class="form-control" id="confirmpass" type="password" name="curren-pass" placeholder="Confirm New Password">
                 </div>
-                <input class="btn btn-default" type="submit" class="btn btn-default" value="Submit">
+                <input class="btn btn-default" type="submit" class="btn btn-default" value="Submit" ng-click="updatePassword()">
             </form>
         </div>
     </div>

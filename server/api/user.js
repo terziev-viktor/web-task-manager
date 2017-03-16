@@ -5,6 +5,30 @@ module.exports = (db) => {
         res.json(req.user.Username);
     });
 
+    router.post('/newpass', (req, res) => {
+        let oldpass = req.body.oldpass,
+            newpass = req.body.newpass,
+            confirm = req.body.confirm;
+            console.log('req.body');
+            console.log(req.body);
+        if (!oldpass || !newpass || !confirm) {
+            res.status(400).json('Bad request body');
+            return;
+        }
+
+        db.update.password(req.user.Username, newpass, (err, recordset) => {
+            if (err) {
+                res.status(500).json({
+                    msg: 'Could not update password'
+                });
+            } else {
+                res.status(200).json({
+                    msg: 'Password updated'
+                });
+            }
+        });
+    });
+
     // current user becomes employee of user from req.body
     router.post('/employee', (req, res) => {
         if (req.query.remove !== undefined) {
@@ -24,7 +48,9 @@ module.exports = (db) => {
             db.insert.userManager(req.user.Username, req.body.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({msg: 'Could not insert employee.'});
+                    res.status(500).json({
+                        msg: 'Could not insert employee.'
+                    });
                 } else {
                     res.status(200).json({
                         msg: 'User inserted to managers'
@@ -54,7 +80,9 @@ module.exports = (db) => {
             db.insert.userManager(req.body.Username, req.user.Username, (err, recordser) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({msg: 'Could not insert manager'});
+                    res.status(500).json({
+                        msg: 'Could not insert manager'
+                    });
                 } else {
                     res.status(200).json('User ' + req.body.Username + ' added to managers.');
                 }
@@ -80,7 +108,9 @@ module.exports = (db) => {
             db.get.userEmployees(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.status(500).json({msg: 'Could not get employees.'});
+                    res.status(500).json({
+                        msg: 'Could not get employees.'
+                    });
                 } else {
                     res.json(recordset);
                 }
@@ -93,7 +123,9 @@ module.exports = (db) => {
         db.get.userEmployees(req.params.username, req.query.from, req.query.size, (err, recordset) => {
             if (err) {
                 console.log(err);
-                res.status(500).json({msg: 'Could not get employees.'});
+                res.status(500).json({
+                    msg: 'Could not get employees.'
+                });
             } else {
                 res.json(recordset);
             }
