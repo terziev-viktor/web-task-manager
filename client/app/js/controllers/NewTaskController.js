@@ -25,6 +25,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
 
     // creating a new task.
     $scope.createTask = () => {
+        $('#btn-newtask').prop('disabled', true);
         console.log('Some shit');
         let task = {};
         let deadline = $('#inp-deadline').val().replace('T', ' ');
@@ -44,16 +45,19 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
             data: task,
             statusCode: {
                 200: () => {
+                    $('#btn-newtask').prop('disabled', false);
                     notification.success('Task created successfully!');
                     $location.path('/user');
                     $scope.$apply();
                 },
                 401: () => {
+                    $('#btn-newtask').prop('disabled', false);
                     notification.alert('Login to Web Task Manager, please :-)');
                     $location.path('/');
                     $scope.$apply();
                 },
                 500: (xhr) => {
+                    $('#btn-newtask').prop('disabled', false);
                     notification.error(xhr.responseJSON.err);
                 }
             }

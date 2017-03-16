@@ -21,9 +21,7 @@ textarea {
     margin: 10px;
 }
 
-.to-show,
-#li-logout,
-#li-profile {
+.to-show {
     display: none;
 }
 
@@ -221,16 +219,6 @@ textarea {
 
 #search-found-content ul li a {
     text-decoration: none;
-}
-
-#inp-search-colleagues {
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
-}
-
-#btn-search-colleagues {
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
 }
 
 .jumbotron {
