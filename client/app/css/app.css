@@ -1,8 +1,8 @@
 body {
     min-width: 460px;
     font-size: 15px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-image: url('/images/bckg5.jpg');
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: #efefef;
 }
 
 textarea {
@@ -18,14 +18,16 @@ textarea {
 }
 
 .row {
-    margin:10px;
+    margin: 10px;
 }
 
-.to-show, #li-logout, #li-profile {
+.to-show,
+#li-logout,
+#li-profile {
     display: none;
 }
 
-.panel-default > .panel-heading {
+.panel-default>.panel-heading {
     background-color: #e6e6e6;
     border-color: #e6e6e6;
 }
@@ -41,6 +43,7 @@ textarea {
 .fixed-row-height {
     height: 65px;
 }
+
 .priority-0 {
     color: green;
 }
@@ -53,6 +56,35 @@ textarea {
     color: red;
 }
 
+.form-control {
+    border-radius: 0;
+    border: 1px solid black;
+    box-shadow: none;
+}
+
+.custom-panel {
+    margin-top: 10px;
+    display: block;
+}
+
+.custom-panel-heading {
+    display: block;
+    width: 100%;
+    background: url('/images/bckg7.jpg');
+    color: #1761a0;
+    padding: 5px;
+}
+
+.custom-panel-body {
+    padding: 10px;
+    background: white;
+    border: 1px solid black;
+}
+
+.btn, .btn-default {
+    border-radius: 0;
+    border: 1px solid black;
+}
 .circle {
     display: inline-block;
     margin: 0;
@@ -204,7 +236,6 @@ textarea {
 .jumbotron {
     padding: 0.5em 0.6em;
     margin-bottom: 0px;
-    background-color: #1761a0;
     /* For browsers that do not support gradients */
     /* For Safari 5.1 to 6.0 */
     /* For Opera 11.1 to 12.0 */
@@ -237,22 +268,27 @@ textarea {
     background: lawngreen;
 }
 
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  color: grey;
-  font-size: 0.875em;
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: grey;
+    font-size: 0.875em;
 }
 
-input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
-  color: grey;
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder {
+    color: grey;
 }
+
 
 /* on hover input placeholder and focus */
 
-input:hover::-webkit-input-placeholder, textarea:hover::-webkit-input-placeholder {
-  color: grey;
-  font-size: 0.875em;
+input:hover::-webkit-input-placeholder,
+textarea:hover::-webkit-input-placeholder {
+    color: grey;
+    font-size: 0.875em;
 }
 
-input:hover:focus::-webkit-input-placeholder, textarea:hover:focus::-webkit-input-placeholder {
-  color: grey;
+input:hover:focus::-webkit-input-placeholder,
+textarea:hover:focus::-webkit-input-placeholder {
+    color: grey;
 }
