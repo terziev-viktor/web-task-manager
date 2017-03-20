@@ -19,7 +19,7 @@ module.exports = (db) => {
             });
             return;
         }
-        if(newpass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!#$%?\-\_+=&*@><]{8,}$/g) === null) {
+        if (newpass.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!#$%?\-\_+=&*@><]{8,}$/g) === null) {
             res.status(409).json({
                 msg: "Password must contain minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character",
                 errCode: 1
@@ -237,9 +237,20 @@ module.exports = (db) => {
 
     // gets colleagues of the authenticated user
     // if the query parameter 'getCount' is not undefined,
-    // then the request returns the number of colleagues
+    // then the request returns the number of colleagues,
+    // if the query parameter 'relational' is not undefined
+    // the request returns table with user colleagues and relations
     router.get('/colleagues', (req, res) => {
-        if (req.query.getCount !== undefined) {
+        if (req.query.relational !== undefined) {
+            db.get.userColleaguesRelational(req.user.Username, req.query.from, req.query.size, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not retrieve user colleagues'
+                    });
+                }
+            });
+        } else if (req.query.getCount !== undefined) {
             db.get.userColleaguesCount(req.user.Username, (err, recordset) => {
                 if (err) {
                     console.log(err);
