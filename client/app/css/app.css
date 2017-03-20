@@ -191,7 +191,7 @@ textarea {
 }
 
 .jumbotron {
-    padding: 0.5em 0.6em;
+    padding: 0.5em 2em;
     margin-bottom: 0px;
     /* For browsers that do not support gradients */
     /* For Safari 5.1 to 6.0 */
@@ -203,6 +203,10 @@ textarea {
     /* For Firefox 3.6 to 15 */
     /* Standard syntax */
 }
+/*#jumbotron-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
 .jumbotron h1 {
     font-size: 2em;
 }
