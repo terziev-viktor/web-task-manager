@@ -1,5 +1,5 @@
 app.controller('UserCurrentTasksController',
-    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, navbarHandler) {
+    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, navbarHandler, loadingHtml) {
         let statusHandler = statusCodeHandler($scope),
             createdTasksPage = 0,
             tasksToDoPage = 0,
@@ -17,7 +17,8 @@ app.controller('UserCurrentTasksController',
         };
 
         $scope.showContentPanel = (el) => {
-            console.log(el);
+            $('#modal-content').html(loadingHtml);
+            $('#modal-title').html('Loading');
             let task = el.task;
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];

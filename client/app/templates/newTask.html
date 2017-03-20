@@ -1,43 +1,46 @@
-<div class="panel panel-group col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-xs-12 centered text-center">
+<div class="custom-panel col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-xs-12 centered text-center">
+    <div class="page-header">
+        <h1>Create a new task<small> fill the form below</small></h1>
+    </div>
     <form>
-        <div id="form-new-task" class="panel panel-default">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+        <div id="form-new-task" class="custom-panel">
+            <div class="custom-panel">
+                <div class="custom-panel-heading">
                     <span>Title</span>
                 </div>
-                <div class="panel-body">
+                <div class="custom-panel-body">
                     <input type="text" class="form-control" id="inp-title" placeholder="Title of the new task">
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="custom-panel">
+                <div class="custom-panel-heading">
                     <span>Description</span>
                 </div>
-                <div class="panel-body">
+                <div class="custom-panel-body">
                     <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
                 </div>
             </div>
             <div class="panel-default">
-                <div class="panel-heading">
+                <div class="custom-panel-heading">
                     <span>Deadline</span>
                 </div>
-                <div class="panel-body">
+                <div class="custom-panel-body">
                     <input type="datetime-local" id="inp-deadline" class="btn btn-default btn-block" name="deadline">
                 </div>
             </div>
             <div class="panel-default">
-                <div class="panel-heading">
+                <div class="custom-panel-heading">
                     <span>Progress in % (Default: 0)</span>
                 </div>
-                <div class="panel-body">
+                <div class="custom-panel-body">
                     <input class="btn btn-default btn-block" type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="custom-panel">
+                <div class="custom-panel-heading">
                     <span>Task Priority</span>
                 </div>
-                <div class="panel-body">
+                <div class="custom-panel-body">
                     <select class="form-control" id="inp-priority">
                     <option value="0">Low</option>
                     <option value="1">Medium</option>
@@ -45,11 +48,11 @@
                 </select>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="custom-panel">
+                <div class="custom-panel-heading">
                     <span>Repeatability of the new task.</span>
                 </div>
-                <div class="panel-heading content-header-top">
+                <div class="custom-panel-heading content-header-top">
                     <label class="radio-inline">
         <input type="radio" name="optionsRadios" id="optionsRadios1" value="0" checked>
         Only Once
@@ -72,24 +75,8 @@
       </label>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span>Assign employees</span>
-                </div>
-                <div class="panel-body">
-                    <div class="btn-group">
-                        <input list="suggestions" class="btn btn-default" name="search" id="inp-search" placeholder="Search for employee...">
-                        <button class="btn btn-default" ng-click="searchUsersToAssign()">Search</button>
-                        <input type="button" class="btn btn-default" value="Assign" ng-click="addToAssign()">
-                        <input type="button" class="btn btn-default" value="Remove" ng-click="removeFromAssign()"><br>
-                    </div>
-                    <div class="panel">
-                        <textarea class="btn btn-default" disabled type="text" style="width: 90%" cols="30" id="inp-assignto" placeholder="People who will be assigned"></textarea>
-                    </div>
-                </div>
-            </div>
             <div>
-                <input type="button" class="btn btn-primary btn-block" id="btn-newtask" value="Create Task" ng-click="createTask()">
+                <input type="button" class="btn btn-primary" id="btn-newtask" value="Create Task" ng-click="createTask()">
             </div>
         </div>
     </form>

@@ -12,6 +12,7 @@ app.constant('managersPageSize', 5);
 app.constant('employeesPageSize', 5);
 app.constant('createdTasksPageSize', 5);
 app.constant('tasksToDoPageSize', 5);
+app.constant('loadingHtml', '<button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>');
 
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');

@@ -35,7 +35,7 @@ textarea {
 }
 
 .fixed-table-body-height {
-    height: 420px;
+    height: 435px;
 }
 
 .fixed-row-height {
@@ -70,7 +70,7 @@ textarea {
     width: 100%;
     background: url('/images/bckg7.jpg');
     color: #1761a0;
-    padding: 5px;
+    padding: 7px;
 }
 
 .custom-panel-body {
@@ -135,10 +135,10 @@ textarea {
 
 .counter {
     display: inline;
-    color: black;
+    color: #1761a0;
     margin: auto;
     padding: 5px 13px 5px 13px;
-    border: 1px solid black;
+    border: 1px solid #1761a0;
     border-radius: 20px;
     margin-left: 10px;
 }

@@ -1,27 +1,7 @@
-app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler, navbarHandler) {
+app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler, navbarHandler, ajax, loadingHtml) {
     let statusHandler = statusCodeHandler($scope);
     let first = true;
     navbarHandler.handle();
-    $.ajax({
-        method: 'GET',
-        url: '/user/employees',
-        success: (data) => {
-            data.forEach((element) => {
-                $('#suggestions').append('<option value="' + element.Employee + '">');
-            });
-        }
-    });
-
-    // add user to assing list
-    $scope.addToAssign = () => {
-        let userToAssign = $('#inp-search').val();
-        if (first) {
-            $('#inp-assignto').append(userToAssign);
-            first = false;
-        } else {
-            $('#inp-assignto').append(', ' + userToAssign);
-        }
-    }
 
     // creating a new task.
     $scope.createTask = () => {

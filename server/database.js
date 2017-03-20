@@ -83,6 +83,9 @@ module.exports = class Database {
             userColleagues: (username, from , size, cb) => {
                 this.request("SELECT * FROM GetUserColleagues(N'" + username + "', '" + from + "', '" + size + "');", cb);
             },
+            userColleaguesRelational: (username, from, size, cb) => {
+                this.request("SELECT * FROM GetUserColleaguesRelational(N'" + username + "', '" + from + "', '" + size + "')", cb);
+            },
             userColleaguesCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserColleaguesCount(N'" + username + "')", cb);
             },

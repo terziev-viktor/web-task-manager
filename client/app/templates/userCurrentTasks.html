@@ -4,10 +4,13 @@
     <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
     <li id="nav-tab-requests" role="presentation"><a href="#/user">Profile</a></li>
 </ul>
-<div class="to-show panel-group col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
-    <h2>Tasks</h2>
-    <div class="panel panel-default">
-        <div class="panel-heading">
+<div class="to-show col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
+    <div class="page-header">
+        <h1>Tasks <small> Your to-do list and created tasks.</small></h1>
+    </div>
+
+    <div class="custom-panel">
+        <div class="custom-panel-heading">
             <p>Your <strong>to-do</strong> list <span class="counter">{{taskTodoCount}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Filter to-do list" id="inp-filter-tasks-todo">
@@ -18,9 +21,9 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body fixed-table-body-height" ng-switch="tasksTodo.display">
-            <div id="panel-todo-tasks">
-                <table class="table table-hover" ng-switch-when="all">
+        <div class="custom-panel-body fixed-table-body-height" ng-switch="tasksTodo.display">
+            <div id="panel-todo-tasks" ng-switch-when="all">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -44,6 +47,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="input-group-btn text-center">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
+                    <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
+                </div>
             </div>
             <hr>
             <div ng-switch-when="none" class="animate-switch panel ">
@@ -53,14 +61,10 @@
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
-        <div class="input-group-btn text-center">
-            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
-            <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
-            <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
-        </div>
+
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="custom-panel">
+        <div class="custom-panel-heading">
             <p>Your created tasks<span class="counter">{{taskCreatedCount}}</span></p>
             <div class="input-group">
                 <input type="text" class="form-control" id="inp-filter-tasks-created" placeholder="Filter created tasks">
@@ -74,9 +78,9 @@
                 <a href="#/newTask"><button class="btn btn-success">New Task</button></a>
             </div>
         </div>
-        <div class="panel-body fixed-table-body-height" ng-switch="tasksCreated.display">
-            <div id="panel-created-tasks">
-                <table class="table table-hover" ng-switch-when="all">
+        <div class="custom-panel-body fixed-table-body-height" ng-switch="tasksCreated.display">
+            <div id="panel-created-tasks" ng-switch-when="all">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -100,7 +104,11 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <div class="input-group-btn text-center">
+                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
+                    <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>
+                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksCreated()">
+                </div>
             </div>
             <div ng-switch-when="none" class="animate-switch panel ">
                 You haven't created any tasks yet. Do it by clicking on the green button
@@ -110,10 +118,6 @@
             </div>
         </div>
         <hr>
-        <div class="input-group-btn text-center">
-            <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
-            <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>
-            <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksCreated()">
-        </div>
+
     </div>
 </div>

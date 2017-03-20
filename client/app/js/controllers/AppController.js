@@ -1,4 +1,4 @@
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, navbarHandler) {
+app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, navbarHandler, loadingHtml) {
     let statusHandler = statusCodeHandler($scope);
     navbarHandler.handle();
     // displaying filtered users on the modal
@@ -6,6 +6,9 @@ app.controller('AppController', function ($scope, $location, notification, statu
         let search = $('#inp-search-colleagues').val();
         $('#inp-search-colleagues').val('');
         if (search.length > 0) {
+            $('#modal-title').text("Loading");
+            $('#modal-content').html(loadingHtml);
+
             ajax.get('/search?text=' + search, statusHandler)
                 .then((data) => {
                     console.log(data);

@@ -93,7 +93,7 @@ module.exports = (db) => {
             db.insert.task(task, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.sendStatus(401);
+                    res.sendStatus(500).json({msg: 'Server error: Could not create task.'});
                 } else {
                     let taskId = recordset[0].TaskId;
                     assignUserToTask(req, res, taskId, task.AssigneTo);

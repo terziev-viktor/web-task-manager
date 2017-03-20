@@ -6,13 +6,15 @@
 </ul>
 
 <div class="to-show col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12">
-    <h1>Hello, {{fullname}}</h1>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <p>username: {{username}}</p>
+    <div class="page-header">
+        <h1>Hello, {{fullname}}<small> username: {{username}}</small></h1>
+    </div>
+
+    <div class="custom-panel">
+        <div class="custom-panel-heading">
             <p>Change Password</p>
         </div>
-        <div class="panel-body">
+        <div class="custom-panel-body">
             <form>
                 <div class="form-group">
                     <span class="glyphicon glyphicon-lock"></span> <label for="curren-pass">Enter your current password</label>
