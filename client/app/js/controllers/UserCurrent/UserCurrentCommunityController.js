@@ -8,7 +8,6 @@ app.controller('UserCurrentCommunityController',
         navbarHandler.handle();
         $('.to-show').slideDown("slow");
         // setting default views for panels
-        let managersAndEmployeesStrings = [];
         $scope.colleagues = {
             display: 'loading',
             data: []
@@ -41,38 +40,30 @@ app.controller('UserCurrentCommunityController',
                 employeesCount = data.Count;
             });
 
-        // getting first pages of panels
-        ajax.get('/user/employees?from=' + employeesPage * employeesPageSize + 1 + '&size=' + employeesPageSize, statusHandler)
-            .then((data) => {
-                data.forEach((el) => {
-                    managersAndEmployeesStrings.push(el.Username);
-                });
-                let d = data.length > 0 ? 'all' : 'none';
-                $scope.employees = {
-                    display: d,
-                    data: data
-                };
-                return ajax.get('/user/managers?from=1&size=-1', statusHandler);
-            })
-            .then((data) => {
-                data.forEach((el) => {
-                    managersAndEmployeesStrings.push(el.Username);
-                });
-                let d = data.length > 0 ? 'all' : 'none';
-                $scope.managers = {
-                    display: d,
-                    data: data
-                };
-                return ajax.get('/user/colleagues?from=' + (colleaguesPage * colleaguesPageSize + 1) + '&size=' + colleaguesPageSize, statusHandler);
-            })
-            .then((data) => {
-                $scope.managersAndEmployeesStrings = managersAndEmployeesStrings;
-                let d = data.length > 0 ? 'all' : 'none';
-                $scope.colleagues = {
-                    display: d,
-                    data: data
-                };
-            });
+        userData.getColleagues(colleaguesPage * colleaguesPageSize + 1, colleaguesPageSize, statusHandler).then((data) => {
+            console.log(data);
+            let d = data.length > 0 ? 'all' : 'none';
+            $scope.colleagues = {
+                display: d,
+                data: data
+            };
+        });
+
+        userData.getEmployees(1, colleaguesPageSize, statusHandler).then((data) => {
+            let d = data.length > 0 ? 'all' : 'none';
+            $scope.employees = {
+                display: d,
+                data: data
+            };
+        });
+
+        userData.getManagers(1, managersPageSize, statusHandler).then((data) => {
+            let d = data.length > 0 ? 'all' : 'none';
+            $scope.managers = {
+                display: d,
+                data: data
+            };
+        });
         // display filtered colleagues on the modal
         $scope.filterColleagues = () => {
             let filter = $('#inp-filter-colleagues').val();
@@ -98,7 +89,7 @@ app.controller('UserCurrentCommunityController',
             $('#inp-filter-managers').val('');
             ajax.get('/search?managers=' + filter, statusHandler)
                 .then((data) => {
-                     let view = {
+                    let view = {
                         managers: data
                     }
                     $.get('../../../templates/mustacheTemplates/filteredManagers.html', (tmpl) => {
