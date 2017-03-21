@@ -201,6 +201,22 @@ module.exports = (db) => {
         })
     });
 
+    router.get('/colleague', (req, res) => {
+        let username = req.query.username;
+        db.get.userColleagueRelational(req.user.Username, username, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({
+                    msg: 'Server error. Could not retrieve colleague info.'
+                });
+            } else {
+                if (recordset && recordset.length > 0) {
+                    res.status(200).json(recordset[0]);
+                }
+            }
+        });
+    });
+
     // manipulates colleague connections
     router.post('/colleagues', (req, res) => {
         if (req.query.remove === 'true') {
@@ -235,6 +251,7 @@ module.exports = (db) => {
         }
     });
 
+
     // gets colleagues of the authenticated user
     // if the query parameter 'getCount' is not undefined,
     // then the request returns the number of colleagues,
@@ -248,6 +265,8 @@ module.exports = (db) => {
                     res.status(500).json({
                         msg: 'Could not retrieve user colleagues'
                     });
+                } else {
+                    res.status(200).json(recordset);
                 }
             });
         } else if (req.query.getCount !== undefined) {
