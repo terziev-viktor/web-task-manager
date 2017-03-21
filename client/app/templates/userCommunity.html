@@ -1,30 +1,66 @@
+<div class="page-header">
+    <h1>{{user.FullName}} <small>{{user.Username}}</small></h1>
+</div>
+
 <div class="to-show">
     <div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">
-        <div class="panel">
-            <input class="btn btn-default btn-block" type="button" value="Invite Colleague" ng-click="inviteColleague(username)" />
-        </div>
-        <div class="panel">
-            <input class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(username)" />
+        <div class="panel panel-default btn-group-vertical btn-block">
+            <input ng-if="!user" class="btn btn-default btn-block" type="button" value="Add Colleague" ng-click="inviteColleague(user.Username)"
+            />
+            <input ng-if="user" class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(user.Username)"
+            />
+            <input ng-if="!user.IsManager && !user.IsEmployee" class="btn btn-default btn-block" type="button" value="Make Manager" ng-click="reqManager(user.Username)"
+            />
+            <input ng-if="!user.IsEmployee && !user.IsEmployee" class="btn btn-default btn-block" type="button" value="Make Employee"
+                ng-click="reqEmployee(user.Username)" />
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading"><span>{{username}}'s Managers</span></div>
-            <div class="panel-body" ng-switch="managers.length > 0">
-                <div ng-repeat="manager in managers" ng-switch-when="true">
-                    <a href="#/user/community/{{manager.Manager}}">{{manager.Manager}}</a>
+            <div class="panel-heading"><span>{{user.FullName}}'s Managers</span></div>
+            <div class="panel-body" ng-switch="managers.display">
+                <div ng-switch-when="all" id="panel-community-managers">
+                    <ul class="list-group">
+                        <li class="list-group-item fixed-row-height" ng-repeat="manager in managers.data">
+                            <span>      
+                        <a href="#/user/{{manager.Username}}">{{manager.FullName}}<small> ({{manager.Username}})</small></a>
+                    </span>
+                        </li>
+                    </ul>
+                    <div class="input-group-btn text-center">
+                        <input type="button" class="btn btn-default" value="Previous page" ng-click="previousManagersPage()">
+                        <input type="button" class="btn btn-default" value="1" id="managers-page" disabled>
+                        <input type="button" class="btn btn-default" value="Next page" ng-click="nextManagersPage()">
+                    </div>
                 </div>
-                <div ng-switch-when="false">
-                    <span>{{username}} has no managers yet.</span>
+                <div ng-switch-when="none" class="panel panel-default">
+                    {{user.FullName}} has no managers yet.
+                </div>
+                <div ng-switch-when="loading" class="text-center">
+                    <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
                 </div>
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading"><span>{{username}}'s Employees</span></div>
-            <div class="panel-body" ng-switch="employees.length > 0">
-                <div ng-repeat="employee in employees" ng-switch-when="true">
-                    <a href="#/user/community/{{employee.Employee}}">{{employee.Employee}}</a>
+            <div class="panel-heading"><span>{{user.FullName}}'s Employees</span></div>
+            <div class="panel-body" ng-switch="employees.display">
+                <div ng-switch-when="all" id="panel-community-employees">
+                    <ul class="list-group">
+                        <li class="list-group-item fixed-row-height" ng-repeat="employee in employees.data">
+                            <span>
+                        <a href="#/user/{{employee.Username}}">{{employee.FullName}}<small> ({{employee.Username}})</small></a>
+                    </span>
+                        </li>
+                    </ul>
+                    <div class="input-group-btn text-center">
+                        <input type="button" class="btn btn-default" value="Previous page" ng-click="previousEmployeesPage()">
+                        <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
+                        <input type="button" class="btn btn-default" value="Next page" ng-click="nextEmployeesPage()">
+                    </div>
                 </div>
-                <div ng-switch-when="false" class="panel">
-                    <span>{{username}} has no employees yet.</span>
+                <div ng-switch-when="none" class="panel panel-default">
+                    {{user.FullName}} has no employees yet.
+                </div>
+                <div ng-switch-when="loading" class="text-center">
+                    <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
                 </div>
             </div>
         </div>
@@ -32,7 +68,7 @@
     <div class="panel-group col-lg-9 col-md-9 col-sm-12 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h2>{{username}}'s to-do list
+                <h2>{{user.FullName}}'s to-do list
                     <div class="counter">{{tasksTodo.length}}</div>
                 </h2>
             </div>
@@ -54,13 +90,13 @@
                 </tbody>
             </table>
             <div class="panel" ng-switch-when="false">
-                <span>{{username}} has no tasks to do yet.</span>
+                <span>{{user.FullName}} has no tasks to do yet.</span>
             </div>
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>{{username}}'s created tasks
+            <h2>{{user.FullName}}'s created tasks
                 <div class="counter">{{tasksCreated.length}}</div>
             </h2>
         </div>
@@ -82,7 +118,7 @@
                     </tbody>
                 </table>
                 <div class="panel" ng-switch-when="false">
-                    <span>{{username}} has no tasks to do yet.</span>
+                    <span>{{user.FullName}} has no tasks to do yet.</span>
                 </div>
             </div>
         </div>

@@ -1,12 +1,26 @@
-app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler) {
+app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
-    
+
     $('.to-show').slideDown("slow");
     navbarHandler.handle($location.path());
-    $scope.currentuser = authorization.getUser();
+    userData.getColleague($routeParams.username, statusHandler)
+        .then((data) => {
+            $scope.user = data;
+        }, (err) => {
+            console.log(err);
+        });
+    $scope.employees = {
+        display: 'loading',
+        data: []
+    };
+    $scope.managers = {
+        display: 'loading',
+        data: []
+    };
+
     // invite and remove user
     $scope.inviteColleague = (username) => {
         let reqData = {
@@ -22,7 +36,27 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
         ajax.post('/user/colleagues?remove=true', reqData, statusHandler);
     }
 
-    ajax.get('/tasks/todo/' + $routeParams.username + '?from=1' + '&size=-1', statusHandler)
+    $scope.reqEmployee = (username) => {
+        let reqData = {
+            Username: username
+        };
+        ajax.post('user/req/employee', reqData, statusHandler)
+            .then(() => {
+                console.log('request sent');
+            });
+    }
+
+    $scope.reqManager = (username) => {
+        let reqData = {
+            Username: username
+        };
+        ajax.post('user/req/manager', reqData, statusHandler)
+            .then(() => {
+                console.log('post -> user/req/manager success');
+            });
+    }
+
+    userData.getColleagueTasksTodo($routeParams.username, 1, -1, statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {
                 element.priorityLow = element.Priority == 0;
@@ -32,37 +66,45 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
             }, this);
             $scope.tasksTodo = data.tasks;
         }, (err) => {
-            console.log('/tasks/todo error:');
             console.log(err);
         });
+
     // TODO: Call with from and size query values. Pagination must be implemented
-    ajax.get('/tasks/created/' + $routeParams.username + "?from=1&size=" + createdTasksPageSize, statusHandler)
+    userData.getColleagueCreatedTasks($routeParams.username, 1, -1, statusHandler)
         .then((data) => {
             data.tasks.forEach(function (element) {
                 element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
             }, this);
             $scope.tasksCreated = data.tasks;
         }, (err) => {
-            console.log('/tasks/created error:');
             console.log(err);
         });
 
-    ajax.get('/user/employees/' + $routeParams.username + '?from=1' + '&size=' + employeesPageSize, statusHandler)
+    userData.getColleagueEmployees($routeParams.username, 1, employeesPageSize, statusHandler)
         .then((data) => {
-            $scope.employees = data;
+            let view = data.length > 0 ? 'all' : 'none';
+            $scope.employees = {
+                display: view,
+                data: data
+            }
         }, (err) => {
             console.log('/user/employees error:');
             console.log(err);
         });
 
-    ajax.get('/user/managers/' + $routeParams.username + '?from=1' + '&size=' + managersPageSize, statusHandler)
+    userData.getColleagueManagers($routeParams.username, 1, managersPageSize, statusHandler)
         .then((data) => {
-            $scope.managers = data;
+            console.log('dslkgnkjdsbgkjsbgakdg');
+            console.log(data);
+            let view = data.length > 0 ? 'all' : 'none';
+            $scope.managers = {
+                display: view,
+                data: data
+            }
         }, (err) => {
             console.log('/user/managers error:');
             console.log(err);
         });
-
 
     $scope.showTaskInfo = (id) => {
         console.log('showtaskinfo');

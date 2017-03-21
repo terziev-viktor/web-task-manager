@@ -7,7 +7,7 @@ app.controller('UserCurrentCommunityController',
             colleaguesCount, managersCount, employeesCount;
         $('.to-show').slideDown("slow");
         navbarHandler.handle($location.path());
-        
+
         // setting default views for panels
         $scope.colleagues = {
             display: 'loading',
@@ -122,6 +122,16 @@ app.controller('UserCurrentCommunityController',
                 .then(() => {
                     console.log('request sent');
                 });
+        }
+
+        $scope.removeEmployeeRequest = (username) => {
+            // TODO
+            console.log(username);
+        }
+
+        $scope.removeManagerRequest = (username) => {
+            console.log(username);
+            // TODO
         }
 
         $scope.removeManager = (username, $event) => {

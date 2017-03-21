@@ -21,11 +21,15 @@
                                 type="button" class="btn btn-default btn-sm" ng-click="reqEmployee(colleague.Username)" value="Make Employee">
                             <input ng-if="!colleague.IsManager && !colleague.IsEmployee && !colleague.RecievedManagerRequest && !colleague.RecievedEmployeeRequest"
                                 type="button" class="btn btn-default btn-sm" ng-click="reqManager(colleague.Username)" value="Make Manager">
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" ng-if="colleague.RecievedEmployeeRequest || colleague.RecievedManagerRequest"
+                            <button style="border:none" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" ng-if="colleague.RecievedEmployeeRequest || colleague.RecievedManagerRequest"
                                 title="Request Options"><span class="glyphicon glyphicon-cog"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li ng-if="colleague.RecievedEmployeeRequest"><a>Sent employee request</a></li>
-                                <li ng-if="colleague.RecievedManagerRequest"><a>Sent manager request</a></li>
+                                <li ng-if="colleague.RecievedEmployeeRequest" ng-click="removeEmployeeRequest(colleague.Username)">
+                                    <a>Remove employee request <span class="glyphicon glyphicon-remove"></span></a>
+                                </li>
+                                <li ng-if="colleague.RecievedManagerRequest" ng-click="removeManagerRequest(colleague.Username)">
+                                    <a>Remove manager request<span class="glyphicon glyphicon-remove" ></span></a>
+                                </li>
                             </ul>
                         </div>
                     </li>
