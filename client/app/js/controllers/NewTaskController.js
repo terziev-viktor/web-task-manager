@@ -1,7 +1,7 @@
-app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler, navbarHandler, ajax, loadingHtml) {
+app.controller('NewTaskController', function ($scope, $location, notification, statusCodeHandler, ajax, loadingHtml) {
     let statusHandler = statusCodeHandler($scope);
     let first = true;
-    navbarHandler.handle();
+    
 
     // creating a new task.
     $scope.createTask = () => {

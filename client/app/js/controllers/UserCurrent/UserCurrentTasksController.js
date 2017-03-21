@@ -1,10 +1,10 @@
 app.controller('UserCurrentTasksController',
-    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, navbarHandler, loadingHtml) {
+    function ($scope, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, loadingHtml) {
         let statusHandler = statusCodeHandler($scope),
             createdTasksPage = 0,
             tasksToDoPage = 0,
             tasksCreatedCount, tasksToDoCount;
-        navbarHandler.handle();
+        
         $('.to-show').slideDown("slow");
         $scope.tasksTodo = {
             display: 'loading',

@@ -1,6 +1,6 @@
-app.controller('HomeController', function ($scope, $location, notification, navbarHandler) {
+app.controller('HomeController', function ($scope, $location, notification) {
     $("#main-nav-tabs").hide();
-    navbarHandler.handle();
+    
     // login user and redirect to tasks page
     $scope.login = function () {
         $('#btn-login').prop('disabled', true);

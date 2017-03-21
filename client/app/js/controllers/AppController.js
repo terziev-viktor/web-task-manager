@@ -1,6 +1,6 @@
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, navbarHandler, loadingHtml) {
+app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, loadingHtml) {
     let statusHandler = statusCodeHandler($scope);
-    navbarHandler.handle();
+    
     // displaying filtered users on the modal
     $scope.searchCollegues = () => {
         let search = $('#inp-search-colleagues').val();

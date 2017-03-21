@@ -1,11 +1,10 @@
 app.controller('UserCurrentCommunityController',
-    function ($scope, statusCodeHandler, ajax, $q, colleaguesPageSize, managersPageSize, employeesPageSize, userData, navbarHandler) {
+    function ($scope, statusCodeHandler, ajax, $q, colleaguesPageSize, managersPageSize, employeesPageSize, userData) {
         let statusHandler = statusCodeHandler($scope),
             colleaguesPage = 0,
             managersPage = 0,
             employeesPage = 0,
             colleaguesCount, managersCount, employeesCount;
-        navbarHandler.handle();
         $('.to-show').slideDown("slow");
         // setting default views for panels
         $scope.colleagues = {

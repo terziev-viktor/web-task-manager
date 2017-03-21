@@ -1,9 +1,9 @@
-app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler) {
+app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
-    navbarHandler.handle();
+    
     $('.to-show').slideDown("slow");
 
     $scope.currentuser = authorization.getUser();

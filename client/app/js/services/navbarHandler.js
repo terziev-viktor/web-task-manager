@@ -2,7 +2,7 @@
 
 app.service('navbarHandler', function(authorization) {
     return {
-        handle: () => {
+        handle: (path) => {
             if(authorization.isLoggedIn() == true) {
                 $('.nav-option').removeClass('disabled');
             } else {

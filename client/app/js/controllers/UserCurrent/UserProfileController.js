@@ -1,10 +1,10 @@
 app.controller('UserProfileController',
-    function ($scope, notification, statusCodeHandler, ajax, navbarHandler) {
+    function ($scope, notification, statusCodeHandler, ajax) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
         $scope.fullname = sessionStorage['fullname'];
         $scope.username = sessionStorage['currentUser'];
-        navbarHandler.handle();
+        
 
         $scope.updatePassword = () => {
             $('btnsubmit').prop('disabled', true);

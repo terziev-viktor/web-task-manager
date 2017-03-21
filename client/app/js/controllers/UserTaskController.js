@@ -1,7 +1,7 @@
-app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
+app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope);
-    navbarHandler.handle();
+    
     $('.to-show').slideDown("slow");
     $scope.username = authorization.getUser();
     console.log(authorization.getUser());
