@@ -1,11 +1,11 @@
-app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize) {
+app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
     
     $('.to-show').slideDown("slow");
-
+    navbarHandler.handle($location.path());
     $scope.currentuser = authorization.getUser();
     // invite and remove user
     $scope.inviteColleague = (username) => {

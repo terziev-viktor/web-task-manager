@@ -264,7 +264,7 @@ module.exports = (db) => {
                     console.log(err);
                     res.status(500).json({
                         msg: 'Could not retrieve user colleagues'
-                    });
+                    }); 
                 } else {
                     res.status(200).json(recordset);
                 }

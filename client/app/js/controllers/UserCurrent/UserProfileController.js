@@ -1,7 +1,8 @@
 app.controller('UserProfileController',
-    function ($scope, notification, statusCodeHandler, ajax) {
+    function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
+        navbarHandler.handle($location.path());
         $scope.fullname = sessionStorage['fullname'];
         $scope.username = sessionStorage['currentUser'];
         

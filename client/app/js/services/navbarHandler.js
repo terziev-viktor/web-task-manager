@@ -1,19 +1,42 @@
 // privides functionality for handling the navbar
 
-app.service('navbarHandler', function(authorization) {
+app.service('navbarHandler', function (authorization) {
     return {
         handle: (path) => {
-            if(authorization.isLoggedIn() == true) {
-                $('.nav-option').removeClass('disabled');
-            } else {
-                $('.nav-option').addClass('disabled');
+            $('.sidebar-option').removeClass('active');
+            switch (path) {
+                case "/user/current/tasks":
+                    {
+                        $('.sidebar-option:nth-child(1)').addClass('active');
+                        break;
+                    }
+                case "/newTask":
+                    {
+                        $('.sidebar-option:nth-child(2)').addClass('active');
+                        break;
+                    }
+                case "/user/current/community":
+                    {
+                        $('.sidebar-option:nth-child(3)').addClass('active');
+                        break;
+                    }
+                case "/user/current/requests":
+                    {
+                        $('.sidebar-option:nth-child(4)').addClass('active');
+                        break;
+                    }
+                case "/user":
+                    {
+                        $('.sidebar-option:nth-child(5)').addClass('active');
+                        break;
+                    }
             }
         },
         disableOptions: () => {
             $('.nav-option').addClass('disabled');
         },
         enableOptions: () => {
-            $('.nav-option').removeClass('disabled');            
+            $('.nav-option').removeClass('disabled');
         }
     }
 });

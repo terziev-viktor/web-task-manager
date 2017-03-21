@@ -1,9 +1,3 @@
-<ul id="main-nav-tabs" class="nav nav-tabs">
-    <li id="nav-tab-tasks" role="presentation"><a href="#/user/current/tasks">Tasks</a></li>
-    <li id="nav-tab-community" role="presentation" class="active"><a href="#/user/current/community">Comunity</a></li>
-    <li id="nav-tab-requests" role="presentation"><a href="#/user/current/requests">Requests</a></li>
-    <li id="nav-tab-requests" role="presentation"><a href="#/user">Profile</a></li>
-</ul>
 <div class="to-show panel-group col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
     <h3>Your community</h3>
     <div class="panel panel-default">
@@ -20,11 +14,19 @@
             <div ng-switch-when="all" id="panel-community-colleagues">
 
                 <ul class="list-group">
-                    <li class="list-group-item fixed-row-height" ng-repeat="colleague in colleagues.data">
+                    <li class="list-group-item fixed-row-height" ng-repeat="colleague in colleagues.data" ng-if="!colleague.IsManager && !colleague.IsEmployee">
                         <a href="#/user/{{colleague.Username}}">{{colleague.FullName}}<small> ({{colleague.Username}})</small></a>
-                        <div ng-if="managersAndEmployeesStrings.includes(colleague.Username) === false" class="btn-group">
-                            <input type="button" class="btn btn-default btn-xs" ng-click="reqEmployee(colleague.Username)" value="Make Employee">
-                            <input type="button" class="btn btn-default btn-xs" ng-click="reqManager(colleague.Username)" value="Make Manager">
+                        <div class="btn-group pull-right">
+                            <input ng-if="!colleague.IsEmployee && !colleague.IsManager && !colleague.RecievedEmployeeRequest && !colleague.RecievedManagerRequest"
+                                type="button" class="btn btn-default btn-sm" ng-click="reqEmployee(colleague.Username)" value="Make Employee">
+                            <input ng-if="!colleague.IsManager && !colleague.IsEmployee && !colleague.RecievedManagerRequest && !colleague.RecievedEmployeeRequest"
+                                type="button" class="btn btn-default btn-sm" ng-click="reqManager(colleague.Username)" value="Make Manager">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" ng-if="colleague.RecievedEmployeeRequest || colleague.RecievedManagerRequest"
+                                title="Request Options"><span class="glyphicon glyphicon-cog"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="colleague.RecievedEmployeeRequest"><a>Sent employee request</a></li>
+                                <li ng-if="colleague.RecievedManagerRequest"><a>Sent manager request</a></li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
