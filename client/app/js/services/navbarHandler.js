@@ -3,6 +3,11 @@
 app.service('navbarHandler', function (authorization) {
     return {
         handle: (path) => {
+            let username = authorization.getUser();
+            if (username) {
+                $('#sidebar-header').html(username);
+            }
+
             $('.sidebar-option').removeClass('active');
             switch (path) {
                 case "/user/current/tasks":
