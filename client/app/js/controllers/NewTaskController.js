@@ -6,7 +6,6 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
     // creating a new task.
     $scope.createTask = () => {
         $('#btn-newtask').prop('disabled', true);
-        console.log('Some shit');
         let task = {};
         let deadline = $('#inp-deadline').val().replace('T', ' ');
 
@@ -17,11 +16,11 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
         task.IsDone = task.Progress == 100 ? 1 : 0;
         task.Priority = $('#inp-priority').val();
         task.Repeatability = $('input[name=optionsRadios]:checked', '#form-new-task').val();
-        task.AssigneTo = $('#inp-assignto').val();
+        //task.AssigneTo = $('#inp-assignto').val();
 
         $.ajax({
             method: 'POST',
-            url: '/task',
+            url: '/task/',
             data: task,
             statusCode: {
                 200: () => {

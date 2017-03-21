@@ -96,7 +96,8 @@ module.exports = (db) => {
                     res.sendStatus(500).json({msg: 'Server error: Could not create task.'});
                 } else {
                     let taskId = recordset[0].TaskId;
-                    assignUserToTask(req, res, taskId, task.AssigneTo);
+                    res.json({msg: 'Task created'});
+                    //assignUserToTask(req, res, taskId, task.AssigneTo);
                 }
             });
         }
