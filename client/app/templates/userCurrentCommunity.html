@@ -14,8 +14,8 @@
             <div ng-switch-when="all" id="panel-community-colleagues">
 
                 <ul class="list-group">
-                    <li class="list-group-item fixed-row-height" ng-repeat="colleague in colleagues.data" ng-if="!colleague.IsManager && !colleague.IsEmployee">
-                        <a href="#/user/{{colleague.Username}}">{{colleague.FullName}}<small> ({{colleague.Username}})</small></a>
+                    <li class="list-group-item fixed-row-height" ng-repeat="colleague in colleagues.data">
+                        <a href="#/user/{{colleague.Username}}">{{colleague.FullName}}<small> ({{colleague.Username}}) <small ng-if="colleague.IsManager" style="color: red"> Manager</small> <small ng-if="colleague.IsEmployee" style="color: green"> Employee</small></small>  </a>
                         <div class="btn-group pull-right">
                             <input ng-if="!colleague.IsEmployee && !colleague.IsManager && !colleague.RecievedEmployeeRequest && !colleague.RecievedManagerRequest"
                                 type="button" class="btn btn-default btn-sm" ng-click="reqEmployee(colleague.Username)" value="Make Employee">
@@ -25,10 +25,10 @@
                                 title="Request Options"><span class="glyphicon glyphicon-cog"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li ng-if="colleague.RecievedEmployeeRequest" ng-click="removeEmployeeRequest(colleague.Username)">
-                                    <a>Remove employee request <span class="glyphicon glyphicon-remove"></span></a>
+                                    <a><span>Remove employee request  </span><span class="glyphicon glyphicon-remove"></span></a>
                                 </li>
                                 <li ng-if="colleague.RecievedManagerRequest" ng-click="removeManagerRequest(colleague.Username)">
-                                    <a>Remove manager request<span class="glyphicon glyphicon-remove" ></span></a>
+                                    <a><span>Remove manager request   </span><span class="glyphicon glyphicon-remove" ></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -36,9 +36,9 @@
                 </ul>
 
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguesPage()">
+                    <button type="button" class="btn btn-default" value="Previous page" ng-click="previousColleaguesPage()"><span class="glyphicon glyphicon-menu-left"></span> </button>
                     <input type="button" class="btn btn-default" value="1" id="colleague-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextColleaguesPage()">
+                    <button type="button" class="btn btn-default" ng-click="nextColleaguesPage()"> <span class="glyphicon glyphicon-menu-right"></span> </button>
                 </div>
 
             </div>
@@ -70,16 +70,25 @@
             <div ng-switch-when="all" id="panel-community-managers">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="manager in managers.data">
-                        <span>      
                         <a href="#/user/{{manager.Username}}">{{manager.FullName}}<small> ({{manager.Username}})</small></a>
-                    </span>
-                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeManager(manager.Username, $event)">
+                        <div class="pull-right">
+                            <button style="border:none" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
+                                title="Options"><span class="glyphicon glyphicon-cog"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-click="removeManager(manager.Username, $event)">
+                                    <a><span>Remove from managers  </span><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                                </li>
+                                <li ng-click="removeColleague(manager.Username, $event)">
+                                    <a><span>Remove from colleagues   </span><span class="glyphicon glyphicon-remove pull-right" ></span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousManagersPage()">
+                    <button type="button" class="btn btn-default" ng-click="previousManagersPage()"> <span class="glyphicon glyphicon-menu-left"></span> </button>
                     <input type="button" class="btn btn-default" value="1" id="managers-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextManagersPage()">
+                    <button type="button" class="btn btn-default" ng-click="nextManagersPage()"> <span class="glyphicon glyphicon-menu-right"></span> </button>
                 </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">
@@ -101,22 +110,30 @@
                         </button>
                 </div>
             </div>
-
         </div>
         <div class="panel-body fixed-body-height" ng-switch="employees.display">
             <div ng-switch-when="all" id="panel-community-employees">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="employee in employees.data">
-                        <span>
                         <a href="#/user/{{employee.Username}}">{{employee.FullName}}<small> ({{employee.Username}})</small></a>
-                    </span>
-                        <input type="button" class="btn btn-default btn-xs" value="Remove" ng-click="removeEmployee(employee.Username, $event)">
+                        <div class="pull-right">
+                            <button style="border:none" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
+                                title="Options"><span class="glyphicon glyphicon-cog"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-click="removeEmployee(employee.Username, $event)">
+                                    <a><span>Remove from employees  </span><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                                </li>
+                                <li ng-click="removeColleague(employee.Username, $event)">
+                                    <a><span>Remove from colleagues  </span><span class="glyphicon glyphicon-remove pull-right" ></span></a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousEmployeesPage()">
+                    <button type="button" class="btn btn-default" ng-click="previousEmployeesPage()"> <span class="glyphicon glyphicon-menu-left"></span> </button>
                     <input type="button" class="btn btn-default" value="1" id="current-page" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextEmployeesPage()">
+                    <button type="button" class="btn btn-default" ng-click="nextEmployeesPage()"> <span class="glyphicon glyphicon-menu-right"></span> </button>
                 </div>
             </div>
             <div ng-switch-when="none" class="panel panel-default">

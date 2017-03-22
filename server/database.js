@@ -61,6 +61,12 @@ module.exports = class Database {
             },
             taskAssignment: (username, taskid, cb) => {
                 this.request("EXEC RemoveTaskAssignment N'" + username + "', '" + taskid + "';", cb);
+            },
+            employeeRequest: (sent, recieved, cb) => {
+                this.request("EXEC RemoveEmployeeRequest N'" + sent + "', N'" + recieved + "'", cb);
+            },
+            managerRequest: (sent, recieved, cb) => {
+                this.request("EXEC RemoveManagerRequest N'" + sent + "', N'" + recieved + "'", cb);
             }
         }
 
@@ -74,6 +80,9 @@ module.exports = class Database {
 
         // get queries
         this.get = {
+            userRelational: (currentuser, username, cb) => {
+                this.request("SELECT * FROM GetUserRelational(N'" + currentuser + "', N'" + username + "'", cb);
+            },
             userColleagueRelational: (user, colleagueUsername, cb) => {
                 this.request("SELECT * FROM GetUserColleaguesRelational(N'" + user + "', '" + 1 + "', '" + -1 + "') WHERE Username = N'" + colleagueUsername + "'", cb);
             },

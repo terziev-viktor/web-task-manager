@@ -264,7 +264,7 @@ module.exports = (db) => {
                     console.log(err);
                     res.status(500).json({
                         msg: 'Could not retrieve user colleagues'
-                    }); 
+                    });
                 } else {
                     res.status(200).json(recordset);
                 }
@@ -311,6 +311,7 @@ module.exports = (db) => {
     router.post('/req/colleague', (req, res) => {
         db.insert.colleagueReuqest(req.user.Username, req.body.Username, (err) => {
             if (err) {
+                console.log(err);
                 res.status(500).json({
                     msg: 'Could not send colleague request.'
                 });
@@ -324,34 +325,67 @@ module.exports = (db) => {
 
     // sends employee request to the user from req.body
     router.post('/req/employee', (req, res) => {
-        //inserts in UserEmployeeRequests
-        db.insert.employeeRequest(req.user.Username, req.body.Username, (err) => {
-            if (err) {
-                res.status(500).json({
-                    msg: 'Could not send employee request.'
-                });
-            } else {
-                res.status(200).json({
-                    msg: 'Request sent to ' + req.body.Username
-                });
-            }
-        })
+        //inserts in UserEmployeeRequests or removes request from database
+        // property remove = user recieved the request
+        if (req.body.remove !== undefined) {
+            let sent = req.user.Username,
+                recieved = req.body.remove;
+            db.remove.employeeRequest(sent, recieved, (err) => {
+                if (err) {
+                    res.status(500).json({
+                        msg: 'Could not remove employee request.'
+                    });
+                } else {
+                    res.status(200).json({
+                        msg: 'Request removed'
+                    });
+                }
+            });
+        } else {
+            db.insert.employeeRequest(req.user.Username, req.body.Username, (err) => {
+                if (err) {
+                    res.status(500).json({
+                        msg: 'Could not send employee request.'
+                    });
+                } else {
+                    res.status(200).json({
+                        msg: 'Request sent to ' + req.body.Username
+                    });
+                }
+            });
+        }
     });
 
     // sends manager request to the user from req.body
     router.post('/req/manager', (req, res) => {
-        db.insert.managerRequest(req.user.Username, req.body.Username, (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({
-                    msg: 'Could not send manager request.'
-                });
-            } else {
-                res.status(200).json({
-                    msg: 'Request sent to ' + req.body.Username
-                });
-            }
-        })
+        if (req.body.remove !== undefined) {
+            let sent = req.user.Username,
+                recieved = req.body.remove;
+            db.remove.managerRequest(sent, recieved, (err) => {
+                if (err) {
+                    res.status(500).json({
+                        msg: 'Could not remove employee request.'
+                    });
+                } else {
+                    res.status(200).json({
+                        msg: 'Request removed'
+                    });
+                }
+            });
+        } else {
+            db.insert.managerRequest(req.user.Username, req.body.Username, (err) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not send manager request.'
+                    });
+                } else {
+                    res.status(200).json({
+                        msg: 'Request sent to ' + req.body.Username
+                    });
+                }
+            });
+        }
     });
 
     // gets the employee requests of the authenticated user

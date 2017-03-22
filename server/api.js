@@ -21,8 +21,25 @@ module.exports = (app, db) => {
 
     // search request
     app.get('/search', (req, res) => {
-        if (req.query.usersToAssign !== undefined) {
-            let filter = req.query.usersToAssign, toTaskId = req.query.toTaskId;
+        if (req.query.userRelational !== undefined) {
+            db.get.userRelational(req.user.Username, req.query.userRelational, (err, recordset) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not get user info'
+                    });
+                } else {
+                    if (recordset && recordset.length > 0)
+                        res.status(200).json(recordset[0]);
+                    else
+                        res.status(404).json({
+                            msg: 'User not found.'
+                        });
+                }
+            })
+        } else if (req.query.usersToAssign !== undefined) {
+            let filter = req.query.usersToAssign,
+                toTaskId = req.query.toTaskId;
             db.filter.usersToAssignToTask(req.user.Username, filter, toTaskId, (err, recordset) => {
                 if (err) {
                     console.log(err);

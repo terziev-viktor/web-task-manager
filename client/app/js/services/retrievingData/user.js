@@ -54,7 +54,7 @@ app.service('userData', function (ajax, $q, authorization) {
             });
         return deferred.promise;
     }
-    
+
     this.getColleagueCreatedTasks = (username, from, size, statusHandler) => {
         let deferred = $q.defer();
 
@@ -71,11 +71,11 @@ app.service('userData', function (ajax, $q, authorization) {
         let deferred = $q.defer();
 
         ajax.get('/user/employees/' + username + '?from=' + from + '&size=' + size, statusHandler)
-        .then((data) => {
-            deferred.resolve(data);
-        }, (err) => {
-            deferred.reject(err);
-        });
+            .then((data) => {
+                deferred.resolve(data);
+            }, (err) => {
+                deferred.reject(err);
+            });
 
         return deferred.promise;
     }
@@ -84,11 +84,23 @@ app.service('userData', function (ajax, $q, authorization) {
         let deferred = $q.defer();
 
         ajax.get('/user/managers/' + username + '?from=' + from + '&size=' + size, statusHandler)
-        .then((data) => {
-            deferred.resolve(data);
-        }, (err) => {
-            deferred.reject(err);
-        });
+            .then((data) => {
+                deferred.resolve(data);
+            }, (err) => {
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    }
+
+    this.getUserRelational = (username, statusHandler) => {
+        let deferred = $q.defer();
+
+        ajax.get('/search?userRelational=' + username, statusHandler)
+            .then((data) => {
+                deferred.resolve(data);
+            }, (err) => {
+                deferred.reject(err);
+            });
 
         return deferred.promise;
     }

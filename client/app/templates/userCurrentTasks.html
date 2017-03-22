@@ -42,9 +42,9 @@
                     </tbody>
                 </table>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksToDo()">
+                    <button type="button" class="btn btn-default" ng-click="previousTasksToDo()"><span class="glyphicon glyphicon-menu-left"></span></button>
                     <input type="button" class="btn btn-default" value="1" id="current-page-tasks-todo" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksToDo()">
+                    <button type="button" class="btn btn-default" ng-click="nextTasksToDo()"> <span class="glyphicon glyphicon-menu-right"></span> </button>
                 </div>
             </div>
             <hr>
@@ -99,9 +99,9 @@
                     </tbody>
                 </table>
                 <div class="input-group-btn text-center">
-                    <input type="button" class="btn btn-default" value="Previous page" ng-click="previousTasksCreated()">
+                    <button type="button" class="btn btn-default" ng-click="previousTasksCreated()"> <span class="glyphicon glyphicon-menu-left"></span> </button>
                     <input type="button" class="btn btn-default" value="1" id="current-page-tasks-created" disabled>
-                    <input type="button" class="btn btn-default" value="Next page" ng-click="nextTasksCreated()">
+                    <button type="button" class="btn btn-default" ng-click="nextTasksCreated()"><span class="glyphicon glyphicon-menu-right"></span> </button>
                 </div>
             </div>
             <div ng-switch-when="none" class="animate-switch panel ">

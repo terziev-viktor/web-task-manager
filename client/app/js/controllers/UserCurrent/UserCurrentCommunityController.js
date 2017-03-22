@@ -22,6 +22,7 @@ app.controller('UserCurrentCommunityController',
             data: []
         };
 
+
         // getting count of managers, colleagues and employees
         ajax.get('/user/colleagues?getCount=true', statusHandler)
             .then((data) => {
@@ -125,13 +126,27 @@ app.controller('UserCurrentCommunityController',
         }
 
         $scope.removeEmployeeRequest = (username) => {
-            // TODO
-            console.log(username);
+            let reqBody = {
+                remove: username
+            }
+            ajax.post('/user/req/employee', reqBody, statusHandler)
+                .then(() => {
+                    // TODO: Should we use an empty function here ?
+                }, (err) => {
+                    console.log(err);
+                });
         }
 
         $scope.removeManagerRequest = (username) => {
-            console.log(username);
-            // TODO
+            let reqBody = {
+                remove: username
+            }
+            ajax.post('/user/req/manager', reqBody, statusHandler)
+                .then(() => {
+                    // TODO: Should we use an empty function here ?
+                }, (err) => {
+                    console.log(err);
+                });
         }
 
         $scope.removeManager = (username, $event) => {
@@ -148,6 +163,16 @@ app.controller('UserCurrentCommunityController',
                 Username: username
             };
             ajax.post('/user/employee?remove=' + username, reqdata, statusHandler)
+                .then(() => {
+                    $($event.currentTarget).hide(200);
+                });
+        }
+
+        $scope.removeColleague = (username, $event) => {
+            let reqData = {
+                Username: username
+            };
+            ajax.post('/user/colleagues?remove=true', reqData, statusHandler)
                 .then(() => {
                     $($event.currentTarget).hide(200);
                 });

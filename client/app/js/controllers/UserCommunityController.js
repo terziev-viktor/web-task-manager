@@ -6,8 +6,10 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
 
     $('.to-show').slideDown("slow");
     navbarHandler.handle($location.path());
-    userData.getColleague($routeParams.username, statusHandler)
+    userData.getUserRelational($routeParams.username, statusHandler)
         .then((data) => {
+            console.log('usr relational');
+            console.log(data);
             $scope.user = data;
         }, (err) => {
             console.log(err);
