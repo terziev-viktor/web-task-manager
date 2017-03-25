@@ -3,7 +3,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
     let first = true;
     navbarHandler.handle($location.path());
     $('#datetimepicker1').datetimepicker();
-   
+
     // creating a new task.
     $scope.createTask = () => {
         $('#btn-newtask').prop('disabled', true);
@@ -21,6 +21,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
             notification.warning('Task progress must be in range 0 to 100');
             return;
         }
+        $(".overlay, .overlay-loading-animation").show();
 
         $.ajax({
             method: 'POST',
@@ -28,18 +29,22 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
             data: task,
             statusCode: {
                 200: () => {
+                    $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.success('Task created successfully!');
                     $location.path('/user/current/tasks');
                     $scope.$apply();
                 },
                 401: () => {
+                    $(".overlay, .overlay-loading-animation").hide();
+
                     $('#btn-newtask').prop('disabled', false);
                     notification.alert('Login to Web Task Manager, please :-)');
                     $location.path('/');
                     $scope.$apply();
                 },
                 500: (xhr) => {
+                    $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.error(xhr.responseJSON.err);
                 }

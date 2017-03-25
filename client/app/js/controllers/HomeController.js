@@ -1,6 +1,6 @@
 app.controller('HomeController', function ($scope, $location, notification) {
     $("#main-nav-tabs").hide();
-    
+
     // login user and redirect to tasks page
     $scope.login = function () {
         $('#btn-login').prop('disabled', true);
@@ -17,7 +17,10 @@ app.controller('HomeController', function ($scope, $location, notification) {
         }
         if (data.password.length === 0) {
             $('#div-login-password').addClass('has-error');
+            return;
         }
+        // show loading screen animation
+        $(".overlay, .overlay-loading-animation").show();
 
         $.ajax({
             method: 'POST',
@@ -28,21 +31,21 @@ app.controller('HomeController', function ($scope, $location, notification) {
                     notification.success('Login successful!');
                     sessionStorage['currentUser'] = xhr.username;
                     sessionStorage['fullname'] = xhr.fullname;
-                    $('#home-forms-container').hide(350);
+                    $(".overlay, .overlay-loading-animation").hide();
                     //$("#main-nav-tabs").show(350);
-                    setTimeout(function () {
-                        $('#btn-login').prop('disabled', false);
-                        $location.path('/user/current/tasks').replace();
-                        $scope.$apply();
-                    }, 350);
+                    $('#btn-login').prop('disabled', false);
+                    $location.path('/user/current/tasks').replace();
+                    $scope.$apply();
                 },
                 401: () => {
+                    $(".overlay, .overlay-loading-animation").hide();
                     notification.error('Login Failed');
                     $('#inp-login-username').val('');
                     $('#inp-login-password').val('');
                     $('#btn-login').prop('disabled', false);
                 },
                 400: () => {
+                    $(".overlay, .overlay-loading-animation").hide();
                     notification.info('Enter your username and password first!');
                     $('#inp-login-username').val('');
                     $('#inp-login-password').val('');
@@ -70,6 +73,10 @@ app.controller('HomeController', function ($scope, $location, notification) {
             $('#btn-signup').prop('disabled', false);
             return;
         }
+
+        // show loading screen
+        $(".overlay, .overlay-loading-animation").show();
+
         $.ajax({
             method: 'POST',
             url: '/signin',
@@ -82,6 +89,8 @@ app.controller('HomeController', function ($scope, $location, notification) {
                     $('#inp-signin-password').val('');
                     $('#inp-signin-confirm').val('');
                     $('#btn-signup').prop('disabled', false);
+                    // hide loading screen
+                    $(".overlay, .overlay-loading-animation").hide();
                 },
                 500: (xhr) => {
                     notification.error(xhr.responseJSON.msg);

@@ -4,34 +4,42 @@ body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background: #efefef;
 }
+
 textarea {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
 }
+
 .no-style {
     border: none;
     background: transparent;
     padding: 0px;
 }
+
 .row {
     margin: 10px;
 }
+
 .to-show,
 #li-logout,
 #li-profile {
     display: none;
 }
-.panel-default > .panel-heading {
+
+.panel-default>.panel-heading {
     background-color: #e6e6e6;
     border-color: #e6e6e6;
 }
+
 .fixed-body-height {
     height: 400px;
 }
+
 .fixed-table-body-height {
     height: 435px;
 }
+
 .fixed-row-height {
     height: 65px;
 }
@@ -39,9 +47,11 @@ textarea {
 .priority-0 {
     color: green;
 }
+
 .priority-1 {
     color: #ffb366;
 }
+
 .priority-2 {
     color: red;
 }
@@ -71,10 +81,12 @@ textarea {
     border: 1px solid black;
 }
 
-.btn, .btn-default {
+.btn,
+.btn-default {
     border-radius: 0;
     border: 1px solid black;
 }
+
 .circle {
     display: inline-block;
     margin: 0;
@@ -95,6 +107,7 @@ textarea {
     user-select: none;
     -o-user-select: none;
 }
+
 .content-header-top {
     padding-left: 10px;
     padding-right: 10px;
@@ -105,6 +118,7 @@ textarea {
     background: -o-linear-gradient(#E0E0E0, white);
     background: linear-gradient(#E0E0E0, white);
 }
+
 .content-header-bottom {
     text-align: center;
     width: 100%;
@@ -113,13 +127,16 @@ textarea {
     background: -o-linear-gradient(white, #E0E0E0);
     background: linear-gradient(white, #E0E0E0);
 }
+
 .container>div:first-child {
     align-content: center;
 }
+
 .container-small {
     width: 200px;
     display: block;
 }
+
 .counter {
     display: inline;
     color: #1761a0;
@@ -129,6 +146,7 @@ textarea {
     border-radius: 20px;
     margin-left: 10px;
 }
+
 .community-container {
     display: flex;
     width: 480px;
@@ -138,12 +156,15 @@ textarea {
     margin-top: 0px;
     margin-bottom: 20px;
 }
+
 .container-small-right {
     float: right;
 }
+
 .container-small-left {
     float: left;
 }
+
 #search-found {
     position: fixed;
     border: 1px solid #777;
@@ -157,6 +178,7 @@ textarea {
     background: -o-linear-gradient(#E0E0E0, white);
     background: linear-gradient(#E0E0E0, white);
 }
+
 #task-view {
     z-index: 1;
     top: 10vh;
@@ -166,6 +188,7 @@ textarea {
     border-radius: 5px;
     padding: 5px;
 }
+
 #search-found>input,
 #task-view>input {
     position: absolute;
@@ -175,17 +198,21 @@ textarea {
     border: none;
     background-color: transparent;
 }
+
 #search-found-content {
     padding-left: 5px;
 }
+
 #search-found-content ul {
     list-style: none;
     padding-left: 5px;
     padding-right: 5px;
 }
+
 #search-found-content ul li {
     margin-bottom: 5px;
 }
+
 #search-found-content ul li a {
     text-decoration: none;
 }
@@ -196,31 +223,37 @@ textarea {
     /* For browsers that do not support gradients */
     /* For Safari 5.1 to 6.0 */
     /* For Opera 11.1 to 12.0 */
-    
     background: -webkit-linear-gradient(white, #F8F8F8);
     background: -o-linear-gradient(white, #F8F8F8);
     background: linear-gradient(white, #F8F8F8);
     /* For Firefox 3.6 to 15 */
     /* Standard syntax */
 }
+
+
 /*#jumbotron-container {
     padding-left: 15px;
     padding-right: 15px;
 }*/
+
 .jumbotron h1 {
     font-size: 2em;
 }
+
 .jumbotron p {
     font-size: 1.2em;
 }
+
 .panel-heading {
     font-size: 1.3em;
     font-weight: 200;
     padding: 5px;
 }
+
 .nginp.ng-dirty {
     background: lawngreen;
 }
+
 .nginp.ng-touched {
     background: lawngreen;
 }
@@ -236,12 +269,15 @@ textarea:focus::-webkit-input-placeholder {
     color: grey;
 }
 
+
 /* on hover input placeholder and focus */
+
 input:hover::-webkit-input-placeholder,
 textarea:hover::-webkit-input-placeholder {
     color: grey;
     font-size: 0.875em;
 }
+
 input:hover:focus::-webkit-input-placeholder,
 textarea:hover:focus::-webkit-input-placeholder {
     color: grey;
@@ -252,54 +288,68 @@ textarea:hover::-webkit-input-placeholder {
     color: grey;
     font-size: 0.875em;
 }
+
+
 /*
   sidebar
 */
 
-body, html {
+body,
+html {
     height: 100%;
 }
+
+
 /* remove outer padding */
+
 input:hover:focus::-webkit-input-placeholder,
 textarea:hover:focus::-webkit-input-placeholder {
     color: grey;
 }
+
 .main .row {
     padding: 0px;
     margin: 0px;
 }
+
+
 /*Remove rounded coners*/
 
 nav.sidebar.navbar {
     border-radius: 0px;
     border-top: 0px;
 }
-nav.sidebar, .main {
+
+nav.sidebar,
+.main {
     -webkit-transition: margin 200ms ease-out;
     -moz-transition: margin 200ms ease-out;
     -o-transition: margin 200ms ease-out;
     transition: margin 200ms ease-out;
 }
+
+
 /* Add gap to nav and right windows.*/
 
 .main {
     padding: 10px 10px 0 10px;
 }
+
+
 /* .....NavBar: Icon only with coloring/layout.....*/
+
+
 /*small/medium side display*/
 
 @media (min-width: 768px) {
     /*Allow main to be next to Nav*/
-    
     .main {
         position: absolute;
         width: calc(100% - 40px);
         /*keeps 100% minus nav size*/
-        
         margin-left: 40px;
         float: right;
     }
-
     /*lets nav bar to be showed on mouseover*/
     nav.sidebar:hover+.main {
         margin-left: 200px;
@@ -362,36 +412,71 @@ nav.sidebar, .main {
         opacity: 0;
     }
 }
+
+
 /* .....NavBar: Fully showing nav bar..... */
+
 @media (min-width: 1330px) {
     /*Allow main to be next to Nav*/
-    
     .main {
         width: calc(100% - 200px);
         /*keeps 100% minus nav size*/
-        
         margin-left: 200px;
     }
     /*Show all nav*/
-    
     nav.sidebar {
         margin-left: 0px;
         float: left;
     }
     /*Show hidden items on nav*/
-    
     nav.sidebar .forAnimate {
         opacity: 1;
     }
 }
+
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover,
 nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
     color: #CCC;
     background-color: transparent;
 }
+
 nav:hover .forAnimate {
     opacity: 1;
 }
+
 section {
     padding-left: 15px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 1001;
+    display: none;
+    
+}
+
+.overlay-loading-animation {
+    position: fixed;
+    top: 45%;
+    left: 45%;
+    opacity: 1;
+    z-index: 1002;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #1761a0; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
