@@ -20,9 +20,6 @@ INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('Pesho', 'Stamat')
 
 INSERT [dbo].[Colleagues] ([User1], [User2])
-VALUES ('Minka', 'Pesho')
-
-INSERT [dbo].[Colleagues] ([User1], [User2])
 VALUES ('MITKO', 'Minka')
 
 INSERT [dbo].[Tasks] ([Title], [Description], [Deadline], [IsDone], [Priority], [Progress], [Repeatability], [Creator_Username])
