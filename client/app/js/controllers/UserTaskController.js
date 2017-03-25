@@ -1,10 +1,12 @@
 app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
     let taskId = $routeParams.taskId,
-        statusHandler = statusCodeHandler($scope);
+        statusHandler = statusCodeHandler($scope),
+        clientDate = new Date();
     navbarHandler.handle($location.path());
     $('.to-show').slideDown("slow");
     $scope.username = authorization.getUser();
     console.log(authorization.getUser());
+    $('#datetimepicker1').datetimepicker();
 
     // edit buttons
     $scope.editTitle = () => {
@@ -30,7 +32,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     }
 
     $scope.editDeadline = () => {
-        let reqUrl = '/task/' + taskId + '?deadline=' + $('#inp-deadline').val(),
+        let reqUrl = '/task/' + taskId + '?deadline=' + new Date($('#inp-deadline').val()).toISOString(),
             reqData = {};
         ajax.post(reqUrl, reqData, statusHandler)
             .then((data) => {
@@ -136,8 +138,6 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
 
     ajax.get('/task/' + taskId, statusHandler)
         .then((task) => {
-            console.log('get /task/:taskId');
-            console.log(task);
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $scope.task = task;

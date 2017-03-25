@@ -88,16 +88,26 @@ module.exports = (db) => {
             res.status(500).json({
                 err: 'Please insert a title for the task.'
             });
+        } else if (task.Progress > 100 || task.Progress < 0) {
+            res.status(403).json({
+                err: 'Please insert progress in range 0 to 100'
+            });
         } else {
             task.Creator_Username = req.user.Username;
+            task.Deadline = task.Deadline.replace('T', ' ');
+            task.Deadline = task.Deadline.replace('Z', '');
+
             db.insert.task(task, (err, recordset) => {
                 if (err) {
                     console.log(err);
-                    res.sendStatus(500).json({msg: 'Server error: Could not create task.'});
+                    res.status(500).json({
+                        msg: 'Server error: Could not create task.'
+                    });
                 } else {
                     let taskId = recordset[0].TaskId;
-                    res.json({msg: 'Task created'});
-                    //assignUserToTask(req, res, taskId, task.AssigneTo);
+                    res.status(200).json({
+                        msg: 'Task created'
+                    });
                 }
             });
         }
@@ -139,11 +149,10 @@ module.exports = (db) => {
                             break;
                         }
                     }
-
                     task.isOwner = task.Creator_Username === req.user.Username;
                     task.isAssigned = isAssigned;
                     res.status(200).json(task);
-                })
+                });
             }
         });
     });
@@ -159,10 +168,12 @@ module.exports = (db) => {
                         isAssigned = true;
                     }
                 }, this);
+
                 if (!isOwner && !isAssigned) {
                     res.status(403).json({
                         msg: 'You are not allowed to update this task.'
                     });
+                    return;
                 }
 
                 if (req.body.removeAssignment !== undefined) {
@@ -183,7 +194,10 @@ module.exports = (db) => {
                     let task = {};
                     task.newTitle = (req.query.title !== undefined) ? req.query.title : '';
                     task.newDesc = (req.query.desc !== undefined) ? req.query.desc : '';
-                    task.newDeadline = (req.query.deadline !== undefined) ? req.query.deadline.replace('T', ' ') : '';
+                    task.newDeadline = '';
+                    if(req.query.deadline !== undefined)  {
+                        task.newDeadline = req.query.deadline.replace('T', ' ').replace('Z', '');
+                    }
                     task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
                     task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
                     task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';

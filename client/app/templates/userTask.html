@@ -34,9 +34,23 @@
                 <div class="panel-heading">
                     <label for="inp-deadline">Deadline ({{task.DeadlineFormatted}})</label>
                     <input ng-if="task.isOwner" type="button" class="btn btn-default" ng-click="editDeadline()" value="Edit">
+
                 </div>
                 <div class="panel-body">
-                    <input type="datetime-local" class="form-control" value="{{task.Deadline}}" id="inp-deadline" name="deadline">
+                    <div>
+                        <div class="row">
+                            <div>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input id="inp-deadline" type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-default">
