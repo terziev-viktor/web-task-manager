@@ -6,6 +6,11 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
 
     $('.to-show').slideDown("slow");
     navbarHandler.handle($location.path());
+    if($routeParams.username == authorization.getUser()) {
+        $location.path('/user/current/tasks');
+        $scope.$apply();
+    }
+    
     userData.getUserRelational($routeParams.username, statusHandler)
         .then((data) => {
             console.log('usr relational');
