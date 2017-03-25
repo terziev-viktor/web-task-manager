@@ -97,6 +97,7 @@ app.service('userData', function (ajax, $q, authorization) {
 
         ajax.get('/search?userRelational=' + username, statusHandler)
             .then((data) => {
+                
                 deferred.resolve(data);
             }, (err) => {
                 deferred.reject(err);
