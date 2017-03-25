@@ -19,6 +19,9 @@
     "mustache.js": "mustache#^2.3.0",
     "noty": "^2.4.0",
     "socket.io-client": "^1.7.2",
-    "q": "^2.0.2"
+    "q": "^2.0.2",
+    "moment": "^2.18.1",
+    "bootstrap-datepicker": "^1.6.4",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
   }
 }
