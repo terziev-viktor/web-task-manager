@@ -33,11 +33,13 @@ textarea {
 }
 
 .fixed-body-height {
-    height: 400px;
+    display: block;
+    height: 450px;
 }
 
 .fixed-table-body-height {
-    height: 435px;
+    display: block;
+    height: 450px;
 }
 
 .fixed-row-height {
