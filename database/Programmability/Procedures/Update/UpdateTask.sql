@@ -55,6 +55,12 @@ BEGIN
 			SET IsDone = 1
 			WHERE TaskId = @TaskId
 		END
+		ELSE
+		BEGIN
+		UPDATE Tasks
+			SET IsDone = 0
+			WHERE TaskId = @TaskId
+		END
 	END
 
 	IF (@Repeatability <> '')
