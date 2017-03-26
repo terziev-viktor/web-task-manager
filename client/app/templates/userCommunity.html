@@ -5,13 +5,13 @@
 <div class="to-show">
     <div class="panel-group col-lg-3 col-md-3 col-sm-10 col-xs-10">
         <div class="panel panel-default btn-group-vertical btn-block">
-            <input ng-if="!user" class="btn btn-default btn-block" type="button" value="Add Colleague" ng-click="inviteColleague(user.Username)"
+            <input ng-if="!user.IsColleague" class="btn btn-default btn-block" type="button" value="Add Colleague" ng-click="inviteColleague(user.Username)"
             />
-            <input ng-if="user" class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(user.Username)"
+            <input ng-if="user.IsColleague" class="btn btn-default btn-block" type="button" value="Remove Colleague" ng-click="removeColleague(user.Username)"
             />
-            <input ng-if="!user.IsManager && !user.IsEmployee" class="btn btn-default btn-block" type="button" value="Make Manager" ng-click="reqManager(user.Username)"
+            <input ng-if="!user.IsManager && !user.IsEmployee && user.IsColleague" class="btn btn-default btn-block" type="button" value="Make Manager" ng-click="reqManager(user.Username)"
             />
-            <input ng-if="!user.IsEmployee && !user.IsManager" class="btn btn-default btn-block" type="button" value="Make Employee"
+            <input ng-if="!user.IsEmployee && !user.IsManager && user.IsColleague" class="btn btn-default btn-block" type="button" value="Make Employee"
                 ng-click="reqEmployee(user.Username)" />
         </div>
         <div class="panel panel-default">
