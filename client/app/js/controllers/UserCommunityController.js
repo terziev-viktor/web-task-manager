@@ -13,7 +13,7 @@ app.controller('UserCommunityController', function ($scope, $location, $routePar
     
     userData.getUserRelational($routeParams.username, statusHandler)
         .then((data) => {
-            console.log('usr relational');
+            console.log('user relational');
             console.log(data);
             $scope.user = data;
         }, (err) => {
