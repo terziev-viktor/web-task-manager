@@ -219,33 +219,6 @@ textarea {
     text-decoration: none;
 }
 
-.jumbotron {
-    padding: 0.5em 2em;
-    margin-bottom: 0px;
-    /* For browsers that do not support gradients */
-    /* For Safari 5.1 to 6.0 */
-    /* For Opera 11.1 to 12.0 */
-    background: -webkit-linear-gradient(white, #F8F8F8);
-    background: -o-linear-gradient(white, #F8F8F8);
-    background: linear-gradient(white, #F8F8F8);
-    /* For Firefox 3.6 to 15 */
-    /* Standard syntax */
-}
-
-
-/*#jumbotron-container {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/
-
-.jumbotron h1 {
-    font-size: 2em;
-}
-
-.jumbotron p {
-    font-size: 1.2em;
-}
-
 .panel-heading {
     font-size: 1.3em;
     font-weight: 200;
@@ -342,6 +315,11 @@ nav.sidebar,
 
 
 /*small/medium side display*/
+@media (max-width: 767px) {
+    .main {
+        font-size: 0.8em; /* for some little phones */
+    }
+}
 
 @media (min-width: 768px) {
     /*Allow main to be next to Nav*/

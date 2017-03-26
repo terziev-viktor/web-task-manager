@@ -56,15 +56,13 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
     app.use(passport.session());
 
     app.post('/login', passport.authenticate('local'), (req, res) => {
-        console.log('/login');
-        console.log(req.user);
         res.status(200).json({
             username: req.user.Username,
             fullname: req.user.FullName
         });
     });
 
-    // logs out user
+    // logout user
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');

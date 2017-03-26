@@ -1,12 +1,11 @@
-<div ng-switch="task.Creator_Username === username">
+<div ng-if="task.Creator_Username !== username">
     <ul id="main-nav-tabs" class="nav nav-tabs">
-        <li ng-switch-when="false" id="nav-tab-requests" role="presentation"><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></li>
-        <li ng-switch-when="false" id="nav-tab-requests" role="presentation" class="active"><a href="#/user/task/{{task.TaskId}}">{{task.Creator_Username}}'s task</a></li>
-        <li ng-switch-when="true" id="nav-tab-requests" role="presentation" class="active"><a href="#/user/task/{{task.TaskId}}">Task</a></li>
+        <li id="nav-tab-requests" role="presentation"><a href="#/user/{{task.Creator_Username}}">{{task.Creator_Username}}</a></li>
+        <li id="nav-tab-requests" role="presentation" class="active"><a href="#/user/task/{{task.TaskId}}">{{task.Creator_Username}}'s task</a></li>
     </ul>
 </div>
 <div>
-    <div class="to-show panel-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <div class="to-show panel-group col-lg-5 col-md-5 col-sm-12 col-xs-12">
         <div>
             <h2>{{task.Title}}</h2>
             <div ng-if="task.isOwner == false">
@@ -32,23 +31,13 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <label for="inp-deadline">Deadline ({{task.DeadlineFormatted}})</label>
+                    <label for="inp-deadline">Deadline </label>
                     <input ng-if="task.isOwner" type="button" class="btn btn-default" ng-click="editDeadline()" value="Edit">
-
                 </div>
                 <div class="panel-body">
-                    <div>
-                        <div class="row">
-                            <div>
-                                <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker1'>
-                                        <input id="inp-deadline" type='text' class="form-control" />
-                                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                    <div style="overflow:hidden;">
+                        <div>
+                            <div id="datetimepicker"></div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="to-show assigned col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <div class="to-show assigned col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <h2>Assigned Users</h2>
         <div ng-if="task.isOwner" class="panel panel-default">
             <div class="panel-heading">

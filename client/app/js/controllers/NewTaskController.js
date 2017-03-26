@@ -2,16 +2,21 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
     let statusHandler = statusCodeHandler($scope);
     let first = true;
     navbarHandler.handle($location.path());
-    $('#datetimepicker1').datetimepicker();
 
+    $('#datetimepicker12').datetimepicker({
+        inline: true,
+        sideBySide: true
+    });
     // creating a new task.
     $scope.createTask = () => {
         $('#btn-newtask').prop('disabled', true);
+        let datetimePicker_d = $('#datetimepicker12').datetimepicker('date')._d; // get datetime inline picker data
+        let deadlineISO = new Date(datetimePicker_d).toISOString(); // convert to ISO string
 
         let task = {};
         task.Title = $('#inp-title').val();
         task.Description = $('#inp-description').val();
-        task.Deadline = new Date($("#inp-deadline").val()).toISOString();
+        task.Deadline = deadlineISO;
         task.Progress = $('#inp-progress').val();
         task.IsDone = task.Progress == 100 ? 1 : 0;
         task.Priority = $('#inp-priority').val();

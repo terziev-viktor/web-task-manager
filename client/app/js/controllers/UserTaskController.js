@@ -6,7 +6,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     $('.to-show').slideDown("slow");
     $scope.username = authorization.getUser();
     console.log(authorization.getUser());
-    $('#datetimepicker1').datetimepicker();
+
 
     // edit buttons
     $scope.editTitle = () => {
@@ -32,7 +32,9 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     }
 
     $scope.editDeadline = () => {
-        let reqUrl = '/task/' + taskId + '?deadline=' + new Date($('#inp-deadline').val()).toISOString(),
+        let datetimePicker_d = $('#datetimepicker').datetimepicker('date')._d; // get datetime inline picker data
+        let deadlineISO = new Date(datetimePicker_d).toISOString(); // convert to ISO string
+        let reqUrl = '/task/' + taskId + '?deadline=' + deadlineISO,
             reqData = {};
         ajax.post(reqUrl, reqData, statusHandler)
             .then((data) => {
@@ -138,7 +140,11 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
 
     ajax.get('/task/' + taskId, statusHandler)
         .then((task) => {
-            task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
+            $('#datetimepicker').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                defaultDate: new Date(task.Deadline)
+            });
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $scope.task = task;
         }, (err) => {
