@@ -32,16 +32,12 @@ app.controller('UserCurrentTasksController',
 
         ajax.get('/tasks/todo?getCount=true', statusHandler)
             .then((data) => {
-                console.log('////////////////////');
-                console.log(data);
                 $scope.taskTodoCount = data.Count;
                 tasksToDoCount = data.Count;
             });
 
         ajax.get('/tasks/created?getCount=true', statusHandler)
             .then((data) => {
-                console.log('////////////////////');
-                console.log(data);
                 $scope.taskCreatedCount = data.Count;
                 tasksCreatedCount = data.Count;
             });

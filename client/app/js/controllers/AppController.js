@@ -11,7 +11,6 @@ app.controller('AppController', function ($scope, $location, notification, statu
 
             ajax.get('/search?text=' + search, statusHandler)
                 .then((data) => {
-                    console.log(data);
                     let ul = jQuery('<ul/>', {
                         class: 'list-group'
                     });

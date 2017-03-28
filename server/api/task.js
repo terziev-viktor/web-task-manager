@@ -84,7 +84,7 @@ module.exports = (db) => {
     // publishes a new task
     router.post('/', (req, res) => {
         let task = req.body;
-        if (!task.Title.length > 0 || !task.Title.length <= 40 || task.Title.includes('\n')) {
+        if (task.Title.length <= 0 || task.Title.length >= 41 || task.Title.includes('\n')) {
             res.status(403).json({
                 msg: 'Task title must be in range 1 - 40 and cannot include new lines',
                 errCode: 3

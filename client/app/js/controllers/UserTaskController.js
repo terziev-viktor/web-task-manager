@@ -12,23 +12,13 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
     $scope.editTitle = () => {
         let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),
             reqData = {};
-        ajax.post(reqUrl, reqData, statusHandler)
-            .then((data) => {
-                console.log(data);
-            }, (err) => {
-                console.log(err);
-            });
+        ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editDescription = () => {
         let reqUrl = '/task/' + taskId + '?desc=' + $('#inp-description').val(),
             reqData = {};
-        ajax.post(reqUrl, reqData, statusHandler)
-            .then((data) => {
-                console.log(data);
-            }, (err) => {
-                console.log(err);
-            });
+        ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editDeadline = () => {
@@ -36,12 +26,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         let deadlineISO = new Date(datetimePicker_d).toISOString(); // convert to ISO string
         let reqUrl = '/task/' + taskId + '?deadline=' + deadlineISO,
             reqData = {};
-        ajax.post(reqUrl, reqData, statusHandler)
-            .then((data) => {
-                console.log(data);
-            }, (err) => {
-                console.log(err);
-            });
+        ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editProgress = () => {
@@ -63,12 +48,7 @@ app.controller('UserTaskController', function ($scope, $routeParams, $location, 
         let reqUrl = '/task/' + taskId + '?priority=' + newPriority;
         let reqData = {};
 
-        ajax.post(reqUrl, reqData, statusHandler)
-            .then((data) => {
-                console.log(data);
-            }, (err) => {
-                console.log(err);
-            });
+        ajax.post(reqUrl, reqData, statusHandler);
     }
 
 

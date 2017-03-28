@@ -22,14 +22,11 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
         task.Priority = $('#inp-priority').val();
         task.Repeatability = $('input[name=optionsRadios]:checked', '#form-new-task').val();
 
-        if (task.Progress > 100 || task.Progress < 0) {
-            notification.warning('Task progress must be in range 0 to 100');
-            return;
-        }
         $(".overlay, .overlay-loading-animation").show();
         $('#div-inp-title').removeClass('has-error');
         $('#div-inp-description').removeClass('has-error');
         $('#div-inp-progress').removeClass('has-error');
+
         $.ajax({
             method: 'POST',
             url: '/task/',
@@ -54,7 +51,6 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
                     $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.error(xhr.responseJSON.msg);
-                    console.log(xhr.responseJSON);
                     switch (xhr.responseJSON.errCode) {
                         case 3:
                             {
@@ -65,7 +61,7 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
                         case 4:
                             {
                                 $('#div-inp-progress').addClass('has-error');
-                                $('#inp-progress').val('');
+                                $('#inp-progress').val(0);
                                 break;
                             }
                         case 5:

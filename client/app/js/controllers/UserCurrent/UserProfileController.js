@@ -20,7 +20,6 @@ app.controller('UserProfileController',
                 newpass: newpass,
                 confirm: confirmpass
             }
-            console.log(reqData);
             ajax.post('/user/newpass', reqData, statusHandler).then(() => {
                 $('btnsubmit').prop('disabled', false);
             }, () => {
