@@ -27,7 +27,9 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
             return;
         }
         $(".overlay, .overlay-loading-animation").show();
-
+        $('#div-inp-title').removeClass('has-error');
+        $('#div-inp-description').removeClass('has-error');
+        $('#div-inp-progress').removeClass('has-error');
         $.ajax({
             method: 'POST',
             url: '/task/',
@@ -48,10 +50,36 @@ app.controller('NewTaskController', function ($scope, $location, notification, s
                     $location.path('/');
                     $scope.$apply();
                 },
+                403: (xhr) => {
+                    $(".overlay, .overlay-loading-animation").hide();
+                    $('#btn-newtask').prop('disabled', false);
+                    notification.error(xhr.responseJSON.msg);
+                    console.log(xhr.responseJSON);
+                    switch (xhr.responseJSON.errCode) {
+                        case 3:
+                            {
+                                $('#div-inp-title').addClass('has-error');
+                                $('#inp-title').val('');
+                                break;
+                            }
+                        case 4:
+                            {
+                                $('#div-inp-progress').addClass('has-error');
+                                $('#inp-progress').val('');
+                                break;
+                            }
+                        case 5:
+                            {
+                                $('#div-inp-description').addClass('has-error');
+                                $('#inp-description').val('');
+                                break;
+                            }
+                    }
+                },
                 500: (xhr) => {
                     $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
-                    notification.error(xhr.responseJSON.err);
+                    notification.error(xhr.responseJSON.msg);
                 }
             }
         });

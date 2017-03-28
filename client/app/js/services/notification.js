@@ -18,7 +18,7 @@ app.service('notification', [function () {
             noty({
                 text: msg,
                 type: 'warning',
-                layout: 'center',
+                layout: 'topCenter',
                 timeout: 1000
             });
         },

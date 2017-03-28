@@ -8,7 +8,7 @@
                 <div class="custom-panel-heading">
                     <span>Title</span>
                 </div>
-                <div class="custom-panel-body">
+                <div class="custom-panel-body form-group" id="div-inp-title">
                     <input type="text" class="form-control" id="inp-title" placeholder="Title of the new task">
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="custom-panel-heading">
                     <span>Description</span>
                 </div>
-                <div class="custom-panel-body">
+                <div class="custom-panel-body form-group" id="div-inp-description">
                     <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
                 </div>
             </div>
@@ -24,12 +24,16 @@
                 <div class="custom-panel-heading">
                     <span>Deadline</span>
                 </div>
-                <div class="custom-panel-body">
+                <div class="form-group">
 
-                    <div style="overflow:hidden;">
-                        <div>
-                            <div id="datetimepicker12"></div>
+                    <div class="custom-panel-body">
+
+                        <div style="overflow:hidden;">
+                            <div>
+                                <div id="datetimepicker12"></div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -38,7 +42,7 @@
                 <div class="custom-panel-heading">
                     <span>Progress in % (Default: 0)</span>
                 </div>
-                <div class="custom-panel-body">
+                <div class="custom-panel-body form-group" id="div-inp-progress">
                     <input class="btn btn-default btn-block" type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
                 </div>
             </div>

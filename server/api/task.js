@@ -84,13 +84,20 @@ module.exports = (db) => {
     // publishes a new task
     router.post('/', (req, res) => {
         let task = req.body;
-        if (!task.Title.length > 0) {
-            res.status(500).json({
-                err: 'Please insert a title for the task.'
+        if (!task.Title.length > 0 || !task.Title.length <= 40 || task.Title.includes('\n')) {
+            res.status(403).json({
+                msg: 'Task title must be in range 1 - 40 and cannot include new lines',
+                errCode: 3
             });
         } else if (task.Progress > 100 || task.Progress < 0) {
             res.status(403).json({
-                err: 'Please insert progress in range 0 to 100'
+                msg: 'Please insert progress in range 0 to 100',
+                errCode: 4
+            });
+        } else if (task.Description.length > 5000) {
+            res.status(403).json({
+                msg: 'Description max length is 5000 characters',
+                errCode: 5
             });
         } else {
             task.Creator_Username = req.user.Username;
@@ -195,7 +202,7 @@ module.exports = (db) => {
                     task.newTitle = (req.query.title !== undefined) ? req.query.title : '';
                     task.newDesc = (req.query.desc !== undefined) ? req.query.desc : '';
                     task.newDeadline = '';
-                    if(req.query.deadline !== undefined)  {
+                    if (req.query.deadline !== undefined) {
                         task.newDeadline = req.query.deadline.replace('T', ' ').replace('Z', '');
                     }
                     task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';

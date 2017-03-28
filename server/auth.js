@@ -77,7 +77,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
         if (password !== confirm) {
             res.status(500).json({
                 msg: "Password and confirm password do not match.",
-                errCode: 0
+                errCode: 0 // errCode -> use to handle error in the right way
             });
             return;
         }
