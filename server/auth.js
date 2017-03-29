@@ -56,6 +56,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
     app.use(passport.session());
 
     app.post('/login', passport.authenticate('local'), (req, res) => {
+        console.log(req.user);
         res.status(200).json({
             username: req.user.Username,
             fullname: req.user.FullName

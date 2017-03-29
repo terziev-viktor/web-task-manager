@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Web Task Manager</title>
+
+    <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="frontpage/css/main.css" rel="stylesheet">
+
+    <script src="components/jquery/dist/jquery.js"></script>
+
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <script>
+        function login() {
+            $('#btn-login').prop('disabled', true);
+            $('#div-login-password').removeClass('has-error');
+            $('#div-login-password').removeClass('has-error');
+            let data = {
+                username: $('#inp-login-username').val().trim(),
+                password: $('#inp-login-password').val().trim()
+            }
+
+            if (data.username.length === 0) {
+                $('#div-login-username').addClass('has-error');
+                return;
+            }
+            if (data.password.length === 0) {
+                $('#div-login-password').addClass('has-error');
+                return;
+            }
+            // show loading screen animation
+            $(".overlay, .overlay-loading-animation").show();
+
+            $.ajax({
+                method: 'POST',
+                url: '/login',
+                data: data,
+                statusCode: {
+                    200: (xhr) => {
+                        sessionStorage['currentUser'] = xhr.username;
+                        sessionStorage['fullname'] = xhr.fullname;
+                        $(".overlay, .overlay-loading-animation").hide();
+                        $('#btn-login').prop('disabled', false);
+                        console.log('logged in');
+                        location.reload();
+                    },
+                    401: () => {
+                        $(".overlay, .overlay-loading-animation").hide();
+                        $('#inp-login-username').val('');
+                        $('#inp-login-password').val('');
+                        $('#btn-login').prop('disabled', false);
+                    },
+                    400: () => {
+                        $(".overlay, .overlay-loading-animation").hide();
+                        $('#inp-login-username').val('');
+                        $('#inp-login-password').val('');
+                        $('#btn-login').prop('disabled', false);
+                    }
+                }
+            });
+        }
+
+        //login();
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #111111">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Web Task Manager</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Header Carousel -->
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="fill" style="background-image:url('https://wallpaperscraft.com/image/connection_clot_smoke_form_47022_1920x1080.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>Based on Real World Business Relationships</h1>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('http://smallbizclub.com/wp-content/uploads/2016/06/Ways-to-Boost-Your-Business-with-Easy-Technology-1068x601.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>Multipurpose Application</h1>
+                </div>
+            </div>
+            <div class="item">
+                <div class="fill" style="background-image:url('http://1.bp.blogspot.com/-Y7UfigP_bl0/T5PnGLx7mrI/AAAAAAAAAKo/yu86m_3IWvc/s1600/FINAL.jpg');"></div>
+                <div class="carousel-caption">
+                    <h1>Easy to Integrate</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+    </header>
+    <style>
+        .carousel-caption {
+            left: 0px;
+            width: 100%;
+        }
+        
+        .carousel-caption>h1 {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Hello and welcome to the Web Task Manager! <small></small>
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><span class="glyphicon glyphicon-menu-right"></span>The Social Network of Your Institution</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Here you can connect with your colleagues, create and assign tasks to your employees, communicate
+                            with your managers and friends.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="glyphicon glyphicon-menu-right"></i>Free & Open Source</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><a href="/signup">Sign up</a> without being charged a penny! If you want to see how we've built the
+                            Web Task Manager, here is the <a href="">github repo</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="glyphicon glyphicon-menu-right"></i> Easy to Use</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Our web application solution is designed to be effective and yet extreamly simple to get used to.
+                            The users don't have to spend countless hours on learning a new tool.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <h1>Login to Your Account</h1><br>
+                    <form>
+                        <input type="text" name="user" placeholder="Username" id="inp-login-username">
+                        <input type="password" name="pass" placeholder="Password" id="inp-login-password">
+                        <input type="" name="" class="btn btn-primary" value="Login" onclick="login()">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <h1>Create a new account</h1><br>
+                    <form>
+                        <input type="text" name="user" placeholder="Username">
+                        <input type="text" name="user" placeholder="Full Name">
+                        <input type="password" name="pass" placeholder="Password">
+                        <input type="password" name="pass" placeholder="Confirm Password">
+                        <input type="submit" name="login" class="btn btn-primary" value="Sign Up">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">How does it work?</h2>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="page-header">Who are we?</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">Viktor Terziev</h3>
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">Georgi Petkov</h3>
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary">Github</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright GPLv2; the Web Task Manager 2017</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+                                                                                                   $('.carousel').carousel({
+                                                                                                       interval: 5000 //changes the speed
+                                                                                                   })
+    </script>
+
+</body>
+
+</html>

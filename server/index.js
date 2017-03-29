@@ -25,14 +25,19 @@ app.use('/fonts', express.static(path.join(pathToClientFolder, '/app/', '/fonts'
 app.use('/components', express.static(path.join(pathToClientFolder, '/bower_components')));
 app.use('/images', express.static(path.join(pathToClientFolder, '/app/' + '/img')));
 app.use('/favicon', express.static(path.join(pathToClientFolder, '/app/', '/img/' + '/icons' + '/favicon.ico')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
-});
+app.use('/frontpage', express.static(path.join(pathToClientFolder, '/frontpage')));
 
 // authentication and api modules
 require('./auth')(app, db, io);
 require('./api')(app, db);
+
+app.get('/', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
+    } else {
+        res.sendFile(path.join(pathToClientFolder, '/frontpage/', '/index.html'));
+    }
+});
 
 const port = 27017;
 module.exports = http.listen(port, () => {
