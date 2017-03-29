@@ -24,6 +24,7 @@ app.use('/templates', express.static(path.join(pathToClientFolder, '/app/', '/te
 app.use('/fonts', express.static(path.join(pathToClientFolder, '/app/', '/fonts')));
 app.use('/components', express.static(path.join(pathToClientFolder, '/bower_components')));
 app.use('/images', express.static(path.join(pathToClientFolder, '/app/' + '/img')));
+app.use('/favicon', express.static(path.join(pathToClientFolder, '/app/', '/img/' + '/icons' + '/favicon.ico')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
