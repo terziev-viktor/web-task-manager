@@ -70,13 +70,13 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
     });
 
     // registers new user
-    app.post('/signin', (req, res) => {
+    app.post('/sign_up', (req, res) => {
         let username = req.body.username;
         let fullname = req.body.fullname;
         let password = req.body.password;
         let confirm = req.body.confirm;
         if (password !== confirm) {
-            res.status(500).json({
+            res.status(403).json({
                 msg: "Password and confirm password do not match.",
                 errCode: 0 // errCode -> use to handle error in the right way
             });
@@ -84,7 +84,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
         }
 
         if (password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!#$%?\-\_+=&*@><]{8,}$/g) === null) {
-            res.status(500).json({
+            res.status(403).json({
                 msg: "Password must match minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character",
                 errCode: 1
             });
@@ -100,7 +100,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
             console.log(err)
             if (err) {
                 console.log('In error');
-                res.status(500).json({
+                res.status(403).json({
                     msg: "Username taken.",
                     errCode: 2
                 });
