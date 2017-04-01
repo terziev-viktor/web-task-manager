@@ -46,7 +46,7 @@ app.controller('AppController', function ($scope, $location, notification, statu
                 sessionStorage.removeItem('currentUser');
                 sessionStorage.removeItem('fullname');
                 $location.path('/');
-                $scope.$apply();
+                location.reload();
             });
     }
 });

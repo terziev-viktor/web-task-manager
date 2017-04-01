@@ -19,6 +19,8 @@
 
     <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <script src="components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+
 </head>
 
 <body>
@@ -27,21 +29,22 @@
             $('#btn-login').prop('disabled', true);
             $('#div-login-password').removeClass('has-error');
             $('#div-login-password').removeClass('has-error');
+            if (!$('#inp-login-username').val()) {
+                $('#div-login-username').addClass('has-error');
+                $('#btn-login').prop('disabled', false);
+                return;
+            }
+            if (!$('#inp-login-password').val()) {
+                $('#div-login-password').addClass('has-error');
+                $('#btn-login').prop('disabled', false);
+                return;
+            }
             let data = {
                 username: $('#inp-login-username').val().trim(),
                 password: $('#inp-login-password').val().trim()
             }
-
-            if (data.username.length === 0) {
-                $('#div-login-username').addClass('has-error');
-                return;
-            }
-            if (data.password.length === 0) {
-                $('#div-login-password').addClass('has-error');
-                return;
-            }
             // show loading screen animation
-            $(".overlay, .overlay-loading-animation").show();
+            $(".loading-animation").show();
 
             $.ajax({
                 method: 'POST',
@@ -51,19 +54,30 @@
                     200: (xhr) => {
                         sessionStorage['currentUser'] = xhr.username;
                         sessionStorage['fullname'] = xhr.fullname;
-                        $(".overlay, .overlay-loading-animation").hide();
+                        $(".loading-animation").hide();
                         $('#btn-login').prop('disabled', false);
-                        console.log('logged in');
                         location.reload();
                     },
                     401: () => {
-                        $(".overlay, .overlay-loading-animation").hide();
+                        noty({
+                            text: 'Login failed',
+                            type: 'error',
+                            layout: 'topCenter',
+                            timeout: 1000
+                        });
+                        $(".loading-animation").hide();
                         $('#inp-login-username').val('');
                         $('#inp-login-password').val('');
                         $('#btn-login').prop('disabled', false);
                     },
                     400: () => {
-                        $(".overlay, .overlay-loading-animation").hide();
+                        noty({
+                            text: 'Login failed',
+                            type: 'error',
+                            layout: 'topCenter',
+                            timeout: 1000
+                        });
+                        $(".loading-animation").hide();
                         $('#inp-login-username').val('');
                         $('#inp-login-password').val('');
                         $('#btn-login').prop('disabled', false);
@@ -73,6 +87,87 @@
         }
 
         //login();
+        function sign_up() {
+            // show loading animation
+            $(".loading-animation").show();
+            $('#btn-signup').prop('disabled', true);
+            $('#div-signup-username').removeClass('has-error');
+            $('#div-signup-password').removeClass('has-error');
+            $('#div-signup-confirm').removeClass('has-error');
+            $('#div-signup-fullname').removeClass('has-error');
+
+            if (!$('#inp-signup-username').val()) {
+                $('#div-signup-username').addClass('has-error');
+                $('#btn-signup').prop('disabled', false);
+                $(".loading-animation").hide();
+                return;
+            }
+            if (!$('#inp-signup-fullname').val()) {
+                $('#div-signup-fullname .info').addClass('has-error');
+                $('#btn-signup').prop('disabled', false);
+                $(".loading-animation").hide();
+                return;
+            }
+            if (!$('#inp-signup-password').val()) {
+                $('#div-signup-password').addClass('has-error');
+                $('#btn-signup').prop('disabled', false);
+                $(".loading-animation").hide();
+                return;
+            }
+            if (!$('#inp-signup-confirm').val()) {
+                $('#div-signup-confirm').addClass('has-error');
+                $('#btn-signup').prop('disabled', false);
+                $(".loading-animation").hide();
+                return;
+            }
+            let data = {
+                username: $('#inp-signup-username').val().trim(),
+                password: $('#inp-signup-password').val().trim(),
+                fullname: $('#inp-signup-fullname').val().trim(),
+                confirm: $('#inp-signup-confirm').val().trim()
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: '/sign_up',
+                data: data,
+                statusCode: {
+                    200: (xhr) => {
+                        noty({
+                            text: 'Sign up was successful. You can login to your account now :-)',
+                            type: 'success',
+                            layout: 'topCenter',
+                            timeout: 2000
+                        });
+                        $('#inp-signup-username').val('');
+                        $('#inp-signup-fullname').val('');
+                        $('#inp-signup-password').val('');
+                        $('#inp-signup-confirm').val('');
+                        $('#btn-signup').prop('disabled', false);
+                        // hide loading screen
+                        $(".loading-animation").hide();
+                    },
+                    403: (xhr) => {
+                        if (xhr.responseJSON.errCode == 0) {
+                            // pass and confirm mismatch
+                            $('#div-signup-password').addClass('has-error');
+                            $('#div-signup-confirm').addClass('has-error');
+                        } else if (xhr.responseJSON.errCode == 1) {
+                            // pass pattern not satisfied
+                            $('#div-signup-password').addClass('has-error');
+                        } else if (xhr.responseJSON.errCode == 2) {
+                            // username taken
+                            $('#div-signup-username').addClass('has-error');
+                            $('#inp-signup-password').val('');
+                        }
+                        $(".loading-animation").hide();
+                        $('#inp-signup-password').val('');
+                        $('#inp-signup-confirm').val('');
+                        $('#btn-signup').prop('disabled', false);
+                    }
+                }
+            });
+        }
     </script>
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #111111">
@@ -146,7 +241,7 @@
             left: 0px;
             width: 100%;
         }
-        
+
         .carousel-caption>h1 {
             background-color: rgba(0, 0, 0, 0.6);
         }
@@ -174,11 +269,11 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="glyphicon glyphicon-menu-right"></i>Free & Open Source</h4>
+                        <h4><i class="glyphicon glyphicon-menu-right"></i>Free &amp; Open Source</h4>
                     </div>
                     <div class="panel-body">
-                        <p><a href="/signup">Sign up</a> without being charged a penny! If you want to see how we've built the
-                            Web Task Manager, here is the <a href="">github repo</a>.</p>
+                        <p><a href="">Sign up</a> without being charged a penny! If you want to see how we've built the Web
+                            Task Manager, here is the <a target="_blank" href="https://github.com/terziev-viktor/web-task-manager">github repo</a>.</p>
                     </div>
                 </div>
             </div>
@@ -202,7 +297,10 @@
                     <form>
                         <input type="text" name="user" placeholder="Username" id="inp-login-username">
                         <input type="password" name="pass" placeholder="Password" id="inp-login-password">
-                        <input type="" name="" class="btn btn-primary" value="Login" onclick="login()">
+                        <input id="btn-login" type="button" name="loginbtn" class="btn btn-primary" value="Login" onclick="login()" title="Click to login.">
+                        <div style="height: 60px">
+                            <div class="loading-animation"></div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -212,11 +310,23 @@
                 <div class="loginmodal-container">
                     <h1>Create a new account</h1><br>
                     <form>
-                        <input type="text" name="user" placeholder="Username">
-                        <input type="text" name="user" placeholder="Full Name">
-                        <input type="password" name="pass" placeholder="Password">
-                        <input type="password" name="pass" placeholder="Confirm Password">
-                        <input type="submit" name="login" class="btn btn-primary" value="Sign Up">
+                        <div class="form-group" id="div-signup-username">
+                            <input class="form-control" tabindex="1" id="inp-signup-username" type="text" name="user" placeholder="Username">
+                        </div>
+                        <div class="form-group" id="div-signup-fullname">
+                            <input class="form-control" tabindex="2" id="inp-signup-fullname" type="text" name="user" placeholder="Full Name">
+                        </div>
+                        <div class="form-group" id="div-signup-password">
+                            <input class="form-control" tabindex="3" id="inp-signup-password" type="password" name="pass" placeholder="Password">
+                        </div>
+                        <div class="form-group" id="div-signup-confirm">
+                            <input class="form-control" tabindex="4" id="inp-signup-confirm" type="password" name="pass" placeholder="Confirm Password">
+                        </div>
+                        <input id="btn-signup" type="button" tabindex="5" name="login" class="btn btn-primary" value="Sign Up" onclick="sign_up()"
+                            title="Click to sign up.">
+                        <div style="height: 60px">
+                            <div class="loading-animation"></div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -237,7 +347,7 @@
                             <div class="card-block">
                                 <h3 class="card-title">Viktor Terziev</h3>
                                 <p class="card-text"></p>
-                                <a href="#" class="btn btn-primary">Github</a>
+                                <a target="_blank" href="https://github.com/terziev-viktor" class="btn btn-primary">Github</a>
                             </div>
                         </div>
                     </div>
@@ -246,7 +356,7 @@
                             <div class="card-block">
                                 <h3 class="card-title">Georgi Petkov</h3>
                                 <p class="card-text"></p>
-                                <a href="#" class="btn btn-primary">Github</a>
+                                <a target="_blank" href="https://github.com/petkofff" class="btn btn-primary">Github</a>
                             </div>
                         </div>
                     </div>
@@ -272,9 +382,9 @@
 
     <!-- Script to Activate the Carousel -->
     <script>
-                                                                                                   $('.carousel').carousel({
-                                                                                                       interval: 5000 //changes the speed
-                                                                                                   })
+        $('.carousel').carousel({
+            interval: 5000 //changes the speed
+        })
     </script>
 
 </body>

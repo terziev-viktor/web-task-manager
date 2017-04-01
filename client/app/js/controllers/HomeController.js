@@ -57,61 +57,6 @@ app.controller('HomeController', function ($scope, $location, notification) {
 
     // signup a new user
     $scope.signup = function () {
-        $('#btn-signup').prop('disabled', true);
-        $('#div-signin-username').removeClass('has-error');
-        $('#div-signin-password').removeClass('has-error');
-        $('#div-signin-confirm').removeClass('has-error');
-        $('#div.signin-fullname').removeClass('has-error');
-        let data = {
-            username: $('#inp-signin-username').val().trim(),
-            password: $('#inp-signin-password').val().trim(),
-            fullname: $('#inp-signin-fullname').val().trim(),
-            confirm: $('#inp-signin-confirm').val().trim()
-        }
-        if (data.fullname.length === 0) {
-            $('#div-signin-fullname').addClass('has-error');
-            $('#btn-signup').prop('disabled', false);
-            return;
-        }
-
-        // show loading screen
-        $(".overlay, .overlay-loading-animation").show();
-
-        $.ajax({
-            method: 'POST',
-            url: '/signin',
-            data: data,
-            statusCode: {
-                200: (xhr) => {
-                    notification.success('Signup successful. You can login now.');
-                    $('#inp-signin-username').val('');
-                    $('#inp-signin-fullname').val('');
-                    $('#inp-signin-password').val('');
-                    $('#inp-signin-confirm').val('');
-                    $('#btn-signup').prop('disabled', false);
-                    // hide loading screen
-                    $(".overlay, .overlay-loading-animation").hide();
-                },
-                500: (xhr) => {
-                    notification.error(xhr.responseJSON.msg);
-                    if (xhr.responseJSON.errCode == 0) {
-                        // pass and confirm mismatch
-                        $('#div-signin-password').addClass('has-error');
-                        $('#div-signin-confirm').addClass('has-error');
-                    } else if (xhr.responseJSON.errCode == 1) {
-                        // pass pattern not satisfied
-                        $('#div-signin-password').addClass('has-error');
-                    } else if (xhr.responseJSON.errCode == 2) {
-                        // username taken
-                        $('#div-signin-username').addClass('has-error');
-                        $('#inp-signin-password').val('');
-                    }
-
-                    $('#inp-signin-password').val('');
-                    $('#inp-signin-confirm').val('');
-                    $('#btn-signup').prop('disabled', false);
-                }
-            }
-        })
+        // on front page
     }
 });
