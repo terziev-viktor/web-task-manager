@@ -1,4 +1,4 @@
-app.controller('UserProfileController',
+app.controller('HomeCtrl',
     function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");

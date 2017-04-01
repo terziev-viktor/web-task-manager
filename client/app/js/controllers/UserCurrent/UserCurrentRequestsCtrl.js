@@ -1,4 +1,4 @@
-app.controller('UserCurrentRequestsController',
+app.controller('UserCurrentRequestsCtrl',
     function ($scope, statusCodeHandler, ajax, navbarHandler, $location) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");

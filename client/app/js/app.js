@@ -17,52 +17,46 @@ app.constant('loadingHtml', '<button class="btn btn-default btn-lg"><i class="fa
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');
 
-    // Home page: Login and signup
+    // current user's profle
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
-        controller: 'HomeController'
-    });
-
-    // current user's profle
-    $routeProvider.when('/user', {
-        templateUrl: 'templates/UserProfile.html',
-        controller: 'UserProfileController'
+        controller: 'HomeCtrl'
     });
 
     // current user's tasks
-    $routeProvider.when('/user/current/tasks', {
+    $routeProvider.when('/tasks', {
         templateUrl: 'templates/userCurrentTasks.html',
-        controller: 'UserCurrentTasksController'
+        controller: 'UserCurrentTasksCtrl'
     });
 
     // current user's community
-    $routeProvider.when('/user/current/community', {
+    $routeProvider.when('/community', {
         templateUrl: 'templates/userCurrentCommunity.html',
-        controller: 'UserCurrentCommunityController'
+        controller: 'UserCurrentCommunityCtrl'
     });
 
     // current user's requests
-    $routeProvider.when('/user/current/requests', {
+    $routeProvider.when('/requests', {
         templateUrl: 'templates/userCurrentRequests.html',
-        controller: 'UserCurrentRequestsController'
+        controller: 'UserCurrentRequestsCtrl'
     });
 
     // current user creating a new task
     $routeProvider.when('/newTask', {
         templateUrl: '/templates/newTask.html',
-        controller: 'NewTaskController'
+        controller: 'NewTaskCtrl'
     });
 
     // guest at user's profile
     $routeProvider.when('/user/:username', {
         templateUrl: '/templates/userCommunity.html',
-        controller: 'UserCommunityController'
+        controller: 'UserCommunityCtrl'
     });
 
     // user's created task
-    $routeProvider.when('/user/task/:taskId', {
-        templateUrl: '/templates/userTask.html',
-        controller: 'UserTaskController'
+    $routeProvider.when('/task/:taskId', {
+        templateUrl: '/templates/task.html',
+        controller: 'TaskCtrl'
     });
 
     // error page. TODO: Implement

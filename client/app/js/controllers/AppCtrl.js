@@ -1,4 +1,4 @@
-app.controller('AppController', function ($scope, $location, notification, statusCodeHandler, ajax, socket, loadingHtml) {
+app.controller('AppCtrl', function ($scope, $location, notification, statusCodeHandler, ajax, socket, loadingHtml) {
     let statusHandler = statusCodeHandler($scope);
     
     // displaying filtered users on the modal

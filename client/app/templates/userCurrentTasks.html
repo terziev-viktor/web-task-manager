@@ -85,9 +85,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="task in tasksCreated.data" class="fixed-row-height">
-                            <td><a class="priority-{{task.Priority}}" href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                            <td><a class="priority-{{task.Priority}}" href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                            <td><a href="#/user/task/{{task.TaskId}}" class="priority-{{task.Priority}}">{{task.DeadlineFormatted}}</a></td>
+                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/task/{{task.TaskId}}" class="priority-{{task.Priority}}">{{task.DeadlineFormatted}}</a></td>
                             <td>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="{{task.Progress}}" aria-valuemin="0"

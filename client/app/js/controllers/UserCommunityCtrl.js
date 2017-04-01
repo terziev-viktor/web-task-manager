@@ -1,4 +1,4 @@
-app.controller('UserCommunityController', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData) {
+app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, statusCodeHandler, authorization, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,

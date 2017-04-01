@@ -1,4 +1,4 @@
-app.controller('UserTaskController', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
+app.controller('TaskCtrl', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope),
         clientDate = new Date();

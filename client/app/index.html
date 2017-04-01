@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="AppController">
+<html ng-app="app" ng-controller="AppCtrl">
 
 <head>
     <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css" />
@@ -53,11 +53,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="sidebar-option"><a href="#/user/current/tasks">Tasks<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a></li>
+                    <li class="sidebar-option"><a href="#/tasks">Tasks<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-list-alt"></span></a></li>
                     <li class="sidebar-option"><a href="#/newTask">New Task<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>
-                    <li class="sidebar-option"><a href="#/user/current/community">Community<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tree-deciduous"></span></a></li>
-                    <li class="sidebar-option"><a href="#/user/current/requests">Requests<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
-                    <li class="sidebar-option"><a href="#/user">Profile<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-user"></span></a></li>
+                    <li class="sidebar-option"><a href="#/community">Community<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tree-deciduous"></span></a></li>
+                    <li class="sidebar-option"><a href="#/requests">Requests<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
+                    <li class="sidebar-option"><a href="#/">Profile<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-user"></span></a></li>
                     <li class="sidebar-option" ng-click="logout()"><a href="">Logout<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-log-out"></span></a></li>
                     <!-- if we need a dropdown in the future -->
                     <!--<li class="dropdown">
@@ -121,15 +121,14 @@
     <script src="/scripts/services/retrievingData/user.js"></script>
     <script src="/scripts/services/navbarHandler.js"></script>
     <!--load controllers-->
-    <script src="/scripts/controllers/AppController.js"></script>
-    <script src="/scripts/controllers/HomeController.js"></script>
-    <script src="/scripts/controllers/NewTaskController.js"></script>
-    <script src="/scripts/controllers/UserCommunityController.js"></script>
-    <script src="/scripts/controllers/UserTaskController.js"></script>
-    <script src="/scripts/controllers/UserCurrent/UserProfileController.js"></script>
-    <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityController.js"></script>
-    <script src="/scripts/controllers/UserCurrent/UserCurrentTasksController.js"></script>
-    <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsController.js"></script>
+    <script src="/scripts/controllers/AppCtrl.js"></script>
+    <script src="/scripts/controllers/NewTaskCtrl.js"></script>
+    <script src="/scripts/controllers/UserCommunityCtrl.js"></script>
+    <script src="/scripts/controllers/TaskCtrl.js"></script>
+    <script src="/scripts/controllers/UserCurrent/HomeCtrl.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentCommunityCtrl.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentTasksCtrl.js"></script>
+    <script src="/scripts/controllers/UserCurrent/UserCurrentRequestsCtrl.js"></script>
 </body>
 
 </html>
