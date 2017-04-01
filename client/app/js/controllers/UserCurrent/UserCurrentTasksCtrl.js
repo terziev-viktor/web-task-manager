@@ -18,7 +18,7 @@ app.controller('UserCurrentTasksCtrl',
         };
 
         $scope.showContentPanel = (el) => {
-            $('#modal-content').html(loadingHtml);
+            $('#modal-content').html(loadingHtml); // loading animation
             $('#modal-title').html('Loading');
             let task = el.task;
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
@@ -54,12 +54,8 @@ app.controller('UserCurrentTasksCtrl',
                         element.priorityMed = element.Priority == 1;
                         element.priorityHigh = element.Priority == 2;
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                        if (element.Description.length >= MaxDescLength) {
-                            element.Description = element.Description.substring(0, MaxDescLength) + '...';
-                        }
-                        if (element.Title.length > MaxTitleLength) {
-                            element.Title = element.Title.substring(0, MaxTitleLength) + '...';
-                        }
+                        element.DescriptionSliced = element.Description.substring(0, MaxDescLength) + '...';
+                        element.TitleSliced = element.Title.substring(0, MaxTitleLength) + '...';
                     }, this);
                     let d = data.tasks.length > 0 ? 'all' : 'none';
                     $scope.tasksTodo = {
@@ -85,12 +81,8 @@ app.controller('UserCurrentTasksCtrl',
                 .then((data) => {
                     data.tasks.forEach(function (element) {
                         element.DeadlineFormatted = new Date(element.Deadline).toLocaleString();
-                        if (element.Description.length > MaxDescLength) {
-                            element.Description = element.Description.substring(0, MaxDescLength) + '...';
-                        }
-                        if (element.Title.length > MaxTitleLength) {
-                            element.Title = element.Title.substring(0, MaxTitleLength) + '...';
-                        }
+                        element.DescriptionSliced = element.Description.substring(0, MaxDescLength) + '...';
+                        element.TitleSliced = element.Title.substring(0, MaxTitleLength) + '...';
                     }, this);
                     let d = data.tasks.length > 0 ? 'all' : 'none';
 

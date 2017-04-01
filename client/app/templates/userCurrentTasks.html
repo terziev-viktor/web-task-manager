@@ -28,8 +28,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="task in tasksTodo.data" ng-click="showContentPanel(this)" data-toggle="modal" data-target="#myModal" class="priority-{{task.Priority}} fixed-row-height">
-                            <td>{{task.Title}}</td>
-                            <td>{{task.Description}}</td>
+                            <td>{{task.TitleSliced}}</td>
+                            <td>{{task.DescriptionSliced}}</td>
                             <td>{{task.DeadlineFormatted}}</td>
                             <td>
                                 <div class="progress">
@@ -85,8 +85,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="task in tasksCreated.data" class="fixed-row-height">
-                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.TitleSliced}}</a></td>
+                            <td><a class="priority-{{task.Priority}}" href="#/task/{{task.TaskId}}">{{task.DescriptionSliced}}</a></td>
                             <td><a href="#/task/{{task.TaskId}}" class="priority-{{task.Priority}}">{{task.DeadlineFormatted}}</a></td>
                             <td>
                                 <div class="progress">
