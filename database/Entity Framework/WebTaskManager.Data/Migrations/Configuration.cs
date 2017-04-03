@@ -9,7 +9,7 @@ namespace WebTaskManager.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(WebTaskManager.Data.WebTaskManagerDb context)

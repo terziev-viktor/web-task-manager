@@ -19,11 +19,11 @@ namespace WebTaskManager.Models
 
         public string Description { get; set; }
 
-        [Required]
-        public DateTime Deadline { get; set; }
-
-        [Required]
+        public DateTime? Deadline { get; set; }
+        
         public bool IsDone { get; set; }
+
+        public bool IsArchived { get; set; }
 
         public TaskPriority  Priority { get; set; }
         

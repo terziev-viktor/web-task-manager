@@ -5,12 +5,6 @@ namespace WebTaskManager.Data
 
     public class WebTaskManagerDb : DbContext
     {
-        // Your context has been configured to use a 'WebTaskManagerDb' connection string from your application's 
-        // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'WebTaskManager.Data.WebTaskManagerDb' database on your LocalDb instance. 
-        // 
-        // If you wish to target a different database and/or database provider, modify the 'WebTaskManagerDb' 
-        // connection string in the application configuration file.
         public WebTaskManagerDb()
             : base("name=WebTaskManagerDb")
         {
@@ -21,6 +15,8 @@ namespace WebTaskManager.Data
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<Comment> Comments { get; set; }
+
+        public virtual DbSet<Login> Logins { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -90,10 +86,4 @@ namespace WebTaskManager.Data
                 
         }
     }
-
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
