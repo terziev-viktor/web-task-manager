@@ -223,6 +223,21 @@ module.exports = class Database {
                 this.request("SELECT * FROM FilterTasksCreated(N'" + username + "', N'" + filter + "')", cb);                   
             }
         }
+
+        this.logins = {
+            find: (cookieId, cb) => {
+                this.request("SELECT * FROM Logins WHERE CookieId=N'" + cookieId + "'", cb);
+            },
+            delete: (cookieId, cb) => {
+                this.request("DELETE Logins WHERE CookieId=N'" + cookieId + "'", cb);
+            },
+            insert: (cookieId, username, fullname, cb) => {
+                this.request("INSERT Logins([CookieId], [Username], [FullName] VALUES(N'" + cookieId + "', N'" + username + "', N'" + fullname + "'", cb);
+            },
+            update: (oldCookieId, newCookieId, cb) => {
+                this.request("UPDATE Logins SET CookieId=N'" + newCookieId + "' WHERE CookieId=N'" + oldCookieId + "'", cb);
+            }
+        }
     }
 
     // executes queries in the database, passes results to callback

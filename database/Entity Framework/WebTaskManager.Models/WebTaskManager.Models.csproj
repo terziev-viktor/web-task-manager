@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comment.cs" />
+    <Compile Include="Login.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Enums\TaskRepeatability.cs" />
     <Compile Include="Task.cs" />
