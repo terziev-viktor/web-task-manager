@@ -1,14 +1,5 @@
-module.exports = (app, db) => {
-
-    // authentication middleware function
-    const auth = (req, res, next) => {
-        if (!req.isAuthenticated()) {
-            res.sendStatus(401);
-        } else {
-            next();
-        }
-    }
-
+module.exports = (app, db, auth) => {
+    
     // api routes
     app.use('/task', auth);
     app.use('/task', require('./api/task')(db));

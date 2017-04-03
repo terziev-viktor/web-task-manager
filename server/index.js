@@ -15,21 +15,25 @@ const Database = require('./database.js');
 // database abstraction object
 const db = new Database(dbConfig);
 
+// authentication module
+require('./auth')(app, db, io);
+
+// authentication middleware function
+const auth = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        res.sendStatus(401);
+    } else {
+        next();
+    }
+}
+
+// api modules
+require('./api')(app, db, auth);
+
 const pathToClientFolder = path.join(__dirname, '/../', '/client/');
 
-// initialize static paths
-app.use('/scripts', express.static(path.join(pathToClientFolder, '/app/', '/js')));
-app.use('/styles', express.static(path.join(pathToClientFolder, '/app/', '/css')));
-app.use('/templates', express.static(path.join(pathToClientFolder, '/app/', '/templates')));
-app.use('/fonts', express.static(path.join(pathToClientFolder, '/app/', '/fonts')));
-app.use('/components', express.static(path.join(pathToClientFolder, '/bower_components')));
-app.use('/images', express.static(path.join(pathToClientFolder, '/app/' + '/img')));
-app.use('/favicon', express.static(path.join(pathToClientFolder, '/app/', '/img/' + '/icons' + '/favicon.ico')));
-app.use('/frontpage', express.static(path.join(pathToClientFolder, '/frontpage')));
-
-// authentication and api modules
-require('./auth')(app, db, io);
-require('./api')(app, db);
+//static paths
+require('./static-paths')(express, app, auth, pathToClientFolder);
 
 app.get('/', (req, res) => {
     if (req.isAuthenticated()) {
