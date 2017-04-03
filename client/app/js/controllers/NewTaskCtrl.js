@@ -21,6 +21,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
         task.IsDone = task.Progress == 100 ? 1 : 0;
         task.Priority = $('#inp-priority').val();
         task.Repeatability = $('input[name=optionsRadios]:checked', '#form-new-task').val();
+        task.IsArchived = false;
 
         $(".overlay, .overlay-loading-animation").show();
         $('#div-inp-title').removeClass('has-error');

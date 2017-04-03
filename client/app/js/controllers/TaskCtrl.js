@@ -54,21 +54,24 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
 
     // post a comment and add a div element with the content to comment list
     $scope.postComment = () => {
-        let content = $('#comment-area').val();
+        let content = $('#comment-area').val(),
+        publishDate = new Date();
         if (content.length == 0) {
             return;
         } else {
             let reqData = {
-                content: content
+                content: content,
+                date: publishDate.toISOString()
             };
-
+            
             ajax.post('/task/' + taskId + '/comments', reqData, statusHandler)
                 .then((data) => {
                     notification.success('Comment posted');
                     let appendComment = (tmpl) => {
                         let rendered = Mustache.render(tmpl, {
                             User: authorization.getUser(),
-                            Content: content
+                            Content: content,
+                            PublishDate: publishDate.toLocaleDateString()
                         });
                         $('#comment-area').val('');
                         $('#comment-publication-panel').after(rendered);
@@ -133,6 +136,9 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
 
     ajax.get('/task/' + taskId + '/comments', statusHandler)
         .then((data) => {
+            data.forEach((el) => {
+                el.DateFormatted = new Date(el.Date).toLocaleDateString();
+            }, this);
             $scope._comments = data;
         }, (err) => {
             console.log(err);

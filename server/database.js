@@ -35,10 +35,10 @@ module.exports = class Database {
             task: (task, cb) => {
                 this.request("EXEC InsertTask @Title = N'" + task.Title + "', @Description = N'" + task.Description + "', @Deadline = '" + task.Deadline + "', @IsDone='" +
                     task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username = N'" +
-                    task.Creator_Username + "';", cb);
+                    task.Creator_Username + "', @IsArchived='" + task.IsArchived + "';", cb);
             },
-            comment: (content, author_username, taskId, cb) => {
-                this.request("EXEC InsertComment @Content = N'" + content + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
+            comment: (content, commentDate, author_username, taskId, cb) => {
+                this.request("EXEC InsertComment @Content = N'" + content + "', @Date='" + commentDate + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
             },
             managerRequest: (user_sent, user_recieved, cb) => {
                 this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
@@ -193,8 +193,7 @@ module.exports = class Database {
                     "', N'" + task.newTitle + "', N'" + task.newDesc +
                     "', '" + task.newDeadline +
                     "', '" + task.newPriority + "', '" + task.newProgress +
-                    "', '" + task.newRepeatability + "';";
-                console.log(query);
+                    "', '" + task.newRepeatability + "', '" + task.IsArchived + "';";
                 this.request(query, cb);
             },
             taskProgress: (id, newProgress, cb) => {

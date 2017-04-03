@@ -12,7 +12,8 @@ CREATE PROCEDURE InsertTask
 	@Priority INT,
 	@Progress INT,
 	@Repeatability INT,
-	@Creator_Username NVARCHAR(128)
+	@Creator_Username NVARCHAR(128),
+	@IsArchived BIT
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -20,8 +21,8 @@ BEGIN
 	DECLARE @EUDeadline DATETIME;
 	SET @EUDeadline = CONVERT(Datetime, @Deadline, 105);
 
-	INSERT INTO Tasks ([Title], [Description], [Deadline], [IsDone], [Priority],[Progress],[Repeatability],[Creator_Username])
+	INSERT INTO Tasks ([Title], [Description], [Deadline], [IsDone], [Priority],[Progress],[Repeatability],[Creator_Username], [IsArchived])
 	OUTPUT Ident_Current('Tasks') AS TaskId
-	VALUES (@Title, @Description, @EUDeadline, @IsDone, @Priority, @Progress, @Repeatability, @Creator_Username);
+	VALUES (@Title, @Description, @EUDeadline, @IsDone, @Priority, @Progress, @Repeatability, @Creator_Username, @IsArchived);
 END
 GO

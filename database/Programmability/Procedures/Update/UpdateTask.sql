@@ -11,7 +11,8 @@ CREATE PROCEDURE UpdateTask
 	@Deadline DATETIME,
 	@Priority INT,
 	@Progress INT,
-	@Repeatability INT
+	@Repeatability INT,
+	@IsArchived BIT
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -67,6 +68,13 @@ BEGIN
 	BEGIN
 		UPDATE Tasks
 		SET Repeatability = @Repeatability
+		WHERE TaskId = @TaskId
+	END
+
+	IF (@IsArchived <> '')
+	BEGIN
+		UPDATE Tasks
+		SET IsArchived = @IsArchived
 		WHERE TaskId = @TaskId
 	END
 END

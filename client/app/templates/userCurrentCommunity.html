@@ -74,12 +74,12 @@
                         <div class="pull-right">
                             <button style="border:none" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
                                 title="Options"><span class="glyphicon glyphicon-cog"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-click="removeManager(manager.Username, $event)">
-                                    <a><span>Remove from managers  </span><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                            <ul class="dropdown-menu list-group" role="menu">
+                                <li ng-click="removeManager(manager.Username, $event)" class="list-group-item">
+                                    <a>Remove from managers    <span class="glyphicon glyphicon-remove pull-right"></span></a>
                                 </li>
-                                <li ng-click="removeColleague(manager.Username, $event)">
-                                    <a><span>Remove from colleagues   </span><span class="glyphicon glyphicon-remove pull-right" ></span></a>
+                                <li ng-click="removeColleague(manager.Username, $event)" class="list-group-item">
+                                    <a>Remove from colleagues  <span class="glyphicon glyphicon-remove pull-right"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -119,12 +119,12 @@
                         <div class="pull-right">
                             <button style="border:none" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
                                 title="Options"><span class="glyphicon glyphicon-cog"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li ng-click="removeEmployee(employee.Username, $event)">
-                                    <a><span>Remove from employees  </span><span class="glyphicon glyphicon-remove pull-right"></span></a>
+                            <ul class="dropdown-menu" role="menu" class="list-group">
+                                <li ng-click="removeEmployee(employee.Username, $event)" class="list-group-item">
+                                    <a>Remove from employees  <span class="glyphicon glyphicon-remove pull-right"></span></a>
                                 </li>
-                                <li ng-click="removeColleague(employee.Username, $event)">
-                                    <a><span>Remove from colleagues  </span><span class="glyphicon glyphicon-remove pull-right" ></span></a>
+                                <li ng-click="removeColleague(employee.Username, $event)" class="list-group-item">
+                                    <a>Remove from colleagues <span class="glyphicon glyphicon-remove pull-right" ></span></a>
                                 </li>
                             </ul>
                         </div>

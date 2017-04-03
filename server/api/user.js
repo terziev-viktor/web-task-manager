@@ -63,16 +63,16 @@ module.exports = (db) => {
 
     // current user becomes employee of user from req.body
     router.post('/employee', (req, res) => {
-        if (req.query.remove !== undefined) {
-            db.remove.userEmployee(req.user.Username, req.query.remove, (err, recordset) => {
+        if (req.query.remove === true) {
+            db.remove.userEmployee(req.user.Username, req.body.Username, (err, recordset) => {
                 if (err) {
                     console.log(err);
                     res.status(500).json({
-                        msg: 'Could not remove ' + req.query.remove + ' from employees'
+                        msg: 'Could not remove ' + req.body.Username + ' from employees'
                     });
                 } else {
                     res.status(200).json({
-                        msg: req.query.remove + ' removed from employees'
+                        msg: req.body.Username + ' removed from employees'
                     });
                 }
             });
@@ -94,7 +94,7 @@ module.exports = (db) => {
 
     // current user becomes manager of user from req.body OR removing manager
     router.post('/manager', (req, res) => {
-        if (req.query.remove === true) {
+        if (req.query.remove !== undefined) {
             let managerToRemove = req.body.Username;
             db.remove.userManager(req.user.Username, managerToRemove, (err, recordset) => {
                 if (err) {

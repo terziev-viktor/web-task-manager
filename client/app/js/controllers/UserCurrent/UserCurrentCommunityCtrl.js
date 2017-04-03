@@ -108,10 +108,7 @@ app.controller('UserCurrentCommunityCtrl',
             let reqData = {
                 Username: username
             };
-            ajax.post('user/req/manager', reqData, statusHandler)
-                .then(() => {
-                    console.log('post -> user/req/manager success');
-                });
+            ajax.post('user/req/manager', reqData, statusHandler);
         }
 
         $scope.reqEmployee = (username) => {
@@ -119,38 +116,25 @@ app.controller('UserCurrentCommunityCtrl',
             let reqData = {
                 Username: username
             };
-            ajax.post('user/req/employee', reqData, statusHandler)
-                .then(() => {
-                    console.log('request sent');
-                });
+            ajax.post('user/req/employee', reqData, statusHandler);
         }
 
         $scope.removeEmployeeRequest = (username) => {
             let reqBody = {
                 remove: username
             }
-            ajax.post('/user/req/employee', reqBody, statusHandler)
-                .then(() => {
-                    // TODO: Should we use an empty function here ?
-                }, (err) => {
-                    console.log(err);
-                });
+            ajax.post('/user/req/employee', reqBody, statusHandler);
         }
 
         $scope.removeManagerRequest = (username) => {
             let reqBody = {
                 remove: username
             }
-            ajax.post('/user/req/manager', reqBody, statusHandler)
-                .then(() => {
-                    // TODO: Should we use an empty function here ?
-                }, (err) => {
-                    console.log(err);
-                });
+            ajax.post('/user/req/manager', reqBody, statusHandler);
         }
 
         $scope.removeManager = (username, $event) => {
-            ajax.post('/user/manager?remove=' + username, {
+            ajax.post('/user/manager?remove=true', {
                     Username: username
                 }, statusHandler)
                 .then((data) => {
@@ -162,7 +146,7 @@ app.controller('UserCurrentCommunityCtrl',
             let reqdata = {
                 Username: username
             };
-            ajax.post('/user/employee?remove=' + username, reqdata, statusHandler)
+            ajax.post('/user/employee?remove=true', reqdata, statusHandler)
                 .then(() => {
                     $($event.currentTarget).hide(200);
                 });

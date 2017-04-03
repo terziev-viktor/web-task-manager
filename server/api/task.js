@@ -20,8 +20,10 @@ module.exports = (db) => {
 
     // posts new comment to a given task
     router.post('/:taskId/comments', (req, res) => {
+        let commentDate = req.body.date.replace('T', ' ');
+        commentDate = commentDate.replace('Z', '');
 
-        db.insert.comment(req.body.content, req.user.Username, req.params.taskId, (err) => {
+        db.insert.comment(req.body.content, commentDate, req.user.Username, req.params.taskId, (err) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -121,7 +123,7 @@ module.exports = (db) => {
 
     });
 
-    // assignes user to task
+    // assigns user to task
     router.post('/assign_user', (req, res) => {
         const assignTo = req.body.assignTo,
             taskId = req.body.taskId;
@@ -208,6 +210,7 @@ module.exports = (db) => {
                     task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
                     task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
                     task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';
+                    task.IsArchived = (req.query.isArchived !== undefined) ? req.query.isArchived: '';
                     db.update.task(id, task, (err, result) => {
                         if (err) {
                             console.log(err);

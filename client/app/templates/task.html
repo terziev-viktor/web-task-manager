@@ -91,6 +91,7 @@
             <div class="panel panel-default" ng-repeat="_comment in _comments">
                 <div class="panel-heading">
                     <span>{{_comment.Author_Username}}</span>
+                    <span class="pull-right">{{_comment.DateFormatted}}</span>
                 </div>
                 <div class="panel-body">
                     <p>{{_comment.Content}}</p>

@@ -8,14 +8,15 @@ GO
 
 CREATE PROCEDURE InsertComment
 	@Content NVARCHAR(MAX),
+	@Date DATETIME,
 	@Author_Username NVARCHAR(128),
 	@Task_TaskId INT
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO Comments([Content], [Author_Username], [Task_TaskId])
-	VALUES (@Content, @Author_Username, @Task_TaskId)
+	INSERT INTO Comments([Content], [Date], [Author_Username], [Task_TaskId])
+	VALUES (@Content, @Date, @Author_Username, @Task_TaskId)
 
 END
 GO
