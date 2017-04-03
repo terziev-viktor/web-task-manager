@@ -26,8 +26,7 @@ INSERT [dbo].[Tasks] ([Title], [Description], [Deadline], [IsDone], [Priority], 
 VALUES ('Clean', 'Some Shit in the toilet',  '01-Feb-17 9:00:00 AM', 1, 0, 1, 2, 'Pesho', 0), 
 		('Do', 'Some Work',  '01-Feb-17 3:00:00 AM', 1, 0, 1, 2, 'Pesho', 0), 
 		('Clean', 'Some Shit in the toilet',  '01-Feb-17 9:00:00 AM', 1, 0, 1, 2, 'Pesho', 0), 
-		('Slay', 'A Dragon',  '01-Feb-17 9:00:00 AM', 0, 1, 1, 2, 'Pesho', 0),
-		('Go', 'To the church', '11-Mar-17 12:00:00 AM', 'False', '0', '20', '2', 'Yordan', 0);
+		('Slay', 'A Dragon',  '01-Feb-17 9:00:00 AM', 0, 1, 1, 2, 'Pesho', 0)
 
 INSERT [dbo].[Comments]([Date], [Content], [Author_Username], [Task_TaskId])
 VALUES ('25-Jan-17 4:54:48 PM', 'Very nice task', 'MITKO', '6')
