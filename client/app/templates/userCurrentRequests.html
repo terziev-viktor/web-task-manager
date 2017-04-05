@@ -9,8 +9,8 @@
                 <li class="list-group-item" ng-repeat="colleagueReq in colleagueReqs">
                     <span>{{colleagueReq.FullName}} <small>({{colleagueReq.Username}})</small></span>
                     <div class="input-group-btn">                       
-                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.Username, $event)">
-                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqColleague(colleagueReq.Username, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqColleague(colleagueReq.Username, $event, this)">
+                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqColleague(colleagueReq.Username, $event, this)">
                     </div>
                 </li>
             </ul>
@@ -28,8 +28,8 @@
                 <li class="list-group-item" ng-repeat="employeeReq in employeesReq">
                     <span>{{employeeReq.FullName}} <small>({{employeeReq.User_Sent}})</small></span>
                     <div class="input-group-btn">   
-                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event)">
-                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqEmployee(employeeReq.User_Sent, $event)">
+                    <input type="button" class="btn btn-default btn-xs" value="Accept" ng-click="acceptReqEmployee(employeeReq.User_Sent, $event, this)">
+                    <input type="button" class="btn btn-default btn-xs" value="Decline" ng-click="declineReqEmployee(employeeReq.User_Sent, $event, this)">
                     </div>                    
                 </li>
             </ul>

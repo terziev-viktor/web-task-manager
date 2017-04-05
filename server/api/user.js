@@ -116,7 +116,9 @@ module.exports = (db) => {
                         msg: 'Could not insert manager'
                     });
                 } else {
-                    res.status(200).json('User ' + req.body.Username + ' added to managers.');
+                    res.status(200).json({
+                        msg: 'User ' + req.body.Username + ' added to managers.'
+                    });
                 }
             });
         }

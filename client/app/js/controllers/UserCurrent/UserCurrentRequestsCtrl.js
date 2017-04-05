@@ -7,7 +7,7 @@ app.controller('UserCurrentRequestsCtrl',
             .then((data) => {
                 $scope.managersReq = data;
             });
-        
+
         // getting user requests
         ajax.get('/user/req/employee', statusHandler)
             .then((data) => {
@@ -19,37 +19,51 @@ app.controller('UserCurrentRequestsCtrl',
                 console.log(data);
                 $scope.colleagueReqs = data;
             });
-        
+
         // request buttons
         $scope.acceptReqColleague = (username, $event) => {
+            $($event.target).prop('disables', true);
             let reqData = {
                 Username: username
             };
             ajax.post('/user/colleagues', reqData, statusHandler)
                 .then(() => {
-                    $($event.currentTarget).hide(200);
-                })
+                    $($event.target).hide(200);
+                }, (err) => {
+                    console.log(err);
+                    $($event.target).prop('disabled', false);
+                });
         };
 
         $scope.acceptReqEmployee = (username, $event) => {
+            $($event.target).prop('disables', true);
             let reqData = {
                 Username: username
             };
 
             ajax.post('/user/employee', reqData, statusHandler)
                 .then(() => {
-                    $($event.currentTarget).hide(200);
+                    console.log($event.target);
+                    $($event.target).hide(200);
+                }, (err) => {
+                    console.log(err);
+                    $($event.target).prop('disabled', false);
                 });
         }
 
         $scope.acceptReqManager = (username, $event) => {
+            $($event.target).prop('disables', true);
             let reqData = {
                 Username: username
             };
 
             ajax.post('/user/manager', reqData, statusHandler)
                 .then(() => {
-                    $($event.currentTarget).hide(200);
+                    console.log($event.target);
+                    $($event.target).hide(200);
+                }, (err) => {
+                    console.log(err);
+                    $($event.target).prop('disabled', false);
                 });
         }
     });
