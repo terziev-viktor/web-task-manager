@@ -1,12 +1,14 @@
 app.controller('TaskCtrl', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope),
-        clientDate = new Date();
+        clientDate = new Date(),
+        currentUser;
     navbarHandler.handle($location.path());
     $('.to-show').slideDown("slow");
-    $scope.username = authorization.getUser();
-    console.log(authorization.getUser());
-
+    authorization.getUser().then((user) => {
+        $scope.username = user.Username;
+        currentUser = user.Username;
+    });
 
     // edit buttons
     $scope.editTitle = () => {
@@ -69,7 +71,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
                     notification.success('Comment posted');
                     let appendComment = (tmpl) => {
                         let rendered = Mustache.render(tmpl, {
-                            User: authorization.getUser(),
+                            User: currentUser,
                             Content: content,
                             PublishDate: publishDate.toLocaleDateString()
                         });

@@ -3,7 +3,7 @@ module.exports = (db) => {
         bcrypt = require('bcrypt');
 
     router.get('/', (req, res) => {
-        res.json(req.user.Username);
+        res.json(req.user);
     });
 
     router.post('/newpass', (req, res) => {

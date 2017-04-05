@@ -1,11 +1,12 @@
 app.controller('HomeCtrl',
-    function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler) {
+    function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler, authorization) {
         let statusHandler = statusCodeHandler($scope);
         $('.to-show').slideDown("slow");
         navbarHandler.handle($location.path());
-        $scope.fullname = sessionStorage['fullname'];
-        $scope.username = sessionStorage['currentUser'];
-        
+        authorization.getUser().then((user) => {
+            $scope.fullname = user.FullName;
+            $scope.username = user.Username;
+        });
 
         $scope.updatePassword = () => {
             $('btnsubmit').prop('disabled', true);

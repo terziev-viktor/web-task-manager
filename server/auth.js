@@ -1,9 +1,26 @@
-module.exports = (app, db, io, passport = require('passport'), Strategy = require('passport-local')) => {
+module.exports = (app, db, io, passport = require('passport'), LocalStrategy = require('passport-local').Strategy, RememberMeStrategy = require('passport-remember-me').Strategy) => {
     const bodyParser = require('body-parser'),
-        bcrypt = require('bcrypt');
+        bcrypt = require('bcrypt'),
+        CookieMonster = require('./cookie-monster.js'),
+        cm = new CookieMonster(db, 50);
 
-    // passport authentication Strategy
-    passport.use(new Strategy(
+    // passport user serialization
+    passport.serializeUser((user, cb) => {
+        cb(null, user.Username);
+    });
+
+    // passport user deserialization
+    passport.deserializeUser((username, cb) => {
+        db.get.userByUsername(username, (err, user) => {
+            if (err) {
+                return cb(err);
+            }
+            cb(null, user);
+        });
+    });
+
+    // passport local authentication Strategy
+    passport.use(new LocalStrategy(
         (username, password, cb) => {
             db.get.userByUsername(username, (err, user) => {
                 if (err) {
@@ -24,20 +41,36 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
             });
         }));
 
-    // passport user serialization
-    passport.serializeUser(function (user, cb) {
-        cb(null, user.Username);
-    });
+    // passport remember me
+    passport.use(new RememberMeStrategy(
+        (cookie, done) => {
+            cm.consumeCookie(cookie, (err, data) => {
+                console.log('cookie consumed:');
+                console.log(data);
+                console.log('cookie');
+                console.log(cookie);
 
-    // passport user deserialization
-    passport.deserializeUser((username, cb) => {
-        db.get.userByUsername(username, (err, user) => {
-            if (err) {
-                return cb(err);
-            }
-            cb(null, user);
-        });
-    });
+                if (err) {
+                    return done(err);
+                }
+                if (!data) {
+                    return done(null, false);
+                }
+                db.get.userByUsername(data.Username, (err, user) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    console.log('return done(null, user)');
+                    console.log(user);
+                    return done(null, user);
+                });
+            });
+        },
+        cm.getCookie
+    ));
 
     // body parsing, cookie parsing and sql validation middleware
     app.use(bodyParser.urlencoded({
@@ -46,17 +79,46 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
     app.use(bodyParser.json());
     app.use(require('./sql-validation'));
     app.use(require('cookie-parser')());
+    app.use(require('express-method-override')());
     app.use(require('express-session')({
-        secret: 'taina maina',
+        secret: 'LisyrfOzXS',
         resave: false,
         saveUninitialized: false
     }));
 
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(passport.authenticate('remember-me'));
 
-    app.post('/login', passport.authenticate('local'), (req, res) => {
+    app.post('/login', passport.authenticate('local'), (req, res, next) => {
+        if (!req.body.remember_me) {
+            return next();
+        }
+        console.log('/login');
         console.log(req.user);
+
+        cm.getCookie(req.user, (err, cookie) => {
+            if (err) {
+                return next(err);
+            }
+            res.cookie('remember_me', cookie, {
+                path: '/',
+                httpOnly: true,
+                maxAge: 604800000
+            });
+            res.cookie('currentUsername', req.user.Username, {
+                path: '/',
+                httpOnly: true,
+                maxAge: 604800000
+            });
+            res.cookie('fullname', req.user.FullName, {
+                path: '/',
+                httpOnly: true,
+                maxAge: 604800000
+            });
+            return next();
+        });
+    }, (req, res) => {
         res.status(200).json({
             username: req.user.Username,
             fullname: req.user.FullName
@@ -65,6 +127,7 @@ module.exports = (app, db, io, passport = require('passport'), Strategy = requir
 
     // logout user
     app.get('/logout', (req, res) => {
+        res.clearCookie('remember_me');
         req.logout();
         res.redirect('/');
     });

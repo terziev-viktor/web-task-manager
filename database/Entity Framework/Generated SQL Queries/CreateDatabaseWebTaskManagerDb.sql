@@ -41,7 +41,6 @@ CREATE TABLE [dbo].[Tasks] (
 
 CREATE TABLE [dbo].[Logins] (
     [LoginId] [nvarchar](128) NOT NULL,
-    [CookieId] [nvarchar](max),
     [Username] [nvarchar](max),
     [FullName] [nvarchar](max),
     CONSTRAINT [PK_dbo.Logins] PRIMARY KEY ([LoginId])

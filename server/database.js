@@ -225,16 +225,13 @@ module.exports = class Database {
 
         this.logins = {
             find: (cookieId, cb) => {
-                this.request("SELECT * FROM Logins WHERE CookieId=N'" + cookieId + "'", cb);
+                this.request("SELECT * FROM Logins WHERE LoginId=N'" + cookieId + "'", cb);
             },
             delete: (cookieId, cb) => {
-                this.request("DELETE Logins WHERE CookieId=N'" + cookieId + "'", cb);
+                this.request("DELETE Logins WHERE LoginId=N'" + cookieId + "'", cb);
             },
             insert: (cookieId, username, fullname, cb) => {
-                this.request("INSERT Logins([CookieId], [Username], [FullName] VALUES(N'" + cookieId + "', N'" + username + "', N'" + fullname + "'", cb);
-            },
-            update: (oldCookieId, newCookieId, cb) => {
-                this.request("UPDATE Logins SET CookieId=N'" + newCookieId + "' WHERE CookieId=N'" + oldCookieId + "'", cb);
+                this.request("INSERT Logins([LoginId], [Username], [FullName]) VALUES(N'" + cookieId + "', N'" + username + "', N'" + fullname + "')", cb);
             }
         }
     }

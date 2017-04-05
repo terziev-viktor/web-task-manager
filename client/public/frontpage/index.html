@@ -41,7 +41,8 @@
             }
             let data = {
                 username: $('#inp-login-username').val().trim(),
-                password: $('#inp-login-password').val().trim()
+                password: $('#inp-login-password').val().trim(),
+                remember_me: $('#inp-login-rememberme').prop('checked')
             }
             // show loading screen animation
             $(".loading-animation").show();
@@ -273,8 +274,8 @@
                         <h4><i class="glyphicon glyphicon-menu-right"></i>Free &amp; Open Source</h4>
                     </div>
                     <div class="panel-body">
-                        <p><a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a> free of cost! If you want to see how we've built the Web
-                            Task Manager, here is the <a target="_blank" href="https://github.com/terziev-viktor/web-task-manager">github repo</a>.</p>
+                        <p><a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a> free of cost! If you want
+                            to see how we've built the Web Task Manager, here is the <a target="_blank" href="https://github.com/terziev-viktor/web-task-manager">github repo</a>.</p>
                     </div>
                 </div>
             </div>
@@ -298,7 +299,11 @@
                     <form>
                         <input type="text" name="user" placeholder="Username" id="inp-login-username">
                         <input type="password" name="pass" placeholder="Password" id="inp-login-password">
+                        <div class="checkbox">
+                            <label><input title="Next time you dont have to enter username and password again" id="inp-login-rememberme" type="checkbox" value="">Remember me</label>
+                        </div>
                         <input id="btn-login" type="button" name="loginbtn" class="btn btn-primary" value="Login" onclick="login()" title="Click to login.">
+
                         <div style="height: 60px">
                             <div class="loading-animation"></div>
                         </div>
@@ -342,7 +347,8 @@
                         <h4><i class="glyphicon glyphicon-star"></i> Managers and Employees</h4>
                     </div>
                     <div class="panel-body">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/720px-Binary_tree.svg.png" alt="not avaliable" width="100%">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Binary_tree.svg/720px-Binary_tree.svg.png" alt="not avaliable"
+                            width="100%">
                     </div>
                 </div>
             </div>
@@ -352,7 +358,8 @@
                         <h4><i class="glyphicon glyphicon-star"></i> Colleagues</h4>
                     </div>
                     <div class="panel-body">
-                        <img src="http://files.differencebetween.com/wp-content/uploads/2014/09/Graph-in-Data-Structure_Difference-Between-Tree-and-Graph-in-Data-Structure.png" alt="not avaliable" width="100%">
+                        <img src="http://files.differencebetween.com/wp-content/uploads/2014/09/Graph-in-Data-Structure_Difference-Between-Tree-and-Graph-in-Data-Structure.png"
+                            alt="not avaliable" width="100%">
                     </div>
                 </div>
             </div>
@@ -362,13 +369,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="page-header">Who are we? <small>Programming enthusiasts who want to make your task management easier.</small></h2>
-                
+
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-block">
                                 <h3 class="card-title">Viktor Terziev</h3>
-                                <p class="card-text">Graduate at <a href="http://www.pmgsz.org/">PMG "Geo Milev" Stara Zagora</a>. Excellent student in <a href="https://softuni.bg/">Software University Sofia</a></p>
+                                <p class="card-text">Graduate at <a href="http://www.pmgsz.org/">PMG "Geo Milev" Stara Zagora</a>. Excellent student
+                                    in <a href="https://softuni.bg/">Software University Sofia</a></p>
                                 <a target="_blank" href="https://github.com/terziev-viktor" class="btn btn-primary">Github</a>
                             </div>
                         </div>
@@ -377,7 +385,8 @@
                         <div class="card">
                             <div class="card-block">
                                 <h3 class="card-title">Georgi Petkov</h3>
-                                <p class="card-text">Graduate at <a href="http://www.pmgsz.org/">PMG "Geo Milev" Stara Zagora</a>. He has won many programming competitions over the years.</p>
+                                <p class="card-text">Graduate at <a href="http://www.pmgsz.org/">PMG "Geo Milev" Stara Zagora</a>. He has won
+                                    many programming competitions over the years.</p>
                                 <a target="_blank" href="https://github.com/petkofff" class="btn btn-primary">Github</a>
                             </div>
                         </div>
@@ -393,7 +402,8 @@
     <footer class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div>
             <div>
-                <p>License <a target="_blank" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2;</a> The Web Task Manager 2017</p>
+                <p>License <a target="_blank" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPLv2;</a> The Web
+                    Task Manager 2017</p>
             </div>
         </div>
     </footer>
