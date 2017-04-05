@@ -19,53 +19,53 @@ app.config(function ($routeProvider, $locationProvider) {
 
     // current user's profle
     $routeProvider.when('/', {
-        templateUrl: 'templates/home.html',
+        templateUrl: 'app/templates/home.html',
         controller: 'HomeCtrl'
     });
 
     // current user's tasks
     $routeProvider.when('/tasks', {
-        templateUrl: 'templates/userCurrentTasks.html',
+        templateUrl: 'app/templates/userCurrentTasks.html',
         controller: 'UserCurrentTasksCtrl'
     });
 
     // current user's community
     $routeProvider.when('/community', {
-        templateUrl: 'templates/userCurrentCommunity.html',
+        templateUrl: 'app/templates/userCurrentCommunity.html',
         controller: 'UserCurrentCommunityCtrl'
     });
 
     // current user's requests
     $routeProvider.when('/requests', {
-        templateUrl: 'templates/userCurrentRequests.html',
+        templateUrl: 'app/templates/userCurrentRequests.html',
         controller: 'UserCurrentRequestsCtrl'
     });
 
     // current user creating a new task
     $routeProvider.when('/newTask', {
-        templateUrl: '/templates/newTask.html',
+        templateUrl: 'app/templates/newTask.html',
         controller: 'NewTaskCtrl'
     });
 
     // guest at user's profile
     $routeProvider.when('/user/:username', {
-        templateUrl: '/templates/userCommunity.html',
+        templateUrl: 'app/templates/userCommunity.html',
         controller: 'UserCommunityCtrl'
     });
 
     // user's created task
     $routeProvider.when('/task/:taskId', {
-        templateUrl: '/templates/task.html',
+        templateUrl: 'app/templates/task.html',
         controller: 'TaskCtrl'
     });
 
     // error page. TODO: Implement
     $routeProvider.when('/err', {
-        templateUrl: 'templates/error.html'
+        templateUrl: 'app/templates/error.html'
     });
 
     $routeProvider.otherwise({
-        redirectTo: '/tasks'
+        redirectTo: '/'
     });
 });
 

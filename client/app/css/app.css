@@ -84,7 +84,7 @@ textarea {
 .custom-panel-heading {
     display: block;
     width: 100%;
-    background: url('/images/bckg7.jpg');
+    background: url('/public/img/bckg7.jpg');
     color: #1761a0;
     padding: 7px;
 }

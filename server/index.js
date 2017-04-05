@@ -32,16 +32,8 @@ require('./api')(app, db, auth);
 
 const pathToClientFolder = path.join(__dirname, '/../', '/client/');
 
-//static paths
+// static paths
 require('./static-paths')(express, app, auth, pathToClientFolder);
-
-app.get('/', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.sendFile(path.join(pathToClientFolder, '/app/', '/index.html'));
-    } else {
-        res.sendFile(path.join(pathToClientFolder, '/frontpage/', '/index.html'));
-    }
-});
 
 const port = 27017;
 module.exports = http.listen(port, () => {
