@@ -6,7 +6,7 @@ app.controller('UserCurrentTasksCtrl',
             tasksCreatedCount, tasksToDoCount;
         navbarHandler.handle($location.path());
 
-        $('.to-show').slideDown("slow");
+        $('.to-show').fadeIn(350);
         $scope.tasksTodo = {
             display: 'loading',
             data: []
@@ -23,7 +23,7 @@ app.controller('UserCurrentTasksCtrl',
             let task = el.task;
             task.DeadlineFormatted = new Date(task.Deadline).toLocaleString();
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
-            $.get('../../../templates/mustacheTemplates/taskContentPanel.html', (tmpl) => {
+            $.get('/app/templates/mustacheTemplates/taskContentPanel.html', (tmpl) => {
                 let rendered = Mustache.render(tmpl, task);
                 $('#modal-content').html(rendered);
                 $('#modal-title').html(task.Title);

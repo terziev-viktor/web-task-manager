@@ -4,7 +4,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
         clientDate = new Date(),
         currentUser;
     navbarHandler.handle($location.path());
-    $('.to-show').slideDown("slow");
+    $('.to-show').fadeIn(350);
     authorization.getUser().then((user) => {
         $scope.username = user.Username;
         currentUser = user.Username;
@@ -106,7 +106,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
     }
 
     $scope.assignSearch = () => {
-        $.get('../../templates/assignSearchContentPanel.html', (tmpl) => {
+        $.get('/app/templates/assignSearchContentPanel.html', (tmpl) => {
             let rendered = Mustache.render(tmpl, {
                 taskId: taskId
             })

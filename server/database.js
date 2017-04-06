@@ -6,7 +6,7 @@ module.exports = class Database {
     constructor(config, saltRounds = 10) {
         this.config = config; // config object
         this.saltRounds = saltRounds; // specific to bcrypt encrypting algorithm
-        
+
         // insertion queries
         this.insert = {
             user: (user, cb) => {
@@ -33,9 +33,11 @@ module.exports = class Database {
                 this.request("EXEC InsertColleagueRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);
             },
             task: (task, cb) => {
-                this.request("EXEC InsertTask @Title = N'" + task.Title + "', @Description = N'" + task.Description + "', @Deadline = '" + task.Deadline + "', @IsDone='" +
+                let query = "EXEC InsertTask @Title = N'" + task.Title + "', @Description = N'" + task.Description + "', @Deadline = '" + task.Deadline + "', @IsDone='" +
                     task.IsDone + "', @Priority='" + task.Priority + "', @Progress='" + task.Progress + "', @Repeatability='" + task.Repeatability + "', @Creator_Username = N'" +
-                    task.Creator_Username + "', @IsArchived='" + task.IsArchived + "';", cb);
+                    task.Creator_Username + "', @IsArchived='" + task.IsArchived + "';";
+                console.log(query);
+                this.request(query, cb);
             },
             comment: (content, commentDate, author_username, taskId, cb) => {
                 this.request("EXEC InsertComment @Content = N'" + content + "', @Date='" + commentDate + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
@@ -92,7 +94,7 @@ module.exports = class Database {
             tasksToDoCount: (username, cb) => {
                 this.request("SELECT * FROM GetUserTasksCount(N'" + username + "')", cb);
             },
-            userColleagues: (username, from , size, cb) => {
+            userColleagues: (username, from, size, cb) => {
                 this.request("SELECT * FROM GetUserColleagues(N'" + username + "', '" + from + "', '" + size + "');", cb);
             },
             userColleaguesRelational: (username, from, size, cb) => {
@@ -213,13 +215,13 @@ module.exports = class Database {
                 this.request("SELECT * FROM FilterManagers(N'" + username + "', N'" + filter + "')", cb);
             },
             employees: (username, filter, cb) => {
-                this.request("SELECT * FROM FilterEmployees(N'" + username + "', N'" + filter + "')", cb);   
+                this.request("SELECT * FROM FilterEmployees(N'" + username + "', N'" + filter + "')", cb);
             },
             tasksTodo: (username, filter, cb) => {
-                this.request("SELECT * FROM FilterTasksAssignedToUser(N'" + username + "', N'" + filter + "')", cb);   
+                this.request("SELECT * FROM FilterTasksAssignedToUser(N'" + username + "', N'" + filter + "')", cb);
             },
             tasksCreated: (username, filter, cb) => {
-                this.request("SELECT * FROM FilterTasksCreated(N'" + username + "', N'" + filter + "')", cb);                   
+                this.request("SELECT * FROM FilterTasksCreated(N'" + username + "', N'" + filter + "')", cb);
             }
         }
 

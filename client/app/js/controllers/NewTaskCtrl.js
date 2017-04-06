@@ -2,7 +2,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
     let statusHandler = statusCodeHandler($scope);
     let first = true;
     navbarHandler.handle($location.path());
-
+    $('.to-show').fadeIn(350);
     $('#datetimepicker12').datetimepicker({
         inline: true,
         sideBySide: true
@@ -37,7 +37,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
                     $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.success('Task created successfully!');
-                    $location.path('/user/current/tasks');
+                    $location.path('/tasks');
                     $scope.$apply();
                 },
                 401: () => {

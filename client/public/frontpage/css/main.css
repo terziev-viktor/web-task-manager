@@ -16,12 +16,15 @@ body {
 footer {
     display: block;
     width: 100%;
-    height: 100px;
-    text-align: center;
-    padding-top: 10px;
+    height: 200px;
+    padding-top: 15px;
     background: black;
     color: white;
     margin-bottom: 0 !important;
+}
+
+.center {
+    text-align: center;
 }
 
 .img-portfolio {

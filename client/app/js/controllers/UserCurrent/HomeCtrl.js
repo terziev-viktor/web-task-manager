@@ -1,7 +1,7 @@
 app.controller('HomeCtrl',
     function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler, authorization) {
         let statusHandler = statusCodeHandler($scope);
-        $('.to-show').slideDown("slow");
+        $('.to-show').fadeIn(350);
         navbarHandler.handle($location.path());
         authorization.getUser().then((user) => {
             $scope.fullname = user.FullName;

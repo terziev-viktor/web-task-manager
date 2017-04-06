@@ -4,7 +4,7 @@ app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, s
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
 
-    $('.to-show').slideDown("slow");
+    $('.to-show').fadeIn(350);
     navbarHandler.handle($location.path());
     
     userData.getUserRelational($routeParams.username, statusHandler)

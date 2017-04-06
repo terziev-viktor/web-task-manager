@@ -2,55 +2,52 @@
     <div class="page-header">
         <h1>Create a new task<small> fill the form below</small></h1>
     </div>
-    <form>
-        <div id="form-new-task" class="custom-panel">
-            <div class="custom-panel">
-                <div class="custom-panel-heading">
+    <form class="to-show" id="form-new-task">
+        <div>
+            <div>
+                <div>
                     <span>Title</span>
                 </div>
-                <div class="custom-panel-body form-group" id="div-inp-title">
+                <div class="form-group" id="div-inp-title">
                     <input type="text" class="form-control" id="inp-title" placeholder="Title of the new task">
                 </div>
             </div>
-            <div class="custom-panel">
-                <div class="custom-panel-heading">
+            <div>
+                <div>
                     <span>Description</span>
                 </div>
-                <div class="custom-panel-body form-group" id="div-inp-description">
-                    <textarea type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
+                <div class="form-group" id="div-inp-description">
+                    <textarea class="form-control" type="text" cols="20" class="form-control" id="inp-description" placeholder="Description of you task..."></textarea>
                 </div>
             </div>
-            <div class="panel-default">
-                <div class="custom-panel-heading">
+            <div>
+                <div>
                     <span>Deadline</span>
                 </div>
                 <div class="form-group">
-
-                    <div class="custom-panel-body">
-
+                    
                         <div style="overflow:hidden;">
                             <div>
                                 <div id="datetimepicker12"></div>
                             </div>
                         </div>
 
-                    </div>
-
                 </div>
             </div>
-            <div class="panel-default">
-                <div class="custom-panel-heading">
+            <div>
+                <div>
                     <span>Progress in % (Default: 0)</span>
                 </div>
-                <div class="custom-panel-body form-group" id="div-inp-progress">
-                    <input class="btn btn-default btn-block" type="number" min="0" max="100" value="0" id="inp-progress" name="progress" placeholder="0">
+                <div class="form-group" id="div-inp-progress">
+                    <input class="form-control" type="number" min="0" max="100" value="0" id="inp-progress" name="progress"
+                        placeholder="0">
                 </div>
             </div>
-            <div class="custom-panel">
-                <div class="custom-panel-heading">
+            <div>
+                <div>
                     <span>Task Priority</span>
                 </div>
-                <div class="custom-panel-body">
+                <div>
                     <select class="form-control" id="inp-priority">
                     <option value="0">Low</option>
                     <option value="1">Medium</option>
@@ -58,11 +55,11 @@
                 </select>
                 </div>
             </div>
-            <div class="custom-panel">
-                <div class="custom-panel-heading">
+            <div>
+                <div>
                     <span>Repeatability of the new task.</span>
                 </div>
-                <div class="custom-panel-heading content-header-top">
+                <div>
                     <label class="radio-inline">
         <input type="radio" name="optionsRadios" id="optionsRadios1" value="0" checked>
         Only Once
@@ -85,8 +82,8 @@
       </label>
                 </div>
             </div>
-            <div>
-                <input type="button" class="btn btn-primary" id="btn-newtask" value="Create Task" ng-click="createTask()">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary form-control" id="btn-newtask" value="Create Task" ng-click="createTask()">
             </div>
         </div>
     </form>

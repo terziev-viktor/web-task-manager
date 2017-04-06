@@ -5,7 +5,7 @@ app.controller('UserCurrentCommunityCtrl',
             managersPage = 0,
             employeesPage = 0,
             colleaguesCount, managersCount, employeesCount;
-        $('.to-show').slideDown("slow");
+        $('.to-show').fadeIn(350);
         navbarHandler.handle($location.path());
 
         // setting default views for panels
