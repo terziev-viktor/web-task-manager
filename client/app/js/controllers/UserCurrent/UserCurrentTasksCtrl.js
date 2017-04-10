@@ -1,12 +1,11 @@
 app.controller('UserCurrentTasksCtrl',
-    function ($scope, $location, navbarHandler, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, loadingHtml) {
+    function ($scope, $location, navbarHandler, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, loadingHtml, animations) {
         let statusHandler = statusCodeHandler($scope),
             createdTasksPage = 0,
             tasksToDoPage = 0,
             tasksCreatedCount, tasksToDoCount;
         navbarHandler.handle($location.path());
-
-        $('.to-show').fadeIn(350);
+        animations.showContent();
         $scope.tasksTodo = {
             display: 'loading',
             data: []

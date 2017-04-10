@@ -1,8 +1,8 @@
-app.controller('NewTaskCtrl', function ($scope, $location, notification, statusCodeHandler, ajax, loadingHtml, navbarHandler, $location) {
+app.controller('NewTaskCtrl', function ($scope, $location, notification, statusCodeHandler, ajax, loadingHtml, navbarHandler, $location, animations) {
     let statusHandler = statusCodeHandler($scope);
     let first = true;
     navbarHandler.handle($location.path());
-    $('.to-show').fadeIn(350);
+    animations.showContent();
     $('#datetimepicker12').datetimepicker({
         inline: true,
         sideBySide: true
@@ -23,7 +23,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
         task.Repeatability = $('input[name=optionsRadios]:checked', '#form-new-task').val();
         task.IsArchived = false;
 
-        $(".overlay, .overlay-loading-animation").show();
+        animations.showLoading();
         $('#div-inp-title').removeClass('has-error');
         $('#div-inp-description').removeClass('has-error');
         $('#div-inp-progress').removeClass('has-error');
@@ -34,6 +34,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
             data: task,
             statusCode: {
                 200: () => {
+                    animations.hideLoading();
                     $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.success('Task created successfully!');
@@ -41,14 +42,14 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
                     $scope.$apply();
                 },
                 401: () => {
-                    $(".overlay, .overlay-loading-animation").hide();
-
+                    animations.hideLoading();
                     $('#btn-newtask').prop('disabled', false);
                     notification.alert('Login to Web Task Manager, please :-)');
                     $location.path('/');
                     $scope.$apply();
                 },
                 403: (xhr) => {
+                    animations.hideLoading();
                     $(".overlay, .overlay-loading-animation").hide();
                     $('#btn-newtask').prop('disabled', false);
                     notification.error(xhr.responseJSON.msg);
@@ -74,7 +75,7 @@ app.controller('NewTaskCtrl', function ($scope, $location, notification, statusC
                     }
                 },
                 500: (xhr) => {
-                    $(".overlay, .overlay-loading-animation").hide();
+                    animations.hideLoading();
                     $('#btn-newtask').prop('disabled', false);
                     notification.error(xhr.responseJSON.msg);
                 }

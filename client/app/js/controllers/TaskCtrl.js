@@ -1,10 +1,10 @@
-app.controller('TaskCtrl', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler) {
+app.controller('TaskCtrl', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler, animations) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope),
         clientDate = new Date(),
         currentUser;
     navbarHandler.handle($location.path());
-    $('.to-show').fadeIn(350);
+    animations.showContent();
     authorization.getUser().then((user) => {
         $scope.username = user.Username;
         currentUser = user.Username;
@@ -57,7 +57,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
     // post a comment and add a div element with the content to comment list
     $scope.postComment = () => {
         let content = $('#comment-area').val(),
-        publishDate = new Date();
+            publishDate = new Date();
         if (content.length == 0) {
             return;
         } else {
@@ -65,7 +65,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
                 content: content,
                 date: publishDate.toISOString()
             };
-            
+
             ajax.post('/task/' + taskId + '/comments', reqData, statusHandler)
                 .then((data) => {
                     notification.success('Comment posted');

@@ -124,8 +124,8 @@
                     <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
                 </div>
             </div>
-            <div ng-switch-when="false">
-                <div class="panel panel-default">
+            <div ng-switch-when="false" class="panel panel-default">
+                <div class="panel-body">
                     <span>No users are assigned to this task yet</span>
                 </div>
             </div>

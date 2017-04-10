@@ -1,10 +1,10 @@
-app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, statusCodeHandler, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData) {
+app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, statusCodeHandler, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData, animations) {
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
 
-    $('.to-show').fadeIn(350);
+    animations.showContent();
     navbarHandler.handle($location.path());
     
     userData.getUserRelational($routeParams.username, statusHandler)

@@ -1,11 +1,13 @@
 app.controller('HomeCtrl',
-    function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler, authorization) {
+    function ($scope, notification, statusCodeHandler, ajax, $location, navbarHandler, authorization, animations) {
         let statusHandler = statusCodeHandler($scope);
-        $('.to-show').fadeIn(350);
+        animations.showLoading();
         navbarHandler.handle($location.path());
         authorization.getUser().then((user) => {
             $scope.fullname = user.FullName;
             $scope.username = user.Username;
+            animations.hideLoading();
+            animations.showContent();
         });
 
         $scope.updatePassword = () => {

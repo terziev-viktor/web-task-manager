@@ -1,11 +1,11 @@
 app.controller('UserCurrentCommunityCtrl',
-    function ($scope, statusCodeHandler, ajax, $q, colleaguesPageSize, managersPageSize, employeesPageSize, userData, navbarHandler, $location) {
+    function ($scope, statusCodeHandler, ajax, $q, colleaguesPageSize, managersPageSize, employeesPageSize, userData, navbarHandler, $location, animations) {
         let statusHandler = statusCodeHandler($scope),
             colleaguesPage = 0,
             managersPage = 0,
             employeesPage = 0,
             colleaguesCount, managersCount, employeesCount;
-        $('.to-show').fadeIn(350);
+        animations.showContent();
         navbarHandler.handle($location.path());
 
         // setting default views for panels

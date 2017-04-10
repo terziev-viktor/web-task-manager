@@ -4,7 +4,7 @@ $.noty.defaults.theme = 'bootstrapTheme';
 $.noty.defaults.timeout = 1000;
 
 // notification service for messages to user
-app.service('notification', [function () {
+app.service('notification', function () {
     return {
         info: (msg) => {
             noty({
@@ -47,4 +47,4 @@ app.service('notification', [function () {
             });
         }
     }
-}]);
+});
