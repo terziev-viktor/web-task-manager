@@ -40,6 +40,10 @@ module.exports = class CookieMonster {
             });
         }
 
+        this.deleteCookie = (cookieId, cb) => {
+            this.db.logins.delete(cookieId, cb);
+        }
+
         this.saveCookie = (cookie, username, fullname, cb) => {
             this.db.logins.insert(cookie, username, fullname, cb);
         }

@@ -1,5 +1,6 @@
 module.exports = (app, db, io, passport = require('passport'), LocalStrategy = require('passport-local').Strategy, RememberMeStrategy = require('passport-remember-me').Strategy) => {
     const bodyParser = require('body-parser'),
+        cookieParser = require('cookie-parser'),
         bcrypt = require('bcrypt'),
         CookieMonster = require('./cookie-monster.js'),
         cm = new CookieMonster(db, 50);
@@ -78,7 +79,7 @@ module.exports = (app, db, io, passport = require('passport'), LocalStrategy = r
     }));
     app.use(bodyParser.json());
     app.use(require('./sql-validation'));
-    app.use(require('cookie-parser')());
+    app.use(cookieParser());
     app.use(require('express-method-override')());
     app.use(require('express-session')({
         secret: 'LisyrfOzXS',
@@ -127,9 +128,15 @@ module.exports = (app, db, io, passport = require('passport'), LocalStrategy = r
 
     // logout user
     app.get('/logout', (req, res) => {
+        let cookie = req.cookies.remember_me;
+        cm.deleteCookie(cookie, (err) => {
+            if(err) {
+                console.log(err);
+            }
+        });
         res.clearCookie('remember_me');
         req.logout();
-        res.redirect('/');
+        res.sendStatus(200);
     });
 
     // registers new user

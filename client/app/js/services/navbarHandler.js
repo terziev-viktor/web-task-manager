@@ -10,7 +10,7 @@ app.service('navbarHandler', function (authorization) {
                 }
                 $('.sidebar-option').removeClass('active');
                 switch (path) {
-                    case "/user/current/tasks":
+                    case "/tasks":
                         {
                             $('.sidebar-option:nth-child(1)').addClass('active');
                             break;
@@ -20,17 +20,17 @@ app.service('navbarHandler', function (authorization) {
                             $('.sidebar-option:nth-child(2)').addClass('active');
                             break;
                         }
-                    case "/user/current/community":
+                    case "/community":
                         {
                             $('.sidebar-option:nth-child(3)').addClass('active');
                             break;
                         }
-                    case "/user/current/requests":
+                    case "/requests":
                         {
                             $('.sidebar-option:nth-child(4)').addClass('active');
                             break;
                         }
-                    case "/user":
+                    case "/":
                         {
                             $('.sidebar-option:nth-child(5)').addClass('active');
                             break;

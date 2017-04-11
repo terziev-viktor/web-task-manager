@@ -5,9 +5,7 @@ app.controller('UserCurrentCommunityCtrl',
             managersPage = 0,
             employeesPage = 0,
             colleaguesCount, managersCount, employeesCount;
-        animations.showContent();
         navbarHandler.handle($location.path());
-
         // setting default views for panels
         $scope.colleagues = {
             display: 'loading',
@@ -40,6 +38,7 @@ app.controller('UserCurrentCommunityCtrl',
             .then((data) => {
                 $scope.employeesCount = data.Count;
                 employeesCount = data.Count;
+                animations.showContent();
             });
 
         userData.getColleagues(colleaguesPage * colleaguesPageSize + 1, colleaguesPageSize, statusHandler).then((data) => {

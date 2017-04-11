@@ -221,7 +221,7 @@ module.exports = (db) => {
 
     // manipulates colleague connections
     router.post('/colleagues', (req, res) => {
-        if (req.query.remove === 'true') {
+        if (req.query.remove !== undefined) {
             // if the quety parameter remove is set to true then the connection is removed
             db.remove.colleague(req.user.Username, req.body.Username, (err, recordset) => {
                 if (err) {

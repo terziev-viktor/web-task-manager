@@ -1,5 +1,5 @@
 module.exports = (app, db, auth) => {
-    
+
     // api routes
     app.use('/task', auth);
     app.use('/task', require('./api/task')(db));
@@ -20,12 +20,15 @@ module.exports = (app, db, auth) => {
                         msg: 'Could not get user info'
                     });
                 } else {
-                    if (recordset && recordset.length > 0)
-                        res.status(200).json(recordset[0]);
-                    else
+                    if (recordset && recordset.length > 0) {
+                        let resData = recordset[0];
+                        resData.IsSelf = req.user.Username === req.query.userRelational;
+                        res.status(200).json(resData);
+                    } else {
                         res.status(404).json({
                             msg: 'User not found.'
                         });
+                    }
                 }
             })
         } else if (req.query.usersToAssign !== undefined) {

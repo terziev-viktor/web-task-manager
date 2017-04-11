@@ -42,11 +42,14 @@ app.controller('AppCtrl', function ($scope, $location, notification, statusCodeH
     $scope.logout = () => {
         ajax.get('/logout', statusHandler)
             .then(() => {
-                notification.info("Logout successful");
                 sessionStorage.removeItem('currentUser');
                 sessionStorage.removeItem('fullname');
                 $location.path('/');
                 location.reload();
+            }, (err) => {
+                console.log('logout error');
+                console.log(err);
+                notification.error('Server error accured while trying to log out...');
             });
     }
 });

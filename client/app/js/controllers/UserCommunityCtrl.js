@@ -1,15 +1,17 @@
 app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, statusCodeHandler, ajax, createdTasksPageSize, tasksToDoPageSize, employeesPageSize, managersPageSize, navbarHandler, userData, animations) {
+    animations.showLoading(); // loading untill we get enough info to display
     $scope.username = $routeParams.username;
     let statusHandler = statusCodeHandler($scope),
         tasksCreatedPage = 0,
         tasksToDoPage = 0;
 
-    animations.showContent();
     navbarHandler.handle($location.path());
     
     userData.getUserRelational($routeParams.username, statusHandler)
         .then((data) => {
             $scope.user = data;
+            animations.hideLoading();
+            animations.showContent();
         }, (err) => {
             console.log(err);
         });
@@ -41,20 +43,14 @@ app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, s
         let reqData = {
             Username: username
         };
-        ajax.post('user/req/employee', reqData, statusHandler)
-            .then(() => {
-                console.log('request sent');
-            });
+        ajax.post('user/req/employee', reqData, statusHandler);
     }
 
     $scope.reqManager = (username) => {
         let reqData = {
             Username: username
         };
-        ajax.post('user/req/manager', reqData, statusHandler)
-            .then(() => {
-                console.log('post -> user/req/manager success');
-            });
+        ajax.post('user/req/manager', reqData, statusHandler);
     }
 
     userData.getColleagueTasksTodo($routeParams.username, 1, -1, statusHandler)
@@ -95,8 +91,6 @@ app.controller('UserCommunityCtrl', function ($scope, $location, $routeParams, s
 
     userData.getColleagueManagers($routeParams.username, 1, managersPageSize, statusHandler)
         .then((data) => {
-            console.log('dslkgnkjdsbgkjsbgakdg');
-            console.log(data);
             let view = data.length > 0 ? 'all' : 'none';
             $scope.managers = {
                 display: view,

@@ -50,7 +50,7 @@
             <div ng-switch-when="loading" class="text-center">
                 <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
-
+            
         </div>
     </div>
     <div class="panel panel-default">
@@ -67,8 +67,8 @@
                 </div>
             </form>
         </div>
-        <div ng-switch="managers.display">
-            <div class="panel-body fixed-body-height" ng-switch-when="all" id="panel-community-managers">
+        <div ng-switch="managers.display" class="panel-body">
+            <div class="fixed-body-height" ng-switch-when="all" id="panel-community-managers">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="manager in managers.data">
                         <a href="#/user/{{manager.Username}}">{{manager.FullName}}<small> ({{manager.Username}})</small></a>
@@ -95,8 +95,8 @@
             <div ng-switch-when="none" class="center panel-body">
                 <p>Find your managers and they will appear here !</p>
             </div>
-            <div ng-switch-when="loading" class="text-center">
-                <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+            <div ng-switch-when="loading" class="center panel-body">
+                <button class="btn btn-default btn-lg" style="border: 0px;"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
     </div>
@@ -112,8 +112,8 @@
                 </div>
             </div>
         </div>
-        <div ng-switch="employees.display">
-            <div class="panel-body fixed-body-height" ng-switch-when="all" id="panel-community-employees">
+        <div ng-switch="employees.display" class="panel-body">
+            <div class="fixed-body-height" ng-switch-when="all" id="panel-community-employees">
                 <ul class="list-group">
                     <li class="list-group-item fixed-row-height" ng-repeat="employee in employees.data">
                         <a href="#/user/{{employee.Username}}">{{employee.FullName}}<small> ({{employee.Username}})</small></a>
@@ -140,8 +140,8 @@
             <div ng-switch-when="none" class="center panel-body">
                 <p>Find your Employees and they will appear here !</p>
             </div>
-            <div ng-switch-when="loading" class="text-center">
-                <button class="btn btn-default btn-lg"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
+            <div ng-switch-when="loading" class="center panel-body">
+                <button class="btn btn-default btn-lg" style="border: 0px;"><i class="fa fa-circle-o-notch fa-spin"></i> Loading</button>
             </div>
         </div>
     </div>
