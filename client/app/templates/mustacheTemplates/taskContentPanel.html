@@ -62,6 +62,7 @@
                         type: 'success'
                     });
                     $('#prog-barr').css('width', newP + '%').html(newP + '% Complete');
+                    $('#todo-task-progress-{{TaskId}}').css('width', newP + '%').html(newP + '% Complete');
                 },
                 statusCode: {
                     500: (xhr) => {
