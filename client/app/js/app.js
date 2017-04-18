@@ -26,19 +26,19 @@ app.config(function ($routeProvider, $locationProvider) {
     // current user's tasks
     $routeProvider.when('/tasks', {
         templateUrl: 'app/templates/userCurrentTasks.html',
-        controller: 'UserCurrentTasksCtrl'
+        controller: 'TasksCtrl'
     });
 
     // current user's community
     $routeProvider.when('/community', {
         templateUrl: 'app/templates/userCurrentCommunity.html',
-        controller: 'UserCurrentCommunityCtrl'
+        controller: 'CommunityCtrl'
     });
 
     // current user's requests
     $routeProvider.when('/requests', {
         templateUrl: 'app/templates/userCurrentRequests.html',
-        controller: 'UserCurrentRequestsCtrl'
+        controller: 'RequestsCtrl'
     });
 
     // current user creating a new task

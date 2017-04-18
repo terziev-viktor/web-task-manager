@@ -1,4 +1,4 @@
-app.controller('UserCurrentRequestsCtrl',
+app.controller('RequestsCtrl',
     function ($scope, statusCodeHandler, ajax, navbarHandler, $location, animations) {
         let statusHandler = statusCodeHandler($scope);
         navbarHandler.handle($location.path());

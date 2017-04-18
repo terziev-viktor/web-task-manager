@@ -1,4 +1,4 @@
-app.controller('UserCurrentTasksCtrl',
+app.controller('TasksCtrl',
     function ($scope, $location, navbarHandler, statusCodeHandler, MaxDescLength, MaxTitleLength, TaskPrioritiesStr, ajax, $q, createdTasksPageSize, tasksToDoPageSize, loadingHtml, animations) {
         let statusHandler = statusCodeHandler($scope),
             createdTasksPage = 0,

@@ -13,6 +13,7 @@ module.exports = class CookieMonster {
                 }
                 if(recordset.length == 0) {
                     cb(null, null);
+                    return;
                 }
                 let user = recordset[0];
                 this.db.logins.delete(cookie, (innerErr) => {
