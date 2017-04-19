@@ -24,6 +24,13 @@
                             type: 'success'
                         });
                         $(caller).parent().hide('fast');
+                        $.get('app/templates/mustacheTemplates/assignedUserPanel.html').then(tmpl => {
+                            let rendered = Mustache.render(tmpl, {
+                                Username: assignTo,
+                                taskId: {{taskId}}
+                            });
+                            $('#assigned-users-panel-group').after(rendered);
+                        });
                     }
                 }
             });

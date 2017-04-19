@@ -90,8 +90,8 @@
             </div>
             <div class="panel panel-default" ng-repeat="_comment in _comments">
                 <div class="panel-heading">
-                    <span>{{_comment.Author_Username}}</span>
-                    <span class="pull-right">{{_comment.DateFormatted}}</span>
+                    <a href="#/user/{{_comment.Author_Username}}" title="Author of the comment"><span>{{_comment.Author_FullName}} <small>({{_comment.Author_Username}})</small></span></a>
+                    <span class="pull-right" title="Published on">{{_comment.DateFormatted}}</span>
                 </div>
                 <div class="panel-body">
                     <p>{{_comment.Content}}</p>
@@ -116,12 +116,12 @@
                 </div>
             </div>
         </div>
-        <div class="panel-group" ng-switch="assignedUsers.length > 0">
+        <div id="assigned-users-panel-group" class="panel-group" ng-switch="assignedUsers.length > 0">
             <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
                 <div class="panel-body">
                     <span>{{assigned.Username}}</span>
-                    <a href="#/user/{{assigned.Username}}"><button class="btn btn-default">View Account</button></a>
-                    <input class="btn btn-default" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
+                    <a href="#/user/{{assigned.Username}}"><button class="btn btn-default btn-sm">View Account</button></a>
+                    <input class="btn btn-default btn-sm" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
                 </div>
             </div>
             <div ng-switch-when="false" class="panel panel-default">

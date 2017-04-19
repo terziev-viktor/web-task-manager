@@ -51,10 +51,10 @@
             let newP = $('#inp-progress').val();
             $.ajax({
                 method: 'POST',
-                url: '/task/{{TaskId}}/new-progress',
+                url: '/task/{{TaskId}}',
                 dataType: 'json',
                 data: {
-                    newProgress: newP
+                    progress: newP
                 },
                 success: (res) => {
                     noty({

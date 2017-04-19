@@ -1,23 +1,6 @@
 module.exports = (db) => {
     const router = require('express').Router();
 
-    // updates progress
-    router.post('/:taskId/new-progress', (req, res) => {
-        let taskId = req.params.taskId;
-        let newProgress = req.body.newProgress;
-        db.update.taskProgress(taskId, newProgress, (err, task) => {
-            if (err) {
-                res.status(500).json({
-                    msg: 'Could not update task...'
-                });
-            } else {
-                res.status(200).json({
-                    msg: 'Progress set to ' + newProgress
-                });
-            }
-        });
-    });
-
     // posts new comment to a given task
     router.post('/:taskId/comments', (req, res) => {
         let commentDate = req.body.date.replace('T', ' ');
@@ -201,16 +184,16 @@ module.exports = (db) => {
                 } else {
                     let id = req.params.taskId;
                     let task = {};
-                    task.newTitle = (req.query.title !== undefined) ? req.query.title : '';
-                    task.newDesc = (req.query.desc !== undefined) ? req.query.desc : '';
+                    task.newTitle = (req.body.title !== undefined) ? req.body.title : '';
+                    task.newDesc = (req.body.desc !== undefined) ? req.body.desc : '';
                     task.newDeadline = '';
-                    if (req.query.deadline !== undefined) {
-                        task.newDeadline = req.query.deadline.replace('T', ' ').replace('Z', '');
+                    if (req.body.deadline !== undefined) {
+                        task.newDeadline = req.body.deadline.replace('T', ' ').replace('Z', '');
                     }
-                    task.newProgress = (req.query.progress !== undefined) ? req.query.progress : '';
-                    task.newPriority = (req.query.priority !== undefined) ? req.query.priority : '';
-                    task.newRepeatability = (req.query.repeatability !== undefined) ? req.query.repeatability : '';
-                    task.IsArchived = (req.query.isArchived !== undefined) ? req.query.isArchived: '';
+                    task.newProgress = (req.body.progress !== undefined) ? req.body.progress : '';
+                    task.newPriority = (req.body.priority !== undefined) ? req.body.priority : '';
+                    task.newRepeatability = (req.body.repeatability !== undefined) ? req.body.repeatability : '';
+                    task.IsArchived = (req.body.isArchived !== undefined) ? req.body.isArchived: '';
                     db.update.task(id, task, (err, result) => {
                         if (err) {
                             console.log(err);

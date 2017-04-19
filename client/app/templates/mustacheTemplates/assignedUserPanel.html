@@ -1,0 +1,32 @@
+<div id="{{Username}}-assignment-panel" class="panel panel-default">
+    <div class="panel-body">
+        <span>{{Username}}</span>
+        <a href="#/user/{{Username}}"><button class="btn btn-default btn-sm">View Account</button></a>
+        <input class="btn btn-default btn-sm" type="button" value="Remove" onclick="remove{{Username}}Assignment({{taskId}})">
+    </div>
+    <script>
+        function remove{{Username}}Assignment(taskid) {
+
+             let reqData = {
+            removeAssignment: '{{Username}}'
+        };
+
+        $.ajax({
+            method: "POST",
+            url: '/task/' + taskid,
+            data: reqData,
+            success: () => {
+                $('#{{Username}}-assignment-panel').hide('fast');
+                noty({
+                text: 'Removed {{Username}} from assigned users',
+                type: 'success',
+                layout: 'topCenter',
+                timeout: 1000
+            });
+            }
+        });
+
+        }
+        
+    </script>
+</div>

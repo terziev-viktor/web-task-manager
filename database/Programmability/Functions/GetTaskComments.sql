@@ -14,13 +14,16 @@ RETURNS
 	CommentId INT,
 	[Date]	DATETIME,
 	[Content]	NVARCHAR(MAX),
-	Author_Username	NVARCHAR(128)	,
-	Task_TaskId	INT	
+	Author_Username	NVARCHAR(128),
+	Task_TaskId	INT,
+	Author_FullName NVARCHAR(MAX)
 )
 AS
 BEGIN
 	INSERT @Comments
-	SELECT * FROM Comments AS C WHERE C.Task_TaskId = @TaskId
-	RETURN 
+	SELECT C.*, U.FullName FROM Comments AS C 
+	INNER JOIN Users AS U ON U.Username = C.Author_Username
+	WHERE C.Task_TaskId = @TaskId
+	RETURN
 END
 GO

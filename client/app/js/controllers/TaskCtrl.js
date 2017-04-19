@@ -8,37 +8,45 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
     authorization.getUser().then((user) => {
         $scope.username = user.Username;
         currentUser = user.Username;
+        currentUserFullName = user.FullName
     });
 
     // edit buttons
     $scope.editTitle = () => {
-        let reqUrl = '/task/' + taskId + '?title=' + $('#inp-title').val(),
-            reqData = {};
+        let reqUrl = '/task/' + taskId,
+            reqData = {
+                title: $('#inp-title').val()
+            };
         ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editDescription = () => {
-        let reqUrl = '/task/' + taskId + '?desc=' + $('#inp-description').val(),
-            reqData = {};
+        let reqUrl = '/task/' + taskId,
+            reqData = {
+                desc:  $('#inp-description').val()
+            };
         ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editDeadline = () => {
         let datetimePicker_d = $('#datetimepicker').datetimepicker('date')._d; // get datetime inline picker data
         let deadlineISO = new Date(datetimePicker_d).toISOString(); // convert to ISO string
-        let reqUrl = '/task/' + taskId + '?deadline=' + deadlineISO,
-            reqData = {};
+        let reqUrl = '/task/' + taskId,
+            reqData = {
+                deadline: deadlineISO
+            };
         ajax.post(reqUrl, reqData, statusHandler);
     }
 
     $scope.editProgress = () => {
         let newProgress = $('#inp-progress').val();
-        let reqUrl = '/task/' + taskId + '?progress=' + newProgress;
-        let reqData = {};
+        let reqUrl = '/task/' + taskId;
+        let reqData = {
+            progress: newProgress
+        };
 
         ajax.post(reqUrl, reqData, statusHandler)
             .then((data) => {
-                console.log(data);
                 $('#progress-bar').css("width", newProgress + "%").html(newProgress + "% Complete");
             }, (err) => {
                 console.log(err);
@@ -47,8 +55,10 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
 
     $scope.editPriority = () => {
         let newPriority = $('#inp-priority').val();
-        let reqUrl = '/task/' + taskId + '?priority=' + newPriority;
-        let reqData = {};
+        let reqUrl = '/task/' + taskId;
+        let reqData = {
+            priority: newPriority
+        };
 
         ajax.post(reqUrl, reqData, statusHandler);
     }
@@ -68,10 +78,10 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
 
             ajax.post('/task/' + taskId + '/comments', reqData, statusHandler)
                 .then((data) => {
-                    notification.success('Comment posted');
                     let appendComment = (tmpl) => {
                         let rendered = Mustache.render(tmpl, {
                             User: currentUser,
+                            FullName: currentUserFullName,
                             Content: content,
                             PublishDate: publishDate.toLocaleDateString()
                         });
@@ -79,7 +89,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, notificati
                         $('#comment-publication-panel').after(rendered);
                     };
                     if (!$routeParams.commentTempl) {
-                        ajax.get('../../templates/commentTemplate.html')
+                        $.get('/app/templates/commentTemplate.html')
                             .then((tmpl) => {
                                 $routeParams.commentTempl = tmpl;
                                 appendComment($routeParams.commentTempl)
