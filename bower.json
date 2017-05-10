@@ -23,6 +23,7 @@
     "moment": "^2.18.1",
     "bootstrap-datepicker": "^1.6.4",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "angular-cookies": "^1.6.4"
+    "angular-cookies": "^1.6.4",
+    "angular-file-upload": "^2.5.0"
   }
 }

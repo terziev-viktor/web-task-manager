@@ -10,6 +10,7 @@ namespace WebTaskManager.Models
         public Task()
         {
             this.AssignedTo = new List<User>();
+            this.Files = new List<File>();
         }
         [Key]
         public int TaskId { get; set; }
@@ -18,6 +19,8 @@ namespace WebTaskManager.Models
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public virtual ICollection<File> Files { get; set; }
 
         public DateTime? Deadline { get; set; }
         

@@ -36,6 +36,7 @@ database/Entity Framework/.vs
 database/Entity Framework/packages
 .idea
 .vs
+uploads
 
 # Optional npm cache directory
 .npm

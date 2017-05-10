@@ -1,4 +1,4 @@
-module.exports = (app, db, auth) => {
+module.exports = (app, db, auth, upload) => {
 
     // api routes
     app.use('/task', auth);
@@ -8,7 +8,14 @@ module.exports = (app, db, auth) => {
     app.use('/tasks', require('./api/tasks')(db));
 
     app.use('/user', auth);
-    app.use('/user', require('./api/user')(db))
+    app.use('/user', require('./api/user')(db));
+
+    app.post('/avatar', upload.single('avatar'), function (req, res) {
+        // Need full filename created here
+        console.log('req.file');
+        console.log(req.file);
+        res.status(200).json({msg:'Avatar uploaded'});
+    });
 
     // search request
     app.get('/search', (req, res) => {

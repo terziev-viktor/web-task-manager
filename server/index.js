@@ -5,7 +5,19 @@ const express = require('express'),
     fs = require('fs'),
     http = require('http').Server(app),
     io = require('socket.io')(http),
-    path = require('path');
+    path = require('path'),
+    multer = require('multer'),
+    storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './uploads/')
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname + '-' + Date.now() + '.pdf')
+        }
+    }),
+    upload = multer({
+        storage: storage
+    });
 
 // parsing the database configuration file
 const dbConfig = JSON.parse(fs.readFileSync(__dirname + '/database_config.json', 'utf8'));
@@ -28,7 +40,7 @@ const auth = (req, res, next) => {
 }
 
 // api modules
-require('./api')(app, db, auth);
+require('./api')(app, db, auth, upload);
 
 const pathToClientFolder = path.join(__dirname, '/../', '/client/');
 

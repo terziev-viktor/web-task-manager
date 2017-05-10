@@ -7,6 +7,9 @@ app.controller('HomeCtrl',
             $scope.username = user.Username;
             animations.showContent();
         });
+        $scope.uploadAvatar = () => {
+                
+        }
 
         $scope.updatePassword = () => {
             $('btnsubmit').prop('disabled', true);

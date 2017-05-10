@@ -46,11 +46,7 @@ module.exports = (app, db, io, passport = require('passport'), LocalStrategy = r
     passport.use(new RememberMeStrategy(
         (cookie, done) => {
             cm.consumeCookie(cookie, (err, data) => {
-                console.log('cookie consumed:');
-                console.log(data);
-                console.log('cookie');
-                console.log(cookie);
-
+                
                 if (err) {
                     return done(err);
                 }
@@ -64,8 +60,6 @@ module.exports = (app, db, io, passport = require('passport'), LocalStrategy = r
                     if (!user) {
                         return done(null, false);
                     }
-                    console.log('return done(null, user)');
-                    console.log(user);
                     return done(null, user);
                 });
             });
@@ -95,8 +89,6 @@ module.exports = (app, db, io, passport = require('passport'), LocalStrategy = r
         if (!req.body.remember_me) {
             return next();
         }
-        console.log('/login');
-        console.log(req.user);
 
         cm.getCookie(req.user, (err, cookie) => {
             if (err) {

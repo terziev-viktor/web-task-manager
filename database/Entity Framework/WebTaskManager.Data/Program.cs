@@ -1,5 +1,4 @@
 ﻿using System;
-using WebTaskManager.Models;
 
 namespace WebTaskManager.Data
 {

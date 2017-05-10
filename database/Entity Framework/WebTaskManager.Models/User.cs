@@ -23,6 +23,8 @@ namespace WebTaskManager.Models
 
         public string Password { get; set; }
 
+        public virtual File Avatar { get; set; }
+
         public virtual ICollection<User> RecievedEmployeeRequests { get; set; }
         
         public virtual ICollection<User> RecievedManagerRequests { get; set; }

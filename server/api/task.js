@@ -1,5 +1,6 @@
 module.exports = (db) => {
-    const router = require('express').Router();
+    const router = require('express').Router(),
+        xss = require('xss');
 
     // posts new comment to a given task
     router.post('/:taskId/comments', (req, res) => {

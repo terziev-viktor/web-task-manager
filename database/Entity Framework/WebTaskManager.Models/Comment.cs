@@ -17,5 +17,7 @@ namespace WebTaskManager.Models
         public string Content { get; set; }
 
         public virtual Task Task { get; set; }
+
+        public virtual ICollection<File> Files { get; set; }
     }
 }
