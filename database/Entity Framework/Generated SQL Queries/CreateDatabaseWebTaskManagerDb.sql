@@ -18,7 +18,25 @@ CREATE TABLE [dbo].[Users] (
     [Username] [nvarchar](128) NOT NULL,
     [FullName] [nvarchar](max),
     [Password] [nvarchar](max),
+    [Avatar_Id] [int],
     CONSTRAINT [PK_dbo.Users] PRIMARY KEY ([Username])
+)
+
+
+
+CREATE TABLE [dbo].[Files] (
+    [Id] [int] NOT NULL IDENTITY,
+    [Fieldname] [nvarchar](max),
+    [OriginalName] [nvarchar](max),
+    [Encoding] [nvarchar](max),
+    [Mimetype] [nvarchar](max),
+    [Destination] [nvarchar](max),
+    [Filename] [nvarchar](max),
+    [Path] [nvarchar](max),
+    [Size] [int] NOT NULL,
+    [Task_TaskId] [int],
+    [Comment_CommentId] [int],
+    CONSTRAINT [PK_dbo.Files] PRIMARY KEY ([Id])
 )
 
 
@@ -104,6 +122,18 @@ CREATE INDEX [IX_Task_TaskId] ON [dbo].[Comments]([Task_TaskId])
 
 
 
+CREATE INDEX [IX_Avatar_Id] ON [dbo].[Users]([Avatar_Id])
+
+
+
+CREATE INDEX [IX_Task_TaskId] ON [dbo].[Files]([Task_TaskId])
+
+
+
+CREATE INDEX [IX_Comment_CommentId] ON [dbo].[Files]([Comment_CommentId])
+
+
+
 CREATE INDEX [IX_Creator_Username] ON [dbo].[Tasks]([Creator_Username])
 
 
@@ -161,6 +191,18 @@ ALTER TABLE [dbo].[Comments] ADD CONSTRAINT [FK_dbo.Comments_dbo.Users_Author_Us
 
 
 ALTER TABLE [dbo].[Comments] ADD CONSTRAINT [FK_dbo.Comments_dbo.Tasks_Task_TaskId] FOREIGN KEY ([Task_TaskId]) REFERENCES [dbo].[Tasks] ([TaskId]) ON DELETE CASCADE
+
+
+
+ALTER TABLE [dbo].[Users] ADD CONSTRAINT [FK_dbo.Users_dbo.Files_Avatar_Id] FOREIGN KEY ([Avatar_Id]) REFERENCES [dbo].[Files] ([Id])
+
+
+
+ALTER TABLE [dbo].[Files] ADD CONSTRAINT [FK_dbo.Files_dbo.Tasks_Task_TaskId] FOREIGN KEY ([Task_TaskId]) REFERENCES [dbo].[Tasks] ([TaskId])
+
+
+
+ALTER TABLE [dbo].[Files] ADD CONSTRAINT [FK_dbo.Files_dbo.Comments_Comment_CommentId] FOREIGN KEY ([Comment_CommentId]) REFERENCES [dbo].[Comments] ([CommentId])
 
 
 
