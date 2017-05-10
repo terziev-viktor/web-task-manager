@@ -124,76 +124,6 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
         ajax.post(reqUrl, reqData, statusHandler);
     }
 
-
-    // post a comment and add a div element with the content to comment list
-    $scope.postComment = () => {
-        let content = $('#comment-area').val(),
-            publishDate = new Date();
-        if (content.length == 0) {
-            return;
-        } else {
-            let reqData = {
-                content: content,
-                date: publishDate.toISOString()
-            };
-
-            ajax.post('/task/' + taskId + '/comments', reqData, statusHandler)
-                .then((data) => {
-                    let appendComment = (tmpl) => {
-                        let rendered = Mustache.render(tmpl, {
-                            User: currentUser,
-                            FullName: currentUserFullName,
-                            Content: content,
-                            PublishDate: publishDate.toLocaleDateString()
-                        });
-                        $('#comment-area').val('');
-                        $('#comment-publication-panel').after(rendered);
-                    };
-                    if (!$routeParams.commentTempl) {
-                        $.get('/app/templates/commentTemplate.html')
-                            .then((tmpl) => {
-                                $routeParams.commentTempl = tmpl;
-                                appendComment($routeParams.commentTempl)
-                            });
-                    } else {
-                        appendComment($routeParams.commentTempl)
-                    }
-                }, (err) => {
-                    console.log(err);
-                });
-        }
-    }
-
-
-    // assign and decline buttons
-    $scope.removeUserAssignment = (username, taskid, $event) => {
-        let reqData = {
-            removeAssignment: username
-        };
-        ajax.post('/task/' + taskid, reqData, statusHandler)
-            .then(() => {
-                $($event.srcElement).parent().parent().hide('fast');
-            });
-    }
-
-    $scope.assignSearch = () => {
-        $.get('/app/templates/assignSearchContentPanel.html', (tmpl) => {
-            let rendered = Mustache.render(tmpl, {
-                taskId: taskId
-            })
-            $('#modal-content').html(rendered);
-        });
-    }
-
-    ajax.get('/user/employees?from=1&size=-1', statusHandler)
-        .then((data) => {
-            data.forEach((element) => {
-                $('#suggestions').append('<option value="' + element.Employee + '">');
-            });
-        }, (err) => {
-            console.log(err);
-        });
-
     ajax.get('/task/' + taskId, statusHandler)
         .then((task) => {
             $('#datetimepicker').datetimepicker({
@@ -203,23 +133,6 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
             });
             task.PriorityStr = TaskPrioritiesStr[task.Priority];
             $scope.task = task;
-        }, (err) => {
-            console.log(err);
-        });
-
-    ajax.get('/task/' + taskId + '/comments', statusHandler)
-        .then((data) => {
-            data.forEach((el) => {
-                el.DateFormatted = new Date(el.Date).toLocaleDateString();
-            }, this);
-            $scope._comments = data;
-        }, (err) => {
-            console.log(err);
-        });
-
-    ajax.get('/task/' + taskId + '/assignedUsers', statusHandler)
-        .then((data) => {
-            $scope.assignedUsers = data;
         }, (err) => {
             console.log(err);
         });

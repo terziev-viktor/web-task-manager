@@ -59,6 +59,18 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: 'TaskCtrl'
     });
 
+    // user's created task comment section
+    $routeProvider.when('/task/comments/:taskId', {
+        templateUrl: 'app/templates/taskComments.html',
+        controller: 'TaskCommentsCtrl'
+    });
+
+    // user's created task assigned users section section
+    $routeProvider.when('/task/assignedusers/:taskId', {
+        templateUrl: 'app/templates/taskAssignedUsers.html',
+        controller: 'TaskAssignedUsersCtrl'
+    });
+
     // error page. TODO: Implement
     $routeProvider.when('/err', {
         templateUrl: 'app/templates/error.html'
