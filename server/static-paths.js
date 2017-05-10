@@ -6,6 +6,7 @@ module.exports = (express, app, auth, pathToClientFolder) => {
     app.use('/app/scripts', express.static(path.join(pathToClientFolder, '/app/', '/js')));
     app.use('/app/styles', express.static(path.join(pathToClientFolder, '/app/', '/css')));
     app.use('/app/templates', express.static(path.join(pathToClientFolder, '/app/', '/templates')));
+    app.use('/files', express.static(path.join(__dirname + "/../" + "/uploads")));
 
     // initialize public static paths
     app.use('/components', express.static(path.join(pathToClientFolder, '/bower_components')));

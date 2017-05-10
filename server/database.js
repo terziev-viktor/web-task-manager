@@ -1,6 +1,6 @@
 const sql = require('mssql'),
     bcrypt = require('bcrypt');
-
+fsys = require('fs');
 // database abstraction class
 module.exports = class Database {
     constructor(config, saltRounds = 10) {
@@ -8,22 +8,46 @@ module.exports = class Database {
         this.saltRounds = saltRounds; // specific to bcrypt encrypting algorithm
 
         this.files = {
+            delete: (file, cb) => {
+                fsys.unlink(__dirname + "/../" + file.Path, (err) => {
+                    console.log('fsys unlink error');
+                    console.log(err);
+                });
+                this.request("delete files where Id = " + file.Id, cb);
+            },
             insertAvatar: (username, file, cb) => {
                 let querystr = "EXEC InsertAvatar N'" +
-                    username + "', N'" + 
-                    file.fieldname + "', N'" + 
-                    file.originalname + "', N'" + 
-                    file.encoding + "', N'" + 
-                    file.mimetype + "', N'" + 
-                    file.destination + "', N'" + 
-                    file.filename + "', N'" + 
-                    file.path + "', " + 
+                    username + "', N'" +
+                    file.fieldname + "', N'" +
+                    file.originalname + "', N'" +
+                    file.encoding + "', N'" +
+                    file.mimetype + "', N'" +
+                    file.destination + "', N'" +
+                    file.filename + "', N'" +
+                    file.path + "', " +
                     file.size;
-                 
+
+                this.request(querystr, cb);
+            },
+            insertTaskDesc: (taskId, file, cb) => {
+                let querystr = "EXEC InsertFileToTask " + taskId + ", N'" +
+                    file.fieldname + "', N'" +
+                    file.originalname + "', N'" +
+                    file.encoding + "', N'" +
+                    file.mimetype + "', N'" +
+                    file.destination + "', N'" +
+                    file.filename + "', N'" +
+                    file.path + "', " +
+                    file.size;
+                console.log(querystr);
                 this.request(querystr, cb);
             },
             getAvatar: (username, cb) => {
                 let querystr = "SELECT * FROM GetAvatar(N'" + username + "')";
+                this.request(querystr, cb);
+            },
+            getTaskDesc: (taskid, cb) => {
+                let querystr = "SELECT * FROM GetFilesOfTask(" + taskid + ")";
                 this.request(querystr, cb);
             }
         }

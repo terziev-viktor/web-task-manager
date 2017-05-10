@@ -3,6 +3,7 @@ module.exports = (db, upload) => {
         path = require('path');
 
     // Upload avatar of user
+    // TODO: Should delete old avatar!!!
     router.post('/avatar', upload.single('avatar'), (req, res) => {
         console.log('req.file');
         console.log(req.file);
@@ -31,11 +32,7 @@ module.exports = (db, upload) => {
                 });
                 return;
             } else if (files[0] !== undefined) {
-                //console.log(files);
-                console.log('will be sent');
                 let _path = path.join(__dirname, "/../", "/../", files[0].Path);
-
-                console.log(_path);
                 res.sendFile(_path);
             } else {
                 res.status(404).json({
@@ -46,23 +43,38 @@ module.exports = (db, upload) => {
     });
 
     // Upload task description files
-    router.post('/descfiles', upload.any(), (req, res) => {
-        console.log('req.files');
-        console.log(req.files);
-        // db.files.insertTaskDesc(req.body.id, req.files, (err, rec) => {
-        //     if (err) {
-        //         console.log(err);
-        //         res.status(500).json({
-        //             msg: 'Could not insert files'
-        //         });
-        //         return;
-        //     } else {
-        //         res.status(200).json({
-        //             msg: 'Files uploaded'
-        //         });
-        //     }
-        // });
-        res.status(200);
+    router.post('/single/descfiles', upload.single('file'), (req, res) => {
+        console.log('req.file single/descfiles');
+        console.log(req.file);
+        db.files.insertTaskDesc(req.query.taskId, req.file, (err, rec) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({
+                    msg: 'Could not upload file'
+                });
+                return;
+            } else {
+                res.status(200).json({
+                    msg: 'File uploaded'
+                });
+            }
+        });
+    });
+
+    router.get('/taskdesc', (req, res) => {
+        db.files.getTaskDesc(req.query.taskId, (err, recordset) => {
+            if (err) {
+                console.log(err);
+                res.status(500).json({
+                    msg: 'Could not retrieve files'
+                });
+                return;
+            } else {
+                console.log('db.files.get.taskDesc');
+                console.log(recordset);
+                res.json(recordset);
+            }
+        });
     });
 
     // upload comments files
@@ -94,23 +106,27 @@ module.exports = (db, upload) => {
                 return;
             } else {
                 console.log(recordset);
+                res.status(200).json(recordset);
             }
         });
     });
 
-    router.get('/taskdesc', (req, res) => {
-        db.files.getCommentDesc(req.body.id, (err, recordset) => {
+    router.post('/delete', (req, res) => {
+        db.files.delete(req.body, (err, r) => {
             if (err) {
+                console.log('/delete file error');
                 console.log(err);
                 res.status(500).json({
-                    msg: 'Could not retrieve files'
+                    msg: 'Could not delete file'
                 });
                 return;
             } else {
-                console.log('/taskdesc');
-                console.log(recordset);
+                res.status(200).json({
+                    msg: "File removed."
+                });
             }
-        });
+        })
     });
+
     return router;
 }
