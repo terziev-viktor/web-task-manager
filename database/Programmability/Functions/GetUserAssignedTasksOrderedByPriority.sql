@@ -16,6 +16,7 @@ RETURNS
     [Description] NVARCHAR(max),
     Deadline DATETIME ,
     IsDone BIT ,
+	IsArchived BIT,
     [Priority] INT ,
     Progress INT,
     Repeatability INT,
