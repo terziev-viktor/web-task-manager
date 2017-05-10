@@ -7,6 +7,27 @@ module.exports = class Database {
         this.config = config; // config object
         this.saltRounds = saltRounds; // specific to bcrypt encrypting algorithm
 
+        this.files = {
+            insertAvatar: (username, file, cb) => {
+                let querystr = "EXEC InsertAvatar N'" +
+                    username + "', N'" + 
+                    file.fieldname + "', N'" + 
+                    file.originalname + "', N'" + 
+                    file.encoding + "', N'" + 
+                    file.mimetype + "', N'" + 
+                    file.destination + "', N'" + 
+                    file.filename + "', N'" + 
+                    file.path + "', " + 
+                    file.size;
+                 
+                this.request(querystr, cb);
+            },
+            getAvatar: (username, cb) => {
+                let querystr = "SELECT * FROM GetAvatar(N'" + username + "')";
+                this.request(querystr, cb);
+            }
+        }
+
         // insertion queries
         this.insert = {
             user: (user, cb) => {

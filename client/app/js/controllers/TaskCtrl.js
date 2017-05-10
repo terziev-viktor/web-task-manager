@@ -12,7 +12,7 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
     });
 
     let uploader = $scope.uploader = new FileUploader({
-            url: '/upload/descfiles'
+            url: '/uploads/descfiles'
         });
 
         // FILTERS

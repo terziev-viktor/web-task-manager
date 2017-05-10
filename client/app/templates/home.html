@@ -1,12 +1,26 @@
 <div class="to-show col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12">
-    <div class="page-header">
-        <h1>Hello, {{fullname}}<small> username: {{username}}</small></h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="/uploads/avatar" alt="...">
+                <div class="caption">
+                    <h4>{{fullname}}</h4>
+                    <p>{{username}}</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Settings</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <form action="/upload/avatar" method="post" name="AvatarUpload" enctype="multipart/form-data" class="form">
-        <label for="avatar">Upload avatar</label>
-        <input type="file" id="avatar" name="avatar" value="Choose file">
-        <input type="submit" id="submit" name="submin" ng-click="uploadAvatar()">
+
+    <form id="frm">
+        <div class="form-group">
+            <label for="avatar">Upload avatar</label>
+            <input type="file" class="btn btn-default" id="avatar" name="avatar" value="Choose file">
+            <input class="btn btn-default" id="submit" name="submin" value="Upload" ng-click="uploadAvatar()">
+        </div>
     </form>
+
+    <!-- /container -->
     <div class="panel panel-default">
         <div class="panel-heading">
             <p>Change Password</p>

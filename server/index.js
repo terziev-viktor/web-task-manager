@@ -12,7 +12,7 @@ const express = require('express'),
             cb(null, './uploads/')
         },
         filename: function (req, file, cb) {
-            cb(null, file.originalname + '-' + Date.now() + '.pdf')
+            cb(null, Date.now() + '__' + file.originalname)
         }
     }),
     upload = multer({

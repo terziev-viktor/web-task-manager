@@ -7,8 +7,17 @@ app.controller('HomeCtrl',
             $scope.username = user.Username;
             animations.showContent();
         });
+
         $scope.uploadAvatar = () => {
-                
+            let files = {
+                avatar: $('#avatar').val()
+            };
+            let form = new FormData($('#frm')[0]);
+
+            ajax.upload('/uploads/avatar', form, statusHandler).then((err, data) => {
+                console.log(err);
+                console.log(data);
+            });
         }
 
         $scope.updatePassword = () => {

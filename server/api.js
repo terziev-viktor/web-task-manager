@@ -10,12 +10,8 @@ module.exports = (app, db, auth, upload) => {
     app.use('/user', auth);
     app.use('/user', require('./api/user')(db));
 
-    app.post('/avatar', upload.single('avatar'), function (req, res) {
-        // Need full filename created here
-        console.log('req.file');
-        console.log(req.file);
-        res.status(200).json({msg:'Avatar uploaded'});
-    });
+    app.use('/uploads', auth);
+    app.use('/uploads', require('./api/fileuploads')(db, upload));
 
     // search request
     app.get('/search', (req, res) => {
