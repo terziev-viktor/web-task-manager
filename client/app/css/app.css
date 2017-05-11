@@ -290,7 +290,7 @@ nav.sidebar,
 }
 
 @media (max-width: 768px) {
-    .profile-thumbnail {
+    .profile-avatar {
         display: none !important;
     }
 }
@@ -433,7 +433,7 @@ section {
     display: none;
 }
 
-.profile-thumbnail {
+.profile-avatar {
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -444,6 +444,15 @@ section {
     display: inline-block;
     margin-left: 20%;
 }
+
+.profile-thumbnail {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 
 @keyframes spin {
     0% {

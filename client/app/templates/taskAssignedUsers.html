@@ -26,10 +26,10 @@
             <div class="panel-body">
                 <div>
                     <a href="#/user/current/profile" class="pull-left">
-                        <div class="profile-thumbnail1" style="background-image:url('/uploads/avatar?username={{assigned.Username}}');"></div>
+                        <div class="profile-thumbnail" style="background-image:url('/uploads/avatar?username={{assigned.Username}}');"></div>
                     </a>
                 </div>
-                <span class="pull-left" style="margin-top: 10px; display: inline-block; vertical-align: middle; line-height: normal;">{{assigned.Username}}</span>
+                <span class="pull-left" style="margin-top: 10px; margin-left:10px; display: inline-block; vertical-align: middle; line-height: normal;">{{assigned.Username}}</span>
                 <a href="#/user/{{assigned.Username}}"><button class="btn btn-default btn-sm pull-right">View Account</button></a>
                 <input class="btn btn-default btn-sm pull-right" type="button" value="Remove" ng-click="removeUserAssignment(assigned.Username, task.TaskId, $event)">
             </div>
@@ -43,12 +43,4 @@
 </div>
 
 <style>
-    .profile-thumbnail1 {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
 </style>

@@ -1,6 +1,6 @@
 <script>
-    if (!assign) {
-        var assign = (assignTo, caller) => {
+    if (!assign{{taskId}}) {
+        var assign{{taskId}} = (assignTo, caller) => {
             const data = {
                 taskId: '{{taskId}}',
                 assignTo: assignTo
@@ -29,7 +29,7 @@
                                 Username: assignTo,
                                 taskId: {{taskId}}
                             });
-                            $('#assigned-users-panel-group').after(rendered);
+                            $('#assigned-users-panel-group').append(rendered);
                         });
                     }
                 }
@@ -51,14 +51,21 @@
                     if (data && data.length > 0) {
                         data.forEach((element) => {
                             let li = jQuery('<li/>', {
-                                class: 'list-group-item text-center'
-                            }).append(jQuery('<a/>', {
+                                class: 'list-group-item'
+                            }).append(jQuery('<div/>', {
+                                class: 'profile-thumbnail',
+                                style: "display: inline-block; height: 30px; width: 30px; background-image:url('/uploads/avatar?username=" + element.Username + "');",
+                                href: '#/user/' + element.Username
+                            })).append(jQuery('<a/>', {
+                                class: '',
+                                style: 'display: inline-block; position: absolute; margin-top: 5px; margin-left: 5px;',
                                 href: '#/user/' + element.Username,
                                 text: element.Username
                             })).append(jQuery('<button/>', {
-                                class: 'btn btn-default btn-xs',
+                                class: 'btn btn-default btn-xs pull-right',
+                                style: 'margin-top: 8px;',
                                 text: 'Assign',
-                                onclick: 'assign("' + element.Username + '", this)'
+                                onclick: 'assign{{taskId}}("' + element.Username + '", this)'
                             }));
                             ul.append(li);
                         });
