@@ -28,22 +28,33 @@ module.exports = (db, upload) => {
     });
 
     router.get('/avatar', (req, res) => {
-        db.files.getAvatar(req.user.Username, (err, files) => {
+        let avatarDbQueryHandler = (err, files) => {
             if (err) {
-                console.log(err);
-                res.status(500).json({
-                    msg: 'Could not retrieve avatar'
-                });
+                // console.log(err);
+                // res.status(500).json({
+                //     msg: 'Could not retrieve avatar'
+                // });
+                let _path = path.join(__dirname, '/../', '/../', '/client/', '/public/', '/img/', '/default-avatar.jpg');
+                res.sendFile(_path);
                 return;
             } else if (files[0] !== undefined) {
-                let _path = path.join(__dirname, "/../", "/../", files[0].Path);
+                let _path = path.join(__dirname, '/../', '/../', files[0].Path);
                 res.sendFile(_path);
             } else {
-                res.status(404).json({
-                    msg: 'File not found'
-                });
+                // res.status(404).json({
+                //     msg: 'File not found'
+                // });
+                let _path = path.join(__dirname, '/../', '/../', '/client/', '/public/', '/img/', '/default-avatar.jpg');
+                res.sendFile(_path);
             }
-        });
+        }
+
+        if (req.query.username !== undefined) {
+            db.files.getAvatar(req.query.username, avatarDbQueryHandler);
+        } else {
+            db.files.getAvatar(req.user.Username, avatarDbQueryHandler);
+        }
+            
     });
 
     // Upload task description files
