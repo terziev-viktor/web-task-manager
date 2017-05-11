@@ -49,6 +49,22 @@ module.exports = class Database {
             getTaskDesc: (taskid, cb) => {
                 let querystr = "SELECT * FROM GetFilesOfTask(" + taskid + ")";
                 this.request(querystr, cb);
+            },
+            getCommentDesc: (id, cb) => {
+                let qstr = "SELECT * FROM GetFilesOfComment(" + id + ")";
+                this.request(qstr, cb);
+            },
+            insertCommentDesc: (id, file, cb) => {
+                let qstr = "EXEC InsertFileToComment " + id + ", N'" +
+                    file.fieldname + "', N'" +
+                    file.originalname + "', N'" +
+                    file.encoding + "', N'" +
+                    file.mimetype + "', N'" +
+                    file.destination + "', N'" +
+                    file.filename + "', N'" +
+                    file.path + "', " +
+                    file.size;
+                this.request(qstr, cb);
             }
         }
 
@@ -85,7 +101,7 @@ module.exports = class Database {
                 this.request(query, cb);
             },
             comment: (content, commentDate, author_username, taskId, cb) => {
-                this.request("EXEC InsertComment @Content = N'" + content + "', @Date='" + commentDate + "', @Author_Username = N'" + author_username + "', @Task_TaskId='" + taskId + "'", cb);
+                this.request("SELECT * FROM InsertCommentGetId(N'" + content + "', '" + commentDate + "', N'" + author_username + "', '" + taskId + "')", cb);
             },
             managerRequest: (user_sent, user_recieved, cb) => {
                 this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);

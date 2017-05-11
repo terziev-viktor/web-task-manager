@@ -5,8 +5,12 @@ module.exports = (db, upload) => {
     // Upload avatar of user
     // TODO: Should delete old avatar!!!
     router.post('/avatar', upload.single('avatar'), (req, res) => {
-        console.log('req.file');
-        console.log(req.file);
+        if (!req.file.mimetype.includes("image")) {
+            res.status(400).json({
+                msg: "Avatars can only be images."
+            });
+            return;
+        }
         db.files.insertAvatar(req.user.Username, req.file, (err, r) => {
             if (err) {
                 console.log(err);
@@ -44,8 +48,6 @@ module.exports = (db, upload) => {
 
     // Upload task description files
     router.post('/single/descfiles', upload.single('file'), (req, res) => {
-        console.log('req.file single/descfiles');
-        console.log(req.file);
         db.files.insertTaskDesc(req.query.taskId, req.file, (err, rec) => {
             if (err) {
                 console.log(err);
@@ -61,6 +63,27 @@ module.exports = (db, upload) => {
         });
     });
 
+    router.post('/many/descfiles', upload.any(), (req, res) => {
+        console.log('req.file many/descfiles');
+        console.log(req.files);
+        req.files.forEach(function (e) {
+            db.files.insertTaskDesc(req.query.taskId, e, (err, rec) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({
+                        msg: 'Could not upload file'
+                    });
+                    return;
+                } else {
+                    res.status(200).json({
+                        msg: 'File uploaded'
+                    });
+                }
+            });
+        }, this);
+
+    });
+
     router.get('/taskdesc', (req, res) => {
         db.files.getTaskDesc(req.query.taskId, (err, recordset) => {
             if (err) {
@@ -70,18 +93,24 @@ module.exports = (db, upload) => {
                 });
                 return;
             } else {
-                console.log('db.files.get.taskDesc');
-                console.log(recordset);
-                res.json(recordset);
+                res.status(200).json(recordset);
             }
         });
     });
 
     // upload comments files
-    router.post('/commentdesc', upload.array('files', 100), (req, res) => {
-        console.log('req.file');
+    router.post('/commentdesc', upload.any(), (req, res) => {
+        
+        console.log('req files of commentdesc');
         console.log(req.files);
-        db.files.insertCommentDesc(req.body.id, req.files, (err, rec) => {
+
+        if (!req.query.commentId) {
+            res.status(400).json({
+                msg: "Need id of comment"
+            });
+            return;
+        }
+        db.files.insertCommentDesc(req.query.commentId, req.files, (err, rec) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({
@@ -92,12 +121,14 @@ module.exports = (db, upload) => {
                 res.status(200).json({
                     msg: 'Files uploaded'
                 });
+                return;
             }
         });
     });
 
     router.get('/commentdesc', (req, res) => {
-        db.files.getCommentDesc(req.body.id, (err, recordset) => {
+        console.log(req.query);
+        db.files.getCommentDesc(req.query.commentId, (err, recordset) => {
             if (err) {
                 console.log(err);
                 res.status(500).json({

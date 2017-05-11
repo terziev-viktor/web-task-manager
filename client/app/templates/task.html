@@ -35,14 +35,26 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div ng-repeat="taskfile1 in taskfilesOther" id="otherfile{{taskfile1.Id}}">
-                            <a src="files/{{taskfile1.Filename}}"><button class="btn btn-default">{{taskfile1.OriginalName}}</button></a>
+                    <div style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px;" class="row">
+                        <div class="col-sm-4 col-xs-6 col-md-2 col-lg-2 thumbnail" style="margin-right: 10px;" ng-repeat="tf1 in taskfilesOther"
+                            id="thumbid{{tf1.Id}}">
+                            <div>
+                                <p>File: {{tf1.OriginalName}} <br> Size: {{tf1.Size}} <br> Type: {{tf1.Mimetype}}</p>
+                            </div>
+
+                            <div class="btn-group">
+                                <a href="/files/{{tf1.Filename}}" role="button" class="btn btn-default" download>Download</a>
+                                <button class="btn btn-default" ng-click="deleteFile(tf1)">Delete
+                                </button>
+                            </div>
+
                         </div>
                     </div>
+                    <div ng-hide="task.isOwner == false">
+                        <input id="inpattachment" type="file" class="file" data-preview-file-type="text" multiple>
+                    </div>
 
-                    <div ng-if="task.isOwner == true">
+                    <!--<div ng-if="task.isOwner == true">
 
                         <div class="row">
 
@@ -76,7 +88,7 @@
 
                         </div>
 
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="panel panel-default">

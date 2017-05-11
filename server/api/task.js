@@ -7,15 +7,17 @@ module.exports = (db) => {
         let commentDate = req.body.date.replace('T', ' ');
         commentDate = commentDate.replace('Z', '');
 
-        db.insert.comment(req.body.content, commentDate, req.user.Username, req.params.taskId, (err) => {
-            if (err) {
+        db.insert.comment(req.body.content, commentDate, req.user.Username, req.params.taskId, (err, recordset) => {
+            if (err || !recordset) {
                 console.log(err);
                 res.status(500).json({
                     msg: 'Could not post the comment.'
                 });
             } else {
+                console.log(recordset);
                 res.status(200).json({
-                    msg: 'Comment posted.'
+                    msg: 'Comment posted.',
+                    id: recordset[0].Id
                 });
             }
         });

@@ -1,29 +1,32 @@
 <ul class="nav nav-tabs">
-  <li><a href="#/task/{{task.TaskId}}">General</a></li>
-  <li class="active"><a href="#/task/comments/{{task.TaskId}}">Comments</a></li>
-  <li><a href="#/task/assignedusers/{{task.TaskId}}">Assigned Users</a></li>
+    <li><a href="#/task/{{task.TaskId}}">General</a></li>
+    <li class="active"><a href="#/task/comments/{{task.TaskId}}">Comments</a></li>
+    <li><a href="#/task/assignedusers/{{task.TaskId}}">Assigned Users</a></li>
 </ul>
 
-<div class="to-show comments col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h2>Comments</h2>
-        <div id="comment-panel-group" class="panel-group">
-            <div class="panel panel-default" ng-repeat="_comment in _comments">
-                <div class="panel-heading">
-                    <a href="#/user/{{_comment.Author_Username}}" title="Author of the comment"><span>{{_comment.Author_FullName}} <small>({{_comment.Author_Username}})</small></span></a>
-                    <span class="pull-right" title="Published on">{{_comment.DateFormatted}}</span>
-                </div>
-                <div class="panel-body">
-                    <p>{{_comment.Content}}</p>
-                </div>
+<div class="to-show col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div id="comment-panel-group" class="panel-group">
+        <div class="panel panel-default" ng-repeat="_comment in _comments">
+            <div class="panel-heading">
+                <a href="#/user/{{_comment.Author_Username}}" title="Author of the comment"><span>{{_comment.Author_FullName}} <small>({{_comment.Author_Username}})</small></span></a>
+                <span class="pull-right" title="Published on">{{_comment.DateFormatted}}</span>
             </div>
-            <div id="comment-publication-panel" class="panel panel-default">
-                <div class="panel-heading">
-                    <span>Write a comment:</span>
-                </div>
-                <div>
-                    <textarea name="comment_area" id="comment-area" cols="10"></textarea>
-                    <input class="btn btn-default btn-block" type="button" value="Post" ng-click="postComment()">
-                </div>
+            <div class="panel-body">
+                <p>{{_comment.Content}}</p>
+            </div>
+        </div>
+        <div id="comment-publication-panel" class="panel panel-default">
+            <div class="panel-heading">
+                <span>Write a comment:</span>
+            </div>
+            <div>
+                <textarea name="comment_area" id="comment-area" cols="10"></textarea>
+                <form id="attachmentform">
+                    <input id="inpfiles" type="file" multiple value="attach" />
+                </form>
+
+                <input class="btn btn-default btn-block btn-sm" type="button" value="Post" ng-click="postComment()">
             </div>
         </div>
     </div>
+</div>
