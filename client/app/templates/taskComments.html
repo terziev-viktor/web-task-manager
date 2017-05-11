@@ -14,6 +14,17 @@
             <div class="panel-body">
                 <p>{{_comment.Content}}</p>
             </div>
+            <div style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px;" class="row">
+                        <div class="col-sm-4 col-xs-6 col-md-2 col-lg-2 thumbnail" style="margin-right: 10px;" ng-repeat="_file in _comment.files"
+                            id="thumbid{{_file.Id}}">
+                            <div>
+                                <p>File: {{_file.OriginalName}} <br> Size: {{_file.Size}} (Kb) <br> Type: {{_file.Mimetype}}</p>
+                            </div>
+                            <div class="btn-group">
+                                <a href="/files/{{_file.Filename}}" role="button" class="btn btn-default" download>Download</a>
+                            </div>
+                        </div>
+                    </div>
         </div>
         <div id="comment-publication-panel" class="panel panel-default">
             <div class="panel-heading">
@@ -21,8 +32,10 @@
             </div>
             <div>
                 <textarea name="comment_area" id="comment-area" cols="10"></textarea>
-                <form id="attachmentform">
-                    <input id="inpfiles" type="file" multiple value="attach" />
+                <form id="frm" class="col-lg-4 col-md-3 col-sm-5 col-xs-5">
+                    <div class="form-group">
+                        <input multiple type="file" class="btn btn-default" id="avatar" name="avatar" value="Choose file">
+                    </div>
                 </form>
 
                 <input class="btn btn-default btn-block btn-sm" type="button" value="Post" ng-click="postComment()">

@@ -23,8 +23,6 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
                 filesNotImages.push(e);
             }
         }, this);
-        console.log('filesNotImages');
-        console.log(filesNotImages);
         $scope.taskfilesImages = imagesOnly;
         $scope.taskfilesOther = filesNotImages;
         // show content to the client
@@ -47,15 +45,9 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
             console.log(err);
         });
 
-
-
-
-
     $scope.deleteFile = (file) => {
         console.log(file);
         ajax.post('/uploads/delete', file, statusHandler).then(() => {
-            console.log('file removed callback');
-            console.log(file);
             $("#thumbid" + file.Id).remove();
         }, (err) => {
             console.log(err);

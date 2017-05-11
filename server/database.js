@@ -101,7 +101,7 @@ module.exports = class Database {
                 this.request(query, cb);
             },
             comment: (content, commentDate, author_username, taskId, cb) => {
-                this.request("SELECT * FROM InsertCommentGetId(N'" + content + "', '" + commentDate + "', N'" + author_username + "', '" + taskId + "')", cb);
+                this.request("EXEC InsertComment N'" + content + "', '" + commentDate + "', N'" + author_username + "', '" + taskId + "'", cb);
             },
             managerRequest: (user_sent, user_recieved, cb) => {
                 this.request("EXEC InsertManagerRequest N'" + user_sent + "', N'" + user_recieved + "';", cb);

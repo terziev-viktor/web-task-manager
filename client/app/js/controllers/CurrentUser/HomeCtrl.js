@@ -8,17 +8,18 @@ app.controller('HomeCtrl',
             animations.showContent();
         });
 
-        $scope.uploadAvatar = () => {
-            let files = {
-                avatar: $('#avatar').val()
-            };
-            let form = new FormData($('#frm')[0]);
+        $('#inpavatar').fileinput({
+            uploadUrl: '/uploads/avatar'
+        });
 
-            ajax.upload('/uploads/avatar', form, statusHandler).then((err, data) => {
-                console.log(err);
-                console.log(data);
-            });
-        }
+        // $scope.uploadAvatar = () => {
+        //     let form = new FormData($('#frm')[0]);
+
+        //     ajax.upload('/uploads/avatar', form, statusHandler).then((err, data) => {
+        //         console.log(err);
+        //         console.log(data);
+        //     });
+        // }
 
         $scope.updatePassword = () => {
             $('btnsubmit').prop('disabled', true);

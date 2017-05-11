@@ -14,10 +14,9 @@ module.exports = (db) => {
                     msg: 'Could not post the comment.'
                 });
             } else {
-                console.log(recordset);
                 res.status(200).json({
                     msg: 'Comment posted.',
-                    id: recordset[0].Id
+                    id: recordset[0].CommentId
                 });
             }
         });
