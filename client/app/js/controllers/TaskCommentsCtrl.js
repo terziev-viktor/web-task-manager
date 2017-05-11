@@ -1,4 +1,4 @@
-app.controller('TaskCommentsCtrl', function ($q, $scope, $route, $routeParams, $location, FileUploader, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler, animations) {
+app.controller('TaskCommentsCtrl', function ($q, $scope, $route, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler, animations) {
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope),
         clientDate = new Date(),

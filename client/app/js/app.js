@@ -1,4 +1,4 @@
-const app = angular.module('app', ['ngRoute', 'angularFileUpload']);
+const app = angular.module('app', ['ngRoute']);
 
 app.constant('MaxDescLength', 35);
 app.constant('MaxTitleLength', 15);
