@@ -23,7 +23,7 @@
     </div>
     <div id="assigned-users-panel-group" class="panel-group" ng-switch="assignedUsers.length > 0">
         <div class="panel panel-default" ng-repeat="assigned in assignedUsers" ng-switch-when="true">
-            <div class="panel-body">
+            <div class="panel-body border-left">
                 <div>
                     <a href="#/user/current/profile" class="pull-left">
                         <div class="profile-thumbnail" style="background-image:url('/uploads/avatar?username={{assigned.Username}}');"></div>
@@ -41,6 +41,3 @@
         </div>
     </div>
 </div>
-
-<style>
-</style>
