@@ -1,4 +1,4 @@
-app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUploader, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler, animations) {
+app.controller('TaskCtrl', function ($scope, $routeParams, $location, notification, statusCodeHandler, authorization, TaskPrioritiesStr, ajax, navbarHandler, animations) {
     animations.showContent();
     let taskId = $routeParams.taskId,
         statusHandler = statusCodeHandler($scope),
