@@ -13,7 +13,6 @@ app.controller('TaskCtrl', function ($scope, $routeParams, $location, FileUpload
     });
 
     ajax.get('/uploads/taskdesc?taskId=' + taskId, statusHandler).then((data) => {
-        console.log("files of task");
         let imagesOnly = [];
         let filesNotImages = [];
         data.forEach((e) => {

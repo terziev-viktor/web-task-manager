@@ -31,7 +31,7 @@
                             id="thumbid{{taskfile.Id}}">
                             <a href="/files/{{taskfile.Filename}}"> <img src="/files/{{taskfile.Filename}}" style="max-height: 200px;" /></a>
                             <div class="caption">
-                                <p ng-click="deleteFile(taskfile)"><a class="btn btn-primary" role="button">Delete</a></p>
+                                <p ng-if="task.isOwner" ng-click="deleteFile(taskfile)"><a class="btn btn-primary" role="button">Delete</a></p>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="btn-group">
                                 <a href="/files/{{tf1.Filename}}" role="button" class="btn btn-default" download>Download</a>
-                                <button class="btn btn-default" ng-click="deleteFile(tf1)">Delete</button>
+                                <button ng-if="task.isOwner" class="btn btn-default" ng-click="deleteFile(tf1)">Delete</button>
                             </div>
 
                         </div>

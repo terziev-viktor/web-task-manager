@@ -83,9 +83,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="task in tasksTodo">
-                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                            <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}<a></td>
+                            <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/task/{{task.TaskId}}">{{task.DeadlineFormatted}}<a></td>
                     </tr>
                 </tbody>
             </table>
@@ -111,9 +111,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="task in tasksCreated">
-                        <td><a href="#/user/task/{{task.TaskId}}">{{task.Title}}</a></td>
-                            <td><a href="#/user/task/{{task.TaskId}}">{{task.Description}}</a></td>
-                            <td><a href="#/user/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
+                        <td><a href="#/task/{{task.TaskId}}">{{task.Title}}</a></td>
+                            <td><a href="#/task/{{task.TaskId}}">{{task.Description}}</a></td>
+                            <td><a href="#/task/{{task.TaskId}}">{{task.DeadlineFormatted}}</a></td>
                         </tr>
                     </tbody>
                 </table>

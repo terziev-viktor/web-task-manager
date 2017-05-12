@@ -25,7 +25,12 @@ app.controller('TasksCtrl',
             $.get('/app/templates/mustacheTemplates/taskContentPanel.html', (tmpl) => {
                 let rendered = Mustache.render(tmpl, task);
                 $('#modal-content').html(rendered);
-                $('#modal-title').html(task.Title);
+                $('#modal-title').html( 
+                        jQuery('<a>', {
+                            text: task.Title,
+                            class: 'pull-rigth',
+                            href: '#/task/' + task.TaskId
+                        }));
             });
         }
 
